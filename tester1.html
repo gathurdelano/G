@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angka Spinner Game</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            color: #fff;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        
+        header {
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #4cc9f0;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            color: #a5b4fc;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+        }
+        
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            margin: 30px 0;
+        }
+        
+        @media (min-width: 992px) {
+            .game-area {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+        }
+        
+        .spinner-container {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .spinner {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 10px #4cc9f0, inset 0 0 20px rgba(0, 0, 0, 0.8);
+            transition: transform 4s cubic-bezier(0.2, 0.8, 0.3, 1);
+            overflow: hidden;
+            background: #0f172a;
+            border: 5px solid #4361ee;
+        }
+        
+        @media (min-width: 768px) {
+            .spinner {
+                width: 380px;
+                height: 380px;
+            }
+        }
+        
+        .spinner::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #f72585;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            box-shadow: 0 0 15px rgba(247, 37, 133, 0.8);
+            border: 4px solid white;
+        }
+        
+        .spinner-section {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: bottom right;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 100%);
+        }
+        
+        .spinner-section-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(45deg);
+            font-weight: 800;
+            color: white;
+            padding-left: 25px;
+            padding-bottom: 25px;
+            font-size: 24px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+        
+        .pointer {
+            position: absolute;
+            top: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-top: 50px solid #f72585;
+            z-index: 5;
+            filter: drop-shadow(0 0 8px rgba(247, 37, 133, 0.8));
+        }
+        
+        .pointer::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #f72585;
+            border-radius: 50%;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .spin-btn {
+            margin-top: 40px;
+            background: linear-gradient(to right, #4361ee, #3a0ca3);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+            font-weight: 600;
+            letter-spacing: 1px;
+            border: 3px solid #4cc9f0;
+        }
+        
+        .spin-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(67, 97, 238, 0.6);
+            background: linear-gradient(to right, #3a0ca3, #4361ee);
+        }
+        
+        .spin-btn:active {
+            transform: translateY(-2px);
+        }
+        
+        .spin-btn:disabled {
+            background: linear-gradient(to right, #555, #333);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            border-color: #666;
+        }
+        
+        .result-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .result-box {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 500px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #4cc9f0;
+        }
+        
+        .result-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(to right, #4361ee, #f72585, #4361ee);
+        }
+        
+        .result-label {
+            color: #4cc9f0;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .result-number {
+            font-size: 5rem;
+            color: #f72585;
+            font-weight: 900;
+            text-align: center;
+            transition: all 0.5s ease;
+            text-shadow: 0 0 15px rgba(247, 37, 133, 0.7);
+            margin: 10px 0;
+        }
+        
+        .prompt-display {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 450px;
+            min-height: 120px;
+            border: 2px solid #4361ee;
+            overflow-y: auto;
+            text-align: left;
+        }
+        
+        .prompt-text {
+            color: #e2e8f0;
+            font-size: 1rem;
+            line-height: 1.6;
+            max-height: 100px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .instructions {
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            max-width: 800px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border: 2px solid #4361ee;
+        }
+        
+        .instructions h3 {
+            color: #4cc9f0;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .instructions p {
+            color: #cbd5e1;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+        
+        /* Floating animation elements */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            z-index: 1;
+            filter: blur(20px);
+        }
+        
+        .floating-element-1 {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #4361ee, #3a0ca3);
+            top: 10%;
+            left: 5%;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        .floating-element-2 {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #f72585, #b5179e);
+            bottom: 15%;
+            right: 8%;
+            animation: float 25s infinite ease-in-out reverse;
+        }
+        
+        .floating-element-3 {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #4cc9f0, #4895ef);
+            top: 60%;
+            left: 10%;
+            animation: float 18s infinite ease-in-out;
+        }
+        
+        .floating-element-4 {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #7209b7, #560bad);
+            bottom: 30%;
+            left: 80%;
+            animation: float 22s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            50% {
+                transform: translateY(-40px) rotate(180deg) scale(1.1);
+            }
+        }
+        
+        /* Pulsing animation for spinner when spinning */
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 10px #4cc9f0, inset 0 0 20px rgba(0, 0, 0, 0.8);
+            }
+            50% {
+                box-shadow: 0 10px 40px rgba(76, 201, 240, 0.7), 0 0 0 10px #4cc9f0, inset 0 0 30px rgba(76, 201, 240, 0.3);
+            }
+        }
+        
+        .spinning {
+            animation: pulse 0.8s infinite alternate;
+        }
+        
+        /* Animation for result */
+        @keyframes resultAppear {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .result-appear {
+            animation: resultAppear 0.8s ease-out forwards;
+        }
+        
+        /* Number input controls */
+        .number-controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .number-input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .number-label {
+            color: #4cc9f0;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .number-input {
+            width: 80px;
+            padding: 12px;
+            font-size: 1.2rem;
+            text-align: center;
+            background: #1e293b;
+            border: 2px solid #4361ee;
+            border-radius: 10px;
+            color: white;
+            font-weight: 700;
+        }
+        
+        .number-input:focus {
+            outline: none;
+            border-color: #f72585;
+            box-shadow: 0 0 0 3px rgba(247, 37, 133, 0.3);
+        }
+        
+        /* Spinner colors - different colors for each number */
+        .spinner-section:nth-child(odd) .spinner-section-content {
+            background-color: rgba(67, 97, 238, 0.85);
+        }
+        
+        .spinner-section:nth-child(even) .spinner-section-content {
+            background-color: rgba(76, 201, 240, 0.85);
+        }
+        
+        .spinner-section:nth-child(3n) .spinner-section-content {
+            background-color: rgba(247, 37, 133, 0.85);
+        }
+        
+        .spinner-section:nth-child(5n) .spinner-section-content {
+            background-color: rgba(58, 12, 163, 0.85);
+        }
+        
+        .spinner-section:nth-child(7n) .spinner-section-content {
+            background-color: rgba(114, 9, 183, 0.85);
+        }
+        
+        /* Prompt list styling */
+        .prompt-list {
+            display: none;
+            background: rgba(30, 41, 59, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid #4cc9f0;
+            text-align: left;
+        }
+        
+        .prompt-list h3 {
+            color: #4cc9f0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .prompt-list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .prompt-list th {
+            background: #4361ee;
+            color: white;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .prompt-list td {
+            padding: 12px;
+            border-bottom: 1px solid #334155;
+            vertical-align: top;
+        }
+        
+        .prompt-list tr:nth-child(even) {
+            background: rgba(15, 23, 42, 0.5);
+        }
+        
+        .prompt-list tr:hover {
+            background: rgba(76, 201, 240, 0.1);
+        }
+        
+        .show-prompts-btn {
+            background: linear-gradient(to right, #f72585, #b5179e);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+        
+        .show-prompts-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(247, 37, 133, 0.4);
+        }
+        
+        .char-count {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating background elements -->
+    <div class="floating-element floating-element-1"></div>
+    <div class="floating-element floating-element-2"></div>
+    <div class="floating-element floating-element-3"></div>
+    <div class="floating-element floating-element-4"></div>
+    
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-dice"></i> ANGKA SPINNER GAME</h1>
+            <p class="subtitle">Putar spinner untuk mendapatkan angka 1-20 yang berbeda-beda. Setiap angka memiliki prompt unik untuk menulis cerita hingga 400 karakter. Spinner akan berhenti tepat di jarum!</p>
+        </header>
+        
+        <div class="game-area">
+            <div class="spinner-container">
+                <div class="pointer"></div>
+                <div class="spinner" id="spinner">
+                    <!-- Spinner sections will be generated by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="result-container">
+                <div class="result-box">
+                    <div class="result-label">ANGKA YANG DIDAPAT:</div>
+                    <div class="result-number" id="result-number">-</div>
+                    
+                    <div class="result-label" style="margin-top: 20px;">PROMPT CERITA:</div>
+                    <div class="prompt-display">
+                        <div class="prompt-text" id="prompt-text">Klik tombol spin untuk mendapatkan angka dan prompt cerita</div>
+                        <div class="char-count" id="char-count">0/400 karakter</div>
+                    </div>
+                </div>
+                
+                <div class="number-controls">
+                    <div class="number-input-container">
+                        <div class="number-label">Pilih Angka (1-20):</div>
+                        <input type="number" id="number-input" class="number-input" min="1" max="20" value="1">
+                    </div>
+                    
+                    <div class="number-input-container">
+                        <div class="number-label">Atau Pilih Acak:</div>
+                        <button class="spin-btn" id="random-btn">
+                            <i class="fas fa-random"></i> ANGKA RANDOM
+                        </button>
+                    </div>
+                </div>
+                
+                <button class="spin-btn" id="spin-btn" style="margin-top: 20px;">
+                    <i class="fas fa-redo-alt"></i> PUTAR KE ANGKA TERPILIH
+                </button>
+                
+                <button class="show-prompts-btn" id="show-prompts-btn">
+                    <i class="fas fa-list"></i> LIHAT SEMUA PROMPT
+                </button>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>INSTRUKSI PERMAINAN:</h3>
+            <p>1. PILIH ANGKA: Masukkan angka 1-20 yang diinginkan di kotak input, ATAU klik "ANGKA RANDOM" untuk memilih angka acak<br>
+               2. PUTAR SPINNER: Klik "PUTAR KE ANGKA TERPILIH" untuk memutar spinner ke angka yang dipilih (spinner akan berhenti tepat di jarum)<br>
+               3. BACA PROMPT: Setiap angka memiliki prompt cerita unik yang berbeda-beda (maksimal 400 karakter)<br>
+               4. TANTANGAN: Gunakan prompt yang muncul sebagai inspirasi untuk menulis cerita kreatif!</p>
+        </div>
+        
+        <div class="prompt-list" id="prompt-list">
+            <h3>DAFTAR PROMPT UNTUK SETIAP ANGKA</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th width="10%">Angka</th>
+                        <th width="90%">Prompt Cerita (maks 400 karakter)</th>
+                    </tr>
+                </thead>
+                <tbody id="prompt-table-body">
+                    <!-- Prompt list will be generated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Default prompts for numbers 1-20 (each different, up to 400 characters)
+        const prompts = [
+            "Seorang ilmuwan menemukan cara untuk berkomunikasi dengan tanaman, tetapi tanaman mulai memperingatkan tentang ancaman global yang belum diketahui manusia. Karakter utama harus memutuskan apakah akan mempercayai mereka dan mengambil tindakan.",
+            "Di dunia di mana semua orang dilahirkan dengan jam di pergelangan tangan yang menunjukkan waktu kematian mereka, seseorang tiba-tiba menemukan jam mereka berhenti. Apakah ini kesalahan teknis atau mereka telah mencapai keabadian?",
+            "Setiap malam, karakter utama bermimpi tentang kehidupan yang berbeda. Suatu hari, mereka bertemu seseorang dari mimpi mereka di dunia nyata. Apakah mimpi itu sebenarnya dunia paralel?",
+            "Sebuah kota kecil tiba-tiba terkunci dalam gelembung waktu di mana hari yang sama terulang terus-menerus. Hanya karakter utama yang menyadarinya dan harus mencari cara untuk memecahkan siklus.",
+            "Setelah kecelakaan, seseorang mendapatkan kemampuan untuk melihat 'jejak emosi' yang ditinggalkan orang di tempat-tempat tertentu. Kemampuan ini membantu memecahkan misteri pembunuhan tetapi juga membebani secara emosional.",
+            "Di masa depan, kenangan dapat dibeli dan dijual. Karakter utama adalah penyelundup kenangan yang menemukan kenangan terlarang yang dapat mengubah masyarakat selamanya.",
+            "Seorang penulis menemukan bahwa karakter dalam bukunya mulai muncul di dunia nyata. Awalnya menyenangkan, sampai antagonis dari ceritanya juga muncul dan mengancam kehidupan nyata.",
+            "Setiap orang memiliki binatang roh yang mewakili kepribadian mereka. Karakter utama adalah satu-satunya orang dalam sejarah yang memiliki dua binatang roh yang bertentangan, menunjukkan konflik batin yang mendalam.",
+            "Sebuah penemuan memungkinkan orang mengunjungi kenangan orang lain sebagai pengalaman virtual. Karakter utama adalah penyidik yang menggunakan teknologi ini untuk memecahkan kejahatan dengan masuk ke kenangan korban.",
+            "Di dunia di mana semua konflik diselesaikan melalui permainan kompetitif, karakter utama adalah juara yang tidak terkalahkan yang mulai mempertanyakan moralitas sistem ini.",
+            "Setiap kali karakter utama tertidur, mereka terbangun di tubuh orang yang berbeda di tempat yang berbeda. Mereka harus menyelesaikan misi sebelum tertidur lagi atau terjebak selamanya.",
+            "Sebuah portal ke dunia fantasi terbuka di tengah kota metropolitan. Karakter utama adalah polisi biasa yang harus menjaga ketertiban ketika makhluk ajaib mulai memasuki dunia kita.",
+            "Orang-orang mulai mendapatkan kekuatan super berdasarkan kepribadian mereka. Karakter utama mendapatkan kekuatan yang tampaknya tidak berguna sampai mereka menemukan aplikasi yang mengubah segalanya.",
+            "Sejarah ternyata adalah program komputer yang sedang di-debug. Karakter utama adalah bug yang menyadari keberadaan mereka dan harus menghindari 'debugger' sambil mencari makna eksistensi.",
+            "Setiap kata yang diucapkan seseorang muncul secara visual di udara sebagai simbol yang hanya bisa dibaca oleh orang tertentu. Karakter utama menemukan mereka bisa membaca simbol semua orang.",
+            "Waktu berjalan lebih cepat di beberapa wilayah di Bumi. Karakter utama tinggal di perbatasan antara zona waktu normal dan cepat, mengalami dua realitas sekaligus.",
+            "Emosi manusia dapat dikristalisasi menjadi benda fisik yang memiliki kekuatan magis. Karakter utama adalah pengumpul yang tidak sengaja menemukan kristal yang berisi emosi terlarang.",
+            "Setiap malam bulan purnama, semua orang berubah menjadi versi ideal diri mereka. Karakter utama adalah satu-satunya yang tidak berubah, menyadari mereka sudah menjadi versi ideal diri mereka.",
+            "Buku-buku di perpustakaan tertentu dapat membawa pembacanya ke dunia dalam cerita. Karakter utama adalah pustakawan yang harus menyelamatkan seseorang yang terjebak dalam buku.",
+            "Suara batin semua orang tiba-tiba dapat didengar oleh orang lain. Masyarakat kacau balau saat orang berjuang membedakan antara pikiran pribadi dan ucapan publik."
+        ];
+        
+        // DOM Elements
+        const spinner = document.getElementById('spinner');
+        const spinBtn = document.getElementById('spin-btn');
+        const randomBtn = document.getElementById('random-btn');
+        const numberInput = document.getElementById('number-input');
+        const resultNumber = document.getElementById('result-number');
+        const promptText = document.getElementById('prompt-text');
+        const charCount = document.getElementById('char-count');
+        const showPromptsBtn = document.getElementById('show-prompts-btn');
+        const promptList = document.getElementById('prompt-list');
+        const promptTableBody = document.getElementById('prompt-table-body');
+        
+        // Variables for spinner control
+        let isSpinning = false;
+        let currentRotation = 0;
+        let selectedNumber = 1;
+        let usedNumbers = new Set();
+        
+        // Initialize spinner with numbers 1-20
+        function initSpinner() {
+            spinner.innerHTML = '';
+            
+            // Create 20 sections for spinner
+            const totalNumbers = 20;
+            const anglePerSection = 360 / totalNumbers;
+            
+            for (let i = 0; i < totalNumbers; i++) {
+                const section = document.createElement('div');
+                section.className = 'spinner-section';
+                section.style.transform = `rotate(${i * anglePerSection}deg)`;
+                
+                const content = document.createElement('div');
+                content.className = 'spinner-section-content';
+                content.textContent = i + 1; // Numbers 1-20
+                
+                section.appendChild(content);
+                spinner.appendChild(section);
+            }
+            
+            // Initialize prompts table
+            initPromptsTable();
+            
+            // Update character count
+            updateCharCount();
+        }
+        
+        // Initialize prompts table
+        function initPromptsTable() {
+            promptTableBody.innerHTML = '';
+            
+            for (let i = 0; i < prompts.length; i++) {
+                const row = document.createElement('tr');
+                
+                const numberCell = document.createElement('td');
+                numberCell.textContent = i + 1;
+                numberCell.style.textAlign = 'center';
+                numberCell.style.fontWeight = 'bold';
+                numberCell.style.fontSize = '1.2rem';
+                numberCell.style.color = '#f72585';
+                
+                const promptCell = document.createElement('td');
+                promptCell.textContent = prompts[i];
+                
+                row.appendChild(numberCell);
+                row.appendChild(promptCell);
+                promptTableBody.appendChild(row);
+            }
+        }
+        
+        // Spin to selected number
+        function spinToNumber(number) {
+            if (isSpinning || number < 1 || number > 20) return;
+            
+            isSpinning = true;
+            spinBtn.disabled = true;
+            randomBtn.disabled = true;
+            spinner.classList.add('spinning');
+            
+            // Mark number as used
+            usedNumbers.add(number);
+            
+            // Calculate rotation (multiple full rotations plus final position)
+            const fullRotations = 5;
+            const anglePerSection = 360 / 20;
+            
+            // Calculate target position - spinner stops exactly at pointer (top)
+            // Pointer is at 0 degrees (top), target section should be at pointer
+            const targetAngle = 360 - ((number - 1) * anglePerSection);
+            
+            // Adjust for current rotation and add full rotations
+            const totalRotation = currentRotation + (360 * fullRotations) + targetAngle;
+            
+            // Apply spinning animation
+            currentRotation = totalRotation % 360;
+            spinner.style.transition = 'transform 4s cubic-bezier(0.2, 0.8, 0.3, 1)';
+            spinner.style.transform = `rotate(${totalRotation}deg)`;
+            
+            // Show result after spinning
+            setTimeout(() => {
+                spinner.classList.remove('spinning');
+                resultNumber.textContent = number;
+                resultNumber.classList.add('result-appear');
+                
+                // Show corresponding prompt
+                promptText.textContent = prompts[number - 1];
+                updateCharCount();
+                promptText.classList.add('result-appear');
+                
+                isSpinning = false;
+                spinBtn.disabled = false;
+                randomBtn.disabled = false;
+                
+                // Check if all numbers have been used
+                if (usedNumbers.size === 20) {
+                    alert("Selamat! Anda telah mendapatkan semua angka 1-20. Reset untuk memulai lagi.");
+                }
+            }, 4000);
+        }
+        
+        // Get random unused number
+        function getRandomUnusedNumber() {
+            if (usedNumbers.size === 20) {
+                // All numbers used, reset
+                usedNumbers.clear();
+            }
+            
+            let randomNum;
+            do {
+                randomNum = Math.floor(Math.random() * 20) + 1;
+            } while (usedNumbers.has(randomNum));
+            
+            return randomNum;
+        }
+        
+        // Update character count
+        function updateCharCount() {
+            const text = promptText.textContent;
+            charCount.textContent = `${text.length}/400 karakter`;
+            
+            // Change color if approaching limit
+            if (text.length > 350) {
+                charCount.style.color = '#f72585';
+            } else if (text.length > 300) {
+                charCount.style.color = '#fbbf24';
+            } else {
+                charCount.style.color = '#94a3b8';
+            }
+        }
+        
+        // Show/hide prompts list
+        function togglePromptsList() {
+            if (promptList.style.display === 'block') {
+                promptList.style.display = 'none';
+                showPromptsBtn.innerHTML = '<i class="fas fa-list"></i> LIHAT SEMUA PROMPT';
+            } else {
+                promptList.style.display = 'block';
+                showPromptsBtn.innerHTML = '<i class="fas fa-times"></i> TUTUP DAFTAR PROMPT';
+            }
+        }
+        
+        // Reset used numbers
+        function resetUsedNumbers() {
+            usedNumbers.clear();
+            resultNumber.textContent = '-';
+            promptText.textContent = 'Klik tombol spin untuk mendapatkan angka dan prompt cerita';
+            updateCharCount();
+            alert("Daftar angka yang sudah digunakan telah direset. Anda bisa mendapatkan angka yang sama lagi.");
+        }
+        
+        // Event listeners
+        spinBtn.addEventListener('click', () => {
+            const num = parseInt(numberInput.value);
+            if (num >= 1 && num <= 20) {
+                spinToNumber(num);
+            } else {
+                alert("Masukkan angka antara 1-20!");
+                numberInput.value = 1;
+            }
+        });
+        
+        randomBtn.addEventListener('click', () => {
+            const randomNum = getRandomUnusedNumber();
+            numberInput.value = randomNum;
+            spinToNumber(randomNum);
+        });
+        
+        numberInput.addEventListener('change', () => {
+            let value = parseInt(numberInput.value);
+            if (value < 1) value = 1;
+            if (value > 20) value = 20;
+            numberInput.value = value;
+        });
+        
+        showPromptsBtn.addEventListener('click', togglePromptsList);
+        
+        // Add reset button functionality
+        const resetBtn = document.createElement('button');
+        resetBtn.className = 'show-prompts-btn';
+        resetBtn.innerHTML = '<i class="fas fa-undo"></i> RESET ANGKA';
+        resetBtn.style.background = 'linear-gradient(to right, #10b981, #059669)';
+        resetBtn.style.marginLeft = '10px';
+        resetBtn.addEventListener('click', resetUsedNumbers);
+        showPromptsBtn.parentNode.insertBefore(resetBtn, showPromptsBtn.nextSibling);
+        
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && !isSpinning) {
+                e.preventDefault();
+                const randomNum = getRandomUnusedNumber();
+                numberInput.value = randomNum;
+                spinToNumber(randomNum);
+            }
+            
+            // Number keys 1-9
+            if (e.code >= 'Digit1' && e.code <= 'Digit9' && !isSpinning) {
+                const num = parseInt(e.key);
+                if (num >= 1 && num <= 9) {
+                    numberInput.value = num;
+                    spinToNumber(num);
+                }
+            }
+            
+            // Number keys for 10-20 (with Ctrl)
+            if (e.ctrlKey && e.code >= 'Digit0' && e.code <= 'Digit9' && !isSpinning) {
+                const num = parseInt(e.key) + 10;
+                if (num >= 10 && num <= 19) {
+                    numberInput.value = num;
+                    spinToNumber(num);
+                }
+            }
+            
+            // Special case for 20 (Ctrl+0)
+            if (e.ctrlKey && e.code === 'Digit0' && !isSpinning) {
+                numberInput.value = 20;
+                spinToNumber(20);
+            }
+        });
+        
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
+            initSpinner();
+            
+            // Add click animation to result box
+            const resultBox = document.querySelector('.result-box');
+            resultBox.addEventListener('click', () => {
+                if (resultNumber.textContent !== '-' && !isSpinning) {
+                    resultBox.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        resultBox.style.transform = 'scale(1)';
+                    }, 200);
+                    
+                    // Speak the prompt (if browser supports speech synthesis)
+                    if ('speechSynthesis' in window) {
+                        const utterance = new SpeechSynthesisUtterance(promptText.textContent);
+                        utterance.lang = 'id-ID';
+                        utterance.rate = 0.9;
+                        speechSynthesis.speak(utterance);
+                    }
+                }
+            });
+            
+            // Add instructions for keyboard shortcuts
+            const instructions = document.querySelector('.instructions p');
+            instructions.innerHTML += '<br><br><strong>SHORTCUT KEYBOARD:</strong> Spasi = angka random, 1-9 = angka 1-9, Ctrl+0-9 = angka 10-20';
+        });
+    </script>
+</body>
+</html>
