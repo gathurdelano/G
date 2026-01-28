@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Red Spinner Angka</title>
+    <title>Dark Red Spinner - Jarum Tepat</title>
     <style>
         * {
             margin: 0;
@@ -17,7 +17,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #200000 0%, #0a0000 100%);
+            background: linear-gradient(135deg, #1a0000 0%, #0a0000 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -30,7 +30,7 @@
         
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             text-align: center;
             position: relative;
             z-index: 10;
@@ -42,33 +42,119 @@
         
         h1 {
             color: #fff;
-            font-size: 2.8rem;
+            font-size: 3rem;
             margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            text-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
             letter-spacing: 2px;
-            background: linear-gradient(to right, #ffcccc, #ff6666);
+            background: linear-gradient(to right, #ffcccc, #ff6666, #ff0000);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
-        .subtitle {
-            color: #ff9999;
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 10px;
-            line-height: 1.6;
-            font-weight: 300;
+        .warning {
+            color: #ff0000;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            border: 2px solid #ff0000;
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            background: rgba(139, 0, 0, 0.2);
         }
         
-        .spinner-container {
+        .spinner-wrapper {
             position: relative;
+            width: 450px;
+            height: 450px;
             margin: 40px auto;
-            width: 380px;
-            height: 380px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        }
+        
+        /* JARUM YANG SANGAT TEPAT DAN TIDAK BERGERAK */
+        .exact-pointer-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            z-index: 100;
+            pointer-events: none;
+        }
+        
+        .exact-pointer-line {
+            position: absolute;
+            width: 4px;
+            height: 230px;
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 0.9) 0%,
+                rgba(255, 0, 0, 1) 30%,
+                rgba(255, 0, 0, 1) 70%,
+                rgba(255, 255, 255, 0.9) 100%);
+            top: 0;
+            left: 0;
+            box-shadow: 
+                0 0 15px rgba(255, 0, 0, 0.9),
+                0 0 30px rgba(255, 0, 0, 0.7);
+        }
+        
+        .exact-pointer-arrow {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 25px solid #ff0000;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.9));
+        }
+        
+        .exact-pointer-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff0000;
+            border-radius: 50%;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.9);
+            border: 3px solid white;
+        }
+        
+        /* GUIDE LINE UNTUK MEMASTIKAN KETEPATAN */
+        .guide-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 90;
+        }
+        
+        .guide-line-vertical {
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .guide-line-horizontal {
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            top: 50%;
+            transform: translateY(-50%);
         }
         
         .spinner {
@@ -77,15 +163,15 @@
             border-radius: 50%;
             position: relative;
             box-shadow: 
-                0 0 0 15px #8b0000,
-                0 0 30px rgba(139, 0, 0, 0.8),
-                inset 0 0 50px rgba(0, 0, 0, 0.9);
-            transition: transform 3s cubic-bezier(0.17, 0.67, 0.21, 0.99);
-            background: #1a0000;
-            cursor: pointer;
-            touch-action: manipulation;
+                0 0 0 20px #5a0000,
+                0 0 40px rgba(139, 0, 0, 0.8),
+                inset 0 0 60px rgba(0, 0, 0, 0.95);
+            transition: transform 0.1s linear;
+            background: #150000;
+            cursor: grab;
             overflow: visible;
-            border: 8px solid #ff3333;
+            border: 10px solid #8b0000;
+            touch-action: none;
         }
         
         .spinner:active {
@@ -94,8 +180,8 @@
         
         .spinner-center {
             position: absolute;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             background: #ff0000;
             border-radius: 50%;
             top: 50%;
@@ -103,9 +189,9 @@
             transform: translate(-50%, -50%);
             z-index: 30;
             box-shadow: 
-                0 0 20px rgba(255, 0, 0, 0.9),
-                inset 0 0 10px rgba(255, 255, 255, 0.3);
-            border: 5px solid white;
+                0 0 30px rgba(255, 0, 0, 0.9),
+                inset 0 0 15px rgba(255, 255, 255, 0.4);
+            border: 6px solid white;
         }
         
         .spinner-section {
@@ -113,7 +199,7 @@
             width: 50%;
             height: 50%;
             transform-origin: bottom right;
-            overflow: visible;
+            overflow: hidden;
             clip-path: polygon(0 0, 100% 0, 100% 100%);
         }
         
@@ -127,64 +213,32 @@
             transform: rotate(45deg);
             font-weight: 900;
             color: white;
-            padding-left: 35px;
-            padding-bottom: 35px;
-            font-size: 22px;
+            padding-left: 45px;
+            padding-bottom: 45px;
+            font-size: 26px;
             text-shadow: 
-                1px 1px 3px rgba(0, 0, 0, 0.9),
-                0 0 10px rgba(255, 255, 255, 0.5);
-            letter-spacing: 1px;
+                2px 2px 4px rgba(0, 0, 0, 0.9),
+                0 0 15px rgba(255, 255, 255, 0.6);
+            letter-spacing: 1.5px;
         }
         
-        /* POINTER TETAP DI ATAS - TIDAK BERGERAK */
-        .pointer-container {
+        /* INDIKATOR ANGKA YANG SEDANG DI JARUM */
+        .number-indicator {
             position: absolute;
-            top: -50px;
+            top: -80px;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 70px;
-            z-index: 50;
-            pointer-events: none;
-        }
-        
-        .pointer {
-            width: 0;
-            height: 0;
-            border-left: 25px solid transparent;
-            border-right: 25px solid transparent;
-            border-top: 50px solid #ff0000;
-            position: relative;
-            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.9));
-        }
-        
-        .pointer::after {
-            content: '';
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            background: #ff0000;
-            border-radius: 50%;
-            top: -65px;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
-        }
-        
-        .pointer-line {
-            position: absolute;
-            width: 4px;
-            height: 380px;
-            background: linear-gradient(to bottom, 
-                rgba(255, 0, 0, 0) 0%,
-                rgba(255, 0, 0, 0.8) 30%,
-                rgba(255, 0, 0, 1) 50%,
-                rgba(255, 0, 0, 0.8) 70%,
-                rgba(255, 0, 0, 0) 100%);
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 45;
+            background: rgba(255, 0, 0, 0.9);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1.8rem;
+            font-weight: 900;
+            z-index: 110;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            border: 3px solid white;
+            min-width: 80px;
+            text-align: center;
             pointer-events: none;
         }
         
@@ -194,7 +248,7 @@
             padding: 35px;
             margin: 40px auto;
             width: 90%;
-            max-width: 500px;
+            max-width: 600px;
             box-shadow: 
                 0 20px 40px rgba(0, 0, 0, 0.7),
                 inset 0 0 30px rgba(139, 0, 0, 0.3);
@@ -212,46 +266,45 @@
             height: 8px;
             background: linear-gradient(to right, 
                 #ff0000, #ff6666, #ff0000);
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
         }
         
         .result-label {
             color: #ffcccc;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-bottom: 25px;
             font-weight: 600;
             letter-spacing: 1px;
         }
         
         .result-number {
-            font-size: 6rem;
+            font-size: 7rem;
             color: #ff0000;
             font-weight: 900;
             text-align: center;
-            transition: all 0.5s ease;
             text-shadow: 
-                0 0 20px rgba(255, 0, 0, 0.9),
-                0 0 40px rgba(255, 0, 0, 0.5);
-            margin: 10px 0;
+                0 0 25px rgba(255, 0, 0, 0.9),
+                0 0 50px rgba(255, 0, 0, 0.5);
+            margin: 20px 0;
             line-height: 1;
         }
         
         .result-prompt {
             background: rgba(26, 0, 0, 0.9);
             border-radius: 15px;
-            padding: 20px;
+            padding: 25px;
             margin-top: 25px;
             border: 2px solid #8b0000;
             text-align: left;
-            max-height: 200px;
+            max-height: 220px;
             overflow-y: auto;
         }
         
         .prompt-text {
             color: #ffcccc;
-            font-size: 1rem;
+            font-size: 1.1rem;
             line-height: 1.7;
-            min-height: 80px;
+            min-height: 100px;
         }
         
         .instructions {
@@ -259,142 +312,80 @@
             border-radius: 15px;
             padding: 25px;
             margin-top: 30px;
-            max-width: 600px;
+            max-width: 700px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             border: 2px solid #8b0000;
         }
         
         .instructions h3 {
             color: #ff6666;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-size: 1.6rem;
             text-shadow: 0 0 10px rgba(255, 102, 102, 0.5);
         }
         
         .instructions p {
             color: #ff9999;
-            line-height: 1.7;
-            font-size: 1.1rem;
+            line-height: 1.8;
+            font-size: 1.2rem;
         }
         
-        /* Animasi */
-        @keyframes glow {
+        /* ANIMASI UNTUK ANGKA YANG TEPAT DI JARUM */
+        @keyframes exactMatch {
             0%, 100% { 
-                box-shadow: 
-                    0 0 0 15px #8b0000,
-                    0 0 30px rgba(139, 0, 0, 0.8),
-                    inset 0 0 50px rgba(0, 0, 0, 0.9);
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
             }
             50% { 
-                box-shadow: 
-                    0 0 0 15px #ff0000,
-                    0 0 50px rgba(255, 0, 0, 0.9),
-                    inset 0 0 50px rgba(0, 0, 0, 0.9);
+                transform: scale(1.1);
+                box-shadow: 0 0 40px rgba(255, 0, 0, 0.9);
             }
         }
         
-        .spinning {
-            animation: glow 0.8s infinite alternate;
+        .exact-match {
+            animation: exactMatch 0.5s 3;
         }
         
-        @keyframes numberAppear {
-            0% {
-                transform: scale(0.3) rotate(-10deg);
-                opacity: 0;
-            }
-            70% {
-                transform: scale(1.1) rotate(5deg);
-            }
-            100% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-            }
-        }
-        
-        .number-appear {
-            animation: numberAppear 0.6s ease-out forwards;
-        }
-        
-        /* Warna angka di spinner (dark red theme) */
+        /* Warna angka di spinner */
         .spinner-section:nth-child(odd) .spinner-section-content {
             background: linear-gradient(135deg, 
-                rgba(139, 0, 0, 0.9) 0%,
-                rgba(178, 34, 34, 0.9) 100%);
+                rgba(139, 0, 0, 0.95) 0%,
+                rgba(178, 34, 34, 0.95) 100%);
         }
         
         .spinner-section:nth-child(even) .spinner-section-content {
             background: linear-gradient(135deg, 
-                rgba(165, 42, 42, 0.9) 0%,
-                rgba(205, 92, 92, 0.9) 100%);
+                rgba(165, 42, 42, 0.95) 0%,
+                rgba(205, 92, 92, 0.95) 100%);
         }
         
         .spinner-section:nth-child(3n) .spinner-section-content {
             background: linear-gradient(135deg, 
-                rgba(128, 0, 0, 0.9) 0%,
-                rgba(160, 0, 0, 0.9) 100%);
+                rgba(128, 0, 0, 0.95) 0%,
+                rgba(160, 0, 0, 0.95) 100%);
         }
         
         .spinner-section:nth-child(5n) .spinner-section-content {
             background: linear-gradient(135deg, 
-                rgba(220, 20, 60, 0.9) 0%,
-                rgba(255, 99, 71, 0.9) 100%);
-        }
-        
-        /* Gaya untuk sentuhan/mobile */
-        .touch-hint {
-            position: absolute;
-            bottom: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #ff9999;
-            font-size: 1.1rem;
-            background: rgba(139, 0, 0, 0.3);
-            padding: 10px 20px;
-            border-radius: 30px;
-            border: 1px solid #8b0000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .touch-hint i {
-            color: #ff6666;
-            font-size: 1.3rem;
-        }
-        
-        /* Scrollbar styling */
-        .result-prompt::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .result-prompt::-webkit-scrollbar-track {
-            background: #1a0000;
-            border-radius: 4px;
-        }
-        
-        .result-prompt::-webkit-scrollbar-thumb {
-            background: #8b0000;
-            border-radius: 4px;
-        }
-        
-        .result-prompt::-webkit-scrollbar-thumb:hover {
-            background: #ff0000;
+                rgba(220, 20, 60, 0.95) 0%,
+                rgba(255, 99, 71, 0.95) 100%);
         }
         
         /* Responsive */
         @media (max-width: 768px) {
-            .spinner-container {
-                width: 320px;
-                height: 320px;
+            .spinner-wrapper {
+                width: 350px;
+                height: 350px;
             }
             
-            .pointer-line {
-                height: 320px;
+            .exact-pointer-line {
+                height: 180px;
             }
             
-            .spinner {
-                width: 320px;
-                height: 320px;
+            .spinner-section-content {
+                font-size: 20px;
+                padding-left: 35px;
+                padding-bottom: 35px;
             }
             
             .result-number {
@@ -404,21 +395,27 @@
             h1 {
                 font-size: 2.2rem;
             }
+            
+            .warning {
+                font-size: 1.1rem;
+                padding: 8px 15px;
+            }
         }
         
         @media (max-width: 480px) {
-            .spinner-container {
-                width: 280px;
-                height: 280px;
+            .spinner-wrapper {
+                width: 300px;
+                height: 300px;
             }
             
-            .pointer-line {
-                height: 280px;
+            .exact-pointer-line {
+                height: 150px;
             }
             
-            .spinner {
-                width: 280px;
-                height: 280px;
+            .spinner-section-content {
+                font-size: 18px;
+                padding-left: 30px;
+                padding-bottom: 30px;
             }
             
             .result-number {
@@ -429,93 +426,114 @@
                 font-size: 1.8rem;
             }
             
-            .spinner-section-content {
-                font-size: 18px;
-                padding-left: 30px;
-                padding-bottom: 30px;
+            .number-indicator {
+                font-size: 1.4rem;
+                padding: 10px 20px;
+                top: -70px;
             }
         }
         
-        /* Floating blood cells */
-        .floating-cell {
+        /* Efek visual */
+        .blood-effect {
             position: absolute;
             border-radius: 50%;
-            opacity: 0.15;
+            opacity: 0.1;
             z-index: 1;
             background: radial-gradient(circle, #ff0000, #8b0000);
-            filter: blur(5px);
+            filter: blur(8px);
         }
         
-        .cell-1 {
-            width: 100px;
-            height: 100px;
-            top: 10%;
-            left: 5%;
-            animation: floatCell 25s infinite ease-in-out;
-        }
-        
-        .cell-2 {
-            width: 150px;
-            height: 150px;
-            bottom: 15%;
-            right: 8%;
-            animation: floatCell 30s infinite ease-in-out reverse;
-        }
-        
-        .cell-3 {
-            width: 80px;
-            height: 80px;
-            top: 60%;
-            left: 10%;
-            animation: floatCell 20s infinite ease-in-out;
-        }
-        
-        .cell-4 {
+        .blood-1 {
             width: 120px;
             height: 120px;
-            bottom: 30%;
-            left: 80%;
-            animation: floatCell 35s infinite ease-in-out;
+            top: 10%;
+            left: 5%;
+            animation: floatBlood 25s infinite ease-in-out;
         }
         
-        @keyframes floatCell {
+        .blood-2 {
+            width: 180px;
+            height: 180px;
+            bottom: 15%;
+            right: 8%;
+            animation: floatBlood 30s infinite ease-in-out reverse;
+        }
+        
+        @keyframes floatBlood {
             0%, 100% {
                 transform: translateY(0) rotate(0deg) scale(1);
             }
             50% {
-                transform: translateY(-50px) rotate(180deg) scale(1.1);
+                transform: translateY(-60px) rotate(180deg) scale(1.2);
             }
         }
         
-        /* Highlight untuk angka yang terpilih */
-        .selected-section {
-            filter: brightness(1.5) drop-shadow(0 0 15px rgba(255, 255, 255, 0.7));
-            transition: filter 0.3s ease;
+        /* SNAP INDICATOR - menunjukkan ketika tepat di jarum */
+        .snap-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            border: 3px solid rgba(0, 255, 0, 0.5);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 80;
+            transition: opacity 0.3s;
+        }
+        
+        .snap-active {
+            opacity: 1;
+            animation: snapPulse 0.5s;
+        }
+        
+        @keyframes snapPulse {
+            0%, 100% { 
+                border-width: 3px;
+                opacity: 0.5;
+            }
+            50% { 
+                border-width: 6px;
+                opacity: 0.8;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Floating blood cells -->
-    <div class="floating-cell cell-1"></div>
-    <div class="floating-cell cell-2"></div>
-    <div class="floating-cell cell-3"></div>
-    <div class="floating-cell cell-4"></div>
+    <!-- Efek darah -->
+    <div class="blood-effect blood-1"></div>
+    <div class="blood-effect blood-2"></div>
     
     <div class="container">
         <header>
-            <h1>DARK RED SPINNER</h1>
-            <p class="subtitle">Sentuh dan putar spinner. Angka yang berhenti tepat di jarum atas akan terpilih.</p>
-            <p class="subtitle">TIDAK ADA OPSI ACAK - HANYA JARUM YANG MEMILIH</p>
+            <h1>DARK RED SPINNER - JARUM TEPAT</h1>
+            <div class="warning">HANYA ANGKA YANG TEPAT SEGARIS DENGAN JARUM YANG TERPILIH!</div>
+            <p style="color: #ff9999; font-size: 1.2rem; max-width: 800px; margin: 20px auto;">
+                Putar spinner dengan sentuhan. Angka hanya terpilih jika BERPAPASAN TEPAT dengan garis jarum merah di atas.
+            </p>
         </header>
         
-        <div class="spinner-container">
-            <!-- Garis pointer vertikal -->
-            <div class="pointer-line"></div>
-            
-            <!-- Pointer tetap di atas -->
-            <div class="pointer-container">
-                <div class="pointer"></div>
+        <div class="spinner-wrapper">
+            <!-- Garis panduan -->
+            <div class="guide-lines">
+                <div class="guide-line-vertical"></div>
+                <div class="guide-line-horizontal"></div>
             </div>
+            
+            <!-- JARUM TEPAT DI ATAS -->
+            <div class="exact-pointer-container">
+                <div class="exact-pointer-dot"></div>
+                <div class="exact-pointer-arrow"></div>
+                <div class="exact-pointer-line"></div>
+            </div>
+            
+            <!-- Indikator angka yang sedang di jarum -->
+            <div class="number-indicator" id="number-indicator">-</div>
+            
+            <!-- Snap indicator -->
+            <div class="snap-indicator" id="snap-indicator"></div>
             
             <!-- Spinner -->
             <div class="spinner" id="spinner">
@@ -524,31 +542,26 @@
             
             <!-- Titik tengah spinner -->
             <div class="spinner-center"></div>
-            
-            <!-- Petunjuk sentuhan -->
-            <div class="touch-hint">
-                <i class="fas fa-hand-point-up"></i>
-                SENTUH & PUTAR
-            </div>
         </div>
         
         <div class="result-container">
-            <div class="result-label">ANGKA YANG DIPILIH JARUM:</div>
+            <div class="result-label">ANGKA YANG TEPAT DI JARUM:</div>
             <div class="result-number" id="result-number">-</div>
             
             <div class="result-label">PROMPT CERITA:</div>
             <div class="result-prompt">
-                <div class="prompt-text" id="prompt-text">Putar spinner untuk mendapatkan angka dan prompt unik</div>
+                <div class="prompt-text" id="prompt-text">Putar spinner sampai angka tepat segaris dengan jarum merah di atas</div>
             </div>
         </div>
         
         <div class="instructions">
-            <h3>PERHATIAN PENTING:</h3>
-            <p>1. HANYA angka yang berhenti TEPAT di JARUM ATAS yang akan terpilih<br>
-               2. Sentuh dan putar spinner dengan jari (atau mouse di desktop)<br>
-               3. Angka akan ditampilkan setelah spinner berhenti sepenuhnya<br>
-               4. Setiap angka memiliki prompt cerita yang berbeda (maks 400 karakter)<br>
-               5. Spinner berputar berdasarkan sentuhan - tidak ada tombol atau opsi acak</p>
+            <h3>PERATURAN TEPAT:</h3>
+            <p>1. JARUM TETAP DI POSISI ATAS (12 jam) - TIDAK BERGERAK<br>
+               2. SPINNER BERPUTAR SAAT DISENTUH/DIGESER<br>
+               3. ANGKA HANYA TERPILIH JIKA TEPAT BERPAPASAN DENGAN GARIS JARUM<br>
+               4. TIDAK ADA OPSI ACAK - ANDA KENDALIKAN PUTARAN<br>
+               5. INDIKATOR ANGKA MENUNJUKKAN ANGKA YANG SEDANG DI JARUM<br>
+               6. PUTAR PELAN-PELAN UNTUK KETEPATAN MAKSIMAL</p>
         </div>
     </div>
 
@@ -581,305 +594,347 @@
         const spinner = document.getElementById('spinner');
         const resultNumber = document.getElementById('result-number');
         const promptText = document.getElementById('prompt-text');
+        const numberIndicator = document.getElementById('number-indicator');
+        const snapIndicator = document.getElementById('snap-indicator');
         
         // Variables
-        let isSpinning = false;
         let currentRotation = 0;
-        let currentVelocity = 0;
-        let selectedNumber = 0;
-        let lastTimestamp = 0;
         let isDragging = false;
-        let dragStartAngle = 0;
-        let spinnerStartAngle = 0;
+        let startX = 0;
+        let startY = 0;
+        let startRotation = 0;
+        let selectedNumber = 0;
+        let lastNumberAtPointer = 0;
+        const totalNumbers = 20;
+        const anglePerNumber = 360 / totalNumbers; // 18 derajat per angka
         
         // Initialize spinner dengan angka 1-20
         function initSpinner() {
             spinner.innerHTML = '';
             
-            const totalNumbers = 20;
-            const anglePerSection = 360 / totalNumbers;
-            
             for (let i = 0; i < totalNumbers; i++) {
                 const section = document.createElement('div');
                 section.className = 'spinner-section';
-                section.style.transform = `rotate(${i * anglePerSection}deg)`;
+                section.style.transform = `rotate(${i * anglePerNumber}deg)`;
                 
                 const content = document.createElement('div');
                 content.className = 'spinner-section-content';
                 content.textContent = i + 1; // Angka 1-20
+                content.id = `number-${i + 1}`;
                 
                 section.appendChild(content);
                 spinner.appendChild(section);
             }
             
-            // Setup event listeners untuk sentuhan/geser
-            setupTouchEvents();
+            // Setup event listeners
+            setupEventListeners();
             
-            // Setup animasi berputar
-            requestAnimationFrame(animateSpinner);
+            // Update angka di indikator
+            updateNumberAtPointer();
         }
         
-        // Setup event listeners untuk sentuhan dan mouse
-        function setupTouchEvents() {
-            // Untuk mouse (desktop)
+        // Setup event listeners untuk mouse dan touch
+        function setupEventListeners() {
+            // Mouse events
             spinner.addEventListener('mousedown', startDrag);
             document.addEventListener('mousemove', drag);
             document.addEventListener('mouseup', endDrag);
             
-            // Untuk sentuhan (mobile)
-            spinner.addEventListener('touchstart', startDrag);
-            document.addEventListener('touchmove', drag);
-            document.addEventListener('touchend', endDrag);
+            // Touch events
+            spinner.addEventListener('touchstart', handleTouchStart);
+            spinner.addEventListener('touchmove', handleTouchMove);
+            spinner.addEventListener('touchend', handleTouchEnd);
             
-            // Mencegah context menu
-            spinner.addEventListener('contextmenu', (e) => e.preventDefault());
+            // Prevent default touch actions
+            spinner.addEventListener('touchstart', (e) => e.preventDefault());
         }
         
-        // Mulai drag/geser
+        // Mulai drag dengan mouse
         function startDrag(e) {
             e.preventDefault();
             isDragging = true;
-            spinner.classList.remove('spinning');
-            
-            const rect = spinner.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            
-            let clientX, clientY;
-            
-            if (e.type === 'touchstart') {
-                clientX = e.touches[0].clientX;
-                clientY = e.touches[0].clientY;
-            } else {
-                clientX = e.clientX;
-                clientY = e.clientY;
-            }
-            
-            // Hitung sudut awal
-            const angle = Math.atan2(clientY - centerY, clientX - centerX) * 180 / Math.PI;
-            dragStartAngle = angle;
-            spinnerStartAngle = currentRotation;
-            
-            // Reset velocity
-            currentVelocity = 0;
+            startX = e.clientX;
+            startY = e.clientY;
+            startRotation = currentRotation;
+            spinner.style.cursor = 'grabbing';
+            spinner.style.transition = 'none';
         }
         
-        // Saat drag/geser
+        // Drag dengan mouse
         function drag(e) {
             if (!isDragging) return;
             e.preventDefault();
             
-            const rect = spinner.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
             
-            let clientX, clientY;
+            // Hitung perubahan rotasi berdasarkan pergerakan mouse
+            // Sensitivitas disesuaikan untuk kontrol yang tepat
+            const rotationChange = (deltaX + deltaY) * 0.5;
             
-            if (e.type === 'touchmove') {
-                clientX = e.touches[0].clientX;
-                clientY = e.touches[0].clientY;
-            } else {
-                clientX = e.clientX;
-                clientY = e.clientY;
-            }
+            // Update rotasi
+            currentRotation = startRotation + rotationChange;
             
-            // Hitung sudut saat ini
-            const angle = Math.atan2(clientY - centerY, clientX - centerX) * 180 / Math.PI;
-            
-            // Hitung perubahan sudut
-            let deltaAngle = angle - dragStartAngle;
-            
-            // Handle crossing the 180/-180 boundary
-            if (deltaAngle > 180) deltaAngle -= 360;
-            if (deltaAngle < -180) deltaAngle += 360;
-            
-            // Update rotation
-            currentRotation = spinnerStartAngle + deltaAngle;
-            
-            // Update velocity untuk momentum
-            const now = Date.now();
-            const timeDelta = now - lastTimestamp;
-            if (timeDelta > 0) {
-                currentVelocity = deltaAngle / timeDelta * 16; // Normalize
-            }
-            lastTimestamp = now;
-            
-            // Apply rotation
+            // Terapkan rotasi
             spinner.style.transform = `rotate(${currentRotation}deg)`;
-            spinner.style.transition = 'none';
+            
+            // Update angka yang sedang di jarum
+            updateNumberAtPointer();
+            
+            // Cek apakah ada angka yang tepat di jarum
+            checkExactMatch();
         }
         
-        // Akhiri drag/geser
+        // Akhiri drag dengan mouse
         function endDrag(e) {
             if (!isDragging) return;
-            e.preventDefault();
-            
             isDragging = false;
+            spinner.style.cursor = 'grab';
             
-            // Apply momentum based on velocity
-            if (Math.abs(currentVelocity) > 0.1) {
-                // Add spinning animation class
-                spinner.classList.add('spinning');
-                
-                // Apply momentum
-                const momentum = currentVelocity * 30; // Multiply for more spin
-                let targetRotation = currentRotation + momentum;
-                
-                // Normalize rotation
-                targetRotation = targetRotation % 360;
-                if (targetRotation < 0) targetRotation += 360;
-                
-                // Animate with easing
-                spinner.style.transition = `transform ${2 + Math.abs(momentum)/200}s cubic-bezier(0.17, 0.67, 0.21, 0.99)`;
-                spinner.style.transform = `rotate(${targetRotation}deg)`;
-                
-                // Update current rotation
-                currentRotation = targetRotation;
-                
-                // Tunggu spinner berhenti, lalu hitung angka yang terpilih
-                setTimeout(() => {
-                    spinner.classList.remove('spinning');
-                    calculateSelectedNumber();
-                }, 2000 + Math.abs(momentum)/10);
-            } else {
-                // Jika tidak ada momentum, hitung langsung
-                calculateSelectedNumber();
+            // Snap ke angka terdekat jika dekat
+            snapToNearestNumber();
+        }
+        
+        // Handle touch start
+        function handleTouchStart(e) {
+            e.preventDefault();
+            if (e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                startRotation = currentRotation;
+                spinner.style.transition = 'none';
             }
         }
         
-        // Hitung angka yang terpilih oleh jarum
-        function calculateSelectedNumber() {
-            // Normalisasi rotasi ke 0-360 derajat
+        // Handle touch move
+        function handleTouchMove(e) {
+            if (!isDragging || e.touches.length !== 1) return;
+            e.preventDefault();
+            
+            const deltaX = e.touches[0].clientX - startX;
+            const deltaY = e.touches[0].clientY - startY;
+            
+            // Hitung perubahan rotasi
+            const rotationChange = (deltaX + deltaY) * 0.7;
+            
+            // Update rotasi
+            currentRotation = startRotation + rotationChange;
+            
+            // Terapkan rotasi
+            spinner.style.transform = `rotate(${currentRotation}deg)`;
+            
+            // Update angka yang sedang di jarum
+            updateNumberAtPointer();
+            
+            // Cek apakah ada angka yang tepat di jarum
+            checkExactMatch();
+        }
+        
+        // Handle touch end
+        function handleTouchEnd(e) {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            // Snap ke angka terdekat jika dekat
+            snapToNearestNumber();
+        }
+        
+        // Update angka yang sedang berada di jarum
+        function updateNumberAtPointer() {
+            // Normalisasi rotasi ke 0-360
             let normalizedRotation = currentRotation % 360;
             if (normalizedRotation < 0) normalizedRotation += 360;
             
-            // JARUM DI ATAS (0 derajat) - hitung angka yang tepat di jarum
-            // Karena spinner berputar, kita perlu menghitung sebaliknya
-            // Angka di posisi 0 derajat adalah angka yang terpilih
+            // Jarum di posisi 0 derajat (atas)
+            // Hitung angka mana yang ada di posisi 0 derajat
+            // Rumus: (360 - rotasi) / 18 derajat per angka
+            let numberAtPointer = Math.round((360 - normalizedRotation) / anglePerNumber) % totalNumbers;
+            numberAtPointer = (numberAtPointer + totalNumbers) % totalNumbers;
             
-            // Hitung offset (karena angka dimulai dari posisi tertentu)
-            const anglePerSection = 360 / 20; // 18 derajat per angka
+            // Konversi ke 1-20 (bukan 0-19)
+            let displayNumber = numberAtPointer + 1;
             
-            // Hitung angka yang ada di posisi 0 derajat (jarum)
-            // Rumus: angka = Math.floor((360 - normalizedRotation) / anglePerSection) + 1
-            // Tapi disesuaikan karena posisi awal angka
-            let selectedIndex = Math.floor((360 - normalizedRotation + anglePerSection/2) / anglePerSection) % 20;
-            selectedIndex = (selectedIndex + 20) % 20; // Pastikan positif
-            
-            selectedNumber = selectedIndex + 1; // Konversi ke 1-20
-            
-            // Tampilkan hasil
-            displayResult();
-            
-            // Highlight angka yang terpilih di spinner
-            highlightSelectedNumber(selectedIndex);
+            // Update indikator
+            numberIndicator.textContent = displayNumber;
+            lastNumberAtPointer = displayNumber;
         }
         
-        // Highlight angka yang terpilih di spinner
-        function highlightSelectedNumber(index) {
-            // Hapus highlight sebelumnya
-            const sections = document.querySelectorAll('.spinner-section');
+        // Cek apakah ada angka yang tepat segaris dengan jarum
+        function checkExactMatch() {
+            // Normalisasi rotasi
+            let normalizedRotation = currentRotation % 360;
+            if (normalizedRotation < 0) normalizedRotation += 360;
+            
+            // Hitung offset dari angka terdekat
+            let angleOffset = (360 - normalizedRotation) % anglePerNumber;
+            if (angleOffset > anglePerNumber / 2) angleOffset = anglePerNumber - angleOffset;
+            
+            // Jika offset sangat kecil (kurang dari 0.5 derajat), berarti tepat segaris
+            const tolerance = 0.5; // derajat
+            
+            if (angleOffset < tolerance) {
+                // Tampilkan snap indicator
+                snapIndicator.classList.add('snap-active');
+                
+                // Dapatkan angka yang tepat
+                let exactNumber = Math.round((360 - normalizedRotation) / anglePerNumber) % totalNumbers;
+                exactNumber = (exactNumber + totalNumbers) % totalNumbers;
+                exactNumber += 1;
+                
+                // Update indikator dengan warna hijau
+                numberIndicator.style.background = 'rgba(0, 255, 0, 0.9)';
+                numberIndicator.style.boxShadow = '0 0 20px rgba(0, 255, 0, 0.7)';
+                
+                // Jika angka ini berbeda dengan sebelumnya, update hasil
+                if (selectedNumber !== exactNumber) {
+                    selectedNumber = exactNumber;
+                    displayResult();
+                }
+            } else {
+                // Reset snap indicator
+                snapIndicator.classList.remove('snap-active');
+                numberIndicator.style.background = 'rgba(255, 0, 0, 0.9)';
+                numberIndicator.style.boxShadow = '0 0 20px rgba(255, 0, 0, 0.7)';
+            }
+        }
+        
+        // Snap ke angka terdekat
+        function snapToNearestNumber() {
+            // Normalisasi rotasi
+            let normalizedRotation = currentRotation % 360;
+            if (normalizedRotation < 0) normalizedRotation += 360;
+            
+            // Hitung angka terdekat
+            let targetNumber = Math.round((360 - normalizedRotation) / anglePerNumber) % totalNumbers;
+            targetNumber = (targetNumber + totalNumbers) % totalNumbers;
+            
+            // Hitung rotasi target
+            let targetRotation = 360 - (targetNumber * anglePerNumber);
+            
+            // Animasikan ke posisi target
+            spinner.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            spinner.style.transform = `rotate(${targetRotation}deg)`;
+            
+            // Update rotasi saat ini
+            currentRotation = targetRotation;
+            
+            // Update angka di indikator
+            updateNumberAtPointer();
+            
+            // Set angka yang terpilih
+            selectedNumber = targetNumber + 1;
+            
+            // Tampilkan hasil setelah animasi selesai
+            setTimeout(() => {
+                displayResult();
+                
+                // Highlight angka yang tepat
+                highlightExactNumber(targetNumber);
+            }, 600);
+        }
+        
+        // Highlight angka yang tepat di jarum
+        function highlightExactNumber(numberIndex) {
+            // Reset semua highlight
+            const sections = document.querySelectorAll('.spinner-section-content');
             sections.forEach(section => {
-                section.classList.remove('selected-section');
+                section.style.filter = 'none';
+                section.style.transform = 'rotate(45deg)';
             });
             
-            // Tambah highlight untuk section yang terpilih
-            if (sections[index]) {
-                sections[index].classList.add('selected-section');
+            // Highlight angka yang tepat
+            const exactSection = document.getElementById(`number-${numberIndex + 1}`);
+            if (exactSection) {
+                exactSection.style.filter = 'brightness(1.5) drop-shadow(0 0 15px white)';
+                exactSection.style.transform = 'rotate(45deg) scale(1.1)';
+                exactSection.parentElement.classList.add('exact-match');
+                
+                // Hapus animasi setelah selesai
+                setTimeout(() => {
+                    exactSection.parentElement.classList.remove('exact-match');
+                }, 1500);
             }
         }
         
         // Tampilkan hasil
         function displayResult() {
-            // Update angka
+            // Update angka hasil
             resultNumber.textContent = selectedNumber;
-            resultNumber.classList.add('number-appear');
+            
+            // Animasi muncul
+            resultNumber.style.animation = 'none';
+            setTimeout(() => {
+                resultNumber.style.animation = 'exactMatch 0.5s 3';
+            }, 10);
             
             // Update prompt
             promptText.textContent = prompts[selectedNumber - 1];
             
-            // Hilangkan animasi setelah selesai
-            setTimeout(() => {
-                resultNumber.classList.remove('number-appear');
-            }, 600);
+            // Tambah efek suara (simulasi)
+            playSelectSound();
         }
         
-        // Animasi spinner (untuk momentum)
-        function animateSpinner(timestamp) {
-            if (!isDragging && Math.abs(currentVelocity) > 0.01) {
-                // Terapkan friction
-                currentVelocity *= 0.97;
+        // Play sound effect
+        function playSelectSound() {
+            // Simulasi suara klik
+            try {
+                // Create a simple click sound using Web Audio API
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
                 
-                // Update rotation
-                currentRotation += currentVelocity;
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
                 
-                // Normalize
-                currentRotation = currentRotation % 360;
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
                 
-                // Apply
-                spinner.style.transform = `rotate(${currentRotation}deg)`;
-                spinner.style.transition = 'none';
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
                 
-                // Jika kecepatan sangat rendah, berhenti dan hitung angka
-                if (Math.abs(currentVelocity) < 0.1) {
-                    currentVelocity = 0;
-                    spinner.classList.remove('spinning');
-                    calculateSelectedNumber();
-                }
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } catch (e) {
+                console.log("Audio not supported");
             }
-            
-            requestAnimationFrame(animateSpinner);
         }
         
         // Initialize saat halaman dimuat
-        window.addEventListener('DOMContentLoaded', () => {
-            initSpinner();
-            
-            // Tambah audio feedback (opsional)
-            spinner.addEventListener('mousedown', () => {
-                playSound('start');
-            });
-            
-            spinner.addEventListener('mouseup', () => {
-                if (currentVelocity > 1) {
-                    playSound('spin');
-                }
-            });
-        });
+        window.addEventListener('DOMContentLoaded', initSpinner);
         
-        // Fungsi untuk suara (simulasi)
-        function playSound(type) {
-            // Ini hanya simulasi - di implementasi nyata bisa gunakan Web Audio API
-            if (type === 'start') {
-                // Suara klik awal
-            } else if (type === 'spin') {
-                // Suara putaran
-            }
-        }
-        
-        // Keyboard shortcuts untuk testing (hanya di development)
+        // Tambah keyboard controls untuk testing (bisa dihapus di production)
         document.addEventListener('keydown', (e) => {
-            // Hanya untuk testing - bukan bagian dari fungsionalitas utama
-            if (e.code === 'Space') {
-                // Simulasi putaran cepat untuk testing
-                currentVelocity = 15 + Math.random() * 10;
-                spinner.classList.add('spinning');
+            // Arrow keys untuk kontrol tepat
+            if (e.key === 'ArrowRight') {
+                currentRotation -= anglePerNumber;
+                spinner.style.transition = 'transform 0.3s ease';
+                spinner.style.transform = `rotate(${currentRotation}deg)`;
+                updateNumberAtPointer();
+                setTimeout(() => snapToNearestNumber(), 350);
             }
             
-            // Reset spinner
-            if (e.code === 'Escape') {
-                currentRotation = 0;
-                currentVelocity = 0;
-                spinner.style.transform = `rotate(0deg)`;
-                spinner.style.transition = 'transform 1s ease-out';
-                resultNumber.textContent = '-';
-                promptText.textContent = 'Putar spinner untuk mendapatkan angka dan prompt unik';
-                
-                // Hapus highlight
-                const sections = document.querySelectorAll('.spinner-section');
-                sections.forEach(section => {
-                    section.classList.remove('selected-section');
-                });
+            if (e.key === 'ArrowLeft') {
+                currentRotation += anglePerNumber;
+                spinner.style.transition = 'transform 0.3s ease';
+                spinner.style.transform = `rotate(${currentRotation}deg)`;
+                updateNumberAtPointer();
+                setTimeout(() => snapToNearestNumber(), 350);
+            }
+            
+            // Space untuk random (hanya testing)
+            if (e.key === ' ' && e.ctrlKey) {
+                const randomNum = Math.floor(Math.random() * 20) + 1;
+                const targetRotation = 360 - ((randomNum - 1) * anglePerNumber);
+                currentRotation = targetRotation;
+                spinner.style.transition = 'transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                spinner.style.transform = `rotate(${currentRotation}deg)`;
+                updateNumberAtPointer();
+                setTimeout(() => {
+                    selectedNumber = randomNum;
+                    displayResult();
+                    highlightExactNumber(randomNum - 1);
+                }, 1600);
             }
         });
     </script>
