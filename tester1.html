@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Red Spinner - Jarum Tepat</title>
+    <title>CHOOSE-PROMPT Spinner</title>
     <style>
         * {
             margin: 0;
@@ -17,12 +17,11 @@
         }
         
         body {
-            background: linear-gradient(135deg, #1a0000 0%, #0a0000 100%);
+            background: linear-gradient(135deg, #0a0000 0%, #1a0000 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             padding: 20px;
             overflow-x: hidden;
             color: white;
@@ -30,155 +29,89 @@
         
         .container {
             width: 100%;
-            max-width: 900px;
-            text-align: center;
-            position: relative;
-            z-index: 10;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
         
         header {
-            margin-bottom: 40px;
+            text-align: center;
+            margin-bottom: 20px;
         }
         
         h1 {
-            color: #fff;
-            font-size: 3rem;
-            margin-bottom: 15px;
+            color: #ff0000;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
             text-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             background: linear-gradient(to right, #ffcccc, #ff6666, #ff0000);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
-        .warning {
-            color: #ff0000;
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin: 15px 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-            border: 2px solid #ff0000;
-            padding: 10px 20px;
-            border-radius: 10px;
-            display: inline-block;
-            background: rgba(139, 0, 0, 0.2);
+        .subtitle {
+            color: #ff9999;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
         }
         
-        .spinner-wrapper {
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            width: 100%;
+        }
+        
+        @media (min-width: 1024px) {
+            .main-content {
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-start;
+            }
+        }
+        
+        /* WHEEL CONTAINER - SAMA SEPERTI WHEELOFNAMES */
+        .wheel-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             position: relative;
-            width: 450px;
-            height: 450px;
-            margin: 40px auto;
+            max-width: 600px;
         }
         
-        /* JARUM YANG SANGAT TEPAT DAN TIDAK BERGERAK */
-        .exact-pointer-container {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 100%;
-            z-index: 100;
-            pointer-events: none;
+        .wheel-wrapper {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin-bottom: 20px;
         }
         
-        .exact-pointer-line {
-            position: absolute;
-            width: 4px;
-            height: 230px;
-            background: linear-gradient(to bottom, 
-                rgba(255, 255, 255, 0.9) 0%,
-                rgba(255, 0, 0, 1) 30%,
-                rgba(255, 0, 0, 1) 70%,
-                rgba(255, 255, 255, 0.9) 100%);
-            top: 0;
-            left: 0;
-            box-shadow: 
-                0 0 15px rgba(255, 0, 0, 0.9),
-                0 0 30px rgba(255, 0, 0, 0.7);
-        }
-        
-        .exact-pointer-arrow {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-bottom: 25px solid #ff0000;
-            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.9));
-        }
-        
-        .exact-pointer-dot {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #ff0000;
-            border-radius: 50%;
-            top: -35px;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.9);
-            border: 3px solid white;
-        }
-        
-        /* GUIDE LINE UNTUK MEMASTIKAN KETEPATAN */
-        .guide-lines {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 90;
-        }
-        
-        .guide-line-vertical {
-            position: absolute;
-            width: 1px;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .guide-line-horizontal {
-            position: absolute;
-            width: 100%;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.2);
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        .spinner {
+        .wheel {
             width: 100%;
             height: 100%;
             border-radius: 50%;
             position: relative;
+            overflow: hidden;
             box-shadow: 
-                0 0 0 20px #5a0000,
+                0 0 0 15px #5a0000,
                 0 0 40px rgba(139, 0, 0, 0.8),
-                inset 0 0 60px rgba(0, 0, 0, 0.95);
-            transition: transform 0.1s linear;
+                inset 0 0 60px rgba(0, 0, 0, 0.9);
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.21, 0.99);
             background: #150000;
-            cursor: grab;
-            overflow: visible;
-            border: 10px solid #8b0000;
-            touch-action: none;
+            border: 12px solid #8b0000;
+            cursor: pointer;
         }
         
-        .spinner:active {
-            cursor: grabbing;
-        }
-        
-        .spinner-center {
+        .wheel-center {
             position: absolute;
             width: 60px;
             height: 60px;
@@ -189,12 +122,41 @@
             transform: translate(-50%, -50%);
             z-index: 30;
             box-shadow: 
-                0 0 30px rgba(255, 0, 0, 0.9),
-                inset 0 0 15px rgba(255, 255, 255, 0.4);
+                0 0 25px rgba(255, 0, 0, 0.9),
+                inset 0 0 10px rgba(255, 255, 255, 0.4);
             border: 6px solid white;
         }
         
-        .spinner-section {
+        /* POINTER SAMA SEPERTI WHEELOFNAMES */
+        .wheel-pointer {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid #ff0000;
+            z-index: 40;
+            filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.9));
+        }
+        
+        .wheel-pointer::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: #ff0000;
+            border-radius: 50%;
+            top: -52px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 12px rgba(255, 0, 0, 0.9);
+        }
+        
+        /* WHEEL SECTIONS - DARK RED THEME */
+        .wheel-section {
             position: absolute;
             width: 50%;
             height: 50%;
@@ -203,7 +165,7 @@
             clip-path: polygon(0 0, 100% 0, 100% 100%);
         }
         
-        .spinner-section-content {
+        .wheel-section-content {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -211,363 +173,319 @@
             align-items: center;
             justify-content: center;
             transform: rotate(45deg);
-            font-weight: 900;
+            font-weight: 700;
             color: white;
-            padding-left: 45px;
-            padding-bottom: 45px;
-            font-size: 26px;
+            padding-left: 40px;
+            padding-bottom: 40px;
+            font-size: 20px;
             text-shadow: 
-                2px 2px 4px rgba(0, 0, 0, 0.9),
-                0 0 15px rgba(255, 255, 255, 0.6);
-            letter-spacing: 1.5px;
-        }
-        
-        /* INDIKATOR ANGKA YANG SEDANG DI JARUM */
-        .number-indicator {
-            position: absolute;
-            top: -80px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 0, 0, 0.9);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-size: 1.8rem;
-            font-weight: 900;
-            z-index: 110;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
-            border: 3px solid white;
-            min-width: 80px;
+                2px 2px 3px rgba(0, 0, 0, 0.9),
+                0 0 8px rgba(255, 255, 255, 0.4);
+            letter-spacing: 0.5px;
             text-align: center;
-            pointer-events: none;
-        }
-        
-        .result-container {
-            background: linear-gradient(145deg, #2a0000, #1a0000);
-            border-radius: 20px;
-            padding: 35px;
-            margin: 40px auto;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.7),
-                inset 0 0 30px rgba(139, 0, 0, 0.3);
-            border: 3px solid #8b0000;
-            position: relative;
             overflow: hidden;
         }
         
-        .result-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            background: linear-gradient(to right, 
-                #ff0000, #ff6666, #ff0000);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
-        }
-        
-        .result-label {
-            color: #ffcccc;
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-        
-        .result-number {
-            font-size: 7rem;
-            color: #ff0000;
-            font-weight: 900;
-            text-align: center;
-            text-shadow: 
-                0 0 25px rgba(255, 0, 0, 0.9),
-                0 0 50px rgba(255, 0, 0, 0.5);
-            margin: 20px 0;
-            line-height: 1;
-        }
-        
-        .result-prompt {
-            background: rgba(26, 0, 0, 0.9);
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 25px;
-            border: 2px solid #8b0000;
-            text-align: left;
-            max-height: 220px;
-            overflow-y: auto;
-        }
-        
-        .prompt-text {
-            color: #ffcccc;
-            font-size: 1.1rem;
-            line-height: 1.7;
-            min-height: 100px;
-        }
-        
-        .instructions {
-            background: rgba(42, 0, 0, 0.8);
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 30px;
-            max-width: 700px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 2px solid #8b0000;
-        }
-        
-        .instructions h3 {
-            color: #ff6666;
-            margin-bottom: 20px;
-            font-size: 1.6rem;
-            text-shadow: 0 0 10px rgba(255, 102, 102, 0.5);
-        }
-        
-        .instructions p {
-            color: #ff9999;
-            line-height: 1.8;
-            font-size: 1.2rem;
-        }
-        
-        /* ANIMASI UNTUK ANGKA YANG TEPAT DI JARUM */
-        @keyframes exactMatch {
-            0%, 100% { 
-                transform: scale(1);
-                box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
-            }
-            50% { 
-                transform: scale(1.1);
-                box-shadow: 0 0 40px rgba(255, 0, 0, 0.9);
-            }
-        }
-        
-        .exact-match {
-            animation: exactMatch 0.5s 3;
-        }
-        
-        /* Warna angka di spinner */
-        .spinner-section:nth-child(odd) .spinner-section-content {
+        /* Warna section dalam tema dark red */
+        .wheel-section:nth-child(odd) .wheel-section-content {
             background: linear-gradient(135deg, 
                 rgba(139, 0, 0, 0.95) 0%,
                 rgba(178, 34, 34, 0.95) 100%);
         }
         
-        .spinner-section:nth-child(even) .spinner-section-content {
+        .wheel-section:nth-child(even) .wheel-section-content {
             background: linear-gradient(135deg, 
                 rgba(165, 42, 42, 0.95) 0%,
                 rgba(205, 92, 92, 0.95) 100%);
         }
         
-        .spinner-section:nth-child(3n) .spinner-section-content {
+        .wheel-section:nth-child(3n) .wheel-section-content {
             background: linear-gradient(135deg, 
                 rgba(128, 0, 0, 0.95) 0%,
                 rgba(160, 0, 0, 0.95) 100%);
         }
         
-        .spinner-section:nth-child(5n) .spinner-section-content {
+        .wheel-section:nth-child(5n) .wheel-section-content {
             background: linear-gradient(135deg, 
                 rgba(220, 20, 60, 0.95) 0%,
                 rgba(255, 99, 71, 0.95) 100%);
         }
         
-        /* Responsive */
+        /* RESULT DISPLAY - SEDERHANA */
+        .result-display {
+            background: linear-gradient(145deg, #2a0000, #1a0000);
+            border-radius: 15px;
+            padding: 25px;
+            width: 90%;
+            max-width: 550px;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.7),
+                inset 0 0 25px rgba(139, 0, 0, 0.3);
+            border: 3px solid #8b0000;
+            text-align: center;
+        }
+        
+        .result-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to right, 
+                #ff0000, #ff6666, #ff0000);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+        
+        .result-label {
+            color: #ffcccc;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .result-text {
+            color: #ff0000;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 0 0 12px rgba(255, 0, 0, 0.7);
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            word-break: break-word;
+            line-height: 1.5;
+        }
+        
+        /* CONTROL PANEL - HANYA TOMBOL */
+        .control-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            max-width: 300px;
+        }
+        
+        .spin-btn {
+            background: linear-gradient(to right, #8b0000, #b22222);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.4rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
+            font-weight: 600;
+            letter-spacing: 1px;
+            border: 3px solid #ff3333;
+            width: 100%;
+            max-width: 250px;
+        }
+        
+        .spin-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(139, 0, 0, 0.6);
+            background: linear-gradient(to right, #b22222, #8b0000);
+        }
+        
+        .spin-btn:active {
+            transform: translateY(-2px);
+        }
+        
+        .spin-btn:disabled {
+            background: linear-gradient(to right, #555, #333);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            border-color: #666;
+        }
+        
+        .instructions {
+            color: #ff9999;
+            font-size: 1rem;
+            text-align: center;
+            line-height: 1.6;
+            padding: 15px;
+            background: rgba(42, 0, 0, 0.5);
+            border-radius: 10px;
+            border: 1px solid #8b0000;
+        }
+        
+        /* ANIMATIONS */
+        @keyframes wheelSpin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(var(--final-rotation));
+            }
+        }
+        
+        .spinning {
+            animation: wheelSpin 4s cubic-bezier(0.17, 0.67, 0.21, 0.99) forwards;
+        }
+        
+        @keyframes resultPop {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .result-pop {
+            animation: resultPop 0.5s ease-out forwards;
+        }
+        
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .spinner-wrapper {
+            .wheel-wrapper {
                 width: 350px;
                 height: 350px;
             }
             
-            .exact-pointer-line {
-                height: 180px;
-            }
-            
-            .spinner-section-content {
-                font-size: 20px;
-                padding-left: 35px;
-                padding-bottom: 35px;
-            }
-            
-            .result-number {
-                font-size: 5rem;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .warning {
-                font-size: 1.1rem;
-                padding: 8px 15px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .spinner-wrapper {
-                width: 300px;
-                height: 300px;
-            }
-            
-            .exact-pointer-line {
-                height: 150px;
-            }
-            
-            .spinner-section-content {
-                font-size: 18px;
+            .wheel-section-content {
+                font-size: 16px;
                 padding-left: 30px;
                 padding-bottom: 30px;
             }
             
-            .result-number {
-                font-size: 4rem;
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .result-text {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .wheel-wrapper {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .wheel-section-content {
+                font-size: 14px;
+                padding-left: 25px;
+                padding-bottom: 25px;
             }
             
             h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
-            .number-indicator {
-                font-size: 1.4rem;
-                padding: 10px 20px;
-                top: -70px;
+            .result-text {
+                font-size: 1.3rem;
             }
         }
         
-        /* Efek visual */
+        /* BACKGROUND EFFECTS */
         .blood-effect {
-            position: absolute;
+            position: fixed;
             border-radius: 50%;
             opacity: 0.1;
-            z-index: 1;
+            z-index: -1;
             background: radial-gradient(circle, #ff0000, #8b0000);
-            filter: blur(8px);
+            filter: blur(20px);
         }
         
         .blood-1 {
-            width: 120px;
-            height: 120px;
+            width: 200px;
+            height: 200px;
             top: 10%;
             left: 5%;
-            animation: floatBlood 25s infinite ease-in-out;
+            animation: floatEffect 25s infinite ease-in-out;
         }
         
         .blood-2 {
-            width: 180px;
-            height: 180px;
-            bottom: 15%;
-            right: 8%;
-            animation: floatBlood 30s infinite ease-in-out reverse;
+            width: 300px;
+            height: 300px;
+            bottom: 10%;
+            right: 5%;
+            animation: floatEffect 30s infinite ease-in-out reverse;
         }
         
-        @keyframes floatBlood {
+        @keyframes floatEffect {
             0%, 100% {
-                transform: translateY(0) rotate(0deg) scale(1);
+                transform: translate(0, 0) rotate(0deg);
             }
-            50% {
-                transform: translateY(-60px) rotate(180deg) scale(1.2);
+            33% {
+                transform: translate(30px, -40px) rotate(120deg);
+            }
+            66% {
+                transform: translate(-20px, 20px) rotate(240deg);
             }
         }
         
-        /* SNAP INDICATOR - menunjukkan ketika tepat di jarum */
-        .snap-indicator {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 450px;
-            height: 450px;
-            border-radius: 50%;
-            border: 3px solid rgba(0, 255, 0, 0.5);
-            pointer-events: none;
-            opacity: 0;
-            z-index: 80;
-            transition: opacity 0.3s;
-        }
-        
-        .snap-active {
-            opacity: 1;
-            animation: snapPulse 0.5s;
-        }
-        
-        @keyframes snapPulse {
-            0%, 100% { 
-                border-width: 3px;
-                opacity: 0.5;
-            }
-            50% { 
-                border-width: 6px;
-                opacity: 0.8;
-            }
+        /* PROMOT INFO */
+        .prompt-info {
+            color: #ff6666;
+            font-size: 1rem;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <!-- Efek darah -->
+    <!-- Background effects -->
     <div class="blood-effect blood-1"></div>
     <div class="blood-effect blood-2"></div>
     
     <div class="container">
         <header>
-            <h1>DARK RED SPINNER - JARUM TEPAT</h1>
-            <div class="warning">HANYA ANGKA YANG TEPAT SEGARIS DENGAN JARUM YANG TERPILIH!</div>
-            <p style="color: #ff9999; font-size: 1.2rem; max-width: 800px; margin: 20px auto;">
-                Putar spinner dengan sentuhan. Angka hanya terpilih jika BERPAPASAN TEPAT dengan garis jarum merah di atas.
-            </p>
+            <h1>CHOOSE-PROMPT</h1>
+            <p class="subtitle">Spinner dengan sistem kerja sama persis seperti Wheel of Names. 20 prompt tetap dalam bahasa Indonesia.</p>
+            <p class="prompt-info">Terdapat 20 prompt cerita tetap yang tidak dapat diubah</p>
         </header>
         
-        <div class="spinner-wrapper">
-            <!-- Garis panduan -->
-            <div class="guide-lines">
-                <div class="guide-line-vertical"></div>
-                <div class="guide-line-horizontal"></div>
+        <div class="main-content">
+            <!-- WHEEL SECTION -->
+            <div class="wheel-container">
+                <div class="wheel-wrapper">
+                    <div class="wheel-pointer"></div>
+                    <div class="wheel" id="wheel">
+                        <!-- Wheel sections akan dibuat oleh JavaScript -->
+                    </div>
+                    <div class="wheel-center"></div>
+                </div>
+                
+                <div class="result-display">
+                    <div class="result-label">PROMPT TERPILIH:</div>
+                    <div class="result-text" id="result-text">Klik tombol SPIN atau klik langsung roda untuk mulai</div>
+                </div>
             </div>
             
-            <!-- JARUM TEPAT DI ATAS -->
-            <div class="exact-pointer-container">
-                <div class="exact-pointer-dot"></div>
-                <div class="exact-pointer-arrow"></div>
-                <div class="exact-pointer-line"></div>
+            <!-- CONTROL PANEL -->
+            <div class="control-panel">
+                <button class="spin-btn" id="spin-btn">
+                    <i class="fas fa-redo-alt"></i> SPIN
+                </button>
+                
+                <div class="instructions">
+                    <p><strong>Cara penggunaan:</strong></p>
+                    <p>1. Klik tombol SPIN atau klik langsung roda</p>
+                    <p>2. Tunggu sampai roda berhenti berputar</p>
+                    <p>3. Prompt yang terpilih akan ditampilkan</p>
+                    <p>4. Gunakan prompt untuk inspirasi cerita</p>
+                    <p style="margin-top: 10px; color: #ffcccc; font-size: 0.9rem;">
+                        <i>Menggunakan sistem acak kriptografi seperti Wheel of Names</i>
+                    </p>
+                </div>
             </div>
-            
-            <!-- Indikator angka yang sedang di jarum -->
-            <div class="number-indicator" id="number-indicator">-</div>
-            
-            <!-- Snap indicator -->
-            <div class="snap-indicator" id="snap-indicator"></div>
-            
-            <!-- Spinner -->
-            <div class="spinner" id="spinner">
-                <!-- Angka 1-20 akan dibuat oleh JavaScript -->
-            </div>
-            
-            <!-- Titik tengah spinner -->
-            <div class="spinner-center"></div>
-        </div>
-        
-        <div class="result-container">
-            <div class="result-label">ANGKA YANG TEPAT DI JARUM:</div>
-            <div class="result-number" id="result-number">-</div>
-            
-            <div class="result-label">PROMPT CERITA:</div>
-            <div class="result-prompt">
-                <div class="prompt-text" id="prompt-text">Putar spinner sampai angka tepat segaris dengan jarum merah di atas</div>
-            </div>
-        </div>
-        
-        <div class="instructions">
-            <h3>PERATURAN TEPAT:</h3>
-            <p>1. JARUM TETAP DI POSISI ATAS (12 jam) - TIDAK BERGERAK<br>
-               2. SPINNER BERPUTAR SAAT DISENTUH/DIGESER<br>
-               3. ANGKA HANYA TERPILIH JIKA TEPAT BERPAPASAN DENGAN GARIS JARUM<br>
-               4. TIDAK ADA OPSI ACAK - ANDA KENDALIKAN PUTARAN<br>
-               5. INDIKATOR ANGKA MENUNJUKKAN ANGKA YANG SEDANG DI JARUM<br>
-               6. PUTAR PELAN-PELAN UNTUK KETEPATAN MAKSIMAL</p>
         </div>
     </div>
 
     <script>
-        // Prompt untuk setiap angka (1-20)
-        const prompts = [
+        // 20 PROMPT TETAP DALAM BAHASA INDONESIA
+        const PROMPTS = [
             "Seorang ilmuwan menemukan cara berkomunikasi dengan tanaman yang memperingatkan ancaman global. Haruskah dia mempercayai mereka dan mengambil tindakan?",
             "Di dunia di mana setiap orang memiliki jam kematian di pergelangan tangan, seseorang menemukan jam mereka berhenti. Apakah ini keabadian atau kesalahan?",
             "Karakter utama bermimpi kehidupan berbeda setiap malam, lalu bertemu orang dari mimpi itu di dunia nyata. Apakah mimpi itu dunia paralel?",
@@ -580,362 +498,155 @@
             "Di dunia tanpa perang, semua konflik diselesaikan lewat permainan kompetitif. Sang juara tak terkalahkan mulai mempertanyakan moralitas sistem ini.",
             "Setiap kali tidur, karakter utama bangun di tubuh orang berbeda. Mereka harus selesaikan misi sebelum tertidur lagi atau terjebak selamanya.",
             "Portal ke dunia fantasi terbuka di tengah kota. Seorang polisi biasa harus menjaga ketertiban saat makhluk ajaib memasuki dunia kita.",
-            "Orang-orang dapat kekuatan super berdasarkan kepribadian. Karakter utama dapat kekuatan yang tampak tidak berguna sampai dia temukan aplikasi mengejutkan.",
-            "Sejarah ternyata program komputer yang sedang di-debug. Karakter utama adalah bug yang sadar eksistensinya dan harus hindari 'debugger'.",
+            "Orang-orang dapat kekuatan super berdasarkan kepribadian mereka. Karakter utama dapat kekuatan yang tampak tidak berguna sampai dia temukan aplikasi yang mengejutkan.",
+            "Sejarah ternyata adalah program komputer yang sedang di-debug. Karakter utama adalah bug yang sadar eksistensinya dan harus hindari 'debugger'.",
             "Setiap kata yang diucapkan muncul sebagai simbol di udara. Karakter utama menemukan dia bisa membaca simbol semua orang dengan makna berbeda.",
             "Waktu berjalan lebih cepat di beberapa wilayah Bumi. Seseorang tinggal di perbatasan zona waktu normal dan cepat, mengalami dua realitas sekaligus.",
-            "Emosi manusia bisa dikristalisasi jadi benda fisik dengan kekuatan magis. Seorang kolektor tidak sengaja temukan kristal berisi emosi terlarang.",
+            "Emosi manusia bisa dikristalisasi menjadi benda fisik dengan kekuatan magis. Seorang kolektor tidak sengaja temukan kristal berisi emosi terlarang.",
             "Setiap bulan purnama, semua orang berubah jadi versi ideal diri mereka. Satu orang tidak berubah, menyadari dia sudah jadi versi idealnya.",
             "Buku di perpustakaan tertentu bisa bawa pembaca masuk ke dunia dalam cerita. Seorang pustakawan harus selamatkan orang yang terjebak dalam buku.",
             "Suara batin semua orang tiba-tiba bisa didengar orang lain. Masyarakat kacau saat orang berjuang bedakan antara pikiran pribadi dan ucapan publik."
         ];
         
         // DOM Elements
-        const spinner = document.getElementById('spinner');
-        const resultNumber = document.getElementById('result-number');
-        const promptText = document.getElementById('prompt-text');
-        const numberIndicator = document.getElementById('number-indicator');
-        const snapIndicator = document.getElementById('snap-indicator');
+        const wheel = document.getElementById('wheel');
+        const spinBtn = document.getElementById('spin-btn');
+        const resultText = document.getElementById('result-text');
         
-        // Variables
+        // State variables
+        let isSpinning = false;
         let currentRotation = 0;
-        let isDragging = false;
-        let startX = 0;
-        let startY = 0;
-        let startRotation = 0;
-        let selectedNumber = 0;
-        let lastNumberAtPointer = 0;
-        const totalNumbers = 20;
-        const anglePerNumber = 360 / totalNumbers; // 18 derajat per angka
         
-        // Initialize spinner dengan angka 1-20
-        function initSpinner() {
-            spinner.innerHTML = '';
+        // Initialize wheel dengan 20 prompt tetap
+        function initializeWheel() {
+            wheel.innerHTML = '';
             
-            for (let i = 0; i < totalNumbers; i++) {
+            const totalSections = PROMPTS.length;
+            const anglePerSection = 360 / totalSections;
+            
+            for (let i = 0; i < totalSections; i++) {
                 const section = document.createElement('div');
-                section.className = 'spinner-section';
-                section.style.transform = `rotate(${i * anglePerNumber}deg)`;
+                section.className = 'wheel-section';
+                section.style.transform = `rotate(${i * anglePerSection}deg)`;
                 
                 const content = document.createElement('div');
-                content.className = 'spinner-section-content';
-                content.textContent = i + 1; // Angka 1-20
-                content.id = `number-${i + 1}`;
+                content.className = 'wheel-section-content';
+                content.textContent = `${i + 1}`; // Tampilkan angka saja
+                content.title = PROMPTS[i]; // Tooltip dengan prompt lengkap
                 
                 section.appendChild(content);
-                spinner.appendChild(section);
+                wheel.appendChild(section);
             }
             
             // Setup event listeners
             setupEventListeners();
-            
-            // Update angka di indikator
-            updateNumberAtPointer();
         }
         
-        // Setup event listeners untuk mouse dan touch
+        // Setup event listeners
         function setupEventListeners() {
-            // Mouse events
-            spinner.addEventListener('mousedown', startDrag);
-            document.addEventListener('mousemove', drag);
-            document.addEventListener('mouseup', endDrag);
+            // Spin button
+            spinBtn.addEventListener('click', spinWheel);
             
-            // Touch events
-            spinner.addEventListener('touchstart', handleTouchStart);
-            spinner.addEventListener('touchmove', handleTouchMove);
-            spinner.addEventListener('touchend', handleTouchEnd);
-            
-            // Prevent default touch actions
-            spinner.addEventListener('touchstart', (e) => e.preventDefault());
-        }
-        
-        // Mulai drag dengan mouse
-        function startDrag(e) {
-            e.preventDefault();
-            isDragging = true;
-            startX = e.clientX;
-            startY = e.clientY;
-            startRotation = currentRotation;
-            spinner.style.cursor = 'grabbing';
-            spinner.style.transition = 'none';
-        }
-        
-        // Drag dengan mouse
-        function drag(e) {
-            if (!isDragging) return;
-            e.preventDefault();
-            
-            const deltaX = e.clientX - startX;
-            const deltaY = e.clientY - startY;
-            
-            // Hitung perubahan rotasi berdasarkan pergerakan mouse
-            // Sensitivitas disesuaikan untuk kontrol yang tepat
-            const rotationChange = (deltaX + deltaY) * 0.5;
-            
-            // Update rotasi
-            currentRotation = startRotation + rotationChange;
-            
-            // Terapkan rotasi
-            spinner.style.transform = `rotate(${currentRotation}deg)`;
-            
-            // Update angka yang sedang di jarum
-            updateNumberAtPointer();
-            
-            // Cek apakah ada angka yang tepat di jarum
-            checkExactMatch();
-        }
-        
-        // Akhiri drag dengan mouse
-        function endDrag(e) {
-            if (!isDragging) return;
-            isDragging = false;
-            spinner.style.cursor = 'grab';
-            
-            // Snap ke angka terdekat jika dekat
-            snapToNearestNumber();
-        }
-        
-        // Handle touch start
-        function handleTouchStart(e) {
-            e.preventDefault();
-            if (e.touches.length === 1) {
-                isDragging = true;
-                startX = e.touches[0].clientX;
-                startY = e.touches[0].clientY;
-                startRotation = currentRotation;
-                spinner.style.transition = 'none';
-            }
-        }
-        
-        // Handle touch move
-        function handleTouchMove(e) {
-            if (!isDragging || e.touches.length !== 1) return;
-            e.preventDefault();
-            
-            const deltaX = e.touches[0].clientX - startX;
-            const deltaY = e.touches[0].clientY - startY;
-            
-            // Hitung perubahan rotasi
-            const rotationChange = (deltaX + deltaY) * 0.7;
-            
-            // Update rotasi
-            currentRotation = startRotation + rotationChange;
-            
-            // Terapkan rotasi
-            spinner.style.transform = `rotate(${currentRotation}deg)`;
-            
-            // Update angka yang sedang di jarum
-            updateNumberAtPointer();
-            
-            // Cek apakah ada angka yang tepat di jarum
-            checkExactMatch();
-        }
-        
-        // Handle touch end
-        function handleTouchEnd(e) {
-            if (!isDragging) return;
-            isDragging = false;
-            
-            // Snap ke angka terdekat jika dekat
-            snapToNearestNumber();
-        }
-        
-        // Update angka yang sedang berada di jarum
-        function updateNumberAtPointer() {
-            // Normalisasi rotasi ke 0-360
-            let normalizedRotation = currentRotation % 360;
-            if (normalizedRotation < 0) normalizedRotation += 360;
-            
-            // Jarum di posisi 0 derajat (atas)
-            // Hitung angka mana yang ada di posisi 0 derajat
-            // Rumus: (360 - rotasi) / 18 derajat per angka
-            let numberAtPointer = Math.round((360 - normalizedRotation) / anglePerNumber) % totalNumbers;
-            numberAtPointer = (numberAtPointer + totalNumbers) % totalNumbers;
-            
-            // Konversi ke 1-20 (bukan 0-19)
-            let displayNumber = numberAtPointer + 1;
-            
-            // Update indikator
-            numberIndicator.textContent = displayNumber;
-            lastNumberAtPointer = displayNumber;
-        }
-        
-        // Cek apakah ada angka yang tepat segaris dengan jarum
-        function checkExactMatch() {
-            // Normalisasi rotasi
-            let normalizedRotation = currentRotation % 360;
-            if (normalizedRotation < 0) normalizedRotation += 360;
-            
-            // Hitung offset dari angka terdekat
-            let angleOffset = (360 - normalizedRotation) % anglePerNumber;
-            if (angleOffset > anglePerNumber / 2) angleOffset = anglePerNumber - angleOffset;
-            
-            // Jika offset sangat kecil (kurang dari 0.5 derajat), berarti tepat segaris
-            const tolerance = 0.5; // derajat
-            
-            if (angleOffset < tolerance) {
-                // Tampilkan snap indicator
-                snapIndicator.classList.add('snap-active');
-                
-                // Dapatkan angka yang tepat
-                let exactNumber = Math.round((360 - normalizedRotation) / anglePerNumber) % totalNumbers;
-                exactNumber = (exactNumber + totalNumbers) % totalNumbers;
-                exactNumber += 1;
-                
-                // Update indikator dengan warna hijau
-                numberIndicator.style.background = 'rgba(0, 255, 0, 0.9)';
-                numberIndicator.style.boxShadow = '0 0 20px rgba(0, 255, 0, 0.7)';
-                
-                // Jika angka ini berbeda dengan sebelumnya, update hasil
-                if (selectedNumber !== exactNumber) {
-                    selectedNumber = exactNumber;
-                    displayResult();
-                }
-            } else {
-                // Reset snap indicator
-                snapIndicator.classList.remove('snap-active');
-                numberIndicator.style.background = 'rgba(255, 0, 0, 0.9)';
-                numberIndicator.style.boxShadow = '0 0 20px rgba(255, 0, 0, 0.7)';
-            }
-        }
-        
-        // Snap ke angka terdekat
-        function snapToNearestNumber() {
-            // Normalisasi rotasi
-            let normalizedRotation = currentRotation % 360;
-            if (normalizedRotation < 0) normalizedRotation += 360;
-            
-            // Hitung angka terdekat
-            let targetNumber = Math.round((360 - normalizedRotation) / anglePerNumber) % totalNumbers;
-            targetNumber = (targetNumber + totalNumbers) % totalNumbers;
-            
-            // Hitung rotasi target
-            let targetRotation = 360 - (targetNumber * anglePerNumber);
-            
-            // Animasikan ke posisi target
-            spinner.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-            spinner.style.transform = `rotate(${targetRotation}deg)`;
-            
-            // Update rotasi saat ini
-            currentRotation = targetRotation;
-            
-            // Update angka di indikator
-            updateNumberAtPointer();
-            
-            // Set angka yang terpilih
-            selectedNumber = targetNumber + 1;
-            
-            // Tampilkan hasil setelah animasi selesai
-            setTimeout(() => {
-                displayResult();
-                
-                // Highlight angka yang tepat
-                highlightExactNumber(targetNumber);
-            }, 600);
-        }
-        
-        // Highlight angka yang tepat di jarum
-        function highlightExactNumber(numberIndex) {
-            // Reset semua highlight
-            const sections = document.querySelectorAll('.spinner-section-content');
-            sections.forEach(section => {
-                section.style.filter = 'none';
-                section.style.transform = 'rotate(45deg)';
+            // Wheel click juga bisa spin (seperti Wheel of Names)
+            wheel.addEventListener('click', () => {
+                if (!isSpinning) spinWheel();
             });
             
-            // Highlight angka yang tepat
-            const exactSection = document.getElementById(`number-${numberIndex + 1}`);
-            if (exactSection) {
-                exactSection.style.filter = 'brightness(1.5) drop-shadow(0 0 15px white)';
-                exactSection.style.transform = 'rotate(45deg) scale(1.1)';
-                exactSection.parentElement.classList.add('exact-match');
-                
-                // Hapus animasi setelah selesai
-                setTimeout(() => {
-                    exactSection.parentElement.classList.remove('exact-match');
-                }, 1500);
-            }
+            // Keyboard shortcut (Space) seperti Wheel of Names
+            document.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' && !isSpinning) {
+                    e.preventDefault();
+                    spinWheel();
+                }
+            });
         }
         
-        // Tampilkan hasil
-        function displayResult() {
-            // Update angka hasil
-            resultNumber.textContent = selectedNumber;
+        // SISTEM SPIN SAMA PERSIS WHEELOFNAMES
+        function spinWheel() {
+            if (isSpinning) return;
             
-            // Animasi muncul
-            resultNumber.style.animation = 'none';
+            isSpinning = true;
+            spinBtn.disabled = true;
+            
+            // 1. GUNAKAN CRYPTO.GETRANDOMVALUES() seperti Wheel of Names
+            // Ini adalah fungsi kriptografi untuk keacakan yang sebenarnya
+            const randomValues = new Uint32Array(3);
+            crypto.getRandomValues(randomValues);
+            
+            // 2. TENTUKAN PEMENANG SECARA ACAK - setiap prompt peluang sama
+            const baseRandom = randomValues[0] / 4294967295; // Normalize to 0-1
+            const winnerIndex = Math.floor(baseRandom * PROMPTS.length);
+            const winnerPrompt = PROMPTS[winnerIndex];
+            
+            // 3. HITUNG ROTASI dengan fisika realistis seperti Wheel of Names
+            const extraRandom = randomValues[1] / 4294967295;
+            const velocityRandom = randomValues[2] / 4294967295;
+            
+            const fullRotations = 5 + Math.floor(extraRandom * 3); // 5-7 putaran penuh
+            const anglePerSection = 360 / PROMPTS.length;
+            
+            // Hitung posisi agar winner tepat di pointer (atas/0 derajat)
+            const targetSectionAngle = winnerIndex * anglePerSection;
+            const offsetFromPointer = 360 - targetSectionAngle;
+            
+            // Variasi natural untuk efek fisik yang realistis
+            const naturalVariance = (velocityRandom - 0.5) * (anglePerSection * 0.2);
+            const finalRotation = currentRotation + (360 * fullRotations) + offsetFromPointer + naturalVariance;
+            
+            // 4. ANIMASI PUTARAN dengan easing curve seperti Wheel of Names
+            wheel.style.setProperty('--final-rotation', `${finalRotation}deg`);
+            wheel.classList.remove('spinning');
+            void wheel.offsetWidth; // Trigger reflow
+            wheel.classList.add('spinning');
+            
+            // 5. UPDATE STATE
+            currentRotation = finalRotation % 360;
+            
+            // 6. TAMPILKAN HASIL setelah putaran selesai
             setTimeout(() => {
-                resultNumber.style.animation = 'exactMatch 0.5s 3';
-            }, 10);
-            
-            // Update prompt
-            promptText.textContent = prompts[selectedNumber - 1];
-            
-            // Tambah efek suara (simulasi)
-            playSelectSound();
+                // Tampilkan hasil dengan animasi
+                resultText.textContent = winnerPrompt;
+                resultText.classList.remove('result-pop');
+                void resultText.offsetWidth;
+                resultText.classList.add('result-pop');
+                
+                // Reset state
+                isSpinning = false;
+                spinBtn.disabled = false;
+                
+                // Highlight section yang menang
+                highlightWinnerSection(winnerIndex);
+            }, 4000); // Sesuai durasi animasi CSS
         }
         
-        // Play sound effect
-        function playSelectSound() {
-            // Simulasi suara klik
-            try {
-                // Create a simple click sound using Web Audio API
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
+        // Highlight section pemenang
+        function highlightWinnerSection(index) {
+            // Reset semua highlight
+            const sections = document.querySelectorAll('.wheel-section-content');
+            sections.forEach(section => {
+                section.style.filter = 'none';
+            });
+            
+            // Highlight pemenang
+            if (sections[index]) {
+                sections[index].style.filter = 'brightness(1.4)';
                 
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                oscillator.frequency.value = 800;
-                oscillator.type = 'sine';
-                
-                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-                
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.1);
-            } catch (e) {
-                console.log("Audio not supported");
+                // Reset highlight setelah beberapa saat
+                setTimeout(() => {
+                    sections[index].style.filter = 'none';
+                }, 3000);
             }
         }
         
         // Initialize saat halaman dimuat
-        window.addEventListener('DOMContentLoaded', initSpinner);
-        
-        // Tambah keyboard controls untuk testing (bisa dihapus di production)
-        document.addEventListener('keydown', (e) => {
-            // Arrow keys untuk kontrol tepat
-            if (e.key === 'ArrowRight') {
-                currentRotation -= anglePerNumber;
-                spinner.style.transition = 'transform 0.3s ease';
-                spinner.style.transform = `rotate(${currentRotation}deg)`;
-                updateNumberAtPointer();
-                setTimeout(() => snapToNearestNumber(), 350);
-            }
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeWheel();
             
-            if (e.key === 'ArrowLeft') {
-                currentRotation += anglePerNumber;
-                spinner.style.transition = 'transform 0.3s ease';
-                spinner.style.transform = `rotate(${currentRotation}deg)`;
-                updateNumberAtPointer();
-                setTimeout(() => snapToNearestNumber(), 350);
-            }
-            
-            // Space untuk random (hanya testing)
-            if (e.key === ' ' && e.ctrlKey) {
-                const randomNum = Math.floor(Math.random() * 20) + 1;
-                const targetRotation = 360 - ((randomNum - 1) * anglePerNumber);
-                currentRotation = targetRotation;
-                spinner.style.transition = 'transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                spinner.style.transform = `rotate(${currentRotation}deg)`;
-                updateNumberAtPointer();
-                setTimeout(() => {
-                    selectedNumber = randomNum;
-                    displayResult();
-                    highlightExactNumber(randomNum - 1);
-                }, 1600);
-            }
+            // Tambahkan FontAwesome untuk ikon
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+            document.head.appendChild(link);
         });
     </script>
 </body>
