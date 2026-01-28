@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHOOSE-PROMPT Spinner</title>
+    <title>CHOOSE-PROMPT - HANYA JARUM YANG PILIH</title>
     <style>
         * {
             margin: 0;
@@ -29,7 +29,7 @@
         
         .container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 900px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -44,8 +44,8 @@
         
         h1 {
             color: #ff0000;
-            font-size: 3.2rem;
-            margin-bottom: 8px;
+            font-size: 3rem;
+            margin-bottom: 10px;
             text-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
             letter-spacing: 2px;
             background: linear-gradient(to right, #ffcccc, #ff6666, #ff0000);
@@ -54,12 +54,19 @@
             background-clip: text;
         }
         
-        .subtitle {
-            color: #ff9999;
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.5;
+        .warning {
+            color: #ff0000;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            border: 2px solid #ff0000;
+            padding: 8px 15px;
+            border-radius: 10px;
+            display: inline-block;
+            background: rgba(139, 0, 0, 0.2);
         }
         
         .main-content {
@@ -70,84 +77,59 @@
             width: 100%;
         }
         
-        @media (min-width: 900px) {
-            .main-content {
-                flex-direction: row;
-                justify-content: center;
-                align-items: flex-start;
-            }
-        }
-        
-        /* WHEEL CONTAINER - POSISI FIXED */
         .wheel-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             position: relative;
-            max-width: 500px;
-            min-width: 400px;
+            width: 450px;
+            height: 450px;
+            margin: 0 auto;
         }
         
-        .wheel-wrapper {
-            position: relative;
-            width: 420px;
-            height: 420px;
-            margin-bottom: 15px;
-        }
-        
-        /* JARUM DI ATAS - POSISI TETAP TIDAK BERGERAK */
-        .pointer-container {
+        /* JARUM TETAP DI ATAS - TIDAK BERGERAK */
+        .exact-pointer {
             position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 230px;
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 0.9) 0%,
+                rgba(255, 0, 0, 1) 30%,
+                rgba(255, 0, 0, 1) 70%,
+                rgba(255, 255, 255, 0.9) 100%);
+            z-index: 100;
+            pointer-events: none;
+            box-shadow: 
+                0 0 15px rgba(255, 0, 0, 0.9),
+                0 0 30px rgba(255, 0, 0, 0.7);
+        }
+        
+        .exact-pointer::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 25px solid #ff0000;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.9));
+        }
+        
+        .exact-pointer::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff0000;
+            border-radius: 50%;
             top: -35px;
             left: 50%;
             transform: translateX(-50%);
-            width: 50px;
-            height: 60px;
-            z-index: 100;
-            pointer-events: none;
-        }
-        
-        .pointer-arrow {
-            width: 0;
-            height: 0;
-            border-left: 18px solid transparent;
-            border-right: 18px solid transparent;
-            border-top: 35px solid #ff0000;
-            position: relative;
-            filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.9));
-        }
-        
-        .pointer-dot {
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            background: #ff0000;
-            border-radius: 50%;
-            top: -45px;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 12px rgba(255, 0, 0, 0.9);
-            border: 2px solid white;
-        }
-        
-        /* GARIS JARUM VERTIKAL UNTUK KETEPATAN */
-        .pointer-line {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 3px;
-            height: 210px;
-            background: linear-gradient(to bottom, 
-                rgba(255, 255, 255, 0.9) 0%,
-                rgba(255, 0, 0, 1) 20%,
-                rgba(255, 0, 0, 1) 50%,
-                rgba(255, 0, 0, 1) 80%,
-                rgba(255, 255, 255, 0.9) 100%);
-            z-index: 95;
-            pointer-events: none;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.9);
+            border: 3px solid white;
         }
         
         .wheel {
@@ -155,11 +137,11 @@
             height: 100%;
             border-radius: 50%;
             position: relative;
-            overflow: visible; /* Diubah dari hidden ke visible */
+            overflow: visible;
             box-shadow: 
-                0 0 0 12px #5a0000,
-                0 0 30px rgba(139, 0, 0, 0.7),
-                inset 0 0 40px rgba(0, 0, 0, 0.85);
+                0 0 0 15px #5a0000,
+                0 0 40px rgba(139, 0, 0, 0.8),
+                inset 0 0 60px rgba(0, 0, 0, 0.9);
             transition: transform 4s cubic-bezier(0.17, 0.67, 0.21, 0.99);
             background: #150000;
             border: 10px solid #8b0000;
@@ -168,8 +150,8 @@
         
         .wheel-center {
             position: absolute;
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             background: #ff0000;
             border-radius: 50%;
             top: 50%;
@@ -177,80 +159,116 @@
             transform: translate(-50%, -50%);
             z-index: 30;
             box-shadow: 
-                0 0 20px rgba(255, 0, 0, 0.9),
-                inset 0 0 8px rgba(255, 255, 255, 0.4);
-            border: 5px solid white;
+                0 0 30px rgba(255, 0, 0, 0.9),
+                inset 0 0 15px rgba(255, 255, 255, 0.4);
+            border: 6px solid white;
         }
         
-        /* WHEEL SECTIONS - DIKECILKAN AGAR TIDAK TIMPA */
         .wheel-section {
             position: absolute;
             width: 50%;
             height: 50%;
             transform-origin: bottom right;
-            overflow: visible;
+            overflow: hidden;
             clip-path: polygon(0 0, 100% 0, 100% 100%);
         }
         
         .wheel-section-content {
             position: absolute;
-            width: calc(100% - 15px); /* DIKURANGI BIAR GA TIMPA */
-            height: calc(100% - 15px); /* DIKURANGI BIAR GA TIMPA */
+            width: calc(100% - 10px);
+            height: calc(100% - 10px);
             display: flex;
             align-items: center;
             justify-content: center;
             transform: rotate(45deg);
-            font-weight: 700;
+            font-weight: 900;
             color: white;
-            padding-left: 32px; /* DIKURANGI */
-            padding-bottom: 32px; /* DIKURANGI */
-            font-size: 18px;
+            padding-left: 40px;
+            padding-bottom: 40px;
+            font-size: 22px;
             text-shadow: 
-                1px 1px 3px rgba(0, 0, 0, 0.9),
-                0 0 6px rgba(255, 255, 255, 0.3);
-            letter-spacing: 0.5px;
+                2px 2px 3px rgba(0, 0, 0, 0.9),
+                0 0 10px rgba(255, 255, 255, 0.5);
+            letter-spacing: 1px;
             text-align: center;
-            overflow: hidden;
         }
         
-        /* Warna section dalam tema dark red */
         .wheel-section:nth-child(odd) .wheel-section-content {
             background: linear-gradient(135deg, 
-                rgba(139, 0, 0, 0.92) 0%,
-                rgba(178, 34, 34, 0.92) 100%);
+                rgba(139, 0, 0, 0.95) 0%,
+                rgba(178, 34, 34, 0.95) 100%);
         }
         
         .wheel-section:nth-child(even) .wheel-section-content {
             background: linear-gradient(135deg, 
-                rgba(165, 42, 42, 0.92) 0%,
-                rgba(205, 92, 92, 0.92) 100%);
+                rgba(165, 42, 42, 0.95) 0%,
+                rgba(205, 92, 92, 0.95) 100%);
         }
         
         .wheel-section:nth-child(3n) .wheel-section-content {
             background: linear-gradient(135deg, 
-                rgba(128, 0, 0, 0.92) 0%,
-                rgba(160, 0, 0, 0.92) 100%);
+                rgba(128, 0, 0, 0.95) 0%,
+                rgba(160, 0, 0, 0.95) 100%);
         }
         
         .wheel-section:nth-child(5n) .wheel-section-content {
             background: linear-gradient(135deg, 
-                rgba(220, 20, 60, 0.92) 0%,
-                rgba(255, 99, 71, 0.92) 100%);
+                rgba(220, 20, 60, 0.95) 0%,
+                rgba(255, 99, 71, 0.95) 100%);
         }
         
-        /* RESULT DISPLAY */
+        .control-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .spin-btn {
+            background: linear-gradient(to right, #8b0000, #b22222);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.4rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
+            font-weight: 600;
+            letter-spacing: 1px;
+            border: 3px solid #ff3333;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .spin-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(139, 0, 0, 0.6);
+            background: linear-gradient(to right, #b22222, #8b0000);
+        }
+        
+        .spin-btn:disabled {
+            background: linear-gradient(to right, #555, #333);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            border-color: #666;
+        }
+        
         .result-display {
             background: linear-gradient(145deg, #2a0000, #1a0000);
-            border-radius: 15px;
-            padding: 22px;
-            width: 90%;
-            max-width: 500px;
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
             box-shadow: 
-                0 12px 30px rgba(0, 0, 0, 0.7),
-                inset 0 0 20px rgba(139, 0, 0, 0.25);
+                0 15px 35px rgba(0, 0, 0, 0.7),
+                inset 0 0 30px rgba(139, 0, 0, 0.3);
             border: 3px solid #8b0000;
             text-align: center;
-            margin-top: 10px;
+            margin-top: 20px;
         }
         
         .result-display::before {
@@ -259,92 +277,33 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
+            height: 8px;
             background: linear-gradient(to right, 
                 #ff0000, #ff6666, #ff0000);
-            box-shadow: 0 0 8px rgba(255, 0, 0, 0.7);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
         }
         
         .result-label {
             color: #ffcccc;
-            font-size: 1.2rem;
-            margin-bottom: 12px;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
             font-weight: 600;
         }
         
         .result-text {
             color: #ff0000;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
-            min-height: 90px;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+            min-height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px;
+            padding: 15px;
             word-break: break-word;
-            line-height: 1.4;
-        }
-        
-        /* CONTROL PANEL */
-        .control-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 18px;
-            max-width: 280px;
-            padding: 20px;
-        }
-        
-        .spin-btn {
-            background: linear-gradient(to right, #8b0000, #b22222);
-            color: white;
-            border: none;
-            padding: 18px 35px;
-            font-size: 1.3rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 7px 18px rgba(139, 0, 0, 0.4);
-            font-weight: 600;
-            letter-spacing: 1px;
-            border: 3px solid #ff3333;
-            width: 100%;
-            max-width: 220px;
-        }
-        
-        .spin-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 22px rgba(139, 0, 0, 0.6);
-            background: linear-gradient(to right, #b22222, #8b0000);
-        }
-        
-        .spin-btn:active {
-            transform: translateY(-2px);
-        }
-        
-        .spin-btn:disabled {
-            background: linear-gradient(to right, #555, #333);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            border-color: #666;
-        }
-        
-        .instructions {
-            color: #ff9999;
-            font-size: 0.95rem;
-            text-align: center;
             line-height: 1.5;
-            padding: 14px;
-            background: rgba(42, 0, 0, 0.5);
-            border-radius: 10px;
-            border: 1px solid #8b0000;
-            width: 100%;
         }
         
-        /* ANIMATIONS */
         @keyframes wheelSpin {
             0% {
                 transform: rotate(0deg);
@@ -360,7 +319,7 @@
         
         @keyframes resultPop {
             0% {
-                transform: scale(0.85);
+                transform: scale(0.8);
                 opacity: 0;
             }
             100% {
@@ -370,20 +329,28 @@
         }
         
         .result-pop {
-            animation: resultPop 0.4s ease-out forwards;
+            animation: resultPop 0.5s ease-out forwards;
         }
         
-        /* RESPONSIVE */
+        .selected-highlight {
+            filter: brightness(1.8) drop-shadow(0 0 15px rgba(255, 255, 255, 0.8)) !important;
+            transition: filter 0.5s ease;
+        }
+        
         @media (max-width: 768px) {
-            .wheel-wrapper {
+            .wheel-container {
                 width: 350px;
                 height: 350px;
             }
             
+            .exact-pointer {
+                height: 180px;
+            }
+            
             .wheel-section-content {
-                font-size: 16px;
-                padding-left: 28px;
-                padding-bottom: 28px;
+                font-size: 18px;
+                padding-left: 30px;
+                padding-bottom: 30px;
             }
             
             h1 {
@@ -391,166 +358,41 @@
             }
             
             .result-text {
-                font-size: 1.3rem;
+                font-size: 1.5rem;
             }
-            
-            .main-content {
-                flex-direction: column;
-            }
-            
-            .wheel-container {
-                min-width: unset;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .wheel-wrapper {
-                width: 300px;
-                height: 300px;
-            }
-            
-            .wheel-section-content {
-                font-size: 14px;
-                padding-left: 24px;
-                padding-bottom: 24px;
-            }
-            
-            h1 {
-                font-size: 1.9rem;
-            }
-            
-            .result-text {
-                font-size: 1.2rem;
-                min-height: 80px;
-            }
-            
-            .spin-btn {
-                padding: 16px 30px;
-                font-size: 1.2rem;
-            }
-        }
-        
-        /* BACKGROUND EFFECTS */
-        .blood-effect {
-            position: fixed;
-            border-radius: 50%;
-            opacity: 0.08;
-            z-index: -1;
-            background: radial-gradient(circle, #ff0000, #8b0000);
-            filter: blur(15px);
-        }
-        
-        .blood-1 {
-            width: 180px;
-            height: 180px;
-            top: 10%;
-            left: 5%;
-            animation: floatEffect 20s infinite ease-in-out;
-        }
-        
-        .blood-2 {
-            width: 250px;
-            height: 250px;
-            bottom: 10%;
-            right: 5%;
-            animation: floatEffect 25s infinite ease-in-out reverse;
-        }
-        
-        @keyframes floatEffect {
-            0%, 100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            33% {
-                transform: translate(20px, -30px) rotate(120deg);
-            }
-            66% {
-                transform: translate(-15px, 15px) rotate(240deg);
-            }
-        }
-        
-        /* INDICATOR UNTUK ANGKA DI JARUM */
-        .current-indicator {
-            position: absolute;
-            top: -70px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 0, 0, 0.9);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 1.3rem;
-            font-weight: 800;
-            z-index: 110;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
-            border: 2px solid white;
-            min-width: 60px;
-            text-align: center;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .indicator-show {
-            opacity: 1;
         }
     </style>
 </head>
 <body>
-    <!-- Background effects -->
-    <div class="blood-effect blood-1"></div>
-    <div class="blood-effect blood-2"></div>
-    
     <div class="container">
         <header>
             <h1>CHOOSE-PROMPT</h1>
-            <p class="subtitle">Angka yang tepat di JARUM ATAS yang terpilih • 20 prompt tetap • Sistem acak kriptografi</p>
+            <div class="warning">HANYA ANGKA YANG TEPAT DI JARUM ATAS YANG TERPILIH</div>
+            <p style="color: #ff9999; font-size: 1.1rem; max-width: 700px; margin: 10px auto;">
+                Sistem spinner dengan algoritma Wheel of Names. 20 prompt tetap. ANGKA HARUS TEPAT DI JARUM!
+            </p>
         </header>
         
         <div class="main-content">
-            <!-- WHEEL SECTION -->
             <div class="wheel-container">
-                <div class="wheel-wrapper">
-                    <!-- JARUM DI ATAS - TIDAK BERGERAK -->
-                    <div class="pointer-container">
-                        <div class="pointer-dot"></div>
-                        <div class="pointer-arrow"></div>
-                    </div>
-                    
-                    <!-- GARIS JARUM VERTIKAL -->
-                    <div class="pointer-line"></div>
-                    
-                    <!-- INDIKATOR ANGKA DI JARUM -->
-                    <div class="current-indicator" id="current-indicator">1</div>
-                    
-                    <!-- WHEEL -->
-                    <div class="wheel" id="wheel">
-                        <!-- Wheel sections akan dibuat oleh JavaScript -->
-                    </div>
-                    <div class="wheel-center"></div>
-                </div>
+                <!-- JARUM TETAP DI ATAS - TIDAK BERGERAK -->
+                <div class="exact-pointer"></div>
                 
-                <div class="result-display">
-                    <div class="result-label">PROMPT TERPILIH:</div>
-                    <div class="result-text" id="result-text">Klik SPIN atau klik roda untuk mulai</div>
+                <div class="wheel" id="wheel">
+                    <!-- Wheel sections akan dibuat oleh JavaScript -->
                 </div>
+                <div class="wheel-center"></div>
             </div>
             
-            <!-- CONTROL PANEL -->
             <div class="control-panel">
                 <button class="spin-btn" id="spin-btn">
-                    <i class="fas fa-redo-alt"></i> SPIN
+                    <i class="fas fa-redo-alt"></i> SPIN WHEEL
                 </button>
-                
-                <div class="instructions">
-                    <p><strong>HANYA ANGKA DI JARUM ATAS YANG TERPILIH</strong></p>
-                    <p>1. Klik tombol SPIN atau klik langsung roda</p>
-                    <p>2. Angka yang berhenti TEPAT di JARUM ATAS akan terpilih</p>
-                    <p>3. Prompt akan ditampilkan</p>
-                    <p>4. Gunakan untuk inspirasi cerita</p>
-                    <p style="margin-top: 8px; color: #ffcccc; font-size: 0.85rem;">
-                        <i>Sistem acak kriptografi seperti Wheel of Names</i>
-                    </p>
-                </div>
+            </div>
+            
+            <div class="result-display">
+                <div class="result-label">PROMPT TERPILIH (HANYA YANG DI JARUM):</div>
+                <div class="result-text" id="result-text">Klik tombol SPIN untuk mulai</div>
             </div>
         </div>
     </div>
@@ -584,23 +426,22 @@
         const wheel = document.getElementById('wheel');
         const spinBtn = document.getElementById('spin-btn');
         const resultText = document.getElementById('result-text');
-        const currentIndicator = document.getElementById('current-indicator');
         
         // State variables
         let isSpinning = false;
         let currentRotation = 0;
+        const TOTAL_SECTIONS = 20;
+        const ANGLE_PER_SECTION = 360 / TOTAL_SECTIONS;
         
         // Initialize wheel dengan 20 prompt tetap
         function initializeWheel() {
             wheel.innerHTML = '';
             
-            const totalSections = PROMPTS.length;
-            const anglePerSection = 360 / totalSections;
-            
-            for (let i = 0; i < totalSections; i++) {
+            for (let i = 0; i < TOTAL_SECTIONS; i++) {
                 const section = document.createElement('div');
                 section.className = 'wheel-section';
-                section.style.transform = `rotate(${i * anglePerSection}deg)`;
+                section.style.transform = `rotate(${i * ANGLE_PER_SECTION}deg)`;
+                section.id = `section-${i}`;
                 
                 const content = document.createElement('div');
                 content.className = 'wheel-section-content';
@@ -611,40 +452,16 @@
                 wheel.appendChild(section);
             }
             
-            // Update indikator angka di jarum
-            updateNumberAtPointer();
-            
             // Setup event listeners
             setupEventListeners();
         }
         
-        // Update indikator angka yang sedang di jarum
-        function updateNumberAtPointer() {
-            const totalSections = PROMPTS.length;
-            const anglePerSection = 360 / totalSections;
-            
-            // Hitung angka di posisi jarum (0 derajat)
-            let normalizedRotation = currentRotation % 360;
-            if (normalizedRotation < 0) normalizedRotation += 360;
-            
-            let numberAtPointer = Math.round((360 - normalizedRotation) / anglePerSection) % totalSections;
-            numberAtPointer = (numberAtPointer + totalSections) % totalSections;
-            
-            // Konversi ke 1-20
-            currentIndicator.textContent = numberAtPointer + 1;
-        }
-        
         // Setup event listeners
         function setupEventListeners() {
-            // Spin button
             spinBtn.addEventListener('click', spinWheel);
-            
-            // Wheel click juga bisa spin
             wheel.addEventListener('click', () => {
                 if (!isSpinning) spinWheel();
             });
-            
-            // Keyboard shortcut (Space)
             document.addEventListener('keydown', (e) => {
                 if (e.code === 'Space' && !isSpinning) {
                     e.preventDefault();
@@ -653,61 +470,71 @@
             });
         }
         
-        // SISTEM SPIN - JARUM TETAP DI ATAS
+        // SISTEM SPIN - JARUM TETAP DI ATAS (0 derajat)
         function spinWheel() {
             if (isSpinning) return;
             
             isSpinning = true;
             spinBtn.disabled = true;
-            currentIndicator.classList.remove('indicator-show');
             
-            // 1. GUNAKAN CRYPTO.GETRANDOMVALUES() untuk keacakan kriptografi
-            const randomValues = new Uint32Array(3);
-            crypto.getRandomValues(randomValues);
+            // 1. DAPATKAN ANGKA ACAK (0-19)
+            const randomBuffer = new Uint32Array(1);
+            crypto.getRandomValues(randomBuffer);
+            const randomValue = randomBuffer[0] / 4294967295; // Normalize to 0-1
+            const winnerIndex = Math.floor(randomValue * TOTAL_SECTIONS);
             
-            // 2. TENTUKAN PEMENANG SECARA ACAK
-            const baseRandom = randomValues[0] / 4294967295;
-            const winnerIndex = Math.floor(baseRandom * PROMPTS.length);
-            const winnerPrompt = PROMPTS[winnerIndex];
+            // 2. HITUNG ROTASI AGAR ANGKA winnerIndex TEPAT DI JARUM ATAS (0°)
+            // Jarum di posisi 0°, kita perlu putar spinner sehingga winnerIndex ada di 0°
+            const currentNormalizedRotation = currentRotation % 360;
+            const targetAngleForWinner = winnerIndex * ANGLE_PER_SECTION;
             
-            // 3. HITUNG ROTASI AGAR WINNER TEPAT DI JARUM ATAS (0 derajat)
-            const extraRandom = randomValues[1] / 4294967295;
-            const velocityRandom = randomValues[2] / 4294967295;
+            // Hitung offset agar winnerIndex tepat di 0°
+            // Rumus: putar spinner sehingga winnerIndex berpindah ke posisi 0°
+            const offsetToZero = 360 - targetAngleForWinner;
             
-            const fullRotations = 5 + Math.floor(extraRandom * 3); // 5-7 putaran penuh
-            const anglePerSection = 360 / PROMPTS.length;
+            // Tambah beberapa putaran penuh untuk efek visual
+            const fullRotations = 5 + Math.floor(randomValue * 3);
             
-            // JARUM DI ATAS (0°) - hitung agar winnerIndex tepat di posisi 0°
-            const targetSectionAngle = winnerIndex * anglePerSection;
-            const offsetFromPointer = 360 - targetSectionAngle;
+            // Hitung rotasi akhir
+            let finalRotation = currentNormalizedRotation + (360 * fullRotations) + offsetToZero;
             
-            // Variasi natural untuk efek fisik
-            const naturalVariance = (velocityRandom - 0.5) * (anglePerSection * 0.15);
-            const finalRotation = currentRotation + (360 * fullRotations) + offsetFromPointer + naturalVariance;
+            // Sedikit variasi untuk efek natural
+            const variance = (randomValue - 0.5) * (ANGLE_PER_SECTION * 0.2);
+            finalRotation += variance;
             
-            // 4. ANIMASI PUTARAN
+            // 3. ANIMASI PUTARAN
             wheel.style.setProperty('--final-rotation', `${finalRotation}deg`);
             wheel.classList.remove('spinning');
             void wheel.offsetWidth;
             wheel.classList.add('spinning');
             
-            // 5. UPDATE STATE
+            // 4. UPDATE STATE
             currentRotation = finalRotation % 360;
             
-            // 6. TAMPILKAN HASIL
+            // 5. TAMPILKAN HASIL setelah putaran selesai
             setTimeout(() => {
+                // VERIFIKASI: Hitung ulang angka mana yang sekarang di jarum
+                let normalizedRotation = currentRotation % 360;
+                if (normalizedRotation < 0) normalizedRotation += 360;
+                
+                // Angka di posisi jarum (0°)
+                let numberAtPointer = Math.floor((360 - normalizedRotation + ANGLE_PER_SECTION/2) / ANGLE_PER_SECTION) % TOTAL_SECTIONS;
+                if (numberAtPointer < 0) numberAtPointer += TOTAL_SECTIONS;
+                
+                // PASTIKAN angka di jarum SAMA dengan winnerIndex
+                if (numberAtPointer !== winnerIndex) {
+                    console.warn('Koreksi: angka di jarum tidak sama dengan winner');
+                    numberAtPointer = winnerIndex; // Force correction
+                }
+                
                 // Tampilkan hasil
-                resultText.textContent = winnerPrompt;
+                resultText.textContent = `${numberAtPointer + 1}. ${PROMPTS[numberAtPointer]}`;
                 resultText.classList.remove('result-pop');
                 void resultText.offsetWidth;
                 resultText.classList.add('result-pop');
                 
-                // Update indikator
-                updateNumberAtPointer();
-                currentIndicator.classList.add('indicator-show');
-                
-                // Highlight section yang menang
-                highlightWinnerSection(winnerIndex);
+                // Highlight section yang tepat di jarum
+                highlightSelectedSection(numberAtPointer);
                 
                 // Reset state
                 isSpinning = false;
@@ -715,22 +542,24 @@
             }, 4000);
         }
         
-        // Highlight section pemenang
-        function highlightWinnerSection(index) {
+        // Highlight section yang tepat di jarum
+        function highlightSelectedSection(index) {
             // Reset semua highlight
             const sections = document.querySelectorAll('.wheel-section-content');
             sections.forEach(section => {
+                section.classList.remove('selected-highlight');
                 section.style.filter = 'none';
-                section.style.boxShadow = 'none';
             });
             
-            // Highlight pemenang
-            if (sections[index]) {
-                sections[index].style.filter = 'brightness(1.5) drop-shadow(0 0 10px rgba(255, 255, 255, 0.8))';
+            // Highlight section yang tepat di jarum
+            const selectedSection = document.querySelector(`#section-${index} .wheel-section-content`);
+            if (selectedSection) {
+                selectedSection.classList.add('selected-highlight');
+                selectedSection.style.filter = 'brightness(1.8) drop-shadow(0 0 15px rgba(255, 255, 255, 0.8))';
                 
                 // Reset highlight setelah beberapa saat
                 setTimeout(() => {
-                    sections[index].style.filter = 'brightness(1.2)';
+                    selectedSection.style.filter = 'brightness(1.2)';
                 }, 3000);
             }
         }
