@@ -60,8 +60,8 @@
         /* SPINNER CONTAINER */
         .spinner-container {
             position: relative;
-            width: 300px;
-            height: 300px;
+            width: 320px;
+            height: 320px;
             margin: 0 auto 40px;
         }
 
@@ -70,34 +70,40 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background: conic-gradient(
-                from 0deg,
-                var(--primary) 0deg 18deg,
-                transparent 18deg 36deg,
-                var(--primary) 36deg 54deg,
-                transparent 54deg 72deg,
-                var(--primary) 72deg 90deg,
-                transparent 90deg 108deg,
-                var(--primary) 108deg 126deg,
-                transparent 126deg 144deg,
-                var(--primary) 144deg 162deg,
-                transparent 162deg 180deg,
-                var(--primary) 180deg 198deg,
-                transparent 198deg 216deg,
-                var(--primary) 216deg 234deg,
-                transparent 234deg 252deg,
-                var(--primary) 252deg 270deg,
-                transparent 270deg 288deg,
-                var(--primary) 288deg 306deg,
-                transparent 306deg 324deg,
-                var(--primary) 324deg 342deg,
-                transparent 342deg 360deg
-            );
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             position: relative;
-            transition: transform 3s cubic-bezier(0.2, 0.8, 0.3, 1);
-            box-shadow: var(--shadow);
-            border: 8px solid var(--white);
+            transition: transform 0.1s linear;
+            box-shadow: 
+                0 0 0 10px var(--white),
+                0 15px 35px rgba(139, 0, 0, 0.3),
+                inset 0 0 20px rgba(255, 255, 255, 0.3);
             overflow: hidden;
+        }
+
+        /* SPINNER SEGMENTS */
+        .spinner-segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: bottom right;
+            left: 0;
+            top: 0;
+        }
+
+        /* SPINNER NUMBERS - ANGKA DI SPINNER */
+        .number {
+            position: absolute;
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: var(--white);
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transform-origin: center;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* SPINNER CENTER */
@@ -106,42 +112,27 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             background: var(--white);
             border-radius: 50%;
-            z-index: 2;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 3;
+            box-shadow: 
+                0 0 15px rgba(0, 0, 0, 0.2),
+                inset 0 0 10px rgba(139, 0, 0, 0.1);
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
             color: var(--primary);
             font-size: 1.5rem;
+            border: 4px solid var(--primary);
         }
 
-        /* SPINNER NUMBERS */
-        .number {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--white);
-            z-index: 1;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-            border-radius: 50%;
-            background: var(--primary);
-            transform-origin: center;
-        }
-
-        /* SPINNER MARKER */
+        /* SPINNER MARKER - JARUM PENUNJUK */
         .spinner-marker {
             position: absolute;
-            top: -15px;
+            top: -20px;
             left: 50%;
             transform: translateX(-50%);
             width: 30px;
@@ -149,7 +140,20 @@
             background: var(--primary);
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
             z-index: 10;
-            filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.3));
+            filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.4));
+        }
+
+        .spinner-marker::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
         /* SPIN BUTTON */
@@ -157,24 +161,29 @@
             background: var(--primary);
             color: var(--white);
             border: none;
-            padding: 16px 45px;
-            font-size: 1.2rem;
+            padding: 18px 50px;
+            font-size: 1.3rem;
             border-radius: 50px;
             cursor: pointer;
             transition: var(--transition);
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 30px;
-            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.4);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             margin: 0 auto 30px;
+            letter-spacing: 1px;
         }
 
         .spin-btn:hover {
             background: var(--secondary);
             transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(139, 0, 0, 0.5);
+            box-shadow: 0 15px 30px rgba(139, 0, 0, 0.5);
+        }
+
+        .spin-btn:active {
+            transform: translateY(-1px);
         }
 
         .spin-btn:disabled {
@@ -185,7 +194,7 @@
         }
 
         .spin-btn i {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             transition: transform 0.3s;
         }
 
@@ -205,94 +214,132 @@
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 20px;
-            border: 2px solid var(--primary);
+            border: 3px solid var(--primary);
             box-shadow: 0 10px 25px rgba(139, 0, 0, 0.1);
             display: none;
-            animation: fadeIn 0.5s ease;
             text-align: left;
         }
 
         .prompt-box.active {
             display: block;
+            animation: slideIn 0.6s ease;
         }
 
         .prompt-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--light);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--light);
         }
 
         .prompt-number {
             background: var(--primary);
             color: var(--white);
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3);
         }
 
         .prompt-genre {
             color: var(--primary);
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: 1.9rem;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         .prompt-content {
             color: var(--dark);
-            font-size: 1.1rem;
-            line-height: 1.6;
-            padding: 15px;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            padding: 20px;
             background: var(--light);
-            border-radius: 10px;
-            border-left: 4px solid var(--primary);
-        }
-
-        /* ANIMATIONS */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes spinPulse {
-            0%, 100% { box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2); }
-            50% { box-shadow: 0 10px 40px rgba(139, 0, 0, 0.6); }
-        }
-
-        .spinning {
-            animation: spinPulse 0.5s infinite alternate;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary);
         }
 
         /* INSTRUCTION */
         .instruction {
             background: var(--light);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 25px;
             color: var(--dark);
-            font-size: 0.95rem;
-            border-left: 4px solid var(--primary);
+            font-size: 1rem;
+            border-left: 5px solid var(--primary);
+            line-height: 1.6;
+        }
+
+        .instruction kbd {
+            background: var(--primary);
+            color: var(--white);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-weight: bold;
+            margin: 0 3px;
+        }
+
+        /* ANIMATIONS */
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        @keyframes spinPulse {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 0 10px var(--white),
+                    0 15px 35px rgba(139, 0, 0, 0.3),
+                    inset 0 0 20px rgba(255, 255, 255, 0.3);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 0 10px var(--white),
+                    0 15px 45px rgba(139, 0, 0, 0.6),
+                    inset 0 0 20px rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        .spinning {
+            animation: spinPulse 0.4s infinite alternate;
+        }
+
+        /* SPINNER GLOW EFFECT */
+        @keyframes glowEffect {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .spinner-spinning {
+            animation: glowEffect 0.3s infinite alternate;
         }
 
         /* RESPONSIVE */
         @media (max-width: 600px) {
             .spinner-container {
-                width: 250px;
-                height: 250px;
+                width: 280px;
+                height: 280px;
             }
             
             .number {
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
+                font-size: 1.1rem;
+                width: 26px;
+                height: 26px;
             }
             
             .header h1 {
@@ -300,11 +347,16 @@
             }
             
             .prompt-genre {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
             }
             
             .prompt-content {
-                font-size: 1rem;
+                font-size: 1.05rem;
+            }
+            
+            .spin-btn {
+                padding: 16px 40px;
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -334,7 +386,8 @@
 
         <!-- INSTRUCTION -->
         <div class="instruction">
-            <strong>Tips:</strong> Klik tombol "PUTAR SPINNER" atau tekan <kbd>SPACE</kbd> untuk memutar. Spinner akan berhenti tepat di angka yang terpilih.
+            <strong>Tips:</strong> Klik tombol "PUTAR SPINNER" atau tekan <kbd>SPACE</kbd> untuk memutar. 
+            Spinner akan berputar cepat 4 kali sebelum berhenti di angka yang terpilih.
         </div>
 
         <!-- PROMPT CONTAINERS -->
@@ -342,6 +395,9 @@
             <!-- Prompt containers akan diisi dengan JavaScript -->
         </div>
     </div>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
         // DATA PROMPT UNTUK SETIAP ANGKA (1-20)
@@ -440,13 +496,13 @@
         const totalNumbers = 20;
         const anglePerNumber = 360 / totalNumbers;
         
-        // INISIALISASI SPINNER DENGAN ANGKA
+        // INISIALISASI SPINNER DENGAN ANGKA DI SPINNER
         function initSpinner() {
             // Hapus semua angka yang ada
             const existingNumbers = spinner.querySelectorAll('.number');
             existingNumbers.forEach(num => num.remove());
             
-            // Tambahkan angka 1-20 di spinner
+            // Tambahkan angka 1-20 di sekeliling spinner
             for (let i = 1; i <= totalNumbers; i++) {
                 const numberEl = document.createElement('div');
                 numberEl.className = 'number';
@@ -454,22 +510,25 @@
                 numberEl.id = `num${i}`;
                 numberEl.dataset.number = i;
                 
-                // Hitung posisi angka (setiap angka di tengah segmennya)
-                // Pointer ada di 0° (atas)
-                // Kita ingin angka berhenti tepat di pointer
-                const angle = (i - 1) * anglePerNumber; // Mulai dari 0°
-                const radius = 100; // Jarak dari pusat
+                // Hitung posisi angka di lingkaran
+                // Angka 1 di atas (0°), angka berjalan searah jarum jam
+                const angle = (i - 1) * anglePerNumber; // Derajat
+                const radius = 130; // Jarak dari pusat
                 
-                // Konversi derajat ke radian
+                // Konversi ke radian
                 const radian = (angle * Math.PI) / 180;
                 
                 // Hitung posisi X dan Y
+                // Untuk koordinat CSS: 0° di atas, 90° di kanan
                 const x = Math.sin(radian) * radius;
-                const y = -Math.cos(radian) * radius; // Negative karena Y positif ke bawah
+                const y = -Math.cos(radian) * radius; // Minus karena Y positif ke bawah
                 
                 // Atur posisi angka
                 numberEl.style.left = `calc(50% + ${x}px)`;
                 numberEl.style.top = `calc(50% + ${y}px)`;
+                
+                // Rotasi angka agar tetap tegak
+                numberEl.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
                 
                 spinner.appendChild(numberEl);
             }
@@ -501,13 +560,14 @@
             }
         }
         
-        // FUNGSI PUTAR SPINNER
+        // FUNGSI PUTAR SPINNER DENGAN ANIMASI 4 KALI PUTARAN CEPAT
         function spin() {
             if (isSpinning) return;
             
             isSpinning = true;
             spinBtn.disabled = true;
             spinner.classList.add('spinning');
+            spinner.classList.add('spinner-spinning');
             
             // Sembunyikan semua prompt
             document.querySelectorAll('.prompt-box').forEach(box => {
@@ -518,43 +578,61 @@
             const selectedNumber = Math.floor(Math.random() * totalNumbers) + 1;
             console.log('Angka terpilih:', selectedNumber);
             
-            // Hitung rotasi yang dibutuhkan agar angka berhenti di pointer (0°)
-            // Pointer ada di 0° (atas), angka dimulai dari 0° (angka 1 di atas)
-            // Kita ingin angka yang terpilih berhenti di 0°
+            // Hitung sudut target
+            // Jarum di 0° (atas), angka terpilih harus berhenti di jarum
             const targetAngle = (selectedNumber - 1) * anglePerNumber;
             
-            // Putaran penuh untuk efek dramatis
-            const fullRotations = 5;
+            // PUTARAN CEPAT 4 KALI DULU (360° × 4 = 1440°)
+            const fastRotations = 1440; // 4 putaran penuh
             
-            // Hitung total rotasi
-            // Kita kurangi targetAngle karena kita ingin berbalik arah
-            const totalRotation = currentRotation + (360 * fullRotations) - targetAngle;
+            // Putaran tambahan untuk efek dramatis
+            const finalRotation = fastRotations - targetAngle;
+            
+            // Total rotasi dari posisi awal
+            const totalRotation = currentRotation + finalRotation;
             
             // Simpan rotasi saat ini
             currentRotation = totalRotation % 360;
             
-            // Putar spinner
-            spinner.style.transition = 'transform 3s cubic-bezier(0.2, 0.8, 0.3, 1)';
-            spinner.style.transform = `rotate(${totalRotation}deg)`;
+            // ANIMASI PUTARAN CEPAT
+            let rotationStep = 0;
+            const steps = 40; // 40 frame untuk putaran cepat
+            const rotationPerStep = finalRotation / steps;
             
-            // Update angka di tengah
-            centerNumber.textContent = selectedNumber;
-            centerNumber.style.animation = 'none';
-            setTimeout(() => {
-                centerNumber.style.animation = 'fadeIn 0.5s';
-            }, 10);
+            // Fungsi untuk animasi frame per frame
+            function animateSpinner() {
+                if (rotationStep < steps) {
+                    rotationStep++;
+                    const currentRot = currentRotation + (rotationPerStep * rotationStep);
+                    spinner.style.transform = `rotate(${currentRot}deg)`;
+                    
+                    // Update angka di tengah saat mendekati akhir
+                    if (rotationStep > steps - 10) {
+                        centerNumber.textContent = selectedNumber;
+                    }
+                    
+                    requestAnimationFrame(animateSpinner);
+                } else {
+                    // Setelah animasi selesai
+                    spinner.style.transform = `rotate(${totalRotation}deg)`;
+                    
+                    // Tampilkan prompt
+                    setTimeout(() => {
+                        showPrompt(selectedNumber);
+                    }, 300);
+                    
+                    // Reset state
+                    setTimeout(() => {
+                        spinner.classList.remove('spinning');
+                        spinner.classList.remove('spinner-spinning');
+                        spinBtn.disabled = false;
+                        isSpinning = false;
+                    }, 1000);
+                }
+            }
             
-            // Tampilkan prompt setelah 2.5 detik (sebelum spinner selesai)
-            setTimeout(() => {
-                showPrompt(selectedNumber);
-            }, 2500);
-            
-            // Reset spinner setelah 3 detik
-            setTimeout(() => {
-                spinner.classList.remove('spinning');
-                spinBtn.disabled = false;
-                isSpinning = false;
-            }, 3000);
+            // Mulai animasi
+            animateSpinner();
         }
         
         // TAMPILKAN PROMPT BERDASARKAN ANGKA
@@ -569,11 +647,13 @@
             if (promptBox) {
                 promptBox.classList.add('active');
                 
-                // Scroll ke prompt
-                promptBox.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                // Scroll ke prompt dengan delay
+                setTimeout(() => {
+                    promptBox.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 500);
             }
         }
         
@@ -593,9 +673,9 @@
             initSpinner();
             createPromptContainers();
             
-            // Tampilkan instruksi di console
             console.log('Prompt Spinner siap digunakan!');
             console.log('Tekan tombol "PUTAR SPINNER" atau SPACE untuk memutar.');
+            console.log('Spinner akan berputar cepat 4 kali sebelum berhenti di angka yang terpilih.');
         });
     </script>
 </body>
