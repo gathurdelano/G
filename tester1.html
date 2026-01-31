@@ -326,12 +326,16 @@
 
         @keyframes numberGlow {
             0%, 100% { 
-                transform: scale(1);
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 0 25px rgba(0, 0, 0, 0.4),
+                           inset 0 0 20px rgba(139, 0, 0, 0.2),
+                           0 0 0 8px var(--primary);
             }
             50% { 
-                transform: scale(1.05);
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+                transform: translate(-50%, -50%) scale(1.05);
+                box-shadow: 0 0 35px rgba(139, 0, 0, 0.6),
+                           inset 0 0 25px rgba(139, 0, 0, 0.3),
+                           0 0 0 8px var(--primary);
             }
         }
 
@@ -406,7 +410,7 @@
         <!-- INSTRUCTION -->
         <div class="instruction">
             <strong>Tips:</strong> Klik tombol "PUTAR SPINNER" atau tekan <kbd>SPACE</kbd> untuk memutar. 
-            Spinner akan berputar selama 15 detik, melambat 3 detik, dan berhenti 1 detik.
+            Spinner akan berputar selama 10 detik dengan efek melambat di akhir.
         </div>
 
         <!-- PROMPT CONTAINERS -->
@@ -603,7 +607,7 @@
             }
         }
         
-        // FUNGSI PUTAR SPINNER
+        // FUNGSI PUTAR SPINNER - DIPERBAIKI: 10 DETIK SAJA
         function spin() {
             if (isSpinning) return;
             
@@ -628,8 +632,8 @@
             // Hitung sudut target
             const targetAngle = (selectedNumber - 1) * anglePerNumber;
             
-            // 15 DETIK PUTARAN CEPAT + 3 DETIK LAMBAT + 1 DETIK BERHENTI
-            const fastRotations = 360 * 25; // 25 putaran penuh (banyak)
+            // 10 DETIK TOTAL: 7 detik cepat + 2 detik lambat + 1 detik berhenti
+            const fastRotations = 360 * 12; // 12 putaran penuh untuk 7 detik
             const finalRotation = fastRotations - targetAngle;
             
             // Total rotasi dari posisi awal
@@ -640,10 +644,10 @@
             
             // VARIABEL ANIMASI
             let startTime = null;
-            const totalDuration = 19000; // 19 detik total (15+3+1)
-            const fastDuration = 15000;  // 15 detik putaran cepat
-            const slowDuration = 3000;   // 3 detik melambat
-            const stopDuration = 1000;   // 1 detik berhenti
+            const totalDuration = 10000;  // 10 detik total
+            const fastDuration = 7000;    // 7 detik putaran cepat
+            const slowDuration = 2000;    // 2 detik melambat
+            const stopDuration = 1000;    // 1 detik berhenti
             
             // Easing function untuk efek melambat
             function easeOutQuart(t) {
@@ -656,36 +660,34 @@
                 const elapsed = timestamp - startTime;
                 
                 if (elapsed < totalDuration) {
-                    // FASE 1: PUTARAN CEPAT (0 - 15000ms)
+                    // FASE 1: PUTARAN CEPAT (0 - 7000ms)
                     if (elapsed < fastDuration) {
-                        // Putaran sangat cepat dengan percepatan konstan
+                        // Putaran cepat dengan percepatan konstan
                         const progress = elapsed / fastDuration;
-                        const currentRot = currentRotation + (finalRotation * progress);
+                        const currentRot = currentRotation + (finalRotation * progress * 0.9); // Hanya 90% rotasi di fase cepat
                         spinner.style.transform = `rotate(${currentRot}deg)`;
                         centerNumber.textContent = "?";
                     } 
-                    // FASE 2: MELAMBAT (15000 - 18000ms)
+                    // FASE 2: MELAMBAT (7000 - 9000ms)
                     else if (elapsed < fastDuration + slowDuration) {
                         // Hitung progress fase melambat (0-1)
                         const slowProgress = (elapsed - fastDuration) / slowDuration;
                         const easedProgress = easeOutQuart(slowProgress);
                         
-                        // Rotasi dari 95% ke 100%
-                        const startRot = currentRotation + (finalRotation * 0.95);
+                        // Rotasi dari 90% ke 100%
+                        const startRot = currentRotation + (finalRotation * 0.9);
                         const endRot = currentRotation + finalRotation;
                         const currentRot = startRot + ((endRot - startRot) * easedProgress);
                         
                         spinner.style.transform = `rotate(${currentRot}deg)`;
                         
                         // Tampilkan angka di tengah saat mulai melambat
-                        if (slowProgress > 0.2) {
-                            centerNumber.textContent = selectedNumber;
-                            centerNumber.classList.add('final');
-                        }
+                        centerNumber.textContent = selectedNumber;
+                        centerNumber.classList.add('final');
                     }
-                    // FASE 3: BERHENTI (18000 - 19000ms)
+                    // FASE 3: BERHENTI (9000 - 10000ms)
                     else {
-                        // Spinner sudah berhenti, angka tetap ditampilkan
+                        // Spinner sudah berhenti, angka tetap ditampilkan dengan efek glow
                         centerNumber.classList.add('final-number');
                     }
                     
@@ -698,13 +700,13 @@
                     // Tampilkan prompt
                     setTimeout(() => {
                         showPrompt(selectedNumber);
-                    }, 500);
+                    }, 300);
                     
                     // Reset state
                     setTimeout(() => {
                         spinBtn.disabled = false;
                         isSpinning = false;
-                    }, 1500);
+                    }, 1000);
                 }
             }
             
@@ -730,7 +732,7 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
-                }, 1000);
+                }, 500);
             }
         }
         
@@ -751,7 +753,7 @@
             createPromptContainers();
             
             console.log('CHOOSE PROMPT siap digunakan!');
-            console.log('Durasi: 15 detik cepat + 3 detik lambat + 1 detik berhenti');
+            console.log('Durasi: 7 detik cepat + 2 detik lambat + 1 detik berhenti = 10 detik total');
             console.log('Tekan tombol "PUTAR SPINNER" atau SPACE untuk memutar.');
         });
     </script>
