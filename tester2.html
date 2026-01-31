@@ -1159,7 +1159,7 @@
             const loading = document.getElementById('loading');
             loading.style.display = 'block';
             
-            // Hitung tinggi konten proof yang akan didownload
+            // Buat container untuk pengukuran yang lebih akurat
             const tempMeasure = document.createElement('div');
             tempMeasure.style.position = 'fixed';
             tempMeasure.style.left = '-9999px';
@@ -1167,6 +1167,7 @@
             tempMeasure.style.width = '620px';
             tempMeasure.style.padding = '0';
             tempMeasure.style.backgroundColor = '#ffffff';
+            tempMeasure.style.boxSizing = 'border-box';
             
             const clonedContentForMeasure = proofElement.cloneNode(true);
             clonedContentForMeasure.style.background = 'none';
@@ -1176,26 +1177,27 @@
             clonedContentForMeasure.style.padding = '0';
             clonedContentForMeasure.style.width = '620px';
             clonedContentForMeasure.style.maxWidth = '620px';
+            clonedContentForMeasure.style.boxSizing = 'border-box';
             
             tempMeasure.appendChild(clonedContentForMeasure);
             document.body.appendChild(tempMeasure);
             
-            // Tunggu sebentar untuk render, lalu ukur tinggi
             setTimeout(() => {
                 const contentHeight = tempMeasure.offsetHeight;
-                const additionalPadding = 100; // Tambahan padding atas+bawah
+                
+                // Hitung dengan margin dan padding yang cukup
+                const additionalPadding = 120; // Lebih banyak padding untuk pastikan footer tidak kepotong
                 const finalHeight = contentHeight + additionalPadding;
                 
-                // Hapus elemen pengukur
                 document.body.removeChild(tempMeasure);
                 
-                // Buat container untuk download dengan tinggi yang sesuai
+                // Buat container untuk download dengan tinggi yang cukup
                 const tempContainer = document.createElement('div');
                 tempContainer.style.position = 'fixed';
                 tempContainer.style.left = '-9999px';
                 tempContainer.style.top = '-9999px';
-                tempContainer.style.width = '700px'; // LEBAR TETAP 700px
-                tempContainer.style.height = `${finalHeight}px`; // TINGGI MENYESUAIKAN KONTEN
+                tempContainer.style.width = '700px';
+                tempContainer.style.height = `${finalHeight}px`;
                 tempContainer.style.padding = `${additionalPadding/2}px 40px`;
                 tempContainer.style.backgroundColor = '#ffffff';
                 tempContainer.style.backgroundImage = `
@@ -1203,6 +1205,7 @@
                     repeating-linear-gradient(0deg, transparent, transparent 24px, #e0e0e0 24px, #e0e0e0 25px)
                 `;
                 tempContainer.style.backgroundSize = 'auto, auto 25px';
+                tempContainer.style.boxSizing = 'border-box';
                 
                 const clonedContent = proofElement.cloneNode(true);
                 clonedContent.style.background = 'none';
@@ -1212,6 +1215,13 @@
                 clonedContent.style.padding = '0';
                 clonedContent.style.maxWidth = '620px';
                 clonedContent.style.width = '100%';
+                clonedContent.style.boxSizing = 'border-box';
+                
+                // Pastikan semua elemen dalam clonedContent memiliki box-sizing border-box
+                const allElements = clonedContent.querySelectorAll('*');
+                allElements.forEach(el => {
+                    el.style.boxSizing = 'border-box';
+                });
                 
                 const header = clonedContent.querySelector('.proof-header');
                 if (header) {
@@ -1232,11 +1242,13 @@
                 const detailLabels = clonedContent.querySelectorAll('.detail-label');
                 detailLabels.forEach(label => {
                     label.style.fontSize = '18px';
+                    label.style.boxSizing = 'border-box';
                 });
                 
                 const detailValues = clonedContent.querySelectorAll('.detail-value');
                 detailValues.forEach(value => {
                     value.style.fontSize = '16px';
+                    value.style.boxSizing = 'border-box';
                 });
                 
                 const amountValue = clonedContent.querySelector('.detail-value.amount');
@@ -1249,6 +1261,8 @@
                     footer.style.fontSize = '16px';
                     footer.style.padding = '25px';
                     footer.style.lineHeight = '1.8';
+                    footer.style.marginTop = '35px';
+                    footer.style.boxSizing = 'border-box';
                 }
                 
                 // WATERMARK
@@ -1278,7 +1292,14 @@
                         useCORS: true,
                         width: 700,
                         height: finalHeight,
-                        logging: false
+                        logging: false,
+                        onclone: function(clonedDoc) {
+                            // Pastikan semua elemen terlihat di clone
+                            const clonedElements = clonedDoc.querySelectorAll('*');
+                            clonedElements.forEach(el => {
+                                el.style.boxSizing = 'border-box';
+                            });
+                        }
                     }).then(canvas => {
                         const link = document.createElement('a');
                         const timestamp = new Date().getTime();
