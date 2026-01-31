@@ -3,634 +3,457 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHOOSE-PROMPT - CAHAYA BERPUTAR</title>
+    <title>Prompt Spinner</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         body {
-            background: linear-gradient(135deg, #0a0000 0%, #1a0000 100%);
+            background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            overflow-x: hidden;
-            color: white;
         }
         
         .container {
             width: 100%;
-            max-width: 900px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-        
-        header {
+            max-width: 500px;
             text-align: center;
-            margin-bottom: 20px;
-            width: 100%;
         }
         
         h1 {
-            color: #ff0000;
-            font-size: 3rem;
+            color: #8b0000;
+            font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
-            letter-spacing: 2px;
-            background: linear-gradient(to right, #ffcccc, #ff6666, #ff0000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
         
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-            width: 100%;
-        }
-        
-        .wheel-container {
+        .spinner-container {
             position: relative;
-            width: 450px;
-            height: 450px;
-            margin: 0 auto;
+            margin: 40px auto;
+            width: 300px;
+            height: 300px;
         }
         
-        .wheel {
+        /* SPINNER SEDERHANA DENGAN CONIC-GRADIENT - TIDAK BERTUMPUK */
+        .spinner {
             width: 100%;
             height: 100%;
             border-radius: 50%;
             position: relative;
-            overflow: visible;
-            box-shadow: 
-                0 0 0 15px #5a0000,
-                0 0 40px rgba(139, 0, 0, 0.8),
-                inset 0 0 60px rgba(0, 0, 0, 0.9);
-            transition: transform 4s cubic-bezier(0.17, 0.67, 0.21, 0.99);
-            background: #150000;
+            background: conic-gradient(
+                from 0deg,
+                #8b0000 0deg 18deg,
+                #8b0000 18deg 36deg,
+                #8b0000 36deg 54deg,
+                #8b0000 54deg 72deg,
+                #8b0000 72deg 90deg,
+                #8b0000 90deg 108deg,
+                #8b0000 108deg 126deg,
+                #8b0000 126deg 144deg,
+                #8b0000 144deg 162deg,
+                #8b0000 162deg 180deg,
+                #8b0000 180deg 198deg,
+                #8b0000 198deg 216deg,
+                #8b0000 216deg 234deg,
+                #8b0000 234deg 252deg,
+                #8b0000 252deg 270deg,
+                #8b0000 270deg 288deg,
+                #8b0000 288deg 306deg,
+                #8b0000 306deg 324deg,
+                #8b0000 324deg 342deg,
+                #8b0000 342deg 360deg
+            );
             border: 10px solid #8b0000;
-            cursor: pointer;
+            transition: transform 3s cubic-bezier(0.2, 0.8, 0.3, 1);
+            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2);
         }
         
-        .wheel-center {
+        /* GARIS PEMBAGI ANTAR ANGKA - RAPI */
+        .spinner::after {
+            content: '';
             position: absolute;
-            width: 60px;
-            height: 60px;
-            background: #ff0000;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(
+                transparent 0deg 17deg,
+                white 17deg 18deg,
+                transparent 18deg 35deg,
+                white 35deg 36deg,
+                transparent 36deg 53deg,
+                white 53deg 54deg,
+                transparent 54deg 71deg,
+                white 71deg 72deg,
+                transparent 72deg 89deg,
+                white 89deg 90deg,
+                transparent 90deg 107deg,
+                white 107deg 108deg,
+                transparent 108deg 125deg,
+                white 125deg 126deg,
+                transparent 126deg 143deg,
+                white 143deg 144deg,
+                transparent 144deg 161deg,
+                white 161deg 162deg,
+                transparent 162deg 179deg,
+                white 179deg 180deg,
+                transparent 180deg 197deg,
+                white 197deg 198deg,
+                transparent 198deg 215deg,
+                white 215deg 216deg,
+                transparent 216deg 233deg,
+                white 233deg 234deg,
+                transparent 234deg 251deg,
+                white 251deg 252deg,
+                transparent 252deg 269deg,
+                white 269deg 270deg,
+                transparent 270deg 287deg,
+                white 287deg 288deg,
+                transparent 288deg 305deg,
+                white 305deg 306deg,
+                transparent 306deg 323deg,
+                white 323deg 324deg,
+                transparent 324deg 341deg,
+                white 341deg 342deg,
+                transparent 342deg 360deg
+            );
             border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 30;
-            box-shadow: 
-                0 0 30px rgba(255, 0, 0, 0.9),
-                inset 0 0 15px rgba(255, 255, 255, 0.4);
-            border: 6px solid white;
+            pointer-events: none;
         }
         
-        .wheel-section {
+        /* ANGKA DI SPINNER */
+        .number {
             position: absolute;
-            width: 50%;
-            height: 50%;
-            transform-origin: bottom right;
-            overflow: hidden;
-            clip-path: polygon(0 0, 100% 0, 100% 100%);
-        }
-        
-        .wheel-section-content {
-            position: absolute;
-            width: calc(100% - 10px);
-            height: calc(100% - 10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: rotate(45deg);
-            font-weight: 900;
             color: white;
-            padding-left: 40px;
-            padding-bottom: 40px;
-            font-size: 22px;
-            text-shadow: 
-                2px 2px 3px rgba(0, 0, 0, 0.9),
-                0 0 10px rgba(255, 255, 255, 0.5);
-            letter-spacing: 1px;
-            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            z-index: 2;
+            transform-origin: center;
         }
         
-        .wheel-section:nth-child(odd) .wheel-section-content {
-            background: linear-gradient(135deg, 
-                rgba(139, 0, 0, 0.95) 0%,
-                rgba(178, 34, 34, 0.95) 100%);
-        }
-        
-        .wheel-section:nth-child(even) .wheel-section-content {
-            background: linear-gradient(135deg, 
-                rgba(165, 42, 42, 0.95) 0%,
-                rgba(205, 92, 92, 0.95) 100%);
-        }
-        
-        .wheel-section:nth-child(3n) .wheel-section-content {
-            background: linear-gradient(135deg, 
-                rgba(128, 0, 0, 0.95) 0%,
-                rgba(160, 0, 0, 0.95) 100%);
-        }
-        
-        .wheel-section:nth-child(5n) .wheel-section-content {
-            background: linear-gradient(135deg, 
-                rgba(220, 20, 60, 0.95) 0%,
-                rgba(255, 99, 71, 0.95) 100%);
-        }
-        
-        /* CAHAYA BERPUTAR */
-        .light-beam {
+        /* POINTER - PASTI DI 0 DERAJAT */
+        .pointer {
             position: absolute;
-            width: 450px;
-            height: 450px;
-            border-radius: 50%;
-            top: 0;
-            left: 0;
-            z-index: 50;
-            pointer-events: none;
-            opacity: 0;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 25px solid #8b0000;
+            z-index: 10;
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3));
         }
         
-        .light-beam::before {
+        .pointer::after {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 10px;
+            height: 10px;
+            background: #8b0000;
             border-radius: 50%;
-            background: radial-gradient(
-                circle at 50% 0%,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0) 60%,
-                rgba(255, 255, 255, 0.1) 70%,
-                rgba(255, 255, 255, 0) 80%
-            );
-            mask: radial-gradient(
-                circle at 50% 0%,
-                rgba(0,0,0,1) 0%,
-                rgba(0,0,0,1) 60%,
-                rgba(0,0,0,0) 70%,
-                rgba(0,0,0,0) 100%
-            );
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
         }
         
-        .light-beam::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(
-                circle at 50% 0%,
-                rgba(255, 0, 0, 0) 0%,
-                rgba(255, 0, 0, 0) 60%,
-                rgba(255, 0, 0, 0.3) 70%,
-                rgba(255, 0, 0, 0) 80%
-            );
-            filter: blur(15px);
-        }
-        
-        .light-active {
-            opacity: 1;
-            animation: lightRotate 0.4s linear infinite;
-        }
-        
-        .light-stopping {
-            animation: lightRotate 0.4s linear infinite, lightStop 3s ease-out forwards;
-        }
-        
-        @keyframes lightRotate {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        
-        @keyframes lightStop {
-            0% {
-                animation-timing-function: linear;
-            }
-            90% {
-                animation-timing-function: ease-out;
-                opacity: 1;
-            }
-            100% {
-                animation-timing-function: ease-out;
-                opacity: 0;
-                transform: rotate(var(--stop-angle));
-            }
-        }
-        
-        /* ANIMASI WHEEL SPIN */
-        @keyframes wheelSpin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(var(--final-rotation));
-            }
-        }
-        
-        .spinning {
-            animation: wheelSpin 4s cubic-bezier(0.17, 0.67, 0.21, 0.99) forwards;
-        }
-        
-        /* GLOW EFFECT UNTUK ANGKA TERPILIH */
-        .selected-glow {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);
-            filter: blur(15px);
-            z-index: 40;
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .glow-active {
-            opacity: 0.8;
-            animation: pulseGlow 1.5s infinite alternate;
-        }
-        
-        @keyframes pulseGlow {
-            0% {
-                transform: scale(1);
-                opacity: 0.6;
-            }
-            100% {
-                transform: scale(1.2);
-                opacity: 0.9;
-            }
-        }
-        
-        .control-panel {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
-            max-width: 450px;
-        }
-        
+        /* TOMBOL PUTAR */
         .spin-btn {
-            background: linear-gradient(to right, #8b0000, #b22222);
+            margin: 30px 0;
+            background: #8b0000;
             color: white;
             border: none;
-            padding: 20px 50px;
-            font-size: 1.4rem;
+            padding: 15px 40px;
+            font-size: 1.2rem;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
             font-weight: 600;
-            letter-spacing: 1px;
-            border: 3px solid #ff3333;
-            width: 100%;
-            max-width: 300px;
         }
         
         .spin-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(139, 0, 0, 0.6);
-            background: linear-gradient(to right, #b22222, #8b0000);
+            background: #a52a2a;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(139, 0, 0, 0.5);
         }
         
         .spin-btn:disabled {
-            background: linear-gradient(to right, #555, #333);
+            background: #cccccc;
             cursor: not-allowed;
             transform: none;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-            border-color: #666;
+            box-shadow: 0 5px 15px rgba(156, 163, 175, 0.4);
         }
         
-        .result-display {
-            background: linear-gradient(145deg, #2a0000, #1a0000);
-            border-radius: 20px;
+        /* HASIL YANG MUNCUL SETELAH SPIN */
+        .result-container {
+            display: none;
+            background: white;
+            border-radius: 15px;
             padding: 30px;
+            margin-top: 30px;
             width: 100%;
-            max-width: 600px;
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.7),
-                inset 0 0 30px rgba(139, 0, 0, 0.3);
-            border: 3px solid #8b0000;
-            text-align: center;
-            margin-top: 20px;
+            max-width: 400px;
+            border: 2px solid #8b0000;
+            box-shadow: 0 15px 35px rgba(139, 0, 0, 0.15);
         }
         
-        .result-display::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            background: linear-gradient(to right, 
-                #ff0000, #ff6666, #ff0000);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+        .result-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
         }
         
-        .result-label {
-            color: #ffcccc;
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            font-weight: 600;
+        .genre {
+            color: #8b0000;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
         }
         
-        .result-text {
-            color: #ff0000;
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .prompt {
+            color: #333;
+            font-size: 1.1rem;
+            line-height: 1.6;
             padding: 15px;
-            word-break: break-word;
-            line-height: 1.5;
+            background: #fff5f5;
+            border-radius: 10px;
+            border-left: 4px solid #8b0000;
         }
         
-        @keyframes resultPop {
-            0% {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .result-pop {
-            animation: resultPop 0.5s ease-out forwards;
+        @keyframes spinPulse {
+            0%, 100% { box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2); }
+            50% { box-shadow: 0 10px 40px rgba(139, 0, 0, 0.6); }
         }
         
-        .section-highlight {
-            filter: brightness(2) drop-shadow(0 0 20px rgba(255, 255, 255, 0.9)) !important;
-            transition: filter 0.5s ease;
-        }
-        
-        @media (max-width: 768px) {
-            .wheel-container {
-                width: 350px;
-                height: 350px;
-            }
-            
-            .light-beam {
-                width: 350px;
-                height: 350px;
-            }
-            
-            .wheel-section-content {
-                font-size: 18px;
-                padding-left: 30px;
-                padding-bottom: 30px;
-            }
-            
-            h1 {
-                font-size: 2.3rem;
-            }
-            
-            .result-text {
-                font-size: 1.5rem;
-            }
+        .spinning {
+            animation: spinPulse 0.5s infinite alternate;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>CHOOSE-PROMPT</h1>
-            <p style="color: #ff9999; font-size: 1.1rem; max-width: 700px; margin: 10px auto;">
-                CAHAYA berputar 5x cepat → berhenti → terpilih. 20 prompt tetap bahasa Indonesia.
-            </p>
-        </header>
+        <h1>Prompt Spinner</h1>
         
-        <div class="main-content">
-            <div class="wheel-container">
-                <!-- CAHAYA BERPUTAR -->
-                <div class="light-beam" id="light-beam"></div>
-                
-                <!-- GLOW UNTUK ANGKA TERPILIH -->
-                <div class="selected-glow" id="selected-glow"></div>
-                
-                <div class="wheel" id="wheel">
-                    <!-- Wheel sections akan dibuat oleh JavaScript -->
-                </div>
-                <div class="wheel-center"></div>
+        <div class="spinner-container">
+            <div class="pointer"></div>
+            <div class="spinner" id="spinner">
+                <!-- Angka akan ditambahkan dengan JavaScript -->
             </div>
-            
-            <div class="control-panel">
-                <button class="spin-btn" id="spin-btn">
-                    <i class="fas fa-play"></i> PUTAR CAHAYA
-                </button>
-            </div>
-            
-            <div class="result-display">
-                <div class="result-label">PROMPT TERPILIH:</div>
-                <div class="result-text" id="result-text">Klik tombol untuk mulai</div>
-            </div>
+        </div>
+        
+        <button class="spin-btn" id="spinBtn">
+            PUTAR SPINNER
+        </button>
+        
+        <div class="result-container" id="resultContainer">
+            <div class="genre" id="genre">-</div>
+            <div class="prompt" id="prompt">-</div>
         </div>
     </div>
 
     <script>
-        // 20 PROMPT TETAP DALAM BAHASA INDONESIA
-        const PROMPTS = [
-            "Seorang ilmuwan menemukan cara berkomunikasi dengan tanaman yang memperingatkan ancaman global. Haruskah dia mempercayai mereka dan mengambil tindakan?",
-            "Di dunia di mana setiap orang memiliki jam kematian di pergelangan tangan, seseorang menemukan jam mereka berhenti. Apakah ini keabadian atau kesalahan?",
-            "Karakter utama bermimpi kehidupan berbeda setiap malam, lalu bertemu orang dari mimpi itu di dunia nyata. Apakah mimpi itu dunia paralel?",
-            "Kota kecil terperangkap dalam pengulangan hari yang sama. Hanya satu orang yang sadar dan harus memecahkan siklus waktu ini.",
-            "Setelah kecelakaan, seseorang bisa melihat 'jejak emosi' di tempat-tempat. Kemampuan ini membantu memecahkan misteri tetapi membebani emosinya.",
-            "Di masa depan, kenangan bisa dibeli dan dijual. Seorang penyelundup menemukan kenangan terlarang yang bisa mengubah masyarakat selamanya.",
-            "Karakter dalam buku mulai muncul di dunia nyata. Awalnya menyenangkan sampai antagonisnya juga muncul dan mengancam kehidupan.",
-            "Setiap orang punya binatang roh. Karakter utama adalah satu-satunya dengan dua binatang roh yang bertentangan, mencerminkan konflik batinnya.",
-            "Teknologi baru memungkinkan orang mengunjungi kenangan orang lain. Seorang penyidik menggunakannya untuk memecahkan kejahatan dengan masuk ke kenangan korban.",
-            "Di dunia tanpa perang, semua konflik diselesaikan lewat permainan kompetitif. Sang juara tak terkalahkan mulai mempertanyakan moralitas sistem ini.",
-            "Setiap kali tidur, karakter utama bangun di tubuh orang berbeda. Mereka harus selesaikan misi sebelum tertidur lagi atau terjebak selamanya.",
-            "Portal ke dunia fantasi terbuka di tengah kota. Seorang polisi biasa harus menjaga ketertiban saat makhluk ajaib memasuki dunia kita.",
-            "Orang-orang dapat kekuatan super berdasarkan kepribadian mereka. Karakter utama dapat kekuatan yang tampak tidak berguna sampai dia temukan aplikasi yang mengejutkan.",
-            "Sejarah ternyata adalah program komputer yang sedang di-debug. Karakter utama adalah bug yang sadar eksistensinya dan harus hindari 'debugger'.",
-            "Setiap kata yang diucapkan muncul sebagai simbol di udara. Karakter utama menemukan dia bisa membaca simbol semua orang dengan makna berbeda.",
-            "Waktu berjalan lebih cepat di beberapa wilayah Bumi. Seseorang tinggal di perbatasan zona waktu normal dan cepat, mengalami dua realitas sekaligus.",
-            "Emosi manusia bisa dikristalisasi menjadi benda fisik dengan kekuatan magis. Seorang kolektor tidak sengaja temukan kristal berisi emosi terlarang.",
-            "Setiap bulan purnama, semua orang berubah jadi versi ideal diri mereka. Satu orang tidak berubah, menyadari dia sudah jadi versi idealnya.",
-            "Buku di perpustakaan tertentu bisa bawa pembaca masuk ke dunia dalam cerita. Seorang pustakawan harus selamatkan orang yang terjebak dalam buku.",
-            "Suara batin semua orang tiba-tiba bisa didengar orang lain. Masyarakat kacau saat orang berjuang bedakan antara pikiran pribadi dan ucapan publik."
-        ];
+        // DATA PROMPT UNTUK SETIAP ANGKA (1-20)
+        const prompts = {
+            1: {
+                genre: "MISTERI",
+                prompt: "Detektif pensiunan dipanggil menyelidiki kasus pembunuhan di kota kecil. Semua bukti mengarah pada orang yang sudah meninggal 10 tahun lalu."
+            },
+            2: {
+                genre: "CINTA",
+                prompt: "Dua musuh sejak SMA dipaksa bekerja sama dalam proyek kantor. Di balik permusuhan, ternyata ada perasaan yang disembunyikan bertahun-tahun."
+            },
+            3: {
+                genre: "PETUALANGAN",
+                prompt: "Peta kuno warisan kakek mengarah pada harta karun di pulau terpencil. Tapi pulau itu tidak ada dalam peta manapun di dunia."
+            },
+            4: {
+                genre: "FANTASI",
+                prompt: "Pustakawan menemukan buku yang bisa mengubah ending cerita. Setiap perubahan mempengaruhi dunia nyata."
+            },
+            5: {
+                genre: "SCI-FI",
+                prompt: "Peneliti waktu tanpa sengaja terjebak di tahun 1985. Untuk kembali, dia harus menemukan penemu mesin waktu yang masih anak-anak."
+            },
+            6: {
+                genre: "DRAMA",
+                prompt: "Keluarga yang terpecah karena warisan harus bersatu kembali ketika adik bungsu didiagnosis sakit langka."
+            },
+            7: {
+                genre: "THRILLER",
+                prompt: "Orang asing mengaku sebagai kembaran identik yang hilang. Semua bukti mendukung klaimnya, tapi ada sesuatu yang sangat salah."
+            },
+            8: {
+                genre: "HORROR",
+                prompt: "Rumah baru yang sempurna ternyata memiliki cermin yang memantulkan versi berbeda dari penghuninya."
+            },
+            9: {
+                genre: "KOMEDI",
+                prompt: "Penipu ulung tanpa sengaja menipu mafia dan sekarang harus berpura-pura menjadi bos mafia yang hilang."
+            },
+            10: {
+                genre: "SEJARAH",
+                prompt: "Mahasiswa sejarah menemukan surat yang membuktakan adanya kerajaan yang dihapus dari catatan sejarah."
+            },
+            11: {
+                genre: "ROMANTIS",
+                prompt: "Perjodohan oleh keluarga yang awalnya ditolak, ternyata mereka adalah penulis dan penggemar rahasia satu sama lain."
+            },
+            12: {
+                genre: "AKSI",
+                prompt: "Kurir khusus harus mengantar paket melintasi kota yang dikepung zombie. Paket itu adalah vaksin terakhir."
+            },
+            13: {
+                genre: "MUSIKAL",
+                prompt: "Grup band yang bubar 20 tahun lalu mendapat tawaran reunion. Tapi ada rahasia besar di balik bubarnya band itu."
+            },
+            14: {
+                genre: "ANIME",
+                prompt: "Siswa SMA biasa mendapat kekuatan mengendalikan mimpi orang lain. Dia gunakan untuk membantu, tapi ada yang memata-matai."
+            },
+            15: {
+                genre: "SUPERHERO",
+                prompt: "Pahlawan super pensiunan dipaksa kembali ketika musuh lamanya muncul. Tapi kali ini, musuhnya meminta bantuan."
+            },
+            16: {
+                genre: "DOKUMENTER",
+                prompt: "Jurnalis menyelidiki perusahaan yang mengklaim bisa menghapus ingatan buruk. Tapi ada klien yang ingatannya salah dihapus."
+            },
+            17: {
+                genre: "FAMILY",
+                prompt: "Kakek dan cucu melakukan road trip menyelesaikan daftar keinginan nenek yang meninggal. Setiap tujuan punya cerita."
+            },
+            18: {
+                genre: "PSIKOLOGIS",
+                prompt: "Terapis tanpa sengaja menyembuhkan pasien amnesia. Pasien itu ternyata saksi kunci kasus pembunuhan yang melibatkan terapis."
+            },
+            19: {
+                genre: "SPORT",
+                prompt: "Atlet cedera menemukan bakat melatih. Dia latih tim underdog untuk melawan mantan timnya di final."
+            },
+            20: {
+                genre: "BIOPIC",
+                prompt: "Ilmuwan perempuan di era 1950an harus menyembunyikan identitasnya untuk mempublikasikan penemuan revolusioner."
+            }
+        };
+
+        // ELEMEN DOM
+        const spinner = document.getElementById('spinner');
+        const spinBtn = document.getElementById('spinBtn');
+        const resultContainer = document.getElementById('resultContainer');
+        const genreEl = document.getElementById('genre');
+        const promptEl = document.getElementById('prompt');
         
-        // DOM Elements
-        const wheel = document.getElementById('wheel');
-        const spinBtn = document.getElementById('spin-btn');
-        const resultText = document.getElementById('result-text');
-        const lightBeam = document.getElementById('light-beam');
-        const selectedGlow = document.getElementById('selected-glow');
-        
-        // State variables
+        // VARIABEL KONTROL
         let isSpinning = false;
         let currentRotation = 0;
-        const TOTAL_SECTIONS = 20;
-        const ANGLE_PER_SECTION = 360 / TOTAL_SECTIONS;
+        const totalNumbers = 20;
+        const anglePerNumber = 360 / totalNumbers;
         
-        // Initialize wheel dengan 20 prompt tetap
-        function initializeWheel() {
-            wheel.innerHTML = '';
-            
-            for (let i = 0; i < TOTAL_SECTIONS; i++) {
-                const section = document.createElement('div');
-                section.className = 'wheel-section';
-                section.style.transform = `rotate(${i * ANGLE_PER_SECTION}deg)`;
-                section.id = `section-${i}`;
+        // INISIALISASI SPINNER DENGAN ANGKA
+        function initSpinner() {
+            // Tambahkan angka 1-20 di spinner
+            for (let i = 1; i <= totalNumbers; i++) {
+                const numberEl = document.createElement('div');
+                numberEl.className = 'number';
+                numberEl.textContent = i;
+                numberEl.id = `num${i}`;
                 
-                const content = document.createElement('div');
-                content.className = 'wheel-section-content';
-                content.textContent = `${i + 1}`;
-                content.title = `Prompt ${i + 1}: ${PROMPTS[i]}`;
+                // Hitung posisi angka
+                const angle = (i - 1) * anglePerNumber + anglePerNumber/2; // Tengah segmen
+                const radius = 110; // Jarak dari pusat
                 
-                section.appendChild(content);
-                wheel.appendChild(section);
+                // Konversi polar ke cartesian
+                const radian = (angle * Math.PI) / 180;
+                const x = radius * Math.cos(radian);
+                const y = radius * Math.sin(radian);
+                
+                // Posisikan angka
+                numberEl.style.left = `calc(50% + ${x}px)`;
+                numberEl.style.top = `calc(50% + ${y}px)`;
+                numberEl.style.transform = `translate(-50%, -50%)`;
+                
+                spinner.appendChild(numberEl);
             }
-            
-            setupEventListeners();
         }
         
-        function setupEventListeners() {
-            spinBtn.addEventListener('click', startLightSpin);
-            wheel.addEventListener('click', () => {
-                if (!isSpinning) startLightSpin();
-            });
-            document.addEventListener('keydown', (e) => {
-                if (e.code === 'Space' && !isSpinning) {
-                    e.preventDefault();
-                    startLightSpin();
-                }
-            });
-        }
-        
-        function startLightSpin() {
+        // FUNGSI PUTAR SPINNER
+        function spin() {
             if (isSpinning) return;
             
             isSpinning = true;
             spinBtn.disabled = true;
+            spinner.classList.add('spinning');
+            resultContainer.classList.remove('show');
             
-            // Reset efek sebelumnya
-            lightBeam.classList.remove('light-active', 'light-stopping');
-            selectedGlow.classList.remove('glow-active');
+            // Pilih angka random (1-20)
+            const selectedNumber = Math.floor(Math.random() * totalNumbers) + 1;
             
-            // Pilih angka pemenang secara acak
-            const randomBuffer = new Uint32Array(1);
-            crypto.getRandomValues(randomBuffer);
-            const randomValue = randomBuffer[0] / 4294967295;
-            const winnerIndex = Math.floor(randomValue * TOTAL_SECTIONS);
+            // PERHITUNGAN ROTASI YANG BENAR:
+            // Pointer di 0°, kita ingin ANGKA yang terpilih berhenti di pointer
+            // Rumus: targetRotation = 360 - ((angka - 1) * 18°) - 9°
+            // Kenapa -9°? Karena kita ingin TENGAH segmen (bukan awal) berhenti di pointer
             
-            // Reset wheel ke posisi awal
-            currentRotation = 0;
-            wheel.style.transform = 'rotate(0deg)';
-            wheel.classList.remove('spinning');
+            const targetRotation = 360 - ((selectedNumber - 1) * anglePerNumber) - (anglePerNumber / 2);
+            const fullRotations = 5;
             
-            // 1. CAHAYA BERPUTAR CEPAT 5 KALI
-            lightBeam.style.setProperty('--stop-angle', `${winnerIndex * ANGLE_PER_SECTION}deg`);
-            lightBeam.classList.add('light-active');
+            // Total rotasi
+            const totalRotation = currentRotation + (360 * fullRotations) + targetRotation;
             
-            // 2. SETELAH 2 DETIK (5 PUTARAN CEPAT), CAHAYA BERHENTI
+            // Simpan rotasi saat ini
+            currentRotation = totalRotation % 360;
+            
+            // Putar spinner
+            spinner.style.transition = 'transform 3s cubic-bezier(0.2, 0.8, 0.3, 1)';
+            spinner.style.transform = `rotate(${totalRotation}deg)`;
+            
+            // Tampilkan hasil setelah 3 detik
             setTimeout(() => {
-                lightBeam.classList.remove('light-active');
-                lightBeam.classList.add('light-stopping');
+                spinner.classList.remove('spinning');
+                spinBtn.disabled = false;
+                isSpinning = false;
                 
-                // Hitung posisi cahaya berhenti (sama dengan winnerIndex)
-                const stopAngle = winnerIndex * ANGLE_PER_SECTION;
+                // Tampilkan prompt sesuai angka
+                showPrompt(selectedNumber);
                 
-                // 3. SETELAH CAHAYA BERHENTI, TAMPILKAN GLOW DI ANGKA TERPILIH
-                setTimeout(() => {
-                    // Posisikan glow di angka yang terpilih
-                    const sectionAngle = winnerIndex * ANGLE_PER_SECTION;
-                    const radians = (sectionAngle - 90) * Math.PI / 180;
-                    const radius = 180; // Radius wheel
-                    
-                    const glowX = radius * Math.cos(radians);
-                    const glowY = radius * Math.sin(radians);
-                    
-                    selectedGlow.style.left = `calc(50% + ${glowX}px)`;
-                    selectedGlow.style.top = `calc(50% + ${glowY}px)`;
-                    selectedGlow.classList.add('glow-active');
-                    
-                    // 4. PUTAR WHEEL KE POSISI TERPILIH (animasi lambat)
-                    const fullRotations = 3;
-                    const finalRotation = (360 * fullRotations) + stopAngle;
-                    
-                    wheel.style.setProperty('--final-rotation', `${finalRotation}deg`);
-                    wheel.classList.add('spinning');
-                    currentRotation = finalRotation % 360;
-                    
-                    // 5. TAMPILKAN HASIL
-                    setTimeout(() => {
-                        // Highlight section yang terpilih
-                        highlightSelectedSection(winnerIndex);
-                        
-                        // Tampilkan prompt
-                        resultText.textContent = `${winnerIndex + 1}. ${PROMPTS[winnerIndex]}`;
-                        resultText.classList.remove('result-pop');
-                        void resultText.offsetWidth;
-                        resultText.classList.add('result-pop');
-                        
-                        // Reset state
-                        setTimeout(() => {
-                            isSpinning = false;
-                            spinBtn.disabled = false;
-                        }, 500);
-                        
-                    }, 4000); // Setelah wheel selesai berputar
-                    
-                }, 2000); // Setelah cahaya berhenti
-                
-            }, 2000); // Cahaya berputar cepat selama 2 detik
+                console.log(`Angka: ${selectedNumber}, Rotasi akhir: ${currentRotation.toFixed(1)}°`);
+            }, 3000);
         }
         
-        function highlightSelectedSection(index) {
-            // Reset semua highlight
-            const sections = document.querySelectorAll('.wheel-section-content');
-            sections.forEach(section => {
-                section.classList.remove('section-highlight');
-            });
-            
-            // Highlight section yang terpilih
-            const selectedSection = document.querySelector(`#section-${index} .wheel-section-content`);
-            if (selectedSection) {
-                selectedSection.classList.add('section-highlight');
-                
-                // Reset highlight setelah beberapa saat
-                setTimeout(() => {
-                    selectedSection.style.filter = 'brightness(1.5)';
-                }, 5000);
+        // TAMPILKAN PROMPT
+        function showPrompt(number) {
+            const data = prompts[number];
+            if (data) {
+                genreEl.textContent = data.genre;
+                promptEl.textContent = data.prompt;
+                resultContainer.classList.add('show');
             }
         }
         
-        // Initialize saat halaman dimuat
-        window.addEventListener('DOMContentLoaded', () => {
-            initializeWheel();
-            
-            // Tambahkan FontAwesome
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
-            document.head.appendChild(link);
+        // EVENT LISTENER
+        spinBtn.addEventListener('click', spin);
+        
+        // Shortcut keyboard: Spasi untuk spin
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && !isSpinning) {
+                e.preventDefault();
+                spin();
+            }
+        });
+        
+        // INISIALISASI
+        document.addEventListener('DOMContentLoaded', () => {
+            initSpinner();
         });
     </script>
 </body>
