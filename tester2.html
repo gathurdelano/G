@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KISS-CHO Valentine Box</title>
+    <title>KISS-CHO Valentine Gift Box</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -64,18 +64,18 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 3.5rem;
             font-weight: 800;
-            color: #ff4a4a;
+            color: #ffffff; /* WHITE COLOR */
             margin-bottom: 10px;
             letter-spacing: 2px;
             text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(255, 74, 74, 0.7);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
         
         .mystery-box-title {
             font-family: 'Montserrat', sans-serif;
             font-size: 2.8rem;
             font-weight: 700;
-            color: #ff6b6b;
+            color: #ffffff; /* WHITE COLOR */
             margin-bottom: 15px;
             letter-spacing: 3px;
             position: relative;
@@ -93,15 +93,6 @@
             background: linear-gradient(90deg, transparent, #ff4a4a, transparent);
         }
         
-        .subtitle {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #ff9e9e;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-        }
-        
         .value-tag {
             font-family: 'Montserrat', sans-serif;
             background: linear-gradient(45deg, #9a0000, #cc0000);
@@ -116,15 +107,6 @@
             border: 2px solid rgba(255, 74, 74, 0.5);
             box-shadow: 0 0 25px rgba(204, 0, 0, 0.4);
             text-transform: uppercase;
-        }
-        
-        .limited-tag {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #ff9e9e;
-            margin-top: 15px;
-            letter-spacing: 1px;
         }
         
         /* Mystery Box Container */
@@ -661,38 +643,19 @@
                 opacity: 0;
             }
         }
-        
-        /* Open Button (disabled state) */
-        .open-button {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(45deg, #660000, #440000);
-            color: #ff9e9e;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-top: 30px;
-            letter-spacing: 1px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            cursor: not-allowed;
-            text-transform: uppercase;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <div class="logo">KISS-CHO</div>
-            <h1 class="mystery-box-title">VALENTINE MYSTERY BOX</h1>
-            <div class="subtitle">ONE TIME OPENING • SPECIAL GIFT</div>
-            <div class="value-tag">Happy Valentine! Open the gift from Kiss-Cho!</div>
-            <div class="limited-tag">Click the box to reveal your special gift</div>
+            <h1 class="mystery-box-title">VALENTINE GIFT-BOX</h1>
+            <div class="value-tag">OPEN THE GIFT FROM KACHOO!</div>
         </div>
         
         <div class="instructions">
             <h3>HOW TO PLAY:</h3>
-            <p>Click the mystery box to open it ONCE and reveal your special Valentine gift! Each box contains a unique photo gift. You can only open it once, so make it count!</p>
+            <p>Click the mystery box to open it and reveal your special Valentine gift!</p>
         </div>
         
         <div class="box-container">
@@ -785,15 +748,13 @@
             </div>
         </div>
         
-        <button class="open-button" id="openButton" disabled>ONE TIME ONLY</button>
-        
         <footer>
-            <div class="made-by">KISS-CHO VALENTINE EDITION</div>
+            <div class="made-by">KISS-CHO by The Kachoo!</div>
             <div class="social-links">
                 <a href="https://twitter.com/thekachoo" target="_blank" class="social-link">@thekachoo</a>
                 <a href="mailto:ohkachoo@gmail.com" class="social-link">ohkachoo@gmail.com</a>
             </div>
-            <div class="disclaimer">Special Valentine Gift - One Time Opening Only</div>
+            <div class="disclaimer">Happy Valentine, you'll always be loved!</div>
         </footer>
     </div>
 
@@ -870,7 +831,6 @@
         const giftContent = document.getElementById('giftContent');
         const mysteryBox = document.querySelector('.mystery-box');
         const boxGlow = document.getElementById('boxGlow');
-        const openButton = document.getElementById('openButton');
         
         // Create sparkle effect
         function createSparkle(x, y) {
@@ -1064,9 +1024,6 @@
                     createSparkle(x, y);
                 }, i * 300);
             }
-            
-            // Update button text after load
-            openButton.textContent = "CLICK THE BOX ABOVE";
         });
         
         // Prevent right-click
