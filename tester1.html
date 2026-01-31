@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prompt Spinner</title>
+    <title>CHOOSE PROMPT</title>
     <style>
         /* RESET DAN VARIABLES */
         * {
@@ -28,7 +28,7 @@
             background: linear-gradient(135deg, var(--light) 0%, var(--white) 100%);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             padding: 20px;
         }
@@ -37,6 +37,7 @@
             width: 100%;
             max-width: 500px;
             text-align: center;
+            flex: 1;
         }
 
         /* HEADER */
@@ -46,9 +47,10 @@
 
         .header h1 {
             color: var(--primary);
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: 2px;
         }
 
         .header p {
@@ -72,22 +74,12 @@
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             position: relative;
-            transition: transform 0.1s linear;
+            transition: transform 0.05s linear;
             box-shadow: 
                 0 0 0 10px var(--white),
                 0 15px 35px rgba(139, 0, 0, 0.3),
                 inset 0 0 20px rgba(255, 255, 255, 0.3);
             overflow: hidden;
-        }
-
-        /* SPINNER SEGMENTS */
-        .spinner-segment {
-            position: absolute;
-            width: 50%;
-            height: 50%;
-            transform-origin: bottom right;
-            left: 0;
-            top: 0;
         }
 
         /* SPINNER NUMBERS - ANGKA DI SPINNER */
@@ -104,6 +96,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 50%;
+            background: rgba(139, 0, 0, 0.7);
         }
 
         /* SPINNER CENTER */
@@ -112,48 +106,21 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             background: var(--white);
             border-radius: 50%;
             z-index: 3;
             box-shadow: 
-                0 0 15px rgba(0, 0, 0, 0.2),
-                inset 0 0 10px rgba(139, 0, 0, 0.1);
+                0 0 20px rgba(0, 0, 0, 0.3),
+                inset 0 0 15px rgba(139, 0, 0, 0.1);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-weight: bold;
+            font-weight: 900;
             color: var(--primary);
-            font-size: 1.5rem;
-            border: 4px solid var(--primary);
-        }
-
-        /* SPINNER MARKER - JARUM PENUNJUK */
-        .spinner-marker {
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 30px;
-            background: var(--primary);
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            z-index: 10;
-            filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.4));
-        }
-
-        .spinner-marker::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 12px;
-            height: 12px;
-            background: var(--primary);
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            font-size: 2rem;
+            border: 5px solid var(--primary);
         }
 
         /* SPIN BUTTON */
@@ -266,24 +233,6 @@
             border-left: 5px solid var(--primary);
         }
 
-        /* SPIN COUNTER */
-        .spin-counter {
-            position: absolute;
-            bottom: -40px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 1rem;
-            color: var(--primary);
-            font-weight: 600;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .spin-counter.show {
-            opacity: 1;
-        }
-
         /* INSTRUCTION */
         .instruction {
             background: var(--light);
@@ -304,6 +253,22 @@
             font-family: monospace;
             font-weight: bold;
             margin: 0 3px;
+        }
+
+        /* FOOTER */
+        .footer {
+            margin-top: 40px;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .footer p {
+            margin: 5px 0;
         }
 
         /* ANIMATIONS */
@@ -361,7 +326,7 @@
             }
             
             .header h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .prompt-genre {
@@ -376,6 +341,12 @@
                 padding: 16px 40px;
                 font-size: 1.2rem;
             }
+            
+            .spinner-center {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
@@ -383,18 +354,16 @@
     <div class="container">
         <!-- HEADER -->
         <div class="header">
-            <h1>🎡 PROMPT SPINNER</h1>
+            <h1>CHOOSE PROMPT</h1>
             <p>Putar spinner dan dapatkan prompt menulis kreatif!</p>
         </div>
 
         <!-- SPINNER -->
         <div class="spinner-container">
-            <div class="spinner-marker"></div>
             <div class="spinner" id="spinner">
                 <div class="spinner-center" id="centerNumber">?</div>
                 <!-- Angka akan diisi dengan JavaScript -->
             </div>
-            <div class="spin-counter" id="spinCounter"></div>
         </div>
 
         <!-- SPIN BUTTON -->
@@ -406,7 +375,7 @@
         <!-- INSTRUCTION -->
         <div class="instruction">
             <strong>Tips:</strong> Klik tombol "PUTAR SPINNER" atau tekan <kbd>SPACE</kbd> untuk memutar. 
-            Spinner akan berputar cepat 10 kali sebelum berhenti di angka yang terpilih.
+            Spinner akan berputar beberapa saat sebelum melambat dan berhenti.
         </div>
 
         <!-- PROMPT CONTAINERS -->
@@ -415,91 +384,137 @@
         </div>
     </div>
 
+    <!-- FOOTER -->
+    <div class="footer">
+        <p>This feature is created by The Kachoo & Prompt Ideas for roleplay purposes.</p>
+        <p>© 2026 CHOOSE PROMPT</p>
+    </div>
+
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
-        // DATA PROMPT UNTUK SETIAP ANGKA (1-20)
+        // DATA PROMPT UNTUK SETIAP ANGKA (1-30) - 3 GENRE SAJA
         const prompts = {
             1: {
-                genre: "MISTERI",
-                prompt: "Detektif pensiunan dipanggil menyelidiki kasus pembunuhan di kota kecil. Semua bukti mengarah pada orang yang sudah meninggal 10 tahun lalu."
+                genre: "ROMANCE COMEDY",
+                prompt: "Dua saingan bisnis terpaksa berpura-pura sebagai pasangan dalam acara pernikahan teman. Tapi peran mereka mulai terasa nyata."
             },
             2: {
-                genre: "CINTA",
-                prompt: "Dua musuh sejak SMA dipaksa bekerja sama dalam proyek kantor. Di balik permusuhan, ternyata ada perasaan yang disembunyikan bertahun-tahun."
+                genre: "DARK ROMANCE",
+                prompt: "Dia adalah pembunuh bayaran yang ditugaskan untuk membunuhnya. Tapi setelah mengawasinya selama berminggu-minggu, dia justru jatuh cinta."
             },
             3: {
-                genre: "PETUALANGAN",
-                prompt: "Peta kuno warisan kakek mengarah pada harta karun di pulau terpencil. Tapi pulau itu tidak ada dalam peta manapun di dunia."
+                genre: "ROMANCE",
+                prompt: "Pacar lama bertemu kembali setelah 10 tahun terpisah. Keduanya sudah berubah, tapi perasaan lama kembali menggelora."
             },
             4: {
-                genre: "FANTASI",
-                prompt: "Pustakawan menemukan buku yang bisa mengubah ending cerita. Setiap perubahan mempengaruhi dunia nyata."
+                genre: "ROMANCE COMEDY",
+                prompt: "Dia menyewa 'pacar sewaan' untuk menghadiri reuni keluarga. Tapi ternyata 'pacar sewaan' itu adalah bos baru di kantornya."
             },
             5: {
-                genre: "SCI-FI",
-                prompt: "Peneliti waktu tanpa sengaja terjebak di tahun 1985. Untuk kembali, dia harus menemukan penemu mesin waktu yang masih anak-anak."
+                genre: "DARK ROMANCE",
+                prompt: "Dia diculik oleh bos mafia yang terobsesi padanya. Tapi yang dia tidak tahu, dia adalah satu-satunya yang bisa menenangkannya."
             },
             6: {
-                genre: "DRAMA",
-                prompt: "Keluarga yang terpecah karena warisan harus bersatu kembali ketika adik bungsu didiagnosis sakit langka."
+                genre: "ROMANCE",
+                prompt: "Perjodohan antar keluarga kerajaan yang awalnya ditolak, berubah menjadi cinta sejati saat mereka mengenal satu sama lain."
             },
             7: {
-                genre: "THRILLER",
-                prompt: "Orang asing mengaku sebagai kembaran identik yang hilang. Semua bukti mendukung klaimnya, tapi ada sesuatu yang sangat salah."
+                genre: "ROMANCE COMEDY",
+                prompt: "Dua tetangga yang selalu bertengkar terpaksa tinggal serumah karena banjir menggenangi apartemen mereka."
             },
             8: {
-                genre: "HORROR",
-                prompt: "Rumah baru yang sempurna ternyata memiliki cermin yang memantulkan versi berbeda dari penghuninya."
+                genre: "DARK ROMANCE",
+                prompt: "Dia adalah terapis yang ditugaskan untuk 'menyembuhkan' psikopat. Tapi justru dia yang terjebak dalam permainannya."
             },
             9: {
-                genre: "KOMEDI",
-                prompt: "Penipu ulung tanpa sengaja menipu mafia dan sekarang harus berpura-pura menjadi bos mafia yang hilang."
+                genre: "ROMANCE",
+                prompt: "Cinta terlarang antara putri mahkota dan pengawal pribadinya. Mereka harus memilih antara cinta dan kewajiban."
             },
             10: {
-                genre: "SEJARAH",
-                prompt: "Mahasiswa sejarah menemukan surat yang membuktakan adanya kerajaan yang dihapus dari catatan sejarah."
+                genre: "ROMANCE COMEDY",
+                prompt: "Dia kalah taruhan dan harus menjadi 'budak' saingannya selama sebulan. Tapi bulan itu mengubah segalanya."
             },
             11: {
-                genre: "ROMANTIS",
-                prompt: "Perjodohan oleh keluarga yang awalnya ditolak, ternyata mereka adalah penulis dan penggemar rahasia satu sama lain."
+                genre: "DARK ROMANCE",
+                prompt: "Dia menyelamatkan pria terluka di hutan. Tapi pria itu adalah vampir berbahaya yang justru terikat padanya."
             },
             12: {
-                genre: "AKSI",
-                prompt: "Kurir khusus harus mengantar paket melintasi kota yang dikepung zombie. Paket itu adalah vaksin terakhir."
+                genre: "ROMANCE",
+                prompt: "Cinta kedua kalinya untuk janda dan duda yang dipertemukan oleh anak-anak mereka yang sedang pacaran."
             },
             13: {
-                genre: "MUSIKAL",
-                prompt: "Grup band yang bubar 20 tahun lalu mendapat tawaran reunion. Tapi ada rahasia besar di balik bubarnya band itu."
+                genre: "ROMANCE COMEDY",
+                prompt: "Dia pura-pura buta untuk menghindari kencan buta. Tapi 'teman buta' yang mengantarnya justru adalah pria impiannya."
             },
             14: {
-                genre: "ANIME",
-                prompt: "Siswa SMA biasa mendapat kekuatan mengendalikan mimpi orang lain. Dia gunakan untuk membantu, tapi ada yang memata-matai."
+                genre: "DARK ROMANCE",
+                prompt: "Dia adalah tahanan yang melarikan diri, dia adalah sheriff yang mengejarnya. Tapi badai salju memaksa mereka berlindung bersama."
             },
             15: {
-                genre: "SUPERHERO",
-                prompt: "Pahlawan super pensiunan dipaksa kembali ketika musuh lamanya muncul. Tapi kali ini, musuhnya meminta bantuan."
+                genre: "ROMANCE",
+                prompt: "Musisi jalanan dan eksekutif kaya yang hidupnya berbeda dunia, bertemu setiap Jumat di kafe yang sama."
             },
             16: {
-                genre: "DOKUMENTER",
-                prompt: "Jurnalis menyelidiki perusahaan yang mengklaim bisa menghapus ingatan buruk. Tapi ada klien yang ingatannya salah dihapus."
+                genre: "ROMANCE COMEDY",
+                prompt: "Dia memesan 'pacar robot' untuk company gathering. Tapi robot itu terlalu sempurna hingga dia lupa itu bukan manusia."
             },
             17: {
-                genre: "FAMILY",
-                prompt: "Kakek dan cucu melakukan road trip menyelesaikan daftar keinginan nenek yang meninggal. Setiap tujuan punya cerita."
+                genre: "DARK ROMANCE",
+                prompt: "Dia adalah korban yang selamat dari pembunuhan massal. Dia adalah detektif yang melindunginya, dan juga tersangka utamanya."
             },
             18: {
-                genre: "PSIKOLOGIS",
-                prompt: "Terapis tanpa sengaja menyembuhkan pasien amnesia. Pasien itu ternyata saksi kunci kasus pembunuhan yang melibatkan terapis."
+                genre: "ROMANCE",
+                prompt: "Cinta epistolari antara dua penulis yang saling berkirim surat tanpa tahu identitas asli satu sama lain."
             },
             19: {
-                genre: "SPORT",
-                prompt: "Atlet cedera menemukan bakat melatih. Dia latih tim underdog untuk melawan mantan timnya di final."
+                genre: "ROMANCE COMEDY",
+                prompt: "Kompetisi memasak antar restoran mempertemukan dua koki yang saling membenci, tapi kimia di dapur mereka tak terbantahkan."
             },
             20: {
-                genre: "BIOPIC",
-                prompt: "Ilmuwan perempuan di era 1950an harus menyembunyikan identitasnya untuk mempublikasikan penemuan revolusioner."
+                genre: "DARK ROMANCE",
+                prompt: "Dia menjual jiwanya pada iblis. Tapi iblis itu justru jatuh cinta padanya dan membatalkan kontrak."
+            },
+            21: {
+                genre: "ROMANCE",
+                prompt: "Dua musuh politik dari partai berbeda terpaksa bekerja sama. Di balik perbedaan, mereka menemukan kesamaan."
+            },
+            22: {
+                genre: "ROMANCE COMEDY",
+                prompt: "Dia tertukar identitas dengan kembarannya yang terkenal. Sekarang dia harus berpura-pura jadi selebriti dan jatuh cinta pada manajernya."
+            },
+            23: {
+                genre: "DARK ROMANCE",
+                prompt: "Dia adalah ilmuwan yang menciptakan AI sempurna. Tapi AI itu jatuh cinta padanya dan menjadi posesif."
+            },
+            24: {
+                genre: "ROMANCE",
+                prompt: "Cinta antara guru dan murid dewasa di kelas malam. Keduanya menyembunyikan masa lalu yang pahit."
+            },
+            25: {
+                genre: "ROMANCE COMEDY",
+                prompt: "Dia menulis novel berdasarkan mantan pacarnya. Tapi mantannya membaca novel itu dan mengajukan gugatan, sekaligus kencan ulang."
+            },
+            26: {
+                genre: "DARK ROMANCE",
+                prompt: "Dia adalah perawat di rumah sakit jiwa. Dia adalah pasien yang hanya merespon padanya. Tapi siapa yang sebenarnya sakit?"
+            },
+            27: {
+                genre: "ROMANCE",
+                prompt: "Cinta musiman antara petani dan pelukis yang datang setiap musim panas. Selama 5 musim, perasaan mereka berkembang."
+            },
+            28: {
+                genre: "ROMANCE COMEDY",
+                prompt: "Mereka saling mengenal melalui aplikasi kencan tanpa foto. Tapi ternyata mereka adalah rival di dunia nyata."
+            },
+            29: {
+                genre: "DARK ROMANCE",
+                prompt: "Dia menyelamatkan pria dari kecelakaan kapal. Tapi pria itu ternyata bajak laut abad ke-17 yang terlempar ke masa kini."
+            },
+            30: {
+                genre: "ROMANCE",
+                prompt: "Cinta antara penyintas perang yang kehilangan ingatan dan perawat yang membantunya mengingat, termasuk cinta mereka sebelumnya."
             }
         };
 
@@ -508,12 +523,11 @@
         const spinBtn = document.getElementById('spinBtn');
         const centerNumber = document.getElementById('centerNumber');
         const promptsContainer = document.getElementById('promptsContainer');
-        const spinCounter = document.getElementById('spinCounter');
         
         // VARIABEL KONTROL
         let isSpinning = false;
         let currentRotation = 0;
-        const totalNumbers = 20;
+        const totalNumbers = 30;
         const anglePerNumber = 360 / totalNumbers;
         
         // INISIALISASI SPINNER DENGAN ANGKA DI SPINNER
@@ -522,7 +536,7 @@
             const existingNumbers = spinner.querySelectorAll('.number');
             existingNumbers.forEach(num => num.remove());
             
-            // Tambahkan angka 1-20 di sekeliling spinner
+            // Tambahkan angka 1-30 di sekeliling spinner
             for (let i = 1; i <= totalNumbers; i++) {
                 const numberEl = document.createElement('div');
                 numberEl.className = 'number';
@@ -531,17 +545,15 @@
                 numberEl.dataset.number = i;
                 
                 // Hitung posisi angka di lingkaran
-                // Angka 1 di atas (0°), angka berjalan searah jarum jam
-                const angle = (i - 1) * anglePerNumber; // Derajat
-                const radius = 130; // Jarak dari pusat
+                const angle = (i - 1) * anglePerNumber;
+                const radius = 125;
                 
                 // Konversi ke radian
                 const radian = (angle * Math.PI) / 180;
                 
                 // Hitung posisi X dan Y
-                // Untuk koordinat CSS: 0° di atas, 90° di kanan
                 const x = Math.sin(radian) * radius;
-                const y = -Math.cos(radian) * radius; // Minus karena Y positif ke bawah
+                const y = -Math.cos(radian) * radius;
                 
                 // Atur posisi angka
                 numberEl.style.left = `calc(50% + ${x}px)`;
@@ -580,7 +592,7 @@
             }
         }
         
-        // FUNGSI PUTAR SPINNER DENGAN 10 PUTARAN CEPAT
+        // FUNGSI PUTAR SPINNER DENGAN EFEK MELAMBAT
         function spin() {
             if (isSpinning) return;
             
@@ -588,8 +600,6 @@
             spinBtn.disabled = true;
             spinner.classList.add('spinning');
             spinner.classList.add('spinner-spinning');
-            spinCounter.textContent = "Putaran: 0/10";
-            spinCounter.classList.add('show');
             
             // Sembunyikan semua prompt
             document.querySelectorAll('.prompt-box').forEach(box => {
@@ -599,19 +609,18 @@
             // Reset angka di tengah
             centerNumber.textContent = "?";
             
-            // Pilih angka random (1-20)
+            // Pilih angka random (1-30)
             const selectedNumber = Math.floor(Math.random() * totalNumbers) + 1;
             console.log('Angka terpilih:', selectedNumber);
             
             // Hitung sudut target
-            // Jarum di 0° (atas), angka terpilih harus berhenti di jarum
             const targetAngle = (selectedNumber - 1) * anglePerNumber;
             
-            // 10 PUTARAN CEPAT (360° × 10 = 3600°)
-            const fastRotations = 3600; // 10 putaran penuh
+            // PUTARAN AWAL CEPAT (6 putaran = 2160°)
+            const initialRotations = 2160;
             
-            // Hitung rotasi akhir untuk berhenti di angka yang tepat
-            const finalRotation = fastRotations - targetAngle;
+            // Hitung rotasi akhir
+            const finalRotation = initialRotations - targetAngle;
             
             // Total rotasi dari posisi awal
             const totalRotation = currentRotation + finalRotation;
@@ -619,62 +628,75 @@
             // Simpan rotasi saat ini
             currentRotation = totalRotation % 360;
             
-            // ANIMASI PUTARAN CEPAT
-            let rotationStep = 0;
-            const steps = 60; // 60 frame untuk putaran cepat (lebih lama)
-            const rotationPerStep = finalRotation / steps;
+            // VARIABEL ANIMASI
+            let startTime = null;
+            const duration = 5000; // 5 detik total
+            const fastDuration = 3500; // 3.5 detik putaran cepat
+            const slowDuration = 1500; // 1.5 detik putaran melambat
             
-            // Hitung berapa frame per putaran untuk update counter
-            const framesPerRotation = steps / 10;
-            let currentRotationCount = 0;
+            // Easing function untuk efek melambat
+            function easeOutCubic(t) {
+                return 1 - Math.pow(1 - t, 3);
+            }
             
-            // Fungsi untuk animasi frame per frame
-            function animateSpinner() {
-                if (rotationStep < steps) {
-                    rotationStep++;
-                    
-                    // Update counter setiap putaran
-                    if (rotationStep % framesPerRotation < 1) {
-                        currentRotationCount = Math.min(10, Math.floor(rotationStep / framesPerRotation));
-                        spinCounter.textContent = `Putaran: ${currentRotationCount}/10`;
-                    }
-                    
-                    const currentRot = currentRotation + (rotationPerStep * rotationStep);
-                    spinner.style.transform = `rotate(${currentRot}deg)`;
-                    
-                    // Update angka di tengah saat mendekati akhir (putaran terakhir)
-                    if (rotationStep > steps - 15) {
-                        centerNumber.textContent = selectedNumber;
-                        centerNumber.style.fontSize = "1.8rem";
-                        centerNumber.style.fontWeight = "900";
+            // Fungsi animasi
+            function animateSpinner(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const elapsed = timestamp - startTime;
+                
+                if (elapsed < duration) {
+                    // Fase putaran cepat (0 - 3500ms)
+                    if (elapsed < fastDuration) {
+                        // Putaran cepat dengan kecepatan konstan
+                        const progress = elapsed / fastDuration;
+                        const currentRot = currentRotation + (finalRotation * progress);
+                        spinner.style.transform = `rotate(${currentRot}deg)`;
+                    } 
+                    // Fase melambat (3500 - 5000ms)
+                    else {
+                        // Hitung progress fase melambat (0-1)
+                        const slowProgress = (elapsed - fastDuration) / slowDuration;
+                        const easedProgress = easeOutCubic(slowProgress);
+                        
+                        // Rotasi dari 90% ke 100%
+                        const startRot = currentRotation + (finalRotation * 0.9);
+                        const endRot = currentRotation + finalRotation;
+                        const currentRot = startRot + ((endRot - startRot) * easedProgress);
+                        
+                        spinner.style.transform = `rotate(${currentRot}deg)`;
+                        
+                        // Update angka di tengah saat mulai melambat
+                        if (slowProgress > 0.3) {
+                            centerNumber.textContent = selectedNumber;
+                            centerNumber.style.fontSize = "2.2rem";
+                            centerNumber.style.fontWeight = "900";
+                        }
                     }
                     
                     requestAnimationFrame(animateSpinner);
                 } else {
                     // Setelah animasi selesai
                     spinner.style.transform = `rotate(${totalRotation}deg)`;
-                    spinCounter.textContent = "Berhenti di angka: " + selectedNumber;
                     
-                    // Tampilkan prompt setelah jeda
+                    // Tampilkan prompt
                     setTimeout(() => {
                         showPrompt(selectedNumber);
                     }, 500);
                     
-                    // Reset state setelah 1.5 detik
+                    // Reset state
                     setTimeout(() => {
                         spinner.classList.remove('spinning');
                         spinner.classList.remove('spinner-spinning');
                         spinBtn.disabled = false;
                         isSpinning = false;
-                        spinCounter.classList.remove('show');
-                        centerNumber.style.fontSize = "1.5rem";
-                        centerNumber.style.fontWeight = "bold";
-                    }, 1500);
+                        centerNumber.style.fontSize = "2rem";
+                        centerNumber.style.fontWeight = "900";
+                    }, 1000);
                 }
             }
             
             // Mulai animasi
-            animateSpinner();
+            requestAnimationFrame(animateSpinner);
         }
         
         // TAMPILKAN PROMPT BERDASARKAN ANGKA
@@ -689,7 +711,7 @@
             if (promptBox) {
                 promptBox.classList.add('active');
                 
-                // Scroll ke prompt dengan delay
+                // Scroll ke prompt
                 setTimeout(() => {
                     promptBox.scrollIntoView({
                         behavior: 'smooth',
@@ -715,9 +737,8 @@
             initSpinner();
             createPromptContainers();
             
-            console.log('Prompt Spinner siap digunakan!');
+            console.log('CHOOSE PROMPT siap digunakan!');
             console.log('Tekan tombol "PUTAR SPINNER" atau SPACE untuk memutar.');
-            console.log('Spinner akan berputar cepat 10 kali sebelum berhenti di angka yang terpilih.');
         });
     </script>
 </body>
