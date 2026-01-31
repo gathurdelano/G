@@ -5,260 +5,341 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prompt Spinner</title>
     <style>
+        /* RESET DAN VARIABLES */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        :root {
+            --primary: #8b0000;
+            --secondary: #a52a2a;
+            --light: #fff5f5;
+            --white: #ffffff;
+            --dark: #333333;
+            --shadow: 0 10px 30px rgba(139, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        /* BASE STYLES */
         body {
-            background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+            background: linear-gradient(135deg, var(--light) 0%, var(--white) 100%);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             padding: 20px;
         }
-        
+
         .container {
             width: 100%;
             max-width: 500px;
             text-align: center;
         }
-        
-        h1 {
-            color: #8b0000;
+
+        /* HEADER */
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--primary);
             font-size: 2.5rem;
             margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
+        .header p {
+            color: var(--dark);
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        /* SPINNER CONTAINER */
         .spinner-container {
             position: relative;
-            margin: 40px auto;
             width: 300px;
             height: 300px;
+            margin: 0 auto 40px;
         }
-        
-        /* SPINNER SEDERHANA DENGAN CONIC-GRADIENT - TIDAK BERTUMPUK */
+
+        /* SPINNER BASE */
         .spinner {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            position: relative;
             background: conic-gradient(
                 from 0deg,
-                #8b0000 0deg 18deg,
-                #8b0000 18deg 36deg,
-                #8b0000 36deg 54deg,
-                #8b0000 54deg 72deg,
-                #8b0000 72deg 90deg,
-                #8b0000 90deg 108deg,
-                #8b0000 108deg 126deg,
-                #8b0000 126deg 144deg,
-                #8b0000 144deg 162deg,
-                #8b0000 162deg 180deg,
-                #8b0000 180deg 198deg,
-                #8b0000 198deg 216deg,
-                #8b0000 216deg 234deg,
-                #8b0000 234deg 252deg,
-                #8b0000 252deg 270deg,
-                #8b0000 270deg 288deg,
-                #8b0000 288deg 306deg,
-                #8b0000 306deg 324deg,
-                #8b0000 324deg 342deg,
-                #8b0000 342deg 360deg
-            );
-            border: 10px solid #8b0000;
-            transition: transform 3s cubic-bezier(0.2, 0.8, 0.3, 1);
-            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2);
-        }
-        
-        /* GARIS PEMBAGI ANTAR ANGKA - RAPI */
-        .spinner::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: conic-gradient(
-                transparent 0deg 17deg,
-                white 17deg 18deg,
-                transparent 18deg 35deg,
-                white 35deg 36deg,
-                transparent 36deg 53deg,
-                white 53deg 54deg,
-                transparent 54deg 71deg,
-                white 71deg 72deg,
-                transparent 72deg 89deg,
-                white 89deg 90deg,
-                transparent 90deg 107deg,
-                white 107deg 108deg,
-                transparent 108deg 125deg,
-                white 125deg 126deg,
-                transparent 126deg 143deg,
-                white 143deg 144deg,
-                transparent 144deg 161deg,
-                white 161deg 162deg,
-                transparent 162deg 179deg,
-                white 179deg 180deg,
-                transparent 180deg 197deg,
-                white 197deg 198deg,
-                transparent 198deg 215deg,
-                white 215deg 216deg,
-                transparent 216deg 233deg,
-                white 233deg 234deg,
-                transparent 234deg 251deg,
-                white 251deg 252deg,
-                transparent 252deg 269deg,
-                white 269deg 270deg,
-                transparent 270deg 287deg,
-                white 287deg 288deg,
-                transparent 288deg 305deg,
-                white 305deg 306deg,
-                transparent 306deg 323deg,
-                white 323deg 324deg,
-                transparent 324deg 341deg,
-                white 341deg 342deg,
+                var(--primary) 0deg 18deg,
+                transparent 18deg 36deg,
+                var(--primary) 36deg 54deg,
+                transparent 54deg 72deg,
+                var(--primary) 72deg 90deg,
+                transparent 90deg 108deg,
+                var(--primary) 108deg 126deg,
+                transparent 126deg 144deg,
+                var(--primary) 144deg 162deg,
+                transparent 162deg 180deg,
+                var(--primary) 180deg 198deg,
+                transparent 198deg 216deg,
+                var(--primary) 216deg 234deg,
+                transparent 234deg 252deg,
+                var(--primary) 252deg 270deg,
+                transparent 270deg 288deg,
+                var(--primary) 288deg 306deg,
+                transparent 306deg 324deg,
+                var(--primary) 324deg 342deg,
                 transparent 342deg 360deg
             );
-            border-radius: 50%;
-            pointer-events: none;
+            position: relative;
+            transition: transform 3s cubic-bezier(0.2, 0.8, 0.3, 1);
+            box-shadow: var(--shadow);
+            border: 8px solid var(--white);
+            overflow: hidden;
         }
-        
-        /* ANGKA DI SPINNER */
+
+        /* SPINNER CENTER */
+        .spinner-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        /* SPINNER NUMBERS */
         .number {
             position: absolute;
-            color: white;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             font-weight: bold;
-            font-size: 18px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            z-index: 2;
+            font-size: 1.2rem;
+            color: var(--white);
+            z-index: 1;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            background: var(--primary);
             transform-origin: center;
         }
-        
-        /* POINTER - PASTI DI 0 DERAJAT */
-        .pointer {
+
+        /* SPINNER MARKER */
+        .spinner-marker {
             position: absolute;
-            top: -20px;
+            top: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 25px solid #8b0000;
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
             z-index: 10;
-            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.3));
         }
-        
-        .pointer::after {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #8b0000;
-            border-radius: 50%;
-            top: -35px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        /* TOMBOL PUTAR */
+
+        /* SPIN BUTTON */
         .spin-btn {
-            margin: 30px 0;
-            background: #8b0000;
-            color: white;
+            background: var(--primary);
+            color: var(--white);
             border: none;
-            padding: 15px 40px;
+            padding: 16px 45px;
             font-size: 1.2rem;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
+            transition: var(--transition);
             font-weight: 600;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto 30px;
         }
-        
+
         .spin-btn:hover {
-            background: #a52a2a;
+            background: var(--secondary);
             transform: translateY(-3px);
             box-shadow: 0 12px 25px rgba(139, 0, 0, 0.5);
         }
-        
+
         .spin-btn:disabled {
             background: #cccccc;
             cursor: not-allowed;
             transform: none;
             box-shadow: 0 5px 15px rgba(156, 163, 175, 0.4);
         }
-        
-        /* HASIL YANG MUNCUL SETELAH SPIN */
-        .result-container {
-            display: none;
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 30px;
+
+        .spin-btn i {
+            font-size: 1.3rem;
+            transition: transform 0.3s;
+        }
+
+        .spin-btn:hover i {
+            transform: rotate(180deg);
+        }
+
+        /* PROMPT CONTAINERS */
+        .prompts-container {
             width: 100%;
-            max-width: 400px;
-            border: 2px solid #8b0000;
-            box-shadow: 0 15px 35px rgba(139, 0, 0, 0.15);
+            max-width: 500px;
+            margin-top: 20px;
         }
-        
-        .result-container.show {
-            display: block;
+
+        .prompt-box {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.1);
+            display: none;
             animation: fadeIn 0.5s ease;
+            text-align: left;
         }
-        
-        .genre {
-            color: #8b0000;
-            font-size: 2.5rem;
-            font-weight: 800;
+
+        .prompt-box.active {
+            display: block;
+        }
+
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
         }
-        
-        .prompt {
-            color: #333;
+
+        .prompt-number {
+            background: var(--primary);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .prompt-genre {
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .prompt-content {
+            color: var(--dark);
             font-size: 1.1rem;
             line-height: 1.6;
             padding: 15px;
-            background: #fff5f5;
+            background: var(--light);
             border-radius: 10px;
-            border-left: 4px solid #8b0000;
+            border-left: 4px solid var(--primary);
         }
-        
+
+        /* ANIMATIONS */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         @keyframes spinPulse {
             0%, 100% { box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2); }
             50% { box-shadow: 0 10px 40px rgba(139, 0, 0, 0.6); }
         }
-        
+
         .spinning {
             animation: spinPulse 0.5s infinite alternate;
+        }
+
+        /* INSTRUCTION */
+        .instruction {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            color: var(--dark);
+            font-size: 0.95rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
+            .spinner-container {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .number {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .prompt-genre {
+                font-size: 1.5rem;
+            }
+            
+            .prompt-content {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Prompt Spinner</h1>
-        
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🎡 PROMPT SPINNER</h1>
+            <p>Putar spinner dan dapatkan prompt menulis kreatif!</p>
+        </div>
+
+        <!-- SPINNER -->
         <div class="spinner-container">
-            <div class="pointer"></div>
+            <div class="spinner-marker"></div>
             <div class="spinner" id="spinner">
-                <!-- Angka akan ditambahkan dengan JavaScript -->
+                <div class="spinner-center" id="centerNumber">?</div>
+                <!-- Angka akan diisi dengan JavaScript -->
             </div>
         </div>
-        
+
+        <!-- SPIN BUTTON -->
         <button class="spin-btn" id="spinBtn">
+            <i class="fas fa-sync-alt"></i>
             PUTAR SPINNER
         </button>
-        
-        <div class="result-container" id="resultContainer">
-            <div class="genre" id="genre">-</div>
-            <div class="prompt" id="prompt">-</div>
+
+        <!-- INSTRUCTION -->
+        <div class="instruction">
+            <strong>Tips:</strong> Klik tombol "PUTAR SPINNER" atau tekan <kbd>SPACE</kbd> untuk memutar. Spinner akan berhenti tepat di angka yang terpilih.
+        </div>
+
+        <!-- PROMPT CONTAINERS -->
+        <div class="prompts-container" id="promptsContainer">
+            <!-- Prompt containers akan diisi dengan JavaScript -->
         </div>
     </div>
 
@@ -350,9 +431,8 @@
         // ELEMEN DOM
         const spinner = document.getElementById('spinner');
         const spinBtn = document.getElementById('spinBtn');
-        const resultContainer = document.getElementById('resultContainer');
-        const genreEl = document.getElementById('genre');
-        const promptEl = document.getElementById('prompt');
+        const centerNumber = document.getElementById('centerNumber');
+        const promptsContainer = document.getElementById('promptsContainer');
         
         // VARIABEL KONTROL
         let isSpinning = false;
@@ -362,28 +442,62 @@
         
         // INISIALISASI SPINNER DENGAN ANGKA
         function initSpinner() {
+            // Hapus semua angka yang ada
+            const existingNumbers = spinner.querySelectorAll('.number');
+            existingNumbers.forEach(num => num.remove());
+            
             // Tambahkan angka 1-20 di spinner
             for (let i = 1; i <= totalNumbers; i++) {
                 const numberEl = document.createElement('div');
                 numberEl.className = 'number';
                 numberEl.textContent = i;
                 numberEl.id = `num${i}`;
+                numberEl.dataset.number = i;
                 
-                // Hitung posisi angka
-                const angle = (i - 1) * anglePerNumber + anglePerNumber/2; // Tengah segmen
-                const radius = 110; // Jarak dari pusat
+                // Hitung posisi angka (setiap angka di tengah segmennya)
+                // Pointer ada di 0° (atas)
+                // Kita ingin angka berhenti tepat di pointer
+                const angle = (i - 1) * anglePerNumber; // Mulai dari 0°
+                const radius = 100; // Jarak dari pusat
                 
-                // Konversi polar ke cartesian
+                // Konversi derajat ke radian
                 const radian = (angle * Math.PI) / 180;
-                const x = radius * Math.cos(radian);
-                const y = radius * Math.sin(radian);
                 
-                // Posisikan angka
+                // Hitung posisi X dan Y
+                const x = Math.sin(radian) * radius;
+                const y = -Math.cos(radian) * radius; // Negative karena Y positif ke bawah
+                
+                // Atur posisi angka
                 numberEl.style.left = `calc(50% + ${x}px)`;
                 numberEl.style.top = `calc(50% + ${y}px)`;
-                numberEl.style.transform = `translate(-50%, -50%)`;
                 
                 spinner.appendChild(numberEl);
+            }
+            
+            console.log('Spinner diinisialisasi dengan', totalNumbers, 'angka');
+        }
+        
+        // BUAT PROMPT CONTAINERS
+        function createPromptContainers() {
+            promptsContainer.innerHTML = '';
+            
+            for (let i = 1; i <= totalNumbers; i++) {
+                const promptBox = document.createElement('div');
+                promptBox.className = 'prompt-box';
+                promptBox.id = `prompt-${i}`;
+                promptBox.dataset.number = i;
+                
+                const data = prompts[i];
+                
+                promptBox.innerHTML = `
+                    <div class="prompt-header">
+                        <div class="prompt-number">${i}</div>
+                        <div class="prompt-genre">${data.genre}</div>
+                    </div>
+                    <div class="prompt-content">${data.prompt}</div>
+                `;
+                
+                promptsContainer.appendChild(promptBox);
             }
         }
         
@@ -394,21 +508,27 @@
             isSpinning = true;
             spinBtn.disabled = true;
             spinner.classList.add('spinning');
-            resultContainer.classList.remove('show');
+            
+            // Sembunyikan semua prompt
+            document.querySelectorAll('.prompt-box').forEach(box => {
+                box.classList.remove('active');
+            });
             
             // Pilih angka random (1-20)
             const selectedNumber = Math.floor(Math.random() * totalNumbers) + 1;
+            console.log('Angka terpilih:', selectedNumber);
             
-            // PERHITUNGAN ROTASI YANG BENAR:
-            // Pointer di 0°, kita ingin ANGKA yang terpilih berhenti di pointer
-            // Rumus: targetRotation = 360 - ((angka - 1) * 18°) - 9°
-            // Kenapa -9°? Karena kita ingin TENGAH segmen (bukan awal) berhenti di pointer
+            // Hitung rotasi yang dibutuhkan agar angka berhenti di pointer (0°)
+            // Pointer ada di 0° (atas), angka dimulai dari 0° (angka 1 di atas)
+            // Kita ingin angka yang terpilih berhenti di 0°
+            const targetAngle = (selectedNumber - 1) * anglePerNumber;
             
-            const targetRotation = 360 - ((selectedNumber - 1) * anglePerNumber) - (anglePerNumber / 2);
+            // Putaran penuh untuk efek dramatis
             const fullRotations = 5;
             
-            // Total rotasi
-            const totalRotation = currentRotation + (360 * fullRotations) + targetRotation;
+            // Hitung total rotasi
+            // Kita kurangi targetAngle karena kita ingin berbalik arah
+            const totalRotation = currentRotation + (360 * fullRotations) - targetAngle;
             
             // Simpan rotasi saat ini
             currentRotation = totalRotation % 360;
@@ -417,26 +537,43 @@
             spinner.style.transition = 'transform 3s cubic-bezier(0.2, 0.8, 0.3, 1)';
             spinner.style.transform = `rotate(${totalRotation}deg)`;
             
-            // Tampilkan hasil setelah 3 detik
+            // Update angka di tengah
+            centerNumber.textContent = selectedNumber;
+            centerNumber.style.animation = 'none';
+            setTimeout(() => {
+                centerNumber.style.animation = 'fadeIn 0.5s';
+            }, 10);
+            
+            // Tampilkan prompt setelah 2.5 detik (sebelum spinner selesai)
+            setTimeout(() => {
+                showPrompt(selectedNumber);
+            }, 2500);
+            
+            // Reset spinner setelah 3 detik
             setTimeout(() => {
                 spinner.classList.remove('spinning');
                 spinBtn.disabled = false;
                 isSpinning = false;
-                
-                // Tampilkan prompt sesuai angka
-                showPrompt(selectedNumber);
-                
-                console.log(`Angka: ${selectedNumber}, Rotasi akhir: ${currentRotation.toFixed(1)}°`);
             }, 3000);
         }
         
-        // TAMPILKAN PROMPT
+        // TAMPILKAN PROMPT BERDASARKAN ANGKA
         function showPrompt(number) {
-            const data = prompts[number];
-            if (data) {
-                genreEl.textContent = data.genre;
-                promptEl.textContent = data.prompt;
-                resultContainer.classList.add('show');
+            // Sembunyikan semua prompt
+            document.querySelectorAll('.prompt-box').forEach(box => {
+                box.classList.remove('active');
+            });
+            
+            // Tampilkan prompt yang sesuai
+            const promptBox = document.getElementById(`prompt-${number}`);
+            if (promptBox) {
+                promptBox.classList.add('active');
+                
+                // Scroll ke prompt
+                promptBox.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
         }
         
@@ -454,6 +591,11 @@
         // INISIALISASI
         document.addEventListener('DOMContentLoaded', () => {
             initSpinner();
+            createPromptContainers();
+            
+            // Tampilkan instruksi di console
+            console.log('Prompt Spinner siap digunakan!');
+            console.log('Tekan tombol "PUTAR SPINNER" atau SPACE untuk memutar.');
         });
     </script>
 </body>
