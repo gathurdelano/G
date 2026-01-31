@@ -14,9 +14,9 @@
         }
 
         :root {
-            --primary: #8b0000;
-            --secondary: #a52a2a;
-            --light: #fff5f5;
+            --dark-red: #8b0000;
+            --pink: #ff6b9d;
+            --light-pink: #fff0f5;
             --white: #ffffff;
             --dark: #333333;
             --shadow: 0 10px 30px rgba(139, 0, 0, 0.2);
@@ -25,7 +25,7 @@
 
         /* BASE STYLES */
         body {
-            background: linear-gradient(135deg, var(--light) 0%, var(--white) 100%);
+            background: linear-gradient(135deg, var(--light-pink) 0%, var(--white) 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -45,7 +45,7 @@
         }
 
         .header h1 {
-            color: var(--primary);
+            color: var(--dark-red);
             font-size: 2.5rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
@@ -60,8 +60,8 @@
         /* SPINNER CONTAINER */
         .spinner-container {
             position: relative;
-            width: 320px;
-            height: 320px;
+            width: 340px;
+            height: 340px;
             margin: 0 auto 40px;
         }
 
@@ -70,40 +70,83 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             position: relative;
-            transition: transform 0.1s linear;
+            transition: transform 0.05s linear;
             box-shadow: 
-                0 0 0 10px var(--white),
-                0 15px 35px rgba(139, 0, 0, 0.3),
-                inset 0 0 20px rgba(255, 255, 255, 0.3);
+                0 0 0 15px var(--white),
+                0 20px 40px rgba(139, 0, 0, 0.3),
+                inset 0 0 30px rgba(255, 255, 255, 0.4);
             overflow: hidden;
         }
 
-        /* SPINNER SEGMENTS */
-        .spinner-segment {
+        /* SPINNER SEGMENT COLORS - SELANG SELING */
+        .spinner::before {
+            content: '';
             position: absolute;
-            width: 50%;
-            height: 50%;
-            transform-origin: bottom right;
-            left: 0;
-            top: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--dark-red) 0deg 9deg,
+                var(--pink) 9deg 18deg,
+                var(--dark-red) 18deg 27deg,
+                var(--pink) 27deg 36deg,
+                var(--dark-red) 36deg 45deg,
+                var(--pink) 45deg 54deg,
+                var(--dark-red) 54deg 63deg,
+                var(--pink) 63deg 72deg,
+                var(--dark-red) 72deg 81deg,
+                var(--pink) 81deg 90deg,
+                var(--dark-red) 90deg 99deg,
+                var(--pink) 99deg 108deg,
+                var(--dark-red) 108deg 117deg,
+                var(--pink) 117deg 126deg,
+                var(--dark-red) 126deg 135deg,
+                var(--pink) 135deg 144deg,
+                var(--dark-red) 144deg 153deg,
+                var(--pink) 153deg 162deg,
+                var(--dark-red) 162deg 171deg,
+                var(--pink) 171deg 180deg,
+                var(--dark-red) 180deg 189deg,
+                var(--pink) 189deg 198deg,
+                var(--dark-red) 198deg 207deg,
+                var(--pink) 207deg 216deg,
+                var(--dark-red) 216deg 225deg,
+                var(--pink) 225deg 234deg,
+                var(--dark-red) 234deg 243deg,
+                var(--pink) 243deg 252deg,
+                var(--dark-red) 252deg 261deg,
+                var(--pink) 261deg 270deg,
+                var(--dark-red) 270deg 279deg,
+                var(--pink) 279deg 288deg,
+                var(--dark-red) 288deg 297deg,
+                var(--pink) 297deg 306deg,
+                var(--dark-red) 306deg 315deg,
+                var(--pink) 315deg 324deg,
+                var(--dark-red) 324deg 333deg,
+                var(--pink) 333deg 342deg,
+                var(--dark-red) 342deg 351deg,
+                var(--pink) 351deg 360deg
+            );
+            z-index: 1;
         }
 
         /* SPINNER NUMBERS - ANGKA DI SPINNER */
         .number {
             position: absolute;
             font-weight: bold;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--white);
             z-index: 2;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             transform-origin: center;
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
         }
 
         /* SPINNER CENTER */
@@ -112,74 +155,76 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             background: var(--white);
             border-radius: 50%;
             z-index: 3;
             box-shadow: 
-                0 0 15px rgba(0, 0, 0, 0.2),
-                inset 0 0 10px rgba(139, 0, 0, 0.1);
+                0 0 20px rgba(0, 0, 0, 0.3),
+                inset 0 0 15px rgba(139, 0, 0, 0.1);
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            color: var(--primary);
-            font-size: 1.5rem;
-            border: 4px solid var(--primary);
+            color: var(--dark-red);
+            font-size: 1.8rem;
+            border: 5px solid var(--dark-red);
         }
 
         /* SPINNER MARKER - JARUM PENUNJUK */
         .spinner-marker {
             position: absolute;
-            top: -20px;
+            top: -25px;
             left: 50%;
             transform: translateX(-50%);
-            width: 30px;
-            height: 30px;
-            background: var(--primary);
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(to bottom, var(--dark-red), var(--pink));
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
             z-index: 10;
-            filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.4));
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5));
         }
 
         .spinner-marker::after {
             content: '';
             position: absolute;
-            top: -5px;
+            top: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 12px;
-            height: 12px;
-            background: var(--primary);
+            width: 15px;
+            height: 15px;
+            background: var(--dark-red);
             border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 107, 157, 0.8);
+            border: 3px solid var(--white);
         }
 
         /* SPIN BUTTON */
         .spin-btn {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--dark-red), var(--pink));
             color: var(--white);
             border: none;
-            padding: 18px 50px;
-            font-size: 1.3rem;
+            padding: 20px 55px;
+            font-size: 1.4rem;
             border-radius: 50px;
             cursor: pointer;
             transition: var(--transition);
             font-weight: 700;
             margin-bottom: 30px;
-            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.4);
+            box-shadow: 0 12px 30px rgba(139, 0, 0, 0.4);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             margin: 0 auto 30px;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            position: relative;
+            overflow: hidden;
         }
 
         .spin-btn:hover {
-            background: var(--secondary);
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(139, 0, 0, 0.5);
+            box-shadow: 0 18px 35px rgba(139, 0, 0, 0.5);
         }
 
         .spin-btn:active {
@@ -194,12 +239,31 @@
         }
 
         .spin-btn i {
-            font-size: 1.4rem;
-            transition: transform 0.3s;
+            font-size: 1.6rem;
+            transition: transform 0.5s;
         }
 
         .spin-btn:hover i {
-            transform: rotate(180deg);
+            transform: rotate(360deg);
+        }
+
+        /* SPINNER COUNTER */
+        .spin-counter {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--dark-red);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            z-index: 11;
         }
 
         /* PROMPT CONTAINERS */
@@ -211,88 +275,94 @@
 
         .prompt-box {
             background: var(--white);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            border: 3px solid var(--primary);
-            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 4px solid var(--dark-red);
+            box-shadow: 0 15px 35px rgba(139, 0, 0, 0.15);
             display: none;
             text-align: left;
+            background: linear-gradient(135deg, #fff, var(--light-pink));
         }
 
         .prompt-box.active {
             display: block;
-            animation: slideIn 0.6s ease;
+            animation: slideIn 0.7s ease;
         }
 
         .prompt-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid var(--light);
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 4px solid var(--light-pink);
         }
 
         .prompt-number {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--dark-red), var(--pink));
             color: var(--white);
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            font-size: 1.4rem;
-            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3);
+            font-size: 1.5rem;
+            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.3);
         }
 
         .prompt-genre {
-            color: var(--primary);
-            font-size: 1.9rem;
+            color: var(--dark-red);
+            font-size: 2rem;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .prompt-content {
             color: var(--dark);
-            font-size: 1.15rem;
-            line-height: 1.7;
-            padding: 20px;
-            background: var(--light);
-            border-radius: 12px;
-            border-left: 5px solid var(--primary);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            padding: 25px;
+            background: var(--white);
+            border-radius: 15px;
+            border-left: 6px solid var(--pink);
+            border-right: 6px solid var(--dark-red);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
 
         /* INSTRUCTION */
         .instruction {
-            background: var(--light);
-            padding: 18px;
-            border-radius: 12px;
-            margin-top: 25px;
+            background: var(--light-pink);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
             color: var(--dark);
-            font-size: 1rem;
-            border-left: 5px solid var(--primary);
-            line-height: 1.6;
+            font-size: 1.1rem;
+            border-left: 6px solid var(--pink);
+            border-right: 6px solid var(--dark-red);
+            line-height: 1.7;
         }
 
         .instruction kbd {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--dark-red), var(--pink));
             color: var(--white);
-            padding: 3px 8px;
-            border-radius: 5px;
+            padding: 5px 12px;
+            border-radius: 8px;
             font-family: monospace;
             font-weight: bold;
-            margin: 0 3px;
+            margin: 0 5px;
+            box-shadow: 0 3px 8px rgba(139, 0, 0, 0.3);
         }
 
         /* ANIMATIONS */
         @keyframes slideIn {
             from { 
                 opacity: 0; 
-                transform: translateY(30px) scale(0.95); 
+                transform: translateY(40px) scale(0.9); 
             }
             to { 
                 opacity: 1; 
@@ -303,43 +373,59 @@
         @keyframes spinPulse {
             0%, 100% { 
                 box-shadow: 
-                    0 0 0 10px var(--white),
-                    0 15px 35px rgba(139, 0, 0, 0.3),
-                    inset 0 0 20px rgba(255, 255, 255, 0.3);
+                    0 0 0 15px var(--white),
+                    0 20px 40px rgba(139, 0, 0, 0.3),
+                    inset 0 0 30px rgba(255, 255, 255, 0.4);
             }
             50% { 
                 box-shadow: 
-                    0 0 0 10px var(--white),
-                    0 15px 45px rgba(139, 0, 0, 0.6),
-                    inset 0 0 20px rgba(255, 255, 255, 0.5);
+                    0 0 0 15px var(--white),
+                    0 20px 50px rgba(139, 0, 0, 0.6),
+                    0 0 30px rgba(255, 107, 157, 0.5),
+                    inset 0 0 40px rgba(255, 255, 255, 0.6);
             }
         }
 
         .spinning {
-            animation: spinPulse 0.4s infinite alternate;
+            animation: spinPulse 0.3s infinite alternate;
         }
 
         /* SPINNER GLOW EFFECT */
         @keyframes glowEffect {
-            0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.3); }
+            0%, 100% { 
+                filter: brightness(1) drop-shadow(0 0 10px rgba(255, 107, 157, 0.3));
+            }
+            50% { 
+                filter: brightness(1.4) drop-shadow(0 0 20px rgba(255, 107, 157, 0.8));
+            }
         }
 
         .spinner-spinning {
-            animation: glowEffect 0.3s infinite alternate;
+            animation: glowEffect 0.2s infinite alternate;
+        }
+
+        /* PUTARAN COUNTER */
+        @keyframes counterPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .counter-pop {
+            animation: counterPop 0.3s ease;
         }
 
         /* RESPONSIVE */
         @media (max-width: 600px) {
             .spinner-container {
-                width: 280px;
-                height: 280px;
+                width: 300px;
+                height: 300px;
             }
             
             .number {
-                font-size: 1.1rem;
-                width: 26px;
-                height: 26px;
+                font-size: 1.2rem;
+                width: 28px;
+                height: 28px;
             }
             
             .header h1 {
@@ -347,16 +433,16 @@
             }
             
             .prompt-genre {
-                font-size: 1.6rem;
+                font-size: 1.7rem;
             }
             
             .prompt-content {
-                font-size: 1.05rem;
+                font-size: 1.1rem;
             }
             
             .spin-btn {
-                padding: 16px 40px;
-                font-size: 1.2rem;
+                padding: 18px 45px;
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -374,6 +460,7 @@
             <div class="spinner-marker"></div>
             <div class="spinner" id="spinner">
                 <div class="spinner-center" id="centerNumber">?</div>
+                <div class="spin-counter" id="spinCounter">0</div>
                 <!-- Angka akan diisi dengan JavaScript -->
             </div>
         </div>
@@ -387,7 +474,7 @@
         <!-- INSTRUCTION -->
         <div class="instruction">
             <strong>Tips:</strong> Klik tombol "PUTAR SPINNER" atau tekan <kbd>SPACE</kbd> untuk memutar. 
-            Spinner akan berputar cepat 4 kali sebelum berhenti di angka yang terpilih.
+            Spinner akan berputar <strong>10 kali</strong> dengan cepat sebelum berhenti di angka yang terpilih.
         </div>
 
         <!-- PROMPT CONTAINERS -->
@@ -488,6 +575,7 @@
         const spinner = document.getElementById('spinner');
         const spinBtn = document.getElementById('spinBtn');
         const centerNumber = document.getElementById('centerNumber');
+        const spinCounter = document.getElementById('spinCounter');
         const promptsContainer = document.getElementById('promptsContainer');
         
         // VARIABEL KONTROL
@@ -495,6 +583,7 @@
         let currentRotation = 0;
         const totalNumbers = 20;
         const anglePerNumber = 360 / totalNumbers;
+        let spinCount = 0;
         
         // INISIALISASI SPINNER DENGAN ANGKA DI SPINNER
         function initSpinner() {
@@ -513,7 +602,7 @@
                 // Hitung posisi angka di lingkaran
                 // Angka 1 di atas (0°), angka berjalan searah jarum jam
                 const angle = (i - 1) * anglePerNumber; // Derajat
-                const radius = 130; // Jarak dari pusat
+                const radius = 140; // Jarak dari pusat
                 
                 // Konversi ke radian
                 const radian = (angle * Math.PI) / 180;
@@ -530,10 +619,17 @@
                 // Rotasi angka agar tetap tegak
                 numberEl.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
                 
+                // Warna angka berdasarkan segmen (selang seling)
+                if (i % 2 === 0) {
+                    numberEl.style.backgroundColor = 'rgba(139, 0, 0, 0.4)';
+                } else {
+                    numberEl.style.backgroundColor = 'rgba(255, 107, 157, 0.4)';
+                }
+                
                 spinner.appendChild(numberEl);
             }
             
-            console.log('Spinner diinisialisasi dengan', totalNumbers, 'angka');
+            console.log('Spinner diinisialisasi dengan', totalNumbers, 'angka (selang-seling warna)');
         }
         
         // BUAT PROMPT CONTAINERS
@@ -560,7 +656,7 @@
             }
         }
         
-        // FUNGSI PUTAR SPINNER DENGAN ANIMASI 4 KALI PUTARAN CEPAT
+        // FUNGSI PUTAR SPINNER DENGAN 10 PUTARAN CEPAT
         function spin() {
             if (isSpinning) return;
             
@@ -568,6 +664,11 @@
             spinBtn.disabled = true;
             spinner.classList.add('spinning');
             spinner.classList.add('spinner-spinning');
+            
+            // Reset counter
+            spinCount = 0;
+            spinCounter.textContent = spinCount;
+            spinCounter.classList.remove('counter-pop');
             
             // Sembunyikan semua prompt
             document.querySelectorAll('.prompt-box').forEach(box => {
@@ -582,8 +683,8 @@
             // Jarum di 0° (atas), angka terpilih harus berhenti di jarum
             const targetAngle = (selectedNumber - 1) * anglePerNumber;
             
-            // PUTARAN CEPAT 4 KALI DULU (360° × 4 = 1440°)
-            const fastRotations = 1440; // 4 putaran penuh
+            // 10 PUTARAN CEPAT (360° × 10 = 3600°)
+            const fastRotations = 3600; // 10 putaran penuh
             
             // Putaran tambahan untuk efek dramatis
             const finalRotation = fastRotations - targetAngle;
@@ -594,10 +695,14 @@
             // Simpan rotasi saat ini
             currentRotation = totalRotation % 360;
             
-            // ANIMASI PUTARAN CEPAT
+            // ANIMASI PUTARAN CEPAT - 10 PUTARAN
             let rotationStep = 0;
-            const steps = 40; // 40 frame untuk putaran cepat
+            const steps = 100; // 100 frame untuk putaran cepat (10 putaran)
             const rotationPerStep = finalRotation / steps;
+            
+            // Update counter setiap putaran
+            const rotationPerFullTurn = 360;
+            let rotationAccumulated = 0;
             
             // Fungsi untuk animasi frame per frame
             function animateSpinner() {
@@ -606,9 +711,23 @@
                     const currentRot = currentRotation + (rotationPerStep * rotationStep);
                     spinner.style.transform = `rotate(${currentRot}deg)`;
                     
+                    // Track putaran untuk update counter
+                    rotationAccumulated += Math.abs(rotationPerStep);
+                    if (rotationAccumulated >= rotationPerFullTurn) {
+                        rotationAccumulated -= rotationPerFullTurn;
+                        spinCount = Math.min(10, spinCount + 1);
+                        spinCounter.textContent = spinCount;
+                        spinCounter.classList.add('counter-pop');
+                        setTimeout(() => spinCounter.classList.remove('counter-pop'), 300);
+                    }
+                    
                     // Update angka di tengah saat mendekati akhir
-                    if (rotationStep > steps - 10) {
+                    if (rotationStep > steps - 15) {
                         centerNumber.textContent = selectedNumber;
+                        centerNumber.style.animation = 'none';
+                        setTimeout(() => {
+                            centerNumber.style.animation = 'counterPop 0.5s';
+                        }, 10);
                     }
                     
                     requestAnimationFrame(animateSpinner);
@@ -616,10 +735,14 @@
                     // Setelah animasi selesai
                     spinner.style.transform = `rotate(${totalRotation}deg)`;
                     
-                    // Tampilkan prompt
+                    // Update counter ke 10
+                    spinCounter.textContent = '10';
+                    spinCounter.classList.add('counter-pop');
+                    
+                    // Tampilkan prompt setelah delay
                     setTimeout(() => {
                         showPrompt(selectedNumber);
-                    }, 300);
+                    }, 500);
                     
                     // Reset state
                     setTimeout(() => {
@@ -627,7 +750,13 @@
                         spinner.classList.remove('spinner-spinning');
                         spinBtn.disabled = false;
                         isSpinning = false;
-                    }, 1000);
+                        
+                        // Reset counter setelah 2 detik
+                        setTimeout(() => {
+                            spinCounter.textContent = '0';
+                            spinCounter.classList.remove('counter-pop');
+                        }, 2000);
+                    }, 1500);
                 }
             }
             
@@ -653,7 +782,7 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
-                }, 500);
+                }, 800);
             }
         }
         
@@ -675,7 +804,8 @@
             
             console.log('Prompt Spinner siap digunakan!');
             console.log('Tekan tombol "PUTAR SPINNER" atau SPACE untuk memutar.');
-            console.log('Spinner akan berputar cepat 4 kali sebelum berhenti di angka yang terpilih.');
+            console.log('Spinner akan berputar 10 kali dengan cepat sebelum berhenti di angka yang terpilih.');
+            console.log('Warna: Selang-seling Dark Red dan Pink');
         });
     </script>
 </body>
