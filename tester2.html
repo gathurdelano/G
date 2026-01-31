@@ -3,443 +3,839 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plot Prompt Spinner - Fixed</title>
+    <title>Valentine's Mystery Box | DreamLloSet</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Semua style sebelumnya tetap sama... */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+            background-color: #FFF9F7;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            justify-content: center;
+            padding: 30px 20px;
+            color: #7A5C58;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
         
         .container {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
         }
         
-        header {
-            margin-bottom: 30px;
+        .header {
+            margin-bottom: 40px;
+            width: 100%;
         }
         
-        h1 {
-            color: #8b0000;
+        .logo {
             font-size: 2.8rem;
-            margin-bottom: 10px;
+            color: #D8A28C;
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .mystery-box-title {
+            font-size: 3.5rem;
+            color: #B87C68;
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .mystery-box-title:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 1px;
+            background-color: #E8C4B8;
         }
         
         .subtitle {
-            color: #a52a2a;
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 20px;
-            line-height: 1.6;
+            font-size: 1.1rem;
+            color: #B87C68;
+            letter-spacing: 8px;
+            margin-bottom: 25px;
+            font-weight: 300;
         }
         
-        .game-area {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 40px;
-            margin: 30px 0;
+        .value-tag {
+            background-color: #E8C4B8;
+            color: #7A5C58;
+            padding: 12px 30px;
+            border-radius: 2px;
+            display: inline-block;
+            font-size: 1.3rem;
+            margin-top: 15px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            border: 1px solid #D8A28C;
         }
         
-        @media (min-width: 768px) {
-            .game-area {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: flex-start;
-            }
+        .limited-tag {
+            font-size: 0.95rem;
+            color: #B87C68;
+            margin-top: 15px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
         
-        .spinner-container {
-            flex: 1;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .spinner-wrapper {
+        /* Mystery Box Container */
+        .box-container {
+            margin: 50px 0;
             position: relative;
             width: 320px;
             height: 320px;
+            perspective: 1200px;
         }
         
-        .spinner {
+        .mystery-box {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
             position: relative;
-            overflow: hidden;
-            background: white;
-            border: 8px solid #8b0000;
-            transform: rotate(0deg);
-            transition: transform 4s cubic-bezier(0.2, 0.8, 0.3, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        /* SEGMEN SPINNER YANG RAPI TIDAK BERTUMPUK */
-        .spinner-segment {
+        .box-closed {
             position: absolute;
-            width: 50%;
-            height: 50%;
-            left: 50%;
-            top: 0;
-            transform-origin: 0% 100%;
-            overflow: hidden;
-        }
-        
-        .segment-inner {
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            left: -100%;
-            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F5E6E0;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            backface-visibility: hidden;
             transform-origin: center;
+            box-shadow: 
+                0 15px 35px rgba(184, 124, 104, 0.1),
+                0 5px 15px rgba(184, 124, 104, 0.07),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            border: 1px solid #E8C4B8;
+            overflow: hidden;
         }
         
-        .segment-content {
+        .box-closed:before {
+            content: "";
             position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: #D8A28C;
+        }
+        
+        .box-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            background-image: 
+                linear-gradient(30deg, #B87C68 12%, transparent 12.5%, transparent 87%, #B87C68 87.5%, #B87C68),
+                linear-gradient(150deg, #B87C68 12%, transparent 12.5%, transparent 87%, #B87C68 87.5%, #B87C68),
+                linear-gradient(30deg, #B87C68 12%, transparent 12.5%, transparent 87%, #B87C68 87.5%, #B87C68),
+                linear-gradient(150deg, #B87C68 12%, transparent 12.5%, transparent 87%, #B87C68 87.5%, #B87C68),
+                linear-gradient(60deg, #D8A28C77 25%, transparent 25.5%, transparent 75%, #D8A28C77 75%, #D8A28C77),
+                linear-gradient(60deg, #D8A28C77 25%, transparent 25.5%, transparent 75%, #D8A28C77 75%, #D8A28C77);
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+        }
+        
+        .box-label {
+            background-color: transparent;
+            color: #B87C68;
+            padding: 15px 30px;
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(184, 124, 104, 0.3);
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+        }
+        
+        .box-open {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #F9F1ED;
+            border-radius: 8px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            backface-visibility: hidden;
+            transform: rotateY(180deg);
+            overflow: hidden;
+            box-shadow: 
+                0 15px 35px rgba(184, 124, 104, 0.15),
+                0 5px 15px rgba(184, 124, 104, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            border: 1px solid #E8C4B8;
+        }
+        
+        .box-open:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: #D8A28C;
+        }
+        
+        .gift-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 30px;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .gift-icon {
             width: 100px;
-            height: 30px;
-            left: 60px;
-            top: 10px;
+            height: 100px;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 14px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            transform-origin: 0 0;
+            color: #B87C68;
+            font-size: 4rem;
         }
         
-        /* WARNA DARK RED VARIASI TIDAK BERTUMPUK */
-        .spinner-segment:nth-child(1) .segment-inner { background: #8b0000; transform: rotate(0deg); }
-        .spinner-segment:nth-child(2) .segment-inner { background: #a52a2a; transform: rotate(0deg); }
-        .spinner-segment:nth-child(3) .segment-inner { background: #b22222; transform: rotate(0deg); }
-        .spinner-segment:nth-child(4) .segment-inner { background: #cd5c5c; transform: rotate(0deg); }
-        .spinner-segment:nth-child(5) .segment-inner { background: #dc143c; transform: rotate(0deg); }
-        .spinner-segment:nth-child(6) .segment-inner { background: #8b0000; transform: rotate(0deg); }
-        .spinner-segment:nth-child(7) .segment-inner { background: #a52a2a; transform: rotate(0deg); }
-        .spinner-segment:nth-child(8) .segment-inner { background: #b22222; transform: rotate(0deg); }
-        .spinner-segment:nth-child(9) .segment-inner { background: #cd5c5c; transform: rotate(0deg); }
-        .spinner-segment:nth-child(10) .segment-inner { background: #dc143c; transform: rotate(0deg); }
-        .spinner-segment:nth-child(11) .segment-inner { background: #8b0000; transform: rotate(0deg); }
-        .spinner-segment:nth-child(12) .segment-inner { background: #a52a2a; transform: rotate(0deg); }
-        .spinner-segment:nth-child(13) .segment-inner { background: #b22222; transform: rotate(0deg); }
-        .spinner-segment:nth-child(14) .segment-inner { background: #cd5c5c; transform: rotate(0deg); }
-        .spinner-segment:nth-child(15) .segment-inner { background: #dc143c; transform: rotate(0deg); }
-        .spinner-segment:nth-child(16) .segment-inner { background: #8b0000; transform: rotate(0deg); }
-        .spinner-segment:nth-child(17) .segment-inner { background: #a52a2a; transform: rotate(0deg); }
-        .spinner-segment:nth-child(18) .segment-inner { background: #b22222; transform: rotate(0deg); }
-        .spinner-segment:nth-child(19) .segment-inner { background: #cd5c5c; transform: rotate(0deg); }
-        .spinner-segment:nth-child(20) .segment-inner { background: #dc143c; transform: rotate(0deg); }
-        
-        .pointer {
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 30px solid #8b0000;
-            z-index: 10;
-            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3));
-        }
-        
-        .spin-btn {
-            margin-top: 40px;
-            background: linear-gradient(to right, #8b0000, #b22222);
-            color: white;
-            border: none;
-            padding: 16px 40px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
-            font-weight: 600;
+        .gift-name {
+            font-size: 1.8rem;
+            color: #7A5C58;
+            font-weight: 400;
+            margin-bottom: 15px;
             letter-spacing: 1px;
         }
         
-        .spin-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(139, 0, 0, 0.5);
+        .gift-description {
+            font-size: 1rem;
+            color: #9C7A72;
+            max-width: 90%;
+            line-height: 1.6;
+            font-weight: 300;
         }
         
-        .spin-btn:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: 0 5px 15px rgba(156, 163, 175, 0.4);
+        /* Animation Classes */
+        .shake {
+            animation: shake 0.6s ease infinite;
         }
         
-        .result-container {
-            flex: 1;
+        .shake-hard {
+            animation: shakeHard 0.4s ease 3;
+        }
+        
+        .open {
+            animation: openBox 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            20% { transform: translateX(-8px) rotate(-1deg); }
+            40% { transform: translateX(8px) rotate(1deg); }
+            60% { transform: translateX(-5px) rotate(-0.5deg); }
+            80% { transform: translateX(5px) rotate(0.5deg); }
+        }
+        
+        @keyframes shakeHard {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(-15px) rotate(-3deg); }
+            50% { transform: translateX(15px) rotate(3deg); }
+            75% { transform: translateX(-10px) rotate(-2deg); }
+        }
+        
+        @keyframes openBox {
+            0% { transform: rotateY(0deg); }
+            70% { transform: rotateY(180deg); }
+            100% { transform: rotateY(180deg); }
+        }
+        
+        /* Valentine Text */
+        .valentine-text {
+            font-size: 2rem;
+            color: #B87C68;
+            margin: 40px 0;
+            font-weight: 300;
+            letter-spacing: 3px;
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .valentine-text:before, .valentine-text:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 40px;
+            height: 1px;
+            background-color: #E8C4B8;
+        }
+        
+        .valentine-text:before {
+            left: calc(50% - 100px);
+        }
+        
+        .valentine-text:after {
+            right: calc(50% - 100px);
+        }
+        
+        /* Gift Items Display */
+        .gift-items {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-wrap: wrap;
             justify-content: center;
-        }
-        
-        .result-box {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(139, 0, 0, 0.15);
+            gap: 25px;
+            margin: 40px 0 30px;
             width: 100%;
-            max-width: 400px;
-            min-height: 250px;
+            max-width: 900px;
+        }
+        
+        .gift-item {
+            background-color: #F9F1ED;
+            border-radius: 4px;
+            padding: 25px 20px;
+            width: 160px;
+            box-shadow: 0 5px 15px rgba(184, 124, 104, 0.05);
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            border: 2px solid #8b0000;
+            border: 1px solid rgba(232, 196, 184, 0.3);
+            position: relative;
         }
         
-        .result-label {
-            color: #8b0000;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            font-weight: 600;
+        .gift-item:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: #E8C4B8;
         }
         
-        .result-word {
-            font-size: 3rem;
-            color: #8b0000;
-            font-weight: 800;
-            text-align: center;
-            min-height: 80px;
+        .gift-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(184, 124, 104, 0.1);
+        }
+        
+        .item-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: #B87C68;
+            font-size: 2.5rem;
+            background-color: rgba(232, 196, 184, 0.2);
+            border-radius: 50%;
         }
         
+        .item-name {
+            font-size: 1rem;
+            color: #7A5C58;
+            font-weight: 400;
+            margin-bottom: 10px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .item-chance {
+            font-size: 0.9rem;
+            color: #B87C68;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding: 30px 20px;
+            text-align: center;
+            color: #9C7A72;
+            width: 100%;
+            border-top: 1px solid #E8C4B8;
+        }
+        
+        .made-by {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            color: #B87C68;
+            text-decoration: none;
+            font-weight: 300;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            font-size: 0.95rem;
+            position: relative;
+            padding-bottom: 3px;
+        }
+        
+        .social-link:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #B87C68;
+            transition: width 0.3s ease;
+        }
+        
+        .social-link:hover {
+            color: #7A5C58;
+        }
+        
+        .social-link:hover:after {
+            width: 100%;
+        }
+        
+        .disclaimer {
+            font-size: 0.85rem;
+            margin-top: 25px;
+            color: #B87C68;
+            font-weight: 300;
+            letter-spacing: 1px;
+            font-style: normal;
+        }
+        
+        /* Instructions */
         .instructions {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 30px;
-            max-width: 600px;
-            box-shadow: 0 10px 20px rgba(139, 0, 0, 0.1);
-            border: 1px solid #ffcccc;
+            background-color: #F9F1ED;
+            padding: 25px 30px;
+            border-radius: 4px;
+            margin-bottom: 40px;
+            max-width: 700px;
+            box-shadow: 0 5px 15px rgba(184, 124, 104, 0.05);
+            border: 1px solid rgba(232, 196, 184, 0.3);
+            text-align: left;
         }
         
         .instructions h3 {
-            color: #8b0000;
-            margin-bottom: 10px;
+            color: #7A5C58;
+            margin-bottom: 15px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            font-size: 1.2rem;
         }
         
         .instructions p {
-            color: #5a0000;
-            line-height: 1.6;
+            color: #9C7A72;
+            font-weight: 300;
+            line-height: 1.7;
         }
         
-        .keywords-panel {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
+        /* Reset Button */
+        .reset-button {
+            background-color: transparent;
+            color: #B87C68;
+            border: 1px solid #E8C4B8;
+            padding: 12px 30px;
+            border-radius: 2px;
+            font-size: 1rem;
+            font-weight: 300;
+            cursor: pointer;
             margin-top: 30px;
-            width: 100%;
-            max-width: 600px;
-            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.15);
-            display: none;
-            border: 2px solid #8b0000;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
         }
         
-        .keywords-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 10px;
+        .reset-button:hover {
+            background-color: rgba(232, 196, 184, 0.1);
+            color: #7A5C58;
+        }
+        
+        /* New Styles for Valentine Gift */
+        .valentine-message {
+            font-size: 2.2rem;
+            color: #B87C68;
+            font-weight: 300;
             margin-bottom: 20px;
+            letter-spacing: 2px;
         }
         
-        .keyword-input {
-            padding: 8px 12px;
-            border: 2px solid #8b0000;
+        .valentine-photo {
+            max-width: 80%;
+            height: auto;
             border-radius: 8px;
-            text-align: center;
-            font-weight: 500;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(184, 124, 104, 0.1);
+            border: 2px solid #E8C4B8;
         }
         
-        @keyframes spin-pulse {
-            0%, 100% { box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2); }
-            50% { box-shadow: 0 10px 40px rgba(139, 0, 0, 0.6); }
+        .valentine-gift-text {
+            font-size: 1.4rem;
+            color: #7A5C58;
+            font-weight: 300;
+            margin-top: 15px;
+            letter-spacing: 1px;
         }
         
-        .spinning {
-            animation: spin-pulse 0.5s infinite alternate;
+        .kachoo-name {
+            color: #B87C68;
+            font-weight: 400;
         }
         
-        @keyframes result-pop {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mystery-box-title {
+                font-size: 2.8rem;
+                letter-spacing: 6px;
+            }
+            
+            .logo {
+                font-size: 2.2rem;
+            }
+            
+            .box-container {
+                width: 280px;
+                height: 280px;
+            }
+            
+            .box-label {
+                font-size: 4rem;
+            }
+            
+            .gift-items {
+                gap: 20px;
+            }
+            
+            .gift-item {
+                width: 140px;
+                padding: 20px 15px;
+            }
+            
+            .valentine-text {
+                font-size: 1.7rem;
+            }
+            
+            .valentine-message {
+                font-size: 1.8rem;
+            }
         }
         
-        .result-pop {
-            animation: result-pop 0.5s ease-out;
+        @media (max-width: 480px) {
+            .mystery-box-title {
+                font-size: 2.2rem;
+                letter-spacing: 4px;
+            }
+            
+            .valentine-text {
+                font-size: 1.5rem;
+            }
+            
+            .box-container {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .gift-items {
+                gap: 15px;
+            }
+            
+            .gift-item {
+                width: 130px;
+                padding: 15px 10px;
+            }
+            
+            .item-name {
+                font-size: 0.9rem;
+            }
+            
+            .valentine-message {
+                font-size: 1.5rem;
+            }
+            
+            .valentine-gift-text {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Plot Prompt Spinner</h1>
-            <p class="subtitle">Putar spinner untuk mendapatkan kata kunci inspirasi untuk menulis plot cerita Anda. Tantang kreativitas dengan 20 kata yang berbeda!</p>
-        </header>
-        
-        <div class="game-area">
-            <div class="spinner-container">
-                <div class="spinner-wrapper">
-                    <div class="pointer"></div>
-                    <div class="spinner" id="spinner">
-                        <!-- Segmen akan dibuat dengan JavaScript -->
-                    </div>
-                </div>
-            </div>
-            
-            <div class="result-container">
-                <div class="result-box">
-                    <div class="result-label">Kata Kunci Anda:</div>
-                    <div class="result-word" id="result-word">-</div>
-                    <p style="margin-top: 20px; color: #8b0000; text-align: center; font-style: italic;">Klik tombol spin untuk memulai</p>
-                </div>
-                
-                <button class="spin-btn" id="spin-btn">
-                    <i class="fas fa-redo-alt"></i> PUTAR SPINNER
-                </button>
-            </div>
+        <div class="header">
+            <div class="logo">DreamLloSet</div>
+            <h1 class="mystery-box-title">MYSTERY BOX</h1>
+            <div class="subtitle">MY&nbsp;&nbsp;&nbsp;MY&nbsp;&nbsp;&nbsp;MY</div>
+            <div class="value-tag">Hadiah Valentine Spesial!</div>
+            <div class="limited-tag">Hanya untukmu saja</div>
         </div>
         
         <div class="instructions">
             <h3>Cara Bermain:</h3>
-            <p>1. Klik tombol "PUTAR SPINNER" untuk memutar spinner dan mendapatkan kata kunci acak.<br>
-               2. Gunakan kata kunci yang muncul sebagai prompt untuk menulis plot cerita.<br>
-               3. Spinner akan selalu berhenti tepat di pointer untuk hasil yang akurat.</p>
+            <p>Klik kotak misteri untuk membukanya dan lihat hadiah Valentine Anda! Setiap klik akan memberikan hadiah acak. Buka hadiah spesial untuk melihat kejutan Valentine!</p>
         </div>
+        
+        <div class="box-container">
+            <div class="mystery-box">
+                <div class="box-closed" id="closedBox">
+                    <div class="box-pattern"></div>
+                    <div class="box-label">?</div>
+                </div>
+                <div class="box-open" id="openBox">
+                    <div class="gift-content" id="giftContent">
+                        <!-- Valentine gift content will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="valentine-text">Be My Valentine?</div>
+        
+        <div class="gift-items">
+            <div class="gift-item">
+                <div class="item-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <div class="item-name">Bucket Bunga</div>
+                <div class="item-chance">30% Peluang</div>
+            </div>
+            <div class="gift-item">
+                <div class="item-icon">
+                    <i class="fas fa-cookie-bite"></i>
+                </div>
+                <div class="item-name">Coklat</div>
+                <div class="item-chance">30% Peluang</div>
+            </div>
+            <div class="gift-item">
+                <div class="item-icon">
+                    <i class="fas fa-candy-cane"></i>
+                </div>
+                <div class="item-name">Permen</div>
+                <div class="item-chance">20% Peluang</div>
+            </div>
+            <div class="gift-item">
+                <div class="item-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="item-name">Hadiah Valentine</div>
+                <div class="item-chance">10% Peluang<br>(Spesial!)</div>
+            </div>
+            <div class="gift-item">
+                <div class="item-icon">
+                    <i class="fas fa-tag"></i>
+                </div>
+                <div class="item-name">Voucher Belanja 70%</div>
+                <div class="item-chance">10% Peluang</div>
+            </div>
+        </div>
+        
+        <button class="reset-button" id="resetButton">Coba Lagi</button>
+        
+        <footer>
+            <div class="made-by">Made by Kachoo, 2026</div>
+            <div class="social-links">
+                <a href="https://twitter.com/thekachoo" target="_blank" class="social-link">@thekachoo</a>
+                <a href="mailto:ohkachoo@gmail.com" class="social-link">ohkachoo@gmail.com</a>
+            </div>
+            <div class="disclaimer">For roleplay purpose only</div>
+        </footer>
     </div>
 
     <script>
-        // Kata kunci default
-        const keywords = [
-            "Misteri", "Cinta", "Petualangan", "DuniaLain", "Waktu", 
-            "Rahasia", "Pengorbanan", "Pengkhianatan", "Kebebasan", "Keluarga",
-            "Perjalanan", "Pertemanan", "Kehilangan", "Penemuan", "Perubahan",
-            "Konflik", "Pertumbuhan", "Identitas", "Harapan", "Kesempatan"
+        // Gift data with probabilities
+        const gifts = [
+            {
+                id: 1,
+                name: "Bucket Bunga",
+                description: "Sebuah bucket berisi rangkaian bunga segar pilihan untuk Valentine Anda.",
+                icon: '<i class="fas fa-spa"></i>',
+                probability: 30
+            },
+            {
+                id: 2,
+                name: "Coklat",
+                description: "Kotak coklat premium dengan bentuk hati untuk memaniskan hari Valentine.",
+                icon: '<i class="fas fa-cookie-bite"></i>',
+                probability: 30
+            },
+            {
+                id: 3,
+                name: "Permen",
+                description: "Koleksi permen warna-warni dan lolipop untuk perayaan yang manis.",
+                icon: '<i class="fas fa-candy-cane"></i>',
+                probability: 20
+            },
+            {
+                id: 4,
+                name: "Hadiah Valentine Spesial!",
+                description: "Hadiah spesial Valentine untuk orang terkasih!",
+                icon: '<i class="fas fa-heart"></i>',
+                probability: 10,
+                isValentineSpecial: true // Flag untuk hadiah Valentine spesial
+            },
+            {
+                id: 5,
+                name: "Voucher Belanja 70%",
+                description: "Dapatkan diskon 70% untuk pembelian Anda berikutnya!",
+                icon: '<i class="fas fa-tag"></i>',
+                probability: 10
+            }
         ];
+
+        let boxOpened = false;
         
-        // Elemen DOM
-        const spinner = document.getElementById('spinner');
-        const spinBtn = document.getElementById('spin-btn');
-        const resultWord = document.getElementById('result-word');
+        // Get DOM elements
+        const closedBox = document.getElementById('closedBox');
+        const openBox = document.getElementById('openBox');
+        const giftContent = document.getElementById('giftContent');
+        const mysteryBox = document.querySelector('.mystery-box');
+        const resetButton = document.getElementById('resetButton');
         
-        // Variabel kontrol
-        let isSpinning = false;
-        let currentRotation = 0;
-        const totalSections = keywords.length;
-        const anglePerSection = 360 / totalSections;
+        // Add shaking animation on hover
+        closedBox.addEventListener('mouseover', function() {
+            if (!boxOpened) {
+                this.classList.add('shake');
+            }
+        });
         
-        // Inisialisasi spinner
-        function initSpinner() {
-            spinner.innerHTML = '';
+        closedBox.addEventListener('mouseout', function() {
+            this.classList.remove('shake');
+        });
+        
+        // Open box on click
+        closedBox.addEventListener('click', openMysteryBox);
+        
+        // Reset box function
+        resetButton.addEventListener('click', resetBox);
+        
+        // Function to open the mystery box
+        function openMysteryBox() {
+            if (boxOpened) return;
             
-            // Buat 20 segmen yang rapi
-            for (let i = 0; i < totalSections; i++) {
-                const segment = document.createElement('div');
-                segment.className = 'spinner-segment';
+            boxOpened = true;
+            
+            // Remove hover shake and add hard shake
+            closedBox.classList.remove('shake');
+            closedBox.classList.add('shake-hard');
+            
+            // After shake, open the box
+            setTimeout(() => {
+                closedBox.classList.remove('shake-hard');
+                mysteryBox.classList.add('open');
                 
-                // Set rotasi untuk segmen ini
-                const rotation = i * anglePerSection;
-                segment.style.transform = `rotate(${rotation}deg)`;
-                
-                // Inner div untuk warna
-                const inner = document.createElement('div');
-                inner.className = 'segment-inner';
-                
-                // Konten teks
-                const content = document.createElement('div');
-                content.className = 'segment-content';
-                content.textContent = keywords[i];
-                content.style.transform = `rotate(${-rotation - anglePerSection/2}deg)`;
-                
-                inner.appendChild(content);
-                segment.appendChild(inner);
-                spinner.appendChild(segment);
+                // Show the gift after box opens
+                setTimeout(() => {
+                    // Select a random gift based on probabilities
+                    const selectedGift = selectRandomGift();
+                    
+                    // Display the selected gift
+                    displayGift(selectedGift);
+                    
+                    // Show the open box
+                    openBox.style.display = 'flex';
+                }, 600);
+            }, 1200);
+        }
+        
+        // Function to select a random gift based on probabilities
+        function selectRandomGift() {
+            // Calculate total probability
+            const totalProbability = gifts.reduce((sum, gift) => sum + gift.probability, 0);
+            
+            // Generate a random number between 0 and totalProbability
+            let random = Math.random() * totalProbability;
+            
+            // Find the gift based on probability ranges
+            let selectedGift = gifts[0];
+            let cumulativeProbability = 0;
+            
+            for (const gift of gifts) {
+                cumulativeProbability += gift.probability;
+                if (random <= cumulativeProbability) {
+                    selectedGift = gift;
+                    break;
+                }
+            }
+            
+            return selectedGift;
+        }
+        
+        // Function to display the selected gift
+        function displayGift(gift) {
+            if (gift.isValentineSpecial) {
+                // Tampilkan hadiah Valentine spesial
+                giftContent.innerHTML = `
+                    <div class="valentine-message">Happy Valentine!</div>
+                    <!-- Ganti foto1.png dengan nama file foto Anda -->
+                    <img src="foto1.png" alt="Foto Valentine" class="valentine-photo">
+                    <div class="valentine-gift-text">Ini hadiah spesial untukmu dari <span class="kachoo-name">Kachoo</span>!</div>
+                    <div style="margin-top: 15px; font-size: 1rem; color: #9C7A72; font-weight: 300;">
+                        Dengan penuh kasih sayang,<br>DreamLloSet
+                    </div>
+                `;
+            } else {
+                // Tampilkan hadiah biasa
+                giftContent.innerHTML = `
+                    <div class="gift-icon">${gift.icon}</div>
+                    <div class="gift-name">${gift.name}</div>
+                    <div class="gift-description">${gift.description}</div>
+                `;
             }
         }
         
-        // Fungsi putar spinner
-        function spinSpinner() {
-            if (isSpinning) return;
+        // Reset box function
+        function resetBox() {
+            boxOpened = false;
+            mysteryBox.classList.remove('open');
+            openBox.style.display = 'none';
+            closedBox.classList.remove('shake-hard');
             
-            isSpinning = true;
-            spinBtn.disabled = true;
-            spinner.classList.add('spinning');
-            resultWord.textContent = "-";
-            resultWord.classList.remove('result-pop');
-            
-            // Pilih kata kunci acak
-            const selectedIndex = Math.floor(Math.random() * totalSections);
-            
-            // PERHITUNGAN YANG BENAR: 
-            // Pointer di 0°, kita ingin segmen yang terpilih berhenti tepat di pointer
-            // Rumus: targetRotation = 360 - (selectedIndex * anglePerSection)
-            
-            const targetRotation = 360 - (selectedIndex * anglePerSection);
-            const fullRotations = 5;
-            
-            // Total rotasi = rotasi saat ini + putaran penuh + rotasi target
-            const totalRotation = currentRotation + (360 * fullRotations) + targetRotation;
-            
-            // Simpan rotasi saat ini (dalam rentang 0-360)
-            currentRotation = totalRotation % 360;
-            
-            // Terapkan rotasi
-            spinner.style.transition = 'transform 4s cubic-bezier(0.2, 0.8, 0.3, 1)';
-            spinner.style.transform = `rotate(${totalRotation}deg)`;
-            
-            // Tampilkan hasil setelah selesai berputar
+            // Reset animation
             setTimeout(() => {
-                spinner.classList.remove('spinning');
-                resultWord.textContent = keywords[selectedIndex];
-                resultWord.classList.add('result-pop');
-                isSpinning = false;
-                spinBtn.disabled = false;
-                
-                // Konfirmasi posisi tepat
-                console.log(`Berhenti di: ${keywords[selectedIndex]} (Index: ${selectedIndex})`);
-                console.log(`Rotasi akhir: ${currentRotation}°`);
-            }, 4000);
+                mysteryBox.style.animation = 'none';
+                setTimeout(() => {
+                    mysteryBox.style.animation = '';
+                }, 10);
+            }, 10);
         }
-        
-        // Event listener
-        spinBtn.addEventListener('click', spinSpinner);
-        
-        // Inisialisasi
-        document.addEventListener('DOMContentLoaded', () => {
-            initSpinner();
-            
-            // Shortcut keyboard
-            document.addEventListener('keydown', (e) => {
-                if (e.code === 'Space' && !isSpinning) {
-                    e.preventDefault();
-                    spinSpinner();
-                }
-            });
-        });
     </script>
 </body>
 </html>
