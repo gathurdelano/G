@@ -27,16 +27,17 @@
             position: relative;
         }
 
-        /* Gradasi dark red #8a1616 */
+        /* Gradasi putih ke dark red yang lebih soft */
         body::before {
             content: "";
             position: fixed;
             inset: 0;
             background: 
-                radial-gradient(circle at 0% 0%, rgba(138, 22, 22, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 100% 0%, rgba(138, 22, 22, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 50% 100%, rgba(138, 22, 22, 0.12) 0%, transparent 60%),
-                radial-gradient(circle at 20% 80%, rgba(138, 22, 22, 0.05) 0%, transparent 30%);
+                radial-gradient(circle at 20% 30%, rgba(138, 22, 22, 0.06) 0%, transparent 35%),
+                radial-gradient(circle at 90% 20%, rgba(138, 22, 22, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 10% 80%, rgba(138, 22, 22, 0.04) 0%, transparent 30%),
+                radial-gradient(circle at 80% 90%, rgba(138, 22, 22, 0.07) 0%, transparent 45%),
+                linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255, 245, 245, 0.8) 100%);
             pointer-events: none;
             z-index: 0;
         }
@@ -61,7 +62,7 @@
             line-height: 1.1;
             text-transform: uppercase;
             margin-bottom: 8px;
-            text-shadow: 0 4px 10px rgba(138, 22, 22, 0.2);
+            text-shadow: 0 4px 10px rgba(138, 22, 22, 0.15);
         }
 
         .sub-line {
@@ -71,13 +72,13 @@
             color: #8a1616;
             margin-bottom: 20px;
             letter-spacing: 1px;
-            background: rgba(138, 22, 22, 0.05);
+            background: rgba(138, 22, 22, 0.04);
             padding: 10px 24px;
             border-radius: 60px;
             display: inline-block;
             backdrop-filter: blur(2px);
-            border: 1.5px solid rgba(138, 22, 22, 0.25);
-            box-shadow: 0 6px 14px rgba(138, 22, 22, 0.08);
+            border: 1.5px solid rgba(138, 22, 22, 0.2);
+            box-shadow: 0 6px 14px rgba(138, 22, 22, 0.05);
         }
 
         /* Teks HAPPY VALENTINE di ATAS box */
@@ -89,11 +90,11 @@
             margin-bottom: 20px;
             letter-spacing: 2px;
             text-transform: uppercase;
-            background: rgba(138, 22, 22, 0.1);
+            background: rgba(138, 22, 22, 0.06);
             padding: 12px 35px;
             border-radius: 60px;
-            border: 2px solid rgba(138, 22, 22, 0.3);
-            box-shadow: 0 8px 20px rgba(138, 22, 22, 0.15);
+            border: 2px solid rgba(138, 22, 22, 0.2);
+            box-shadow: 0 8px 20px rgba(138, 22, 22, 0.08);
             backdrop-filter: blur(4px);
             display: inline-block;
             width: fit-content;
@@ -113,7 +114,7 @@
         .box-glow {
             position: absolute;
             inset: -15px;
-            background: radial-gradient(circle at center, rgba(138, 22, 22, 0.3) 0%, transparent 75%);
+            background: radial-gradient(circle at center, rgba(138, 22, 22, 0.25) 0%, transparent 75%);
             border-radius: 30px;
             filter: blur(8px);
             opacity: 0;
@@ -149,7 +150,7 @@
             align-items: center;
             backface-visibility: hidden;
             box-shadow: 
-                0 22px 40px rgba(138, 22, 22, 0.4),
+                0 22px 40px rgba(138, 22, 22, 0.3),
                 inset 0 -3px 0 rgba(255, 255, 255, 0.1),
                 0 0 0 4px rgba(138, 22, 22, 0.3);
             border: 2px solid #8a1616;
@@ -193,7 +194,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: transparent;  /* LATAR BELAKANG TRANSPARAN */
+            background: transparent;
             border-radius: 28px;
             display: none;
             flex-direction: column;
@@ -201,10 +202,10 @@
             align-items: center;
             backface-visibility: hidden;
             transform: rotateY(180deg);
-            box-shadow: 0 22px 40px rgba(138, 22, 22, 0.2), inset 0 0 0 3px #8a1616;
+            box-shadow: 0 22px 40px rgba(138, 22, 22, 0.15), inset 0 0 0 3px #8a1616;
             border: 2px solid #8a1616;
             overflow: hidden;
-            backdrop-filter: none;  /* tidak ada blur */
+            backdrop-filter: none;
         }
 
         .gift-content {
@@ -217,26 +218,25 @@
             padding: 16px;
             opacity: 0;
             transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            background: transparent;  /* transparan */
+            background: transparent;
         }
 
         .gift-content.show {
             opacity: 1;
         }
 
-        /* foto hadiah - dengan efek icon transparan */
+        /* foto hadiah - PNG transparan */
         .gift-photo {
             max-width: 85%;
             max-height: 70%;
             width: auto;
             height: auto;
             object-fit: contain;
-            /* background dihilangkan agar PNG transparan terlihat */
             background: transparent;
-            padding: 0;  /* padding 0 agar tidak ada latar */
-            border: none;  /* border dihilangkan */
-            box-shadow: none;  /* shadow dihilangkan */
-            filter: drop-shadow(0 10px 15px rgba(138, 22, 22, 0.3)); /* shadow lembut di sekitar gambar */
+            padding: 0;
+            border: none;
+            box-shadow: none;
+            filter: drop-shadow(0 10px 15px rgba(138, 22, 22, 0.2));
         }
 
         /* nama hadiah di bawah foto */
@@ -247,34 +247,126 @@
             color: #8a1616;
             margin-top: 20px;
             letter-spacing: 1px;
-            background: rgba(138, 22, 22, 0.1);
+            background: rgba(138, 22, 22, 0.06);
             padding: 10px 30px;
             border-radius: 40px;
-            border: 2px solid #8a1616;
-            box-shadow: 0 5px 15px rgba(138, 22, 22, 0.1);
+            border: 2px solid rgba(138, 22, 22, 0.2);
+            box-shadow: 0 5px 15px rgba(138, 22, 22, 0.05);
         }
 
-        /* footer minimal */
+        /* FOOTER DENGAN AUDIO PLAYER MINI */
         .footer-note {
             margin-top: 55px;
-            font-size: 1rem;
-            color: #8a1616;
-            border-top: 2px solid rgba(138, 22, 22, 0.3);
             padding-top: 25px;
             width: 100%;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-content {
+            border-top: 2px solid rgba(138, 22, 22, 0.2);
+            padding-top: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-links {
+            font-size: 1rem;
+            color: #8a1616;
             font-weight: 500;
         }
 
-        .footer-note a {
+        .footer-links a {
             color: #8a1616;
             text-decoration: none;
             font-weight: 600;
             margin: 0 12px;
         }
 
-        .footer-note a:hover {
+        .footer-links a:hover {
             text-decoration: underline;
+        }
+
+        /* AUDIO PLAYER MINI */
+        .audio-player-mini {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: rgba(138, 22, 22, 0.04);
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 1.5px solid rgba(138, 22, 22, 0.15);
+            backdrop-filter: blur(4px);
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        .audio-player-mini button {
+            background: transparent;
+            border: none;
+            color: #8a1616;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .audio-player-mini button:hover {
+            background: rgba(138, 22, 22, 0.1);
+            transform: scale(1.1);
+        }
+
+        .audio-player-mini .play-pause-btn {
+            background: rgba(138, 22, 22, 0.08);
+            font-size: 1.3rem;
+        }
+
+        .audio-player-mini .time-display {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            color: #8a1616;
+            font-weight: 500;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .audio-player-mini .volume-slider {
+            width: 60px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: rgba(138, 22, 22, 0.2);
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .audio-player-mini .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #8a1616;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(138, 22, 22, 0.3);
+        }
+
+        .audio-player-mini .volume-slider::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            background: #8a1616;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
         }
 
         /* animasi khusus */
@@ -322,7 +414,7 @@
             100% { opacity: 0; transform: scale(0) translate(var(--dx), var(--dy)); }
         }
 
-        /* responsive ekstra */
+        /* responsive */
         @media (max-width: 500px) {
             .main-title { font-size: 3rem; }
             .sub-line { font-size: 1.3rem; padding: 8px 18px; }
@@ -330,6 +422,8 @@
             .box-closed .big-heart { font-size: 6rem; }
             .box-closed .open-prompt { font-size: 1.3rem; padding: 8px 18px; }
             .gift-name { font-size: 1.5rem; }
+            .audio-player-mini { padding: 6px 12px; gap: 8px; }
+            .audio-player-mini .volume-slider { width: 40px; }
         }
 
         @media (max-width: 380px) {
@@ -341,7 +435,7 @@
 </head>
 <body>
 <div class="container">
-    <!-- Hanya judul KISS-CHO dan ajakan buka -->
+    <!-- Judul KISS-CHO dan ajakan buka -->
     <div class="main-title">KISS-CHO</div>
     <div class="sub-line">open your valentine gift</div>
 
@@ -364,12 +458,36 @@
         </div>
     </div>
 
-    <!-- footer sederhana -->
+    <!-- FOOTER DENGAN AUDIO PLAYER MINI -->
     <div class="footer-note">
-        <span>💘 KISS-CHO by The Kachoo!  </span>
-        <a href="#">@thekachoo</a> • <a href="#">ohkachoo@gmail.com</a>
+        <div class="footer-content">
+            <!-- Audio Player Mini -->
+            <div class="audio-player-mini" id="audioPlayer">
+                <button class="play-pause-btn" id="playPauseBtn">
+                    <i class="fas fa-play" id="playPauseIcon"></i>
+                </button>
+                <span class="time-display" id="timeDisplay">0:00 / 0:00</span>
+                <button id="muteBtn">
+                    <i class="fas fa-volume-up" id="muteIcon"></i>
+                </button>
+                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+            </div>
+            
+            <!-- Footer Links -->
+            <div class="footer-links">
+                <span>💘 KISS-CHO by The Kachoo!  </span>
+                <a href="#">@thekachoo</a> • <a href="#">ohkachoo@gmail.com</a>
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- Audio element (sembunyi) -->
+<audio id="bgMusic" loop preload="auto">
+    <source src="lagu-valentine.mp3" type="audio/mpeg">
+    <!-- Fallback text -->
+    Your browser does not support the audio element.
+</audio>
 
 <script>
     (function() {
@@ -393,10 +511,113 @@
         const giftContent = document.getElementById('giftContent');
         const mysteryBox = document.getElementById('mysteryBox');
         const glow = document.getElementById('glowEffect');
-        const wrapper = document.getElementById('boxWrapper');
+
+        // Audio elements
+        const bgMusic = document.getElementById('bgMusic');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const playPauseIcon = document.getElementById('playPauseIcon');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const muteBtn = document.getElementById('muteBtn');
+        const muteIcon = document.getElementById('muteIcon');
+        const volumeSlider = document.getElementById('volumeSlider');
 
         let isOpened = false;
+        let isPlaying = false;
+        let isMuted = false;
 
+        // ========== AUDIO PLAYER FUNCTIONS ==========
+        
+        // Set volume awal
+        bgMusic.volume = 0.5;
+
+        // Coba autoplay (dengan fallback)
+        function attemptAutoplay() {
+            bgMusic.play().then(() => {
+                isPlaying = true;
+                playPauseIcon.className = 'fas fa-pause';
+            }).catch(error => {
+                console.log("Autoplay prevented by browser. User interaction needed.");
+                isPlaying = false;
+                playPauseIcon.className = 'fas fa-play';
+            });
+        }
+
+        // Autoplay saat halaman dimuat
+        window.addEventListener('load', () => {
+            attemptAutoplay();
+        });
+
+        // Juga coba autoplay saat user pertama kali interact (untuk browser yang strict)
+        document.addEventListener('click', function once() {
+            if (!isPlaying) {
+                bgMusic.play().then(() => {
+                    isPlaying = true;
+                    playPauseIcon.className = 'fas fa-pause';
+                }).catch(e => console.log("Still cannot play"));
+            }
+            document.removeEventListener('click', once);
+        }, { once: true });
+
+        // Play/Pause button
+        playPauseBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                playPauseIcon.className = 'fas fa-play';
+            } else {
+                bgMusic.play();
+                playPauseIcon.className = 'fas fa-pause';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // Mute button
+        muteBtn.addEventListener('click', () => {
+            if (isMuted) {
+                bgMusic.muted = false;
+                muteIcon.className = 'fas fa-volume-up';
+                volumeSlider.value = bgMusic.volume;
+            } else {
+                bgMusic.muted = true;
+                muteIcon.className = 'fas fa-volume-mute';
+            }
+            isMuted = !isMuted;
+        });
+
+        // Volume slider
+        volumeSlider.addEventListener('input', (e) => {
+            const vol = parseFloat(e.target.value);
+            bgMusic.volume = vol;
+            if (vol === 0) {
+                muteIcon.className = 'fas fa-volume-off';
+            } else {
+                muteIcon.className = 'fas fa-volume-up';
+            }
+            isMuted = false;
+            bgMusic.muted = false;
+        });
+
+        // Update time display
+        bgMusic.addEventListener('timeupdate', () => {
+            const current = formatTime(bgMusic.currentTime);
+            const duration = formatTime(bgMusic.duration);
+            timeDisplay.textContent = `${current} / ${duration}`;
+        });
+
+        // Reset time display when metadata loaded
+        bgMusic.addEventListener('loadedmetadata', () => {
+            const duration = formatTime(bgMusic.duration);
+            timeDisplay.textContent = `0:00 / ${duration}`;
+        });
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // ========== BOX FUNCTIONS ==========
+        
         // fungsi partikel ledakan
         function explodeParticles(x, y, count = 28) {
             for (let i = 0; i < count; i++) {
@@ -433,10 +654,8 @@
             isOpened = true;
             glow.classList.remove('active');
 
-            // 1. getar cepat
             closed.classList.add('shake-strong');
 
-            // 2. partikel kecil selama getar
             const rect = closed.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
@@ -449,37 +668,29 @@
                 }, i * 70);
             }
 
-            // 3. setelah getar, flip box
             setTimeout(() => {
                 closed.classList.remove('shake-strong');
                 mysteryBox.classList.add('box-open-animation');
-
-                // tampilkan sisi open
                 openDiv.style.display = 'flex';
 
-                // 4. ledakan partikel besar di tengah
                 setTimeout(() => {
                     const boxRect = closed.getBoundingClientRect();
                     const midX = boxRect.left + boxRect.width / 2;
                     const midY = boxRect.top + boxRect.height / 2;
                     explodeParticles(midX, midY, 36);
 
-                    // pilih hadiah acak
                     const randomIndex = Math.floor(Math.random() * gifts.length);
                     const selected = gifts[randomIndex];
 
-                    // siapkan konten (foto PNG transparan + nama)
                     giftContent.innerHTML = `
                         <img src="${selected.photo}" alt="gift" class="gift-photo" onerror="this.src='https://via.placeholder.com/300x300/ffffff/8a1616?text=🎁&nbsp;PNG'">
                         <div class="gift-name">${selected.name}</div>
                     `;
 
-                    // munculkan konten dengan fade
                     setTimeout(() => {
                         giftContent.classList.add('show');
                     }, 150);
 
-                    // partikel tambahan setelah foto muncul
                     for (let i = 0; i < 3; i++) {
                         setTimeout(() => {
                             const newRect = openDiv.getBoundingClientRect();
