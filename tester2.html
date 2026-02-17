@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KACHOO · Database Terpadu</title>
+    <title>KACHOO · Database System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -29,7 +29,7 @@
             flex-direction: column;
         }
         
-        /* Header - teks di tengah */
+        /* Header - text centered */
         header {
             text-align: center;
             padding: 30px 0 20px 0;
@@ -82,7 +82,7 @@
             max-width: 700px;
         }
         
-        /* Department Grid - 3 Kartu */
+        /* Department Grid - 3 Cards */
         .departments {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -162,7 +162,7 @@
             margin-top: auto;
         }
         
-        /* Info Panel (libur) */
+        /* Info Panel (holidays) */
         .info-panel {
             background-color: #f9f9f9;
             border: 2px solid #000;
@@ -278,7 +278,7 @@
             100% { opacity: 1; }
         }
         
-        /* --- MODAL LOGIN (POPUP) tanpa demo username --- */
+        /* --- LOGIN MODAL (POPUP) without demo username --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -415,7 +415,7 @@
             color: white;
         }
 
-        /* Tidak ada lagi .demo-hint (sesuai instruksi) */
+        /* No demo-hint as requested */
 
         @media (max-width: 768px) {
             .info-panel {
@@ -445,7 +445,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header - tengah & tanpa Admin Dashboard -->
+        <!-- Header - center & without Admin Dashboard -->
         <header>
             <div class="logo">
                 <img src="logo-thekachoo.png" alt="KACHOO Logo" id="logoKachoo">
@@ -459,77 +459,69 @@
         <!-- Main Content -->
         <main>
             <div class="dashboard-header">
-                <h2>Departemen Perusahaan</h2>
-                <p>Akses database masing-masing departemen dengan mengklik kartu di bawah ini. Sistem terintegrasi untuk manajemen data KACHOO.</p>
+                <h2>Company Departments</h2>
+                <p>Access each department's database by clicking the cards below. Integrated system for KACHOO data management.</p>
             </div>
 
             <!-- Department Cards - CORE, KAZINE, KABOOM -->
             <div class="departments">
-                <!-- CORE → khusus Gathur & Ningrum -->
+                <!-- CORE → specifically for Gathur & Ningrum -->
                 <div class="department-card" data-dept="core">
                     <div class="department-icon">
                         <i class="fas fa-code"></i>
                     </div>
                     <h3>CORE</h3>
-                    <p>Tim inti pengembang teknologi dasar, sistem, dan infrastruktur perusahaan. Akses khusus untuk eksekutif.</p>
+                    <p>Core technology development team, systems, and company infrastructure. Executive access only.</p>
                     <div class="department-link">
-                        <span>Buka Dashboard</span>
+                        <span>Open Dashboard</span>
                         <i class="fas fa-arrow-right"></i>
                     </div>
                 </div>
 
-                <!-- KAZINE → khusus Vivi, Rafi, Claudia -->
+                <!-- KAZINE → specifically for Vivi, Rafi, Claudia -->
                 <div class="department-card" data-dept="kazine">
                     <div class="department-icon">
                         <i class="fas fa-newspaper"></i>
                     </div>
                     <h3>KAZINE</h3>
-                    <p>Tim media dan publikasi. Mengelola konten, majalah digital, dan komunikasi perusahaan.</p>
+                    <p>Media and publication team. Manages content, digital magazines, and company communications.</p>
                     <div class="department-link">
-                        <span>Buka Dashboard</span>
+                        <span>Open Dashboard</span>
                         <i class="fas fa-arrow-right"></i>
                     </div>
                 </div>
 
-                <!-- KABOOM (bisa semua, tapi disesuaikan dengan peruntukkan Vivi,Rafi,Claudia di atas? 
-                     sesuai soal "Kazine yang bisa masuk Vivi, Rafi, Claudia" maka kaboom tidak dipakai? 
-                     tapi soal lama menyebut Rafi & Claudia ke v1.zine1/2. Kita ikuti aturan terbaru: 
-                     Kazine untuk Vivi,Rafi,Claudia. Namun Rafi & Claudia tujuan ke .zine1 & .zine2, Vivi ke v1pr.cho.html.
-                     Kita terapkan di login: Kazine terima Vivi,Rafi,Claudia. Core terima Gathur,Ningrum.
-                     Kaboom tetap ada sebagai departemen, tetapi loginnya ditolak (tidak ada user) atau bisa diisi kemudian.
-                     Sesuai permintaan: "kalau klik core, itu cuma untuk executive, jadi yang bisa masuk cuma Gathur dan Ningrum. 
-                     klik Kazine yang bisa masuk Vivi, Rafi, dan Claudia." Maka Kaboom tidak disebut, kita buat tidak bisa diakses (tidak ada user untuk kaboom).
-                -->
+                <!-- KABOOM (no specific users yet) -->
                 <div class="department-card" data-dept="kaboom">
                     <div class="department-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
                     <h3>KABOOM</h3>
-                    <p>Tim kreatif & inovasi. Mengembangkan kampanye dan proyek eksperimental.</p>
+                    <p>Creative & innovation team. Develops campaigns and experimental projects.</p>
                     <div class="department-link">
-                        <span>Buka Dashboard</span>
+                        <span>Open Dashboard</span>
                         <i class="fas fa-arrow-right"></i>
                     </div>
                 </div>
             </div>
 
-            <!-- Info Panel Libur (Imlek, Ramadhan, Lebaran) sesuai tanggal -->
+            <!-- Info Panel Holidays (Imlek, Ramadhan, Lebaran) with dates -->
             <div class="info-panel">
                 <div class="info-icon">
                     <i class="fas fa-calendar-alt"></i>
                 </div>
                 <div class="info-text">
-                    <h3>Informasi Hari Libur & Cuti Bersama 2026</h3>
-                    <p>Perhatikan jadwal operasional selama libur nasional</p>
+                    <h3>Public Holidays & Joint Leave 2026</h3>
+                    <p>Note operational schedules during national holidays</p>
                 </div>
                 <div class="info-dates">
                     <div class="date-item">
                         <span class="date-label">Imlek & Ramadhan</span>
-                        <span class="date-value">18 Feb - 22 Feb</span>
+                        <span class="date-value">Feb 18 - Feb 22</span>
                     </div>
                     <div class="date-item">
-                        <span class="date-label">Libur Lebaran</span>
-                        <span class="date-value">18 Mar - 24 Mar</span>
+                        <span class="date-label">Eid Break</span>
+                        <span class="date-value">Mar 18 - Mar 24</span>
                     </div>
                 </div>
             </div>
@@ -544,18 +536,18 @@
                 </div>
                 <div class="system-info">
                     <div class="status-indicator"></div>
-                    <span>Sistem Aktif — Terakhir diperbarui: 12:30 PM</span>
+                    <span>System Active — Last updated: 12:30 PM</span>
                 </div>
             </div>
         </footer>
     </div>
 
-    <!-- Modal Login (popup) - tanpa petunjuk username -->
+    <!-- Login Modal (popup) - no username hints -->
     <div id="loginModal" class="modal-overlay" style="display: none;">
         <div class="modal-card">
             <div class="close-icon" id="closeModalBtn"><i class="fas fa-times"></i></div>
-            <h2><i class="fas fa-lock"></i> Akses Departemen</h2>
-            <div class="modal-sub" id="deptDisplay">Masukkan kredensial</div>
+            <h2><i class="fas fa-lock"></i> Department Access</h2>
+            <div class="modal-sub" id="deptDisplay">Enter your credentials</div>
             
             <div class="input-group">
                 <label><i class="fas fa-user" style="margin-right: 8px;"></i>Username</label>
@@ -567,34 +559,34 @@
             </div>
 
             <div class="login-actions">
-                <button class="btn-login" id="loginBtn"><i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Masuk</button>
-                <button class="btn-cancel" id="cancelBtn">Batal</button>
+                <button class="btn-login" id="loginBtn"><i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Login</button>
+                <button class="btn-cancel" id="cancelBtn">Cancel</button>
             </div>
 
             <div id="loginError" class="error-message" style="display: none;"></div>
-            <!-- TIDAK ADA DEMO HINT / CONTOH USERNAME sesuai instruksi -->
+            <!-- NO DEMO HINT / EXAMPLE USERNAME as instructed -->
         </div>
     </div>
 
     <script>
         (function() {
-            // ================= KREDENSIAL + REDIRECT ==================
-            // CORE hanya: Gathur & Ningrum
-            // KAZINE hanya: Vivi, Rafi, Claudia
-            // KABOOM: tidak ada user (akan selalu gagal, opsional bisa ditambah kemudian)
+            // ================= CREDENTIALS + REDIRECT ==================
+            // CORE only: Gathur & Ningrum
+            // KAZINE only: Vivi, Rafi, Claudia
+            // KABOOM: no users (will always fail, can be added later if needed)
             
             const userDB = [
                 // CORE
                 { username: "Gathur", password: "gath61", redirect: "v1execho.html", allowedDept: "core" },
-                { username: "Ningrum", password: "masukdulu123", redirect: "v1financho.html", allowedDept: "core" },
+                { username: "Ningrum", password: "masukdulu123", redirect: "v1execho2.html", allowedDept: "core" },
                 // KAZINE
-                { username: "Vivi", password: "masukdulu123", redirect: "v1pr.cho.html", allowedDept: "kazine" },
+                { username: "Vivi", password: "masukdulu123", redirect: "v1prcho.html", allowedDept: "kazine" },
                 { username: "Rafi", password: "masukdulu123", redirect: "v1.zine1.html", allowedDept: "kazine" },
                 { username: "Claudia", password: "masukdulu123", redirect: "v1.zine2.html", allowedDept: "kazine" }
-                // Kaboom tidak memiliki user (bisa ditambahkan nanti jika diperlukan)
+                // Kaboom has no users (can be added later if needed)
             ];
 
-            // Elemen
+            // Elements
             const modal = document.getElementById('loginModal');
             const deptDisplay = document.getElementById('deptDisplay');
             const usernameInput = document.getElementById('loginUsername');
@@ -606,7 +598,7 @@
 
             let selectedDept = null;  // 'core', 'kazine', 'kaboom'
 
-            // Tutup modal
+            // Close modal
             function closeModal() {
                 modal.style.display = 'none';
                 usernameInput.value = '';
@@ -614,52 +606,52 @@
                 errorDiv.style.display = 'none';
                 selectedDept = null;
                 loginBtn.disabled = false;
-                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Masuk';
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Login';
             }
 
-            // Tampilkan modal
+            // Show modal
             function openModal(deptName, deptCode) {
-                deptDisplay.innerText = `Departemen ${deptName}`;
+                deptDisplay.innerText = `Department ${deptName}`;
                 selectedDept = deptCode;
                 modal.style.display = 'flex';
                 usernameInput.focus();
                 errorDiv.style.display = 'none';
                 loginBtn.disabled = false;
-                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Masuk';
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Login';
             }
 
-            // Proses login
+            // Process login
             function processLogin() {
                 const user = usernameInput.value.trim();
                 const pass = passwordInput.value.trim();
 
                 if (!user || !pass) {
-                    showError('Username dan password harus diisi');
+                    showError('Username and password are required');
                     return;
                 }
 
-                // Cari user yang username & password cocok (case-insensitive username)
+                // Find user with matching username & password (case-insensitive username)
                 const found = userDB.find(entry => 
                     entry.username.toLowerCase() === user.toLowerCase() && 
                     entry.password === pass
                 );
 
                 if (!found) {
-                    showError('Username atau password salah');
+                    showError('Invalid username or password');
                     return;
                 }
 
-                // Validasi departemen yang diklik vs allowedDept
+                // Validate department access
                 if (found.allowedDept !== selectedDept) {
-                    // Jika user valid tapi mencoba masuk ke departemen yang salah
-                    showError(`Akun tidak memiliki akses ke departemen ini.`);
+                    // User exists but tries to access wrong department
+                    showError(`Account does not have access to this department.`);
                     return;
                 }
 
-                // Sukses!
+                // Success!
                 errorDiv.style.display = 'none';
                 loginBtn.disabled = true;
-                loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengarahkan...';
+                loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
 
                 // Redirect
                 setTimeout(() => {
@@ -671,10 +663,10 @@
                 errorDiv.innerText = msg;
                 errorDiv.style.display = 'block';
                 loginBtn.disabled = false;
-                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Masuk';
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Login';
             }
 
-            // Event listener kartu
+            // Event listener for cards
             const cards = document.querySelectorAll('.department-card');
             cards.forEach(card => {
                 card.addEventListener('click', function(e) {
@@ -686,15 +678,15 @@
                     else if (deptName === 'KAZINE') deptCode = 'kazine';
                     else if (deptName === 'KABOOM') deptCode = 'kaboom';
 
-                    // Buka modal, simpan kode departemen
+                    // Open modal, store department code
                     openModal(deptName, deptCode);
                 });
             });
 
-            // Tombol login
+            // Login button click
             loginBtn.addEventListener('click', processLogin);
 
-            // Enter di password
+            // Enter key on password field
             passwordInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -702,14 +694,14 @@
                 }
             });
 
-            // Cancel & close
+            // Cancel & close buttons
             cancelBtn.addEventListener('click', closeModal);
             closeBtn.addEventListener('click', closeModal);
             modal.addEventListener('click', function(e) {
                 if (e.target === modal) closeModal();
             });
 
-            // Fallback logo
+            // Logo fallback
             const logo = document.getElementById('logoKachoo');
             if (logo) {
                 logo.onerror = function() {
@@ -717,12 +709,12 @@
                 };
             }
 
-            // Update waktu footer
+            // Update footer time
             function updateSystemTime() {
                 const now = new Date();
-                const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+                const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
                 const span = document.querySelector('.system-info span');
-                if (span) span.textContent = `Sistem Aktif — Terakhir diperbarui: ${timeString}`;
+                if (span) span.textContent = `System Active — Last updated: ${timeString}`;
             }
             updateSystemTime();
             setInterval(updateSystemTime, 60000);
