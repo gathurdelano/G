@@ -29,63 +29,45 @@
             flex-direction: column;
         }
         
-        /* Header */
+        /* Header - teks di tengah */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
+            text-align: center;
+            padding: 30px 0 20px 0;
             border-bottom: 2px solid #000;
             margin-bottom: 40px;
-            flex-wrap: wrap;
         }
         
         .logo {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
         
         .logo img {
-            height: 60px;
+            height: 70px;
             width: auto;
             object-fit: contain;
         }
         
         .logo-text h1 {
-            font-size: 28px;
+            font-size: 36px;
             color: #000;
-            letter-spacing: 1px;
-            font-weight: bold;
+            letter-spacing: 2px;
+            font-weight: 800;
         }
         
         .logo-text p {
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #000;
+            color: #444;
+            font-size: 16px;
             font-weight: 500;
-        }
-        
-        .user-icon {
-            width: 40px;
-            height: 40px;
-            background-color: #000;
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-top: 4px;
         }
         
         /* Main Content */
         .dashboard-header {
             margin-bottom: 40px;
+            text-align: left;
         }
         
         .dashboard-header h2 {
@@ -97,7 +79,7 @@
         
         .dashboard-header p {
             color: #666;
-            max-width: 600px;
+            max-width: 700px;
         }
         
         /* Department Grid - 3 Kartu */
@@ -180,6 +162,79 @@
             margin-top: auto;
         }
         
+        /* Info Panel (libur) */
+        .info-panel {
+            background-color: #f9f9f9;
+            border: 2px solid #000;
+            border-radius: 16px;
+            padding: 25px 30px;
+            margin: 30px 0 30px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 6px 6px 0 rgba(0,0,0,0.1);
+        }
+        
+        .info-icon {
+            background: #000;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+        
+        .info-text {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .info-text h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #000;
+        }
+        
+        .info-text p {
+            font-size: 17px;
+            color: #222;
+            font-weight: 500;
+        }
+        
+        .info-dates {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            background: #fff;
+            padding: 15px 25px;
+            border-radius: 40px;
+            border: 1px solid #000;
+        }
+        
+        .date-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .date-label {
+            font-weight: 700;
+            font-size: 15px;
+            color: #000;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .date-value {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
         /* Footer */
         footer {
             margin-top: auto;
@@ -193,6 +248,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
         .copyright {
@@ -221,26 +278,25 @@
             100% { opacity: 1; }
         }
         
-        /* --- MODAL LOGIN (POPUP) --- */
+        /* --- MODAL LOGIN (POPUP) tanpa demo username --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.75);
+            background-color: rgba(0,0,0,0.8);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 10000;
             backdrop-filter: blur(4px);
-            transition: 0.2s;
         }
         .modal-card {
             background: #fff;
             width: 90%;
             max-width: 400px;
             border: 3px solid #000;
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 30px 25px;
-            box-shadow: 10px 10px 0 #000;
+            box-shadow: 12px 12px 0 #000;
             position: relative;
         }
         .modal-card h2 {
@@ -250,50 +306,48 @@
             margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         .modal-card h2 i {
             background: #000;
             color: white;
             padding: 10px;
-            border-radius: 12px;
-            font-size: 20px;
+            border-radius: 14px;
+            font-size: 22px;
         }
         .modal-sub {
-            color: #444;
-            font-size: 14px;
+            color: #222;
+            font-size: 15px;
             margin-bottom: 25px;
-            border-left: 4px solid #000;
-            padding-left: 12px;
-            background: #f5f5f5;
-            border-radius: 0 8px 8px 0;
-            line-height: 1.4;
+            border-left: 5px solid #000;
+            padding-left: 15px;
+            background: #f2f2f2;
+            border-radius: 0 10px 10px 0;
+            font-weight: 500;
         }
         .input-group {
-            margin-bottom: 20px;
-            position: relative;
+            margin-bottom: 22px;
         }
         .input-group label {
             display: block;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 14px;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             color: #000;
         }
         .input-group input {
             width: 100%;
-            padding: 14px 18px;
+            padding: 15px 18px;
             border: 2px solid #aaa;
-            border-radius: 12px;
+            border-radius: 16px;
             font-size: 15px;
-            transition: 0.15s;
             background: #fafafa;
         }
         .input-group input:focus {
             border-color: #000;
             outline: none;
             background: #fff;
-            box-shadow: 2px 2px 0 #000;
+            box-shadow: 3px 3px 0 #000;
         }
         .login-actions {
             display: flex;
@@ -305,13 +359,13 @@
             border: none;
             color: white;
             font-weight: 700;
-            padding: 14px 0;
-            border-radius: 40px;
+            padding: 15px 0;
+            border-radius: 50px;
             font-size: 16px;
             cursor: pointer;
             flex: 2;
             border: 2px solid #000;
-            transition: 0.1s;
+            transition: 0.15s;
         }
         .btn-login:hover {
             background: #fff;
@@ -322,57 +376,30 @@
             border: 2px solid #000;
             color: #000;
             font-weight: 600;
-            padding: 14px 0;
-            border-radius: 40px;
+            padding: 15px 0;
+            border-radius: 50px;
             font-size: 16px;
             cursor: pointer;
             flex: 1;
-            transition: 0.1s;
         }
         .btn-cancel:hover {
             background: #eee;
         }
         .error-message {
-            color: #c00;
-            font-weight: 500;
+            color: #b11;
+            font-weight: 600;
             font-size: 14px;
-            margin-top: 10px;
-            background: #ffe9e9;
-            padding: 8px 12px;
-            border-radius: 30px;
-            border: 1px solid #c00;
-            text-align: center;
-        }
-        .demo-hint {
-            margin-top: 20px;
-            background: #f2f2f2;
-            border-radius: 14px;
-            padding: 15px;
-            font-size: 13px;
-            border: 1px dashed #000;
-        }
-        .demo-hint p {
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        .demo-hint ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px 12px;
-        }
-        .demo-hint li {
-            background: white;
-            padding: 4px 12px;
+            margin-top: 15px;
+            background: #ffe3e3;
+            padding: 10px 14px;
             border-radius: 40px;
-            border: 1px solid #000;
-            font-weight: 500;
-            font-size: 12px;
+            border: 1px solid #b11;
+            text-align: center;
         }
         .close-icon {
             position: absolute;
-            top: 20px; right: 20px;
-            font-size: 24px;
+            top: 18px; right: 18px;
+            font-size: 22px;
             cursor: pointer;
             background: #fff;
             width: 40px;
@@ -388,38 +415,44 @@
             color: white;
         }
 
-        /* loading kecil di tombol */
-        .btn-login:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+        /* Tidak ada lagi .demo-hint (sesuai instruksi) */
 
-        @media (max-width: 600px) {
-            .modal-card {
-                padding: 25px 15px;
-            }
-            .login-actions {
+        @media (max-width: 768px) {
+            .info-panel {
                 flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+            }
+            .info-dates {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .logo-text h1 {
+                font-size: 30px;
+            }
+        }
+        @media (max-width: 480px) {
+            .info-dates {
+                flex-direction: column;
+                gap: 12px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
+        <!-- Header - tengah & tanpa Admin Dashboard -->
         <header>
             <div class="logo">
                 <img src="logo-thekachoo.png" alt="KACHOO Logo" id="logoKachoo">
                 <div class="logo-text">
                     <h1>KACHOO</h1>
-                    <p>Company Database System</p>
+                    <p>database system</p>
                 </div>
-            </div>
-            <div class="user-info">
-                <div class="user-icon">
-                    <i class="fas fa-user"></i>
-                </div>
-                <span>Admin Dashboard</span>
             </div>
         </header>
 
@@ -427,48 +460,76 @@
         <main>
             <div class="dashboard-header">
                 <h2>Departemen Perusahaan</h2>
-                <p>Akses database masing-masing departemen dengan mengklik kartu di bawah ini. Sistem database terintegrasi untuk manajemen data perusahaan KACHOO.</p>
+                <p>Akses database masing-masing departemen dengan mengklik kartu di bawah ini. Sistem terintegrasi untuk manajemen data KACHOO.</p>
             </div>
 
-            <!-- Department Cards - Hanya 3 Departemen (CORE, KAZINE, KABOOM) -->
+            <!-- Department Cards - CORE, KAZINE, KABOOM -->
             <div class="departments">
-                <!-- CORE (menampung Gathur → v1execho.html) -->
-                <div class="department-card" data-dept="core" data-redirect="v1execho.html">
+                <!-- CORE → khusus Gathur & Ningrum -->
+                <div class="department-card" data-dept="core">
                     <div class="department-icon">
                         <i class="fas fa-code"></i>
                     </div>
                     <h3>CORE</h3>
-                    <p>Tim inti yang mengembangkan teknologi dasar, sistem, dan infrastruktur perusahaan. Bertanggung jawab atas platform utama dan arsitektur sistem.</p>
+                    <p>Tim inti pengembang teknologi dasar, sistem, dan infrastruktur perusahaan. Akses khusus untuk eksekutif.</p>
                     <div class="department-link">
                         <span>Buka Dashboard</span>
                         <i class="fas fa-arrow-right"></i>
                     </div>
                 </div>
 
-                <!-- KAZINE (menampung Ningrum, Vivi → v1financho.html & v1pr.cho.html) 
-                     kita mapping: Ningrum-> v1financho.html, Vivi -> v1pr.cho.html -->
-                <div class="department-card" data-dept="kazine" data-redirect="v1financho.html"> <!-- default untuk Ningrum, tapi logic di js beda per user -->
+                <!-- KAZINE → khusus Vivi, Rafi, Claudia -->
+                <div class="department-card" data-dept="kazine">
                     <div class="department-icon">
                         <i class="fas fa-newspaper"></i>
                     </div>
                     <h3>KAZINE</h3>
-                    <p>Tim media dan publikasi yang menangani konten, majalah digital, artikel, dan komunikasi publik perusahaan.</p>
+                    <p>Tim media dan publikasi. Mengelola konten, majalah digital, dan komunikasi perusahaan.</p>
                     <div class="department-link">
                         <span>Buka Dashboard</span>
                         <i class="fas fa-arrow-right"></i>
                     </div>
                 </div>
 
-                <!-- KABOOM (menampung Rafi, Claudia → v1.zine1.html & v1.zine2.html) -->
-                <div class="department-card" data-dept="kaboom" data-redirect="v1.zine1.html"> <!-- default sementara -->
+                <!-- KABOOM (bisa semua, tapi disesuaikan dengan peruntukkan Vivi,Rafi,Claudia di atas? 
+                     sesuai soal "Kazine yang bisa masuk Vivi, Rafi, Claudia" maka kaboom tidak dipakai? 
+                     tapi soal lama menyebut Rafi & Claudia ke v1.zine1/2. Kita ikuti aturan terbaru: 
+                     Kazine untuk Vivi,Rafi,Claudia. Namun Rafi & Claudia tujuan ke .zine1 & .zine2, Vivi ke v1pr.cho.html.
+                     Kita terapkan di login: Kazine terima Vivi,Rafi,Claudia. Core terima Gathur,Ningrum.
+                     Kaboom tetap ada sebagai departemen, tetapi loginnya ditolak (tidak ada user) atau bisa diisi kemudian.
+                     Sesuai permintaan: "kalau klik core, itu cuma untuk executive, jadi yang bisa masuk cuma Gathur dan Ningrum. 
+                     klik Kazine yang bisa masuk Vivi, Rafi, dan Claudia." Maka Kaboom tidak disebut, kita buat tidak bisa diakses (tidak ada user untuk kaboom).
+                -->
+                <div class="department-card" data-dept="kaboom">
                     <div class="department-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
                     <h3>KABOOM</h3>
-                    <p>Tim kreatif dan inovasi yang mengembangkan kampanye, proyek khusus, dan inisiatif eksperimental perusahaan.</p>
+                    <p>Tim kreatif & inovasi. Mengembangkan kampanye dan proyek eksperimental.</p>
                     <div class="department-link">
                         <span>Buka Dashboard</span>
                         <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Panel Libur (Imlek, Ramadhan, Lebaran) sesuai tanggal -->
+            <div class="info-panel">
+                <div class="info-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="info-text">
+                    <h3>Informasi Hari Libur & Cuti Bersama 2026</h3>
+                    <p>Perhatikan jadwal operasional selama libur nasional</p>
+                </div>
+                <div class="info-dates">
+                    <div class="date-item">
+                        <span class="date-label">Imlek & Ramadhan</span>
+                        <span class="date-value">18 Feb - 22 Feb</span>
+                    </div>
+                    <div class="date-item">
+                        <span class="date-label">Libur Lebaran</span>
+                        <span class="date-value">18 Mar - 24 Mar</span>
                     </div>
                 </div>
             </div>
@@ -483,60 +544,57 @@
                 </div>
                 <div class="system-info">
                     <div class="status-indicator"></div>
-                    <span>Sistem Aktif - Terakhir diperbarui: 12:30 PM</span>
+                    <span>Sistem Aktif — Terakhir diperbarui: 12:30 PM</span>
                 </div>
             </div>
         </footer>
     </div>
 
-    <!-- Modal Login (popup) awalnya tersembunyi -->
+    <!-- Modal Login (popup) - tanpa petunjuk username -->
     <div id="loginModal" class="modal-overlay" style="display: none;">
         <div class="modal-card">
             <div class="close-icon" id="closeModalBtn"><i class="fas fa-times"></i></div>
-            <h2><i class="fas fa-lock"></i> Akses Terbatas</h2>
-            <div class="modal-sub" id="deptDisplay">Masuk ke departemen</div>
+            <h2><i class="fas fa-lock"></i> Akses Departemen</h2>
+            <div class="modal-sub" id="deptDisplay">Masukkan kredensial</div>
             
             <div class="input-group">
-                <label><i class="fas fa-user" style="margin-right: 6px;"></i>Username</label>
-                <input type="text" id="loginUsername" placeholder="cth: Gathur, Ningrum..." autocomplete="off">
+                <label><i class="fas fa-user" style="margin-right: 8px;"></i>Username</label>
+                <input type="text" id="loginUsername" placeholder="username" autocomplete="off">
             </div>
             <div class="input-group">
-                <label><i class="fas fa-key" style="margin-right: 6px;"></i>Password</label>
-                <input type="password" id="loginPassword" placeholder="••••••••">
+                <label><i class="fas fa-key" style="margin-right: 8px;"></i>Password</label>
+                <input type="password" id="loginPassword" placeholder="password">
             </div>
 
             <div class="login-actions">
-                <button class="btn-login" id="loginBtn"><i class="fas fa-sign-in-alt" style="margin-right: 6px;"></i> Masuk</button>
+                <button class="btn-login" id="loginBtn"><i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Masuk</button>
                 <button class="btn-cancel" id="cancelBtn">Batal</button>
             </div>
 
             <div id="loginError" class="error-message" style="display: none;"></div>
-
-            <div class="demo-hint">
-                <p><i class="fas fa-info-circle"></i> Kredensial demo:</p>
-                <ul>
-                    <li><b>Gathur</b> / gath61</li>
-                    <li><b>Ningrum</b> / masukdulu123</li>
-                    <li><b>Vivi</b> / masukdulu123</li>
-                    <li><b>Rafi</b> / masukdulu123</li>
-                    <li><b>Claudia</b> / masukdulu123</li>
-                </ul>
-            </div>
+            <!-- TIDAK ADA DEMO HINT / CONTOH USERNAME sesuai instruksi -->
         </div>
     </div>
 
     <script>
         (function() {
-            // DATABASE KREDENSIAL + redirect tujuan
+            // ================= KREDENSIAL + REDIRECT ==================
+            // CORE hanya: Gathur & Ningrum
+            // KAZINE hanya: Vivi, Rafi, Claudia
+            // KABOOM: tidak ada user (akan selalu gagal, opsional bisa ditambah kemudian)
+            
             const userDB = [
-                { username: "Gathur", password: "gath61", redirect: "v1execho.html" },
-                { username: "Ningrum", password: "masukdulu123", redirect: "v1financho.html" },
-                { username: "Vivi", password: "masukdulu123", redirect: "v1pr.cho.html" },
-                { username: "Rafi", password: "masukdulu123", redirect: "v1.zine1.html" },
-                { username: "Claudia", password: "masukdulu123", redirect: "v1.zine2.html" }
+                // CORE
+                { username: "Gathur", password: "gath61", redirect: "v1execho.html", allowedDept: "core" },
+                { username: "Ningrum", password: "masukdulu123", redirect: "v1financho.html", allowedDept: "core" },
+                // KAZINE
+                { username: "Vivi", password: "masukdulu123", redirect: "v1pr.cho.html", allowedDept: "kazine" },
+                { username: "Rafi", password: "masukdulu123", redirect: "v1.zine1.html", allowedDept: "kazine" },
+                { username: "Claudia", password: "masukdulu123", redirect: "v1.zine2.html", allowedDept: "kazine" }
+                // Kaboom tidak memiliki user (bisa ditambahkan nanti jika diperlukan)
             ];
 
-            // Elemen modal & form
+            // Elemen
             const modal = document.getElementById('loginModal');
             const deptDisplay = document.getElementById('deptDisplay');
             const usernameInput = document.getElementById('loginUsername');
@@ -546,91 +604,97 @@
             const closeBtn = document.getElementById('closeModalBtn');
             const errorDiv = document.getElementById('loginError');
 
-            // State: kartu yang diklik & redirect default (jika diperlukan)
-            let selectedDept = null;
-            let defaultRedirect = null;   // tidak dipakai untuk validasi, hanya display
+            let selectedDept = null;  // 'core', 'kazine', 'kaboom'
 
-            // Tutup modal (bersihkan)
+            // Tutup modal
             function closeModal() {
                 modal.style.display = 'none';
                 usernameInput.value = '';
                 passwordInput.value = '';
                 errorDiv.style.display = 'none';
                 selectedDept = null;
-                defaultRedirect = null;
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Masuk';
             }
 
-            // Tampilkan modal dengan nama departemen
-            function openModal(deptName, redirectFallback) {
+            // Tampilkan modal
+            function openModal(deptName, deptCode) {
                 deptDisplay.innerText = `Departemen ${deptName}`;
-                defaultRedirect = redirectFallback;   // hanya untuk hiasan (opsional)
+                selectedDept = deptCode;
                 modal.style.display = 'flex';
                 usernameInput.focus();
                 errorDiv.style.display = 'none';
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Masuk';
             }
 
-            // Proses login setelah klik tombol masuk
+            // Proses login
             function processLogin() {
                 const user = usernameInput.value.trim();
                 const pass = passwordInput.value.trim();
 
                 if (!user || !pass) {
-                    showError('Username dan password wajib diisi');
+                    showError('Username dan password harus diisi');
                     return;
                 }
 
-                // Cari user di database
-                const foundUser = userDB.find(entry => entry.username.toLowerCase() === user.toLowerCase() && entry.password === pass);
+                // Cari user yang username & password cocok (case-insensitive username)
+                const found = userDB.find(entry => 
+                    entry.username.toLowerCase() === user.toLowerCase() && 
+                    entry.password === pass
+                );
 
-                if (!foundUser) {
+                if (!found) {
                     showError('Username atau password salah');
                     return;
                 }
 
-                // Login berhasil → redirect ke halaman sesuai user
+                // Validasi departemen yang diklik vs allowedDept
+                if (found.allowedDept !== selectedDept) {
+                    // Jika user valid tapi mencoba masuk ke departemen yang salah
+                    showError(`Akun tidak memiliki akses ke departemen ini.`);
+                    return;
+                }
+
+                // Sukses!
                 errorDiv.style.display = 'none';
-                const targetPage = foundUser.redirect;
-
-                // Optional loading effect
                 loginBtn.disabled = true;
-                loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirect...';
+                loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengarahkan...';
 
-                // Simulasi sebentar, lalu redirect
+                // Redirect
                 setTimeout(() => {
-                    window.location.href = targetPage;
+                    window.location.href = found.redirect;
                 }, 400);
             }
 
             function showError(msg) {
                 errorDiv.innerText = msg;
                 errorDiv.style.display = 'block';
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Masuk';
             }
 
-            // Event listener untuk kartu departemen
+            // Event listener kartu
             const cards = document.querySelectorAll('.department-card');
             cards.forEach(card => {
                 card.addEventListener('click', function(e) {
-                    e.preventDefault();  // mencegah link semu
-
-                    // Ambil nama departemen dan redirect default (tidak dipakai untuk auth, hanya display)
+                    e.preventDefault();
+                    
                     const deptName = this.querySelector('h3').innerText;  // "CORE", "KAZINE", "KABOOM"
-                    // Baca data-redirect (default fallback, tidak digunakan untuk mapping)
-                    const fallbackRedirect = this.dataset.redirect || 'login.html';
+                    let deptCode = '';
+                    if (deptName === 'CORE') deptCode = 'core';
+                    else if (deptName === 'KAZINE') deptCode = 'kazine';
+                    else if (deptName === 'KABOOM') deptCode = 'kaboom';
 
-                    // Simpan departemen yang diklik untuk keperluan tampilan
-                    selectedDept = deptName;
-
-                    // Tampilkan modal
-                    openModal(deptName, fallbackRedirect);
+                    // Buka modal, simpan kode departemen
+                    openModal(deptName, deptCode);
                 });
             });
 
             // Tombol login
-            loginBtn.addEventListener('click', function() {
-                processLogin();
-            });
+            loginBtn.addEventListener('click', processLogin);
 
-            // Tekan enter di field password
+            // Enter di password
             passwordInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -638,43 +702,30 @@
                 }
             });
 
-            // Batal & close
+            // Cancel & close
             cancelBtn.addEventListener('click', closeModal);
             closeBtn.addEventListener('click', closeModal);
-
-            // Klik di luar modal (overlay) untuk menutup
             modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    closeModal();
-                }
+                if (e.target === modal) closeModal();
             });
 
-            // Fallback logo jika tidak ada
+            // Fallback logo
             const logo = document.getElementById('logoKachoo');
             if (logo) {
                 logo.onerror = function() {
-                    this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='60' font-family='Arial' font-size='40' fill='%23fff' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E";
+                    this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='48' fill='%23fff' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E";
                 };
             }
 
-            // Update waktu footer (sama seperti asli)
+            // Update waktu footer
             function updateSystemTime() {
                 const now = new Date();
                 const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-                const systemSpan = document.querySelector('.system-info span');
-                if (systemSpan) {
-                    systemSpan.textContent = `Sistem Aktif - Terakhir diperbarui: ${timeString}`;
-                }
+                const span = document.querySelector('.system-info span');
+                if (span) span.textContent = `Sistem Aktif — Terakhir diperbarui: ${timeString}`;
             }
             updateSystemTime();
             setInterval(updateSystemTime, 60000);
-
-            // Animasi spin tambahan jika diperlukan
-            const style = document.createElement('style');
-            style.textContent = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
-            document.head.appendChild(style);
-
-            console.log('Siap: modal login dengan 5 akun & redirect masing-masing.');
         })();
     </script>
 </body>
