@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>CLAUDIA · Kazine · FINANCHO</title>
+    <title>Creative Design Kachoo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -109,7 +109,7 @@
             max-width: 340px;
         }
 
-        /* salary block — disesuaikan $2500 */
+        /* salary block — dengan link ke v1payroll.html */
         .salary-container {
             background-color: #f5f5f5;
             border: 1.5px solid #000;
@@ -169,7 +169,7 @@
             color: #fff;
         }
 
-        /* DUA TOMOL BARU: Guideline & Archive (ke Gdrive) */
+        /* DUA TOMOL: Guideline & Archive (ke Gdrive) */
         .nav-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -211,7 +211,7 @@
             text-transform: uppercase;
         }
 
-        /* GRID PROYEK — jobdesc sesuai permintaan */
+        /* GRID PROYEK — tanpa badge status */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -239,24 +239,8 @@
             font-size: 22px;
             font-weight: 600;
             margin-bottom: 12px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
             border-bottom: 1px solid #ddd;
             padding-bottom: 10px;
-        }
-
-        .project-badge {
-            background: #000;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-            text-transform: uppercase;
-            white-space: nowrap;
         }
 
         .project-deadline {
@@ -269,32 +253,6 @@
             border-radius: 30px;
             display: inline-block;
             border: 1px solid #aaa;
-        }
-
-        .status-done {
-            background: #000;
-            color: white;
-            font-size: 12px;
-            padding: 4px 16px;
-            border-radius: 30px;
-            text-transform: uppercase;
-            display: inline-block;
-            width: fit-content;
-            margin: 8px 0 10px 0;
-            border: 1px solid #000;
-        }
-
-        .status-ongoing {
-            background: #fff;
-            color: #000;
-            font-size: 12px;
-            padding: 4px 16px;
-            border-radius: 30px;
-            text-transform: uppercase;
-            display: inline-block;
-            width: fit-content;
-            border: 1.5px solid #000;
-            margin: 8px 0 10px 0;
         }
 
         .inspo-link-small {
@@ -340,14 +298,6 @@
         .file-link:hover {
             background: #000;
             color: #fff;
-        }
-
-        .extra-row {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 12px;
-            margin-top: 6px;
         }
 
         footer {
@@ -407,7 +357,7 @@
                 <img src="logo-thekachoo.png" alt="KACHOO" id="logoKachoo">
                 <div class="logo-text">
                     <h1>KACHOO</h1>
-                    <p>creative system</p>   <!-- sentuhan creative sesuai divisi -->
+                    <p>Database system</p>  <!-- kembali ke database system -->
                 </div>
             </div>
         </header>
@@ -416,50 +366,45 @@
             <!-- profile: Claudia Charmaine, Creative Designer of Kazine -->
             <div class="profile-section">
                 <div class="profile-photo">
-                    <!-- gambar profile placeholder (bisa diganti) -->
                     <img src="profile-claudia.png" alt="Claudia Charmaine" onerror="this.src='https://placehold.co/400x400/000/fff?text=CC'">
                 </div>
                 <div class="profile-name">Claudia Charmaine</div>
                 <div class="profile-title">Creative Designer of Kazine</div>
             </div>
 
-            <!-- salary block: $2500 -->
+            <!-- salary block: $2500 dengan link ke v1payroll.html -->
             <div class="salary-container">
                 <div class="salary-left">
                     <span class="salary-amount">$2.500</span>
-                    <span class="salary-month">monthly · creative fee</span>
+                    <span class="salary-month">monthly salary</span>
                 </div>
-                <a href="#" class="paid-badge" id="paidHint" target="_blank"><i class="fa-regular fa-circle-check"></i> active salary</a>
+                <a href="v1payroll.html" class="paid-badge" id="paidLink"><i class="fa-regular fa-circle-check"></i> active salary</a>
             </div>
 
-            <!-- DUA TOMOL: GUIDELINE & ARCHIVE (keduanya ke GDRIVE) -->
             <div class="nav-buttons">
                 <a href="https://drive.google.com/drive/folders/1GUIDELINE" class="nav-btn" target="_blank" rel="noopener"><i class="fa-regular fa-file-lines"></i> Guideline</a>
                 <a href="https://drive.google.com/drive/folders/1ARCHIVE" class="nav-btn" target="_blank" rel="noopener"><i class="fa-regular fa-folder-open"></i> Archive</a>
             </div>
 
-            <!-- upcoming projects → jobdesc list sesuai instruksi -->
-            <div class="projects-heading">⏳ jobdesc & deadlines</div>
+            <!-- upcoming projects → jobdesc list sesuai instruksi (tanpa badge) -->
+            <div class="projects-heading">Task Job</div>
 
             <div class="project-grid">
-                <!-- 1. CHOOSIC (selesai) -->
+                <!-- 1. CHOOSIC (selesai) - tanpa badge -->
                 <div class="project-card">
-                    <div class="project-title">CHOOSIC <span class="project-badge">done</span></div>
-                    <span class="status-done"><i class="fa-regular fa-circle-check" style="margin-right: 4px;"></i> completed</span>
-                    <!-- tidak ada tombol inspo (selesai) tapi bisa diklik ke gdrive? tidak diminta. kalau ingin bisa tambah, tapi sesuai instruksi tidak perlu -->
+                    <div class="project-title">CHOOSIC</div>
+                    <!-- tidak ada badge status -->
                 </div>
 
-                <!-- 2. CHOZY (selesai) -->
+                <!-- 2. CHOZY (selesai) - tanpa badge -->
                 <div class="project-card">
-                    <div class="project-title">CHOZY <span class="project-badge">done</span></div>
-                    <span class="status-done"><i class="fa-regular fa-circle-check"></i> completed</span>
+                    <div class="project-title">CHOZY</div>
                 </div>
 
                 <!-- 3. Paperbag Kazine (belum selesai, deadline 28 Feb 2026 + tombol inspo kecil) -->
                 <div class="project-card">
                     <div class="project-title">Paperbag Kazine</div>
                     <div class="project-deadline"><i class="fa-regular fa-calendar"></i> deadline 28 Feb 2026</div>
-                    <span class="status-ongoing">in progress</span>
                     <a href="https://drive.google.com/drive/folders/1INSPO-PAPERBAG" class="inspo-link-small" target="_blank" rel="noopener"><i class="fa-regular fa-lightbulb"></i> inspo</a>
                 </div>
 
@@ -467,7 +412,6 @@
                 <div class="project-card">
                     <div class="project-title">Logo CHONNECT</div>
                     <div class="project-deadline"><i class="fa-regular fa-calendar"></i> deadline 28 Mar 2026</div>
-                    <span class="status-ongoing">concept</span>
                     <a href="https://drive.google.com/drive/folders/1INSPO-CHONNECT-LOGO" class="inspo-link-small" target="_blank" rel="noopener"><i class="fa-regular fa-lightbulb"></i> inspo</a>
                 </div>
 
@@ -475,7 +419,6 @@
                 <div class="project-card">
                     <div class="project-title">Proposal CHONNECT</div>
                     <div class="project-deadline"><i class="fa-regular fa-calendar"></i> deadline 28 Mar 2026</div>
-                    <span class="status-ongoing">draft</span>
                     <a href="https://drive.google.com/drive/folders/1INSPO-CHONNECT-PROP" class="inspo-link-small" target="_blank" rel="noopener"><i class="fa-regular fa-lightbulb"></i> inspo</a>
                 </div>
 
@@ -483,21 +426,19 @@
                 <div class="project-card">
                     <div class="project-title">Branding Kachoo</div>
                     <div class="project-deadline">March 2026 · est.</div>
-                    <span class="status-ongoing">development</span>
                     <a href="https://drive.google.com/drive/folders/1KACHOO-BRANDING" class="file-link" target="_blank" rel="noopener"><i class="fa-regular fa-folder"></i> File</a>
                 </div>
             </div>
 
-            <!-- catatan kecil: semua link GDrive diganti dengan path aktif sesuai kebutuhan -->
-            <p style="font-size: 12px; margin-top: -20px; margin-bottom: 20px; color: #333;"><i class="fa-regular fa-pen-to-square"></i> setiap klik proyek mengarah ke GDrive (folder sudah ditentukan)</p>
+            <!-- tidak ada catatan footer -->
         </main>
 
         <footer>
             <div class="footer-content">
-                <div class="copyright">© 2026 KACHOO · Claudia Charmaine · Kazine</div>
+                <div class="copyright">© 2026 KACHOO</div>
                 <div class="system-info">
                     <span class="status-indicator-dot"></span>
-                    <span>v1creative · FINANCHO</span>
+                    <span>Creative Designer</span>
                 </div>
             </div>
         </footer>
@@ -512,30 +453,25 @@
             };
         }
 
-        // hanya pemberitahuan jika link gdrive masih placeholder
+        // notifikasi jika link masih placeholder
         document.querySelectorAll('a[href*="drive.google.com/drive/folders/1"]').forEach(link => {
             link.addEventListener('click', (e) => {
-                // jika masih mengandung placeholder GUIDELINE, ARCHIVE, INSPO dll, kasih notifikasi biar diganti
                 if (link.href.includes('1GUIDELINE') || link.href.includes('1ARCHIVE') || link.href.includes('1INSPO') || link.href.includes('1KACHOO-BRANDING')) {
                     e.preventDefault();
                     alert('🔗 Google Drive link placeholder: please replace with actual folder URL.');
                 }
-                // untuk yang lain biarkan lanjut
             });
         });
 
-        // untuk salary hint hanya notifikasi
-        document.getElementById('paidHint').addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('✅ Salary $2.500 active. This link can be updated to payroll detail.');
-        });
+        // salary link sudah benar ke v1payroll.html, tidak perlu di-prevent
+        // hanya tambahan jika 404 nanti, biarkan default
 
         // waktu dinamis di footer
         function setFooterTime() {
             const now = new Date();
             const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
             const systemSpan = document.querySelector('.system-info span:last-child');
-            if (systemSpan) systemSpan.textContent = `v1creative · FINANCHO · ${timeStr}`;
+            if (systemSpan) systemSpan.textContent = `v1database · FINANCHO · ${timeStr}`;
         }
         setFooterTime();
         setInterval(setFooterTime, 60000);
