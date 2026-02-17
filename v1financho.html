@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>FINANCHO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 24px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER minimal */
+        header {
+            text-align: center;
+            padding: 24px 0 16px 0;
+            border-bottom: 1.5px solid #000;
+            margin-bottom: 32px;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo img {
+            height: 56px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text h1 {
+            font-size: 28px;
+            color: #000;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .logo-text p {
+            color: #333;
+            font-size: 13px;
+            font-weight: 400;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        /* Profile pic kecil lingkaran */
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid #000;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            box-shadow: 0 4px 0 #000;
+            margin-bottom: 16px;
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(100%);
+        }
+
+        .profile-name {
+            font-size: 28px;
+            font-weight: 600;
+            color: #000;
+            letter-spacing: -0.3px;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .profile-title {
+            font-size: 16px;
+            font-weight: 400;
+            color: #222;
+            margin-top: 6px;
+            text-align: center;
+            border-bottom: 1px solid #aaa;
+            padding-bottom: 8px;
+            max-width: 320px;
+        }
+
+        /* CONTAINER 1: ABSENSI (ditambahkan persis seperti container gaji tapi judul dan link berbeda) */
+        .attendance-container {
+            background-color: #f5f5f5;
+            border: 1.5px solid #000;
+            border-radius: 30px;         /* oval */
+            padding: 16px 22px;
+            margin: 10px 0 28px 0;        /* sedikit jarak setelah profile, sebelum salary */
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px 12px;
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .attendance-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .attendance-label {
+            font-size: 26px;
+            font-weight: 600;
+            background: #000;
+            color: white;
+            padding: 6px 22px;
+            border-radius: 40px;
+            letter-spacing: 0.5px;
+            border: 1px solid #000;
+        }
+
+        .attendance-month {
+            font-size: 18px;
+            font-weight: 500;
+            color: #000;
+        }
+
+        .attendance-link {
+            background: #fff;
+            border: 1.5px solid #000;
+            border-radius: 40px;
+            padding: 8px 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            font-size: 16px;
+            text-decoration: none;
+            color: #000;
+            transition: 0.1s;
+            white-space: nowrap;
+        }
+
+        .attendance-link:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        /* Salary block (tetap) */
+        .salary-container {
+            background-color: #f5f5f5;
+            border: 1.5px solid #000;
+            border-radius: 30px;
+            padding: 16px 22px;
+            margin: 20px 0 28px 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px 12px;
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .salary-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .salary-amount {
+            font-size: 26px;
+            font-weight: 600;
+            background: #000;
+            color: white;
+            padding: 6px 22px;
+            border-radius: 40px;
+            letter-spacing: 0.5px;
+            border: 1px solid #000;
+        }
+
+        .salary-month {
+            font-size: 18px;
+            font-weight: 500;
+            color: #000;
+        }
+
+        .paid-badge {
+            background: #fff;
+            border: 1.5px solid #000;
+            border-radius: 40px;
+            padding: 8px 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            font-size: 16px;
+            text-decoration: none;
+            color: #000;
+            transition: 0.1s;
+            white-space: nowrap;
+        }
+
+        .paid-badge:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        /* Tiga tombol navigasi sesuai permintaan: Data Keuangan, Arsip Invoice, Arsip Surat Keuangan */
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            margin: 28px 0 32px 0;
+        }
+
+        .nav-btn {
+            background: #fff;
+            border: 1.5px solid #000;
+            border-radius: 40px;
+            padding: 12px 28px;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            color: #000;
+            box-shadow: 4px 4px 0 #000;
+            transition: 0.1s;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            min-width: 160px;
+            text-align: center;
+        }
+
+        .nav-btn:hover {
+            background: #000;
+            color: #fff;
+            box-shadow: 2px 2px 0 #000;
+            transform: translate(2px, 2px);
+        }
+
+        /* heading proyek (tetap) */
+        .projects-heading {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 16px 0 20px 0;
+            border-left: 6px solid #000;
+            padding-left: 18px;
+            text-transform: uppercase;
+        }
+
+        /* Grid proyek dengan kartu membulat */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .project-card {
+            background: #fff;
+            border: 1.5px solid #000;
+            border-radius: 24px;
+            padding: 20px 20px;
+            box-shadow: 5px 5px 0 #000;
+            transition: 0.1s;
+        }
+
+        .project-card:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 8px 8px 0 #000;
+        }
+
+        .project-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+
+        .project-badge {
+            background: #000;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .project-date {
+            font-size: 15px;
+            color: #222;
+            font-weight: 400;
+            margin: 10px 0 10px 0;
+            border-left: 2px solid #000;
+            padding-left: 10px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            background: #000;
+            color: white;
+            font-size: 11px;
+            padding: 4px 16px;
+            border-radius: 30px;
+            margin-top: 6px;
+            text-transform: uppercase;
+            border: 1px solid #000;
+        }
+
+        /* footer */
+        footer {
+            margin-top: auto;
+            padding-top: 18px;
+            border-top: 1.5px solid #000;
+            color: #333;
+            font-size: 13px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .copyright, .system-info {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-indicator-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #000;
+            border-radius: 50%;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; }
+        }
+
+        /* mobile rapi */
+        @media (max-width: 550px) {
+            .container { padding: 16px; }
+            .profile-name { font-size: 24px; }
+            .profile-title { font-size: 15px; }
+            .attendance-container,
+            .salary-container { 
+                flex-direction: column; 
+                align-items: flex-start; 
+                padding: 18px; 
+                border-radius: 28px;
+            }
+            .attendance-left,
+            .salary-left { width: 100%; justify-content: space-between; }
+            .attendance-label,
+            .salary-amount { font-size: 22px; padding: 5px 18px; }
+            .attendance-month,
+            .salary-month { font-size: 16px; }
+            .attendance-link,
+            .paid-badge { width: 100%; justify-content: center; }
+            .nav-btn { width: 100%; min-width: auto; }
+            .project-grid { grid-template-columns: 1fr; }
+        }
+
+        /* pc */
+        @media (min-width: 1000px) {
+            .profile-photo { width: 140px; height: 140px; }
+            .profile-name { font-size: 32px; }
+        }
+
+        /* pure black/white */
+        a, button, div, span, p, h1, h2, h3 {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <!-- Logo KACHOO same as original (tetap) -->
+                <img src="logo-thekachoo.png" alt="KACHOO" id="logoKachoo">
+                <div class="logo-text">
+                    <h1>KACHOO</h1>
+                    <p>financial system</p>  <!-- diubah sedikit dari 'database system' jadi 'financial system' sesuai tema FINANCHO -->
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- profile pic bulat dengan nama dan jabatan baru -->
+            <div class="profile-section">
+                <div class="profile-photo">
+                    <img src="profile-ninq.png" alt="Ningrum Anindita Kafka" onerror="this.src='https://placehold.co/400x400/000/fff?text=NAK'">
+                </div>
+                <div class="profile-name">Ningrum Anindita Kafka</div>
+                <div class="profile-title">Chief of Finance Kachoo</div>
+            </div>
+
+            <!-- CONTAINER 1: ABSENSI (baru) – ketika diklik pindah ke absencho.html -->
+            <div class="attendance-container">
+                <div class="attendance-left">
+                    <span class="attendance-label">ATTENDANCE</span>
+                    <span class="attendance-month">March 2026</span>
+                </div>
+                <a href="absencho.html" class="attendance-link" id="attendanceLink">
+                    <i class="fa-regular fa-calendar-check" style="margin-right: 6px;"></i> record attendance
+                </a>
+            </div>
+
+            <!-- salary block (disesuaikan nominal dan deskripsi) -->
+            <div class="salary-container">
+                <div class="salary-left">
+                    <span class="salary-amount">$13.400</span>
+                    <span class="salary-month">March salary</span>
+                </div>
+                <a href="#" class="paid-badge" id="paidLink" target="_blank">paid on Mar 1st</a>
+            </div>
+
+            <!-- Tiga tombol navigasi dengan teks baru (Data Keuangan, Arsip Invoice, Arsip Surat Keuangan) -->
+            <div class="nav-buttons">
+                <a href="v1financho.html" class="nav-btn">Data Keuangan</a>
+                <a href="v1invoice.html" class="nav-btn">Arsip Invoice</a>
+                <a href="v1letter.html" class="nav-btn">Arsip Surat Keuangan</a>
+            </div>
+
+            <!-- upcoming projects (konten sama persis dengan yang asli) -->
+            <div class="projects-heading">upcoming projects</div>
+
+            <div class="project-grid">
+                <!-- KAZINE Volume 1 Issue 1 -->
+                <div class="project-card">
+                    <div class="project-title">KAZINE <span class="project-badge">Volume 1 Issue 1</span></div>
+                    <div class="project-date">February 2026</div>
+                    <span class="status-indicator">completed</span>
+                </div>
+
+                <!-- KAZINE Volume 1 Issue 2 -->
+                <div class="project-card">
+                    <div class="project-title">KAZINE <span class="project-badge">Volume 1 Issue 2</span></div>
+                    <div class="project-date">February 2026</div>
+                    <span class="status-indicator">completed</span>
+                </div>
+
+                <!-- KAFKAPAGES -->
+                <div class="project-card">
+                    <div class="project-title">KAFKAPAGES</div>
+                    <div class="project-date">March 2026</div>
+                    <span class="status-indicator">soon</span>
+                </div>
+
+                <!-- KABOOM -->
+                <div class="project-card">
+                    <div class="project-title">KABOOM</div>
+                    <div class="project-date">January 2026</div>
+                    <span class="status-indicator">completed</span>
+                </div>
+
+                <!-- CHOBANK -->
+                <div class="project-card">
+                    <div class="project-title">CHOBANK</div>
+                    <div class="project-date">February 2026</div>
+                    <span class="status-indicator">completed</span>
+                </div>
+
+                <!-- KAZINE Volume 1 Issue 3 (8 Maret) -->
+                <div class="project-card">
+                    <div class="project-title">KAZINE <span class="project-badge">Volume 1 Issue 3</span></div>
+                    <div class="project-date">March 8, 2026</div>
+                    <span class="status-indicator">upcoming</span>
+                </div>
+
+                <!-- CHONNECT -->
+                <div class="project-card">
+                    <div class="project-title">CHONNECT</div>
+                    <div class="project-date">March–April 2026</div>
+                    <span class="status-indicator">soon</span>
+                </div>
+
+                <!-- CHOOSIC -->
+                <div class="project-card">
+                    <div class="project-title">CHOOSIC</div>
+                    <div class="project-date">March–April 2026</div>
+                    <span class="status-indicator">soon</span>
+                </div>
+
+                <!-- CHOZY -->
+                <div class="project-card">
+                    <div class="project-title">CHOZY</div>
+                    <div class="project-date">March–April 2026</div>
+                    <span class="status-indicator">soon</span>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="copyright">© 2026 KACHOO Financial System</div>
+                <div class="system-info">
+                    <span class="status-indicator-dot"></span>
+                    <span>v1financho · FINANCHO</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Logo fallback
+        const logo = document.getElementById('logoKachoo');
+        if (logo) {
+            logo.onerror = function() {
+                this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='70' font-family='Arial' font-size='50' fill='%23fff' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E";
+            };
+        }
+
+        // Attendance link sudah mengarah ke absencho.html (tidak perlu javascript tambahan)
+        const attendanceLink = document.getElementById('attendanceLink');
+        // optional: bisa ditambahkan pesan jika ingin debug, tetapi biarkan default.
+
+        // Salary paid link (jika masih #, beri peringatan)
+        const paidBtn = document.getElementById('paidLink');
+        paidBtn.addEventListener('click', (e) => {
+            if (paidBtn.href === '#' || paidBtn.href.includes('your-spreadsheet') || paidBtn.href.endsWith('#')) {
+                e.preventDefault();
+                alert('Please set the actual spreadsheet link for salary info.');
+            }
+        });
+
+        // Footer time (optional, tapi di kode asli ada, kita sesuaikan teksnya)
+        function setFooterTime() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            const systemSpan = document.querySelector('.system-info span:last-child');
+            if (systemSpan) systemSpan.textContent = `v1financho · FINANCHO · ${timeStr}`;
+        }
+        setFooterTime();
+        setInterval(setFooterTime, 60000);
+    </script>
+</body>
+</html>
