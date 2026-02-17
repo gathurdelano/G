@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>KACHOO Payroll</title>
+    <title>KACHOO · payroll</title>
+    <!-- pure black/white, no icons, no profil/summary, hanya payroll + bonus -->
     <style>
         * {
             margin: 0;
@@ -19,7 +20,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px 24px;
             min-height: 100vh;
@@ -32,7 +33,7 @@
             text-align: center;
             padding: 24px 0 16px 0;
             border-bottom: 1.5px solid #000;
-            margin-bottom: 32px;
+            margin-bottom: 20px;
         }
 
         .logo {
@@ -64,129 +65,22 @@
             margin-top: 2px;
         }
 
-        /* PROFILE — circle photo, name, title */
-        .profile-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 28px;
-        }
-
-        .profile-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 2px solid #000;
-            background-color: #f0f0f0;
-            overflow: hidden;
-            box-shadow: 0 4px 0 #000;
-            margin-bottom: 16px;
-        }
-
-        .profile-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            filter: grayscale(100%);
-        }
-
-        .profile-name {
-            font-size: 28px;
-            font-weight: 600;
-            color: #000;
-            letter-spacing: -0.3px;
-            text-align: center;
-            line-height: 1.2;
-        }
-
-        .profile-title {
-            font-size: 16px;
-            font-weight: 400;
-            color: #222;
-            margin-top: 6px;
-            text-align: center;
-            border-bottom: 1px solid #aaa;
-            padding-bottom: 8px;
-            max-width: 320px;
-        }
-
-        /* SALARY CONTAINER (summary) */
-        .salary-container {
-            background-color: #f5f5f5;
-            border: 1.5px solid #000;
-            border-radius: 30px;
-            padding: 16px 22px;
-            margin: 20px 0 28px 0;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px 12px;
-            box-shadow: 4px 4px 0 #000;
-        }
-
-        .salary-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .salary-amount {
-            font-size: 26px;
-            font-weight: 600;
-            background: #000;
-            color: white;
-            padding: 6px 22px;
-            border-radius: 40px;
-            letter-spacing: 0.5px;
-            border: 1px solid #000;
-            white-space: nowrap;
-        }
-
-        .salary-month {
-            font-size: 18px;
-            font-weight: 500;
-            color: #000;
-        }
-
-        .status-badge {
-            background: #fff;
-            border: 1.5px solid #000;
-            border-radius: 40px;
-            padding: 8px 24px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 500;
-            font-size: 16px;
-            text-decoration: none;
-            color: #000;
-            transition: 0.1s;
-            white-space: nowrap;
-        }
-
-        .status-badge:hover {
-            background: #000;
-            color: #fff;
-        }
-
-        /* EMPLOYEE TABLE */
+        /* payroll title */
         .payroll-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin: 36px 0 18px 0;
-            border-left: 6px solid #000;
-            padding-left: 18px;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 20px 0 20px 0;
+            border-left: 8px solid #000;
+            padding-left: 20px;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .table-wrapper {
             overflow-x: auto;
-            margin-bottom: 40px;
-            border: 1.5px solid #000;
-            box-shadow: 6px 6px 0 #000;
+            margin-bottom: 30px;
+            border: 2px solid #000;
+            box-shadow: 8px 8px 0 #000;
             background: #fff;
         }
 
@@ -194,17 +88,17 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 16px;
-            min-width: 700px;
+            min-width: 800px;
         }
 
         th {
             background: #000;
             color: #fff;
             font-weight: 600;
-            padding: 16px 12px;
+            padding: 18px 12px;
             text-transform: uppercase;
             font-size: 15px;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.5px;
             border-right: 1px solid #444;
         }
         th:last-child { border-right: none; }
@@ -226,7 +120,7 @@
             color: #222;
         }
 
-        .salary-cell {
+        .salary-cell, .bonus-cell {
             font-weight: 600;
             font-family: 'Courier New', monospace;
         }
@@ -293,17 +187,17 @@
             white-space: nowrap;
         }
 
-        /* notifikasi global */
+        /* notifikasi global kecil */
         .notification-block {
             background: #fff;
             border: 3px solid #000;
-            padding: 18px 20px;
+            padding: 16px 20px;
             margin: 20px 0 30px 0;
             font-weight: 700;
             text-transform: uppercase;
             text-align: center;
             font-size: 18px;
-            box-shadow: 5px 5px 0 #000;
+            box-shadow: 6px 6px 0 #000;
         }
 
         /* footer */
@@ -344,24 +238,8 @@
         /* mobile */
         @media (max-width: 550px) {
             .container { padding: 16px; }
-            .profile-name { font-size: 24px; }
-            .profile-title { font-size: 15px; }
-            .salary-container { 
-                flex-direction: column; 
-                align-items: flex-start; 
-                padding: 18px; 
-                border-radius: 28px;
-            }
-            .salary-left { width: 100%; justify-content: space-between; }
-            .salary-amount { font-size: 22px; padding: 5px 18px; }
-            .salary-month { font-size: 16px; }
-            .status-badge { width: 100%; justify-content: center; }
+            .payroll-title { font-size: 22px; }
             .notification-block { font-size: 15px; padding: 15px; }
-        }
-
-        @media (min-width: 1000px) {
-            .profile-photo { width: 140px; height: 140px; }
-            .profile-name { font-size: 32px; }
         }
 
         a, a:visited { color: #000; text-decoration: none; }
@@ -382,26 +260,9 @@
         </header>
 
         <main>
-            <!-- profile with placeholder -->
-            <div class="profile-section">
-                <div class="profile-photo">
-                    <img src="https://raw.githubusercontent.com/yourusername/kachoo-slip/main/profile-ninq.png" alt="profile" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'48\' fill=\'%23eee\' stroke=\'%23000\' stroke-width=\'2\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'48\' text-anchor=\'middle\' fill=\'%23000\' font-family=\'Arial\'%3EN%3C/text%3E%3C/svg%3E'">
-                </div>
-                <div class="profile-name">Ningrum A. Kafka</div>
-                <div class="profile-title">Chief Finance Officer · Kachoo</div>
-            </div>
-
-            <!-- salary summary container -->
-            <div class="salary-container" id="salarySummary">
-                <div class="salary-left">
-                    <span class="salary-amount" id="summaryAmount">$5.000</span>
-                    <span class="salary-month" id="summaryMonth">February salary · CFO</span>
-                </div>
-                <span class="status-badge" id="summaryStatus">check table below</span>
-            </div>
-
-            <!-- payroll table title -->
-            <div class="payroll-title">february 2026 · payroll</div>
+            <!-- HANYA PAYROLL TITLE -->
+            <div class="payroll-title">KACHOO PAYROLL</div>
+            
             <div class="table-wrapper">
                 <table id="payrollTable">
                     <thead>
@@ -409,6 +270,7 @@
                             <th>Name</th>
                             <th>Position</th>
                             <th>Salary (USD)</th>
+                            <th>Bonus (USD)</th>
                             <th>Status</th>
                             <th>Slip (PNG)</th>
                         </tr>
@@ -427,10 +289,10 @@
 
         <footer>
             <div class="footer-content">
-                <div class="copyright">© 2026 KACHOO · payroll</div>
+                <div class="copyright">© 2026 KACHOO</div>
                 <div class="system-info">
                     <span class="status-indicator-dot"></span>
-                    <span id="footerTimestamp">feb 2026 · end of month</span>
+                    <span id="footerTimestamp">2026</span>
                 </div>
             </div>
         </footer>
@@ -438,14 +300,14 @@
 
     <script>
         (function() {
-            // ---------- DATA KARYAWAN ----------
+            // ---------- DATA KARYAWAN (dengan BONUS) ----------
             const employees = [
-                { name: 'Gathur D. Kafka', position: 'Direktur Kachoo', salary: 10000, pngFile: 'gathur_slip.png' },
-                { name: 'Ningrum A. Kafka', position: 'Chief Finance Officer', salary: 5000, pngFile: 'ningrum_slip.png' },
-                { name: 'Ashraffi Yudha', position: 'Head Editor of Kazine Issue', salary: 3000, pngFile: 'ashraffi_slip.png' },
-                { name: 'Claudia Charmaine', position: 'Creative Designer of Kazine', salary: 2500, pngFile: 'claudia_slip.png' },
-                { name: 'Vivianne Jamila', position: 'Public Relation of Kazine', salary: 2000, pngFile: 'vivianne_slip.png' },
-                { name: 'Nona Rengganis', position: 'Color Specialist of Kazine', salary: 2000, pngFile: 'nona_slip.png' }
+                { name: 'Gathur D. Kafka', position: 'Chief Executive Officer', salary: 10000, bonus: 1500, pngFile: 'gathur_slip.png' },
+                { name: 'Ningrum A. Kafka', position: 'Chief Finance Officer', salary: 5000, bonus: 1200, pngFile: 'ningrum_slip.png' },
+                { name: 'Ashraffi Yudha', position: 'Head Editor of Kazine Issue', salary: 3000, bonus: 800, pngFile: 'ashraffi_slip.png' },
+                { name: 'Claudia Charmaine', position: 'Creative Designer of Kazine', salary: 2500, bonus: 700, pngFile: 'claudia_slip.png' },
+                { name: 'Vivianne Jamila', position: 'Public Relation of Kazine', salary: 2000, bonus: 600, pngFile: 'vivianne_slip.png' },
+                { name: 'Nona Rengganis', position: 'Color Specialist of Kazine', salary: 2000, bonus: 600, pngFile: 'nona_slip.png' }
             ];
 
             // GITHUB BASE (ganti dengan repo asli Anda)
@@ -480,6 +342,7 @@
                         <td class="name-cell">${emp.name}</td>
                         <td class="position-cell">${emp.position}</td>
                         <td class="salary-cell">$${emp.salary.toLocaleString()}</td>
+                        <td class="bonus-cell">$${emp.bonus.toLocaleString()}</td>
                         <td class="status-cell">${statusHtml}</td>
                         <td class="slip-cell">${slipHtml}</td>
                     </tr>`;
@@ -491,25 +354,9 @@
             function setNotification() {
                 const notify = document.getElementById('globalNotify');
                 if (isPaid) {
-                    notify.innerText = '✓ FEBRUARY 2026 SALARY COMPLETE. ALL SLIPS AVAILABLE.';
+                    notify.innerText = '✓ FEBRUARY 2026 SALARY + BONUS COMPLETE. ALL SLIPS AVAILABLE.';
                 } else {
-                    notify.innerText = '⚠️ SALARY NOT YET DISBURSED. PAYMENT ON 28 FEBRUARY 2026. SLIPS WILL APPEAR AFTER PAYMENT.';
-                }
-            }
-
-            // update summary container (atas) dengan salary CFO
-            function updateSummary() {
-                document.getElementById('summaryAmount').innerText = '$5.000';
-                document.getElementById('summaryMonth').innerText = 'February salary · CFO';
-                const statusSpan = document.getElementById('summaryStatus');
-                if (isPaid) {
-                    statusSpan.innerText = 'paid on feb 28';
-                    statusSpan.style.background = '#000';
-                    statusSpan.style.color = '#fff';
-                } else {
-                    statusSpan.innerText = 'pending';
-                    statusSpan.style.background = '#fff';
-                    statusSpan.style.color = '#000';
+                    notify.innerText = '⚠️ SALARY NOT YET DISBURSED. PAYMENT ON 28 FEBRUARY 2026.';
                 }
             }
 
@@ -532,7 +379,6 @@
             // initial render
             renderTable();
             setNotification();
-            updateSummary();
             updateFooter();
             setInterval(updateFooter, 60000);
         })();
