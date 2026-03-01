@@ -1,91 +1,47 @@
+This is a complete HTML news article page about Gideon's "GI:DEOM" World Tour. It presents the information as a KABOOM! feature, with a clean, modern layout that includes the tour details, speaker information with a clickable X (Twitter) link, and all the visual elements you requested.
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lowongan Pekerjaan | THE KACHOO </title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Gideon Umumkan Tur Dunia "GI:DEOM" – Wawancara Eksklusif Tim Kaboom | KABOOM!</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <style>
-        /* ===== VARIABLES & RESET ===== */
-        :root {
-            --black: #000000;
-            --white: #ffffff;
-            --gray-50: #fafafa;
-            --gray-100: #f5f5f5;
-            --gray-200: #e5e5e5;
-            --gray-300: #d4d4d3;
-            --gray-400: #a3a3a3;
-            --gray-500: #737373;
-            --gray-600: #525252;
-            --gray-700: #404040;
-            --gray-800: #262626;
-            --gray-900: #171717;
-            
-            --primary-black: #000000;
-            --secondary-black: #1a1a1a;
-            --accent-black: #333333;
-            --light-black: #444444;
-            --white: #ffffff;
-            --off-white: #f8f8f8;
-            --gray-light: #f0f0f0;
-            --gray-medium: #e0e0e0;
-            
-            --accent: var(--primary-black);
-            --primary: var(--primary-black);
-            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background-color: var(--white);
-            color: var(--primary-black);
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
             line-height: 1.6;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px;
-            width: 100%;
         }
 
-        /* ===== HEADER ===== */
+        /* HEADER */
         header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #e0e0e0;
             z-index: 1000;
-            border-bottom: 1px solid var(--gray-medium);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            animation: slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        @keyframes slideDown {
-            from { 
-                transform: translateY(-100%); 
-                opacity: 0;
-            }
-            to { 
-                transform: translateY(0); 
-                opacity: 1;
-            }
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
 
         .header-content {
@@ -93,884 +49,433 @@
             justify-content: space-between;
             align-items: center;
             padding: 16px 0;
-            min-height: 80px;
+            min-height: 75px;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 18px;
             cursor: pointer;
-            transition: var(--transition);
+            transition: transform 0.3s ease;
         }
-
-        .logo-container:hover {
-            transform: translateY(-2px);
-        }
+        .logo-container:hover { transform: scale(1.02); }
 
         #logo {
-            height: 40px;
+            height: 38px;
             width: auto;
-            transition: var(--transition);
+            background: #000;
+            color: #fff;
+            font-weight: 900;
+            font-size: 24px;
+            padding: 0 8px;
+            border-radius: 6px;
+            line-height: 38px;
+            text-align: center;
+            display: inline-block;
         }
-
-        .logo-kachoo {
-            animation: kachooEffect 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        @keyframes kachooEffect {
-            0% { 
-                transform: scale(1) rotate(0deg); 
-                filter: brightness(1);
-            }
-            25% { 
-                transform: scale(1.2) rotate(-5deg); 
-                filter: brightness(1.2);
-            }
-            50% { 
-                transform: scale(1.3) rotate(5deg); 
-                filter: brightness(1.3);
-            }
-            75% { 
-                transform: scale(1.2) rotate(-3deg); 
-                filter: brightness(1.2);
-            }
-            100% { 
-                transform: scale(1) rotate(0deg); 
-                filter: brightness(1);
-            }
+        /* fallback text-logo if image missing */
+        #logo:after {
+            content: "KABOOM!";
         }
 
         .article-category {
             font-size: 12px;
             font-weight: 800;
             letter-spacing: 1px;
+            background: #000;
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 30px;
             text-transform: uppercase;
-            background: var(--primary-black);
-            color: var(--white);
-            padding: 6px 15px;
-            border-radius: 20px;
-            animation: pulseCategory 2s infinite alternate;
-        }
-
-        @keyframes pulseCategory {
-            0% {
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            }
-            100% {
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            }
         }
 
         .navigation {
             display: flex;
-            gap: 15px;
-            align-items: center;
+            gap: 12px;
         }
-
         .nav-btn {
             background: transparent;
-            border: 2px solid var(--primary-black);
-            color: var(--primary-black);
-            padding: 10px 22px;
+            border: 2px solid #000;
+            color: #000;
+            padding: 8px 20px;
             border-radius: 30px;
             font-weight: 600;
             font-size: 14px;
             cursor: pointer;
-            transition: var(--transition);
+            transition: 0.3s;
             display: flex;
             align-items: center;
             gap: 8px;
             text-decoration: none;
-            position: relative;
-            overflow: hidden;
         }
-
-        .nav-btn:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
-            transition: left 0.7s;
-        }
-
-        .nav-btn:hover:before {
-            left: 100%;
-        }
-
         .nav-btn:hover {
-            background: var(--primary-black);
-            color: var(--white);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+            background: #000;
+            color: #fff;
         }
 
-        /* ===== HERO SECTION ===== */
-        .hero-section {
-            margin-top: 120px;
-            padding: 100px 0;
-            background: linear-gradient(135deg, var(--white) 0%, var(--off-white) 100%);
+        /* HERO */
+        .article-hero-section {
+            margin-top: 100px;
+            padding: 80px 0 40px;
+            background: #f8f8f8;
             position: relative;
             overflow: hidden;
-            animation: fadeInHero 1.2s ease-out;
         }
-
-        @keyframes fadeInHero {
-            from { 
-                opacity: 0; 
-                transform: translateY(20px);
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0);
-            }
-        }
-
-        .hero-section:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 40%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(0, 0, 0, 0.03));
-            z-index: 0;
-        }
-
         .floating-element {
             position: absolute;
+            background: rgba(0,0,0,0.02);
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.05);
-            animation: float 20s infinite ease-in-out;
+            animation: float 14s infinite ease-in-out;
         }
-
-        .floating-element:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .floating-element:nth-child(2) {
-            width: 120px;
-            height: 120px;
-            top: 60%;
-            right: 15%;
-            animation-delay: -5s;
-        }
-
-        .floating-element:nth-child(3) {
-            width: 60px;
-            height: 60px;
-            bottom: 30%;
-            left: 20%;
-            animation-delay: -10s;
-        }
-
+        .floating-element:nth-child(1) { width: 150px; height: 150px; top: 10%; left: 5%; }
+        .floating-element:nth-child(2) { width: 100px; height: 100px; bottom: 15%; right: 8%; }
         @keyframes float {
-            0%, 100% { 
-                transform: translateY(0) rotate(0deg); 
-            }
-            33% { 
-                transform: translateY(-30px) rotate(120deg); 
-            }
-            66% { 
-                transform: translateY(20px) rotate(240deg); 
-            }
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(8deg); }
+            100% { transform: translateY(0) rotate(0deg); }
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .hero-date {
-            font-size: 14px;
-            color: var(--primary-black);
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            display: block;
-            animation: fadeInUp 0.8s 0.2s both;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-title {
-            font-size: clamp(42px, 5vw, 68px);
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 30px;
-            letter-spacing: -1.5px;
-            position: relative;
-            display: inline-block;
-            color: var(--secondary-black);
-            animation: fadeInUp 0.8s 0.4s both;
-        }
-
-        .hero-title:after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-black), var(--accent-black));
-            border-radius: 2px;
-            animation: expandLine 1s 1s both;
-        }
-
-        @keyframes expandLine {
-            from { width: 0; opacity: 0; }
-            to { width: 120px; opacity: 1; }
-        }
-
-        .hero-subtitle {
-            font-size: clamp(20px, 2vw, 24px);
-            color: var(--gray-600);
-            max-width: 700px;
-            margin: 0 auto 40px;
-            font-weight: 400;
-            line-height: 1.6;
-            animation: fadeInUp 0.8s 0.6s both;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: var(--primary-black);
-            color: var(--white);
-            padding: 16px 40px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 16px;
-            text-decoration: none;
-            transition: var(--transition);
-            border: 2px solid var(--primary-black);
-            cursor: pointer;
-            margin-top: 20px;
-            animation: fadeInUp 0.8s 0.8s both;
-        }
-
-        .cta-button:hover {
-            background: transparent;
-            color: var(--primary-black);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        /* ===== PROJECTS OVERVIEW ===== */
-        .projects-overview {
-            padding: 80px 0 40px;
-            position: relative;
-        }
-
-        .section-title {
-            font-size: 36px;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 20px;
-            color: var(--secondary-black);
-            animation: fadeInUp 0.8s both;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 60px;
-            font-size: 18px;
-            line-height: 1.7;
-            color: var(--gray-700);
-            animation: fadeInUp 0.8s 0.2s both;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .project-card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 40px;
-            border: 1px solid var(--gray-medium);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 0.8s both;
-        }
-
-        .project-card:nth-child(1) { animation-delay: 0.8s; }
-        .project-card:nth-child(2) { animation-delay: 1s; }
-        .project-card:nth-child(3) { animation-delay: 1.2s; }
-
-        .project-card:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-black), var(--accent-black));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .project-card:hover:before {
-            transform: scaleX(1);
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--gray-light), var(--off-white));
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            font-size: 32px;
-            color: var(--primary-black);
-            transition: var(--transition);
-        }
-
-        .project-card:hover .project-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .project-title {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            color: var(--secondary-black);
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .project-title:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--primary-black);
-            border-radius: 2px;
-            transition: width 0.3s ease;
-        }
-
-        .project-card:hover .project-title:after {
-            width: 60px;
-        }
-
-        .project-description {
-            font-size: 16px;
-            line-height: 1.7;
-            color: var(--gray-700);
-            margin-bottom: 20px;
-        }
-
-        .project-tag {
-            display: inline-block;
-            background: var(--off-white);
-            color: var(--primary-black);
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-top: 15px;
-        }
-
-        /* ===== JOBS SECTION ===== */
-        .jobs-section {
-            padding: 80px 0;
-            background: linear-gradient(135deg, var(--off-white), var(--white));
-            margin: 60px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .jobs-section:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23000000' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.3;
-        }
-
-        .jobs-container {
-            position: relative;
-            z-index: 1;
-        }
-
-        .job-category {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 40px;
-            border: 1px solid var(--gray-medium);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            animation: fadeInUp 0.8s both;
-        }
-
-        .job-category:nth-child(1) { animation-delay: 0.2s; }
-        .job-category:nth-child(2) { animation-delay: 0.4s; }
-        .job-category:nth-child(3) { animation-delay: 0.6s; }
-        .job-category:nth-child(4) { animation-delay: 0.8s; }
-
-        .job-category-title {
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 30px;
-            color: var(--secondary-black);
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .job-category-title:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-black), var(--accent-black));
-            border-radius: 2px;
-        }
-
-        .job-list {
-            list-style: none;
-        }
-
-        .job-item {
-            padding: 20px;
-            border-bottom: 1px solid var(--gray-light);
-            transition: var(--transition);
-        }
-
-        .job-item:last-child {
-            border-bottom: none;
-        }
-
-        .job-item:hover {
-            background: var(--off-white);
-            border-radius: 10px;
-            transform: translateX(5px);
-        }
-
-        .job-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--primary-black);
-            display: flex;
+        .location-badge {
+            display: inline-flex;
             align-items: center;
             gap: 10px;
-            cursor: pointer;
+            background: #fff;
+            padding: 12px 25px;
+            border-radius: 40px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+            font-weight: 600;
+            margin-bottom: 30px;
         }
 
-        .job-title i {
-            color: var(--accent-black);
-            font-size: 16px;
-            transition: transform 0.3s ease;
+        .article-hero { text-align: center; max-width: 900px; margin: 0 auto; }
+        .article-date {
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: block;
         }
-
-        .job-item:hover .job-title i {
-            transform: rotate(90deg);
+        .article-title {
+            font-size: clamp(42px, 7vw, 68px);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 25px;
         }
+        .article-title span {
+            background: #000;
+            color: #fff;
+            padding: 0 12px;
+            display: inline-block;
+            transform: skew(-4deg);
+        }
+        .article-subtitle {
+            font-size: 22px;
+            color: #404040;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: #525252;
+            font-size: 15px;
+            flex-wrap: wrap;
+        }
+        .meta-item i { color: #000; margin-right: 6px; }
 
-        .job-description {
-            font-size: 16px;
-            color: var(--gray-700);
-            line-height: 1.6;
-            margin-left: 26px;
-            max-height: 0;
+        /* CONTENT */
+        .article-content { padding: 70px 0; background: #fff; }
+        .content-container { max-width: 800px; margin: 0 auto; }
+        .article-lead {
+            font-size: 22px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            border-left: 6px solid #000;
+            padding-left: 30px;
+            margin-bottom: 50px;
+            font-weight: 500;
+        }
+        .article-body p {
+            font-size: 18px;
+            margin-bottom: 28px;
+            color: #262626;
+        }
+        .article-body h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin: 70px 0 25px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 12px;
+            display: inline-block;
+        }
+        .quote-block {
+            background: #f4f4f4;
+            padding: 40px;
+            border-radius: 16px;
+            margin: 50px 0;
+            border-left: 6px solid #000;
+        }
+        .quote-text {
+            font-size: 24px;
+            font-style: italic;
+            font-weight: 500;
+            color: #0a0a0a;
+            margin-bottom: 15px;
+        }
+        .quote-author {
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .quote-author i { color: #000; }
+
+        /* TOUR TABLE */
+        .tour-schedule {
+            margin: 60px 0;
+            border: 1px solid #ddd;
+            border-radius: 24px;
             overflow: hidden;
-            transition: max-height 0.5s ease, margin 0.3s ease;
-            margin-top: 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+        }
+        .tour-header {
+            background: #000;
+            color: #fff;
+            padding: 20px 25px;
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .tour-row {
+            display: flex;
+            padding: 16px 25px;
+            border-bottom: 1px solid #eee;
+            transition: 0.2s;
+        }
+        .tour-row:last-child { border-bottom: none; }
+        .tour-row:hover { background: #fafafa; }
+        .tour-city { flex: 2; font-weight: 600; }
+        .tour-venue { flex: 3; color: #2e2e2e; }
+        .tour-date { flex: 2; font-weight: 500; color: #000; }
+        .tour-cancel {
+            color: #a00;
+            font-weight: 600;
+            text-decoration: line-through 2px rgba(170,0,0,0.3);
         }
 
-        .job-item.active .job-description {
-            max-height: 200px;
-            margin-top: 10px;
-        }
-
-        /* ===== APPLICATION SECTION ===== */
-        .application-section {
+        /* SPEAKER CARD (GIDEON) */
+        .speaker-section {
+            background: #f8f8f8;
             padding: 80px 0;
-            background: linear-gradient(135deg, var(--white), var(--off-white));
-            margin: 60px 0 0;
-            border-top: 1px solid var(--gray-medium);
         }
-
-        .application-container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .application-title {
+        .speaker-section-title {
             font-size: 36px;
             font-weight: 800;
-            margin-bottom: 20px;
-            color: var(--secondary-black);
-            animation: fadeInUp 0.8s both;
-        }
-
-        .application-text {
-            font-size: 18px;
-            color: var(--gray-700);
-            line-height: 1.7;
-            margin-bottom: 40px;
-            animation: fadeInUp 0.8s 0.2s both;
-        }
-
-        .application-steps {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
+            text-align: center;
             margin-bottom: 50px;
         }
-
-        .step {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 30px;
-            width: 200px;
-            border: 1px solid var(--gray-medium);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            transition: var(--transition);
-            animation: fadeInUp 0.8s both;
+        .speaker-container {
+            max-width: 500px;
+            margin: 0 auto;
         }
-
-        .step:nth-child(1) { animation-delay: 0.4s; }
-        .step:nth-child(2) { animation-delay: 0.6s; }
-        .step:nth-child(3) { animation-delay: 0.8s; }
-
-        .step:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        .speaker-card {
+            background: #fff;
+            border-radius: 40px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            border: 1px solid #eaeaea;
+            transition: transform 0.3s;
         }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            background: var(--primary-black);
-            color: var(--white);
+        .speaker-card:hover { transform: translateY(-6px); }
+        .speaker-avatar {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
+            background: #d0d0d0;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            font-weight: 700;
-            margin: 0 auto 20px;
+            font-size: 50px;
+            font-weight: 800;
+            color: #fff;
+            background: linear-gradient(145deg, #1e1e1e, #3a3a3a);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
-
-        .step-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--secondary-black);
+        .speaker-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
-
-        .step-description {
-            font-size: 14px;
-            color: var(--gray-600);
-            line-height: 1.5;
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: linear-gradient(135deg, var(--off-white), var(--white));
-            padding: 80px 0 40px;
-            border-top: 1px solid var(--gray-medium);
-            position: relative;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 60px;
-            margin-bottom: 60px;
-        }
-
-        .company-card {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid var(--gray-medium);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .company-card h3 {
-            font-size: 28px;
+        .speaker-name {
+            font-size: 32px;
             font-weight: 900;
-            margin-bottom: 30px;
-            position: relative;
-            padding-bottom: 15px;
-            color: var(--secondary-black);
+            letter-spacing: -0.5px;
+            margin-bottom: 5px;
         }
-
-        .company-card h3:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-black), var(--accent-black));
-            border-radius: 2px;
+        .speaker-handle {
+            font-size: 18px;
+            background: #eef;
+            display: inline-block;
+            padding: 8px 22px;
+            border-radius: 40px;
+            margin: 15px 0 20px;
+            border: 1px solid #000;
+            transition: 0.2s;
         }
-
-        .company-info {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .company-info div {
+        .speaker-handle a {
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 15px;
-            color: var(--gray-700);
+            gap: 8px;
         }
-
-        .company-info i {
-            width: 20px;
-            color: var(--primary-black);
+        .speaker-handle a i { font-size: 20px; }
+        .speaker-handle:hover {
+            background: #000;
+            border-color: #000;
+        }
+        .speaker-handle:hover a { color: #fff; }
+        .speaker-role {
+            color: #404040;
             font-size: 18px;
-        }
-
-        .studio-info {
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 1px solid var(--gray-medium);
-        }
-
-        .studio-info h4 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--secondary-black);
-        }
-
-        .studio-info p {
-            color: var(--gray-600);
-            line-height: 1.6;
-            font-size: 15px;
-        }
-
-        .footer-about h3 {
-            font-size: 28px;
-            font-weight: 900;
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 15px;
-            color: var(--secondary-black);
-        }
-
-        .footer-about h3:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-black), var(--accent-black));
-            border-radius: 2px;
-        }
-
-        .footer-about p {
-            color: var(--gray-600);
-            line-height: 1.7;
+            line-height: 1.5;
             margin-bottom: 20px;
-            font-size: 16px;
+        }
+        .speaker-btn {
+            background: transparent;
+            border: 2px solid #000;
+            border-radius: 40px;
+            padding: 12px 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .speaker-btn:hover {
+            background: #000;
+            color: #fff;
         }
 
+        /* FOOTER */
+        footer {
+            background: #111;
+            color: #f0f0f0;
+            padding: 60px 0 30px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+        .company-card h3, .footer-about h3 {
+            color: #fff;
+            font-weight: 800;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+        .company-info div {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .footer-about p {
+            color: #bbb;
+            line-height: 1.7;
+        }
         .footer-bottom {
             text-align: center;
-            padding-top: 40px;
-            border-top: 1px solid var(--gray-medium);
-            color: var(--primary-black);
+            border-top: 1px solid #333;
+            padding-top: 30px;
+            color: #aaa;
             font-size: 14px;
         }
+        .disclaimer { font-style: italic; margin-top: 12px; color: #888; }
 
-        .disclaimer {
-            max-width: 800px;
-            margin: 20px auto 0;
-            font-style: italic;
-            color: var(--primary-black);
-            opacity: 0.8;
-            line-height: 1.6;
+        /* MODAL */
+        .bio-modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            padding: 20px;
         }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 992px) {
-            .hero-section {
-                margin-top: 100px;
-                padding: 80px 0;
-            }
-            
-            .hero-title {
-                font-size: 48px;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-                max-width: 500px;
-                margin: 60px auto 0;
-            }
-            
-            .application-steps {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .step {
-                width: 100%;
-                max-width: 300px;
-            }
+        .bio-modal.active { display: flex; }
+        .bio-modal-content {
+            background: #fff;
+            border-radius: 40px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 40px;
+            position: relative;
+            animation: modalSlide 0.4s;
         }
-
-        @media (max-width: 768px) {
-            .header-content {
-                flex-wrap: wrap;
-                gap: 15px;
-            }
-            
-            .article-category {
-                order: 2;
-            }
-            
-            .navigation {
-                order: 3;
-                width: 100%;
-                justify-content: center;
-                margin-top: 10px;
-            }
-            
-            .hero-section {
-                margin-top: 130px;
-                padding: 60px 0;
-            }
-            
-            .section-title {
-                font-size: 32px;
-            }
-            
-            .job-category {
-                padding: 30px;
-            }
-            
-            .job-category-title {
-                font-size: 28px;
-            }
-            
-            .company-card {
-                padding: 30px;
-            }
+        @keyframes modalSlide {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
-
-        @media (max-width: 576px) {
-            .hero-title {
-                font-size: 36px;
-            }
-            
-            .hero-subtitle {
-                font-size: 18px;
-            }
-            
-            .project-card {
-                padding: 30px;
-            }
-            
-            .project-title {
-                font-size: 24px;
-            }
-            
-            .company-card {
-                padding: 30px;
-            }
-            
-            .floating-element {
-                display: none;
-            }
-            
-            .job-title {
-                font-size: 18px;
-            }
-            
-            .job-description {
-                font-size: 15px;
-            }
+        .bio-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
         }
+        .bio-close:hover { color: #000; }
+        .bio-header {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .bio-avatar {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: #2e2e2e;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: 800;
+        }
+        .bio-title { font-size: 28px; font-weight: 800; }
+        .bio-subtitle { color: #404040; }
+        .bio-content p { margin-bottom: 20px; line-height: 1.7; }
 
-        /* ===== ANIMATIONS ===== */
+        /* ANIMATIONS */
         .scroll-animate {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: translateY(25px);
+            transition: all 0.7s cubic-bezier(0.2, 0.9, 0.3, 1);
         }
-
         .scroll-animate.visible {
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* ===== KETENTUAN UMUM BADGE ===== */
-        .general-terms-badge {
-            background: var(--primary-black);
-            color: var(--white);
-            padding: 10px 20px;
-            border-radius: 30px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .general-terms-badge i {
-            font-size: 16px;
+        @media (max-width: 700px) {
+            .tour-row { flex-direction: column; gap: 5px; }
+            .footer-content { grid-template-columns: 1fr; }
+            .header-content { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -979,312 +484,196 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo-container" onclick="window.location.href='index.html'">
-                    <img src="kaboom-logo.png" alt="KABOOM Logo" id="logo">
-                    <div class="article-category">LOKER</div>
+                <div class="logo-container" onclick="window.location='#'">
+                    <div id="logo" style="background:#000; color:white; font-weight:900; font-size:28px; padding:0 12px;">K!</div>
+                    <div class="article-category">KADUSIC</div>
                 </div>
-                
                 <div class="navigation">
-                    <a href="index.html" class="nav-btn">
-                        <i class="fas fa-home"></i> Beranda
-                    </a>
-                    <button class="nav-btn" onclick="window.location.href='#apply'">
-                        <i class="fas fa-paper-plane"></i> Lamar Sekarang
-                    </button>
+                    <a href="#" class="nav-btn"><i class="fas fa-home"></i> Home</a>
+                    <a href="#speaker-gideon" class="nav-btn"><i class="fas fa-microphone"></i> Gideon</a>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
+    <!-- Hero -->
+    <section class="article-hero-section">
         <div class="floating-element"></div>
         <div class="floating-element"></div>
-        <div class="floating-element"></div>
-        
         <div class="container">
-            <div class="hero-content">
-                <span class="hero-date">Maret 2026</span>
-                <h1 class="hero-title">Bangun Karirmu<br>di KACHOO</h1>
-                <p class="hero-subtitle">Kami membuka kesempatan bergabung untuk posisi strategis dan kreatif. Temukan peran yang sesuai dengan keahlianmu dan jadilah bagian dari media yang inovatif.</p>
-                <a href="#jobs" class="cta-button scroll-animate">
-                    <i class="fas fa-search"></i> Lihat Semua Lowongan
-                </a>
+            <div class="location-badge">
+                <i class="fas fa-globe-asia"></i> <span>Liputan Eksklusif Global</span>
             </div>
-        </div>
-    </section>
-
-    <!-- Projects Overview -->
-    <section class="projects-overview">
-        <div class="container">
-            <h2 class="section-title scroll-animate">Departemen di KACHOO</h2>
-            <p class="section-subtitle scroll-animate">Media dan berita terintegrasi yang menyatukan manajemen, majalah, dan berita untuk menciptakan dampak positif.</p>
-
-            <div class="projects-grid">
-                <div class="project-card scroll-animate">
-                    <div class="project-icon">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <h3 class="project-title">CORE KACHOO</h3>
-                    <p class="project-description">Penggerak utama operasional dan strategi perusahaan. Bertanggung jawab atas manajemen eksekutif, pengembangan bisnis, serta koordinasi antar unit untuk memastikan sinergi dan pertumbuhan berkelanjutan.</p>
-                    <span class="project-tag">Manajemen & Strategi</span>
-                </div>
-                <div class="project-card scroll-animate">
-                    <div class="project-icon">
-                        <i class="fas fa-tshirt"></i>
-                    </div>
-                    <h3 class="project-title">KAZINE</h3>
-                    <p class="project-description">Majalah fashion yang menggabungkan kurasi estetik dengan gaya urban. Setiap edisi menampilkan riset mendalam, wawancara eksklusif dengan desainer, serta kolaborasi dengan kreator lokal dan internasional.</p>
-                    <span class="project-tag">Fashion & Gaya Hidup</span>
-                </div>
-                <div class="project-card scroll-animate">
-                    <div class="project-icon">
-                        <i class="fas fa-newspaper"></i>
-                    </div>
-                    <h3 class="project-title">KABOOM</h3>
-                    <p class="project-description">Platform berita yang menghadirkan laporan faktual dan analisis tajam. Fokus pada isu sosial, politik, dan budaya dengan pendekatan jurnalisme mendalam yang mengutamakan akurasi dan keberimbangan.</p>
-                    <span class="project-tag">Jurnalisme & Berita</span>
+            <div class="article-hero">
+                <span class="article-date">29 FEBRUARI 2026</span>
+                <h1 class="article-title"><span>GI:DEOM</span> WORLD TOUR</h1>
+                <p class="article-subtitle">Gideon umumkan tur dunia besar-besaran, simbolkan identitas bersama dengan penggemar</p>
+                <div class="article-meta">
+                    <span class="meta-item"><i class="fas fa-user"></i> Tim Kaboom</span>
+                    <span class="meta-item"><i class="fas fa-headphones"></i> wawancara eksklusif</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Jobs Section -->
-    <section class="jobs-section" id="jobs">
-        <div class="container">
-            <!-- Ketentuan Umum -->
-            <div class="general-terms-badge scroll-animate">
-                <i class="fas fa-info-circle"></i>
-                <span>IC Only</span>
+    <!-- Artikel konten utama (berita) -->
+    <section class="article-content">
+        <div class="container content-container">
+            <div class="article-lead scroll-animate visible">
+                Tim Kaboom baru-baru ini duduk bersama Team Gideon untuk membahas tur dunia berskala besar yang sangat dinantikan, "GI:DEOM" World Tour – sebuah seri konser internasional yang menandai kembalinya solois ini ke panggung global.
             </div>
+            <div class="article-body">
 
-            <div class="jobs-container">
-                <!-- Manajemen Puncak & Perusahaan -->
-                <div class="job-category scroll-animate">
-                    <h2 class="job-category-title">CORE KACHOO</h2>
-                    <ul class="job-list">
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-cogs"></i> Chief Operational Officer (COO)</h3>
-                            <p class="job-description">Bertanggung jawab atas sistem operasional perusahaan, meliputi pengawasan jalannya proyek, kesesuaian prosedur, serta pemenuhan kebutuhan operasional seperti transportasi, akomodasi, dan logistik untuk memastikan efisiensi kerja.</p>
-                        </li>
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-chart-line"></i> Chief Marketing Officer (CMO)</h3>
-                            <p class="job-description">Memimpin strategi pemasaran seluruh proyek KACHOO. Bertanggung jawab menjaga kualitas penyampaian konten atau produk kepada pelanggan dan mitra eksternal, serta memastikan brand awareness tumbuh berkelanjutan.</p>
-                        </li>
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-users-cog"></i> Chief Human Resources Officer (CHRO)</h3>
-                            <p class="job-description">Mengelola penuh siklus sumber daya manusia, mulai dari rekrutmen, pengembangan karyawan, hingga hubungan industrial. Memastikan terciptanya lingkungan kerja yang kondusif dan produktif di internal perusahaan.</p>
-                        </li>
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-lightbulb"></i> Chief Strategy Officer (CSO)</h3>
-                            <p class="job-description">Mengelola pengembangan ide untuk proyek atau fitur baru di ekosistem KACHOO. Bertindak sebagai tim kreatif yang merumuskan konsep inovatif untuk proyek mendatang (upcoming project) dan memastikan keselarasan dengan visi perusahaan.</p>
-                        </li>
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-file-signature"></i> Sekretaris Perusahaan</h3>
-                            <p class="job-description">Bertanggung jawab dalam pengelolaan surat menyurat dan administrasi kesekretariatan sesuai dengan template yang telah disediakan perusahaan. Memastikan kelancaran komunikasi formal dan dokumentasi legal.</p>
-                        </li>
-                    </ul>
+                <h2 class="scroll-animate">Tur yang Dibangun di Atas Identitas dan Koneksi</h2>
+                <p class="scroll-animate">Menurut <strong>Team Gideon</strong>, judul "GI:DEOM" menggabungkan nama artis dengan fandom-nya, Gidom, melambangkan identitas bersama antara performer dan penonton. Tur ini juga merayakan perilisan single keempatnya, <em>I'll Never Love Again</em>, sebuah duet dengan Celine Amora yang menonjolkan arah musik yang lebih emosional. Era musik terbaru Gideon mengikuti peluncuran album full Korea <em>Novus</em>, yang memperluas palet soniknya melalui kolaborasi dengan banyak produser internasional.</p>
+
+                <h2 class="scroll-animate">Jadwal Tur Internasional</h2>
+                <p class="scroll-animate">Dirancang sebagai pengalaman global, bukan promosi regional, tur ini membentang di Asia, Australia, dan Amerika Utara, dan akan ditutup di Korea Selatan.</p>
+
+                <div class="tour-schedule scroll-animate">
+                    <div class="tour-header"><i class="fas fa-calendar-alt"></i> GI:DEOM WORLD TOUR 2025–2026</div>
+                    <div class="tour-row"><span class="tour-city">Seoul</span><span class="tour-venue">KSPO Dome</span><span class="tour-date">23 November 2025</span></div>
+                    <div class="tour-row"><span class="tour-city">Tokyo</span><span class="tour-venue">Yoyogi National Gymnasium</span><span class="tour-date">6 Desember 2025</span></div>
+                    <div class="tour-row"><span class="tour-city">Singapura</span><span class="tour-venue">Singapore Indoor Stadium</span><span class="tour-date">19 Desember 2025</span></div>
+                    <div class="tour-row"><span class="tour-city">Jakarta</span><span class="tour-venue">ICE BSD</span><span class="tour-date">27 Desember 2025</span></div>
+                    <div class="tour-row"><span class="tour-city">Sydney</span><span class="tour-venue">Qudos Bank Arena</span><span class="tour-date">10 Januari 2026</span></div>
+                    <div class="tour-row"><span class="tour-city">London</span><span class="tour-venue">The O2 Arena</span><span class="tour-date tour-cancel"><i class="fas fa-times-circle"></i> Dibatalkan</span></div>
+                    <div class="tour-row"><span class="tour-city">Paris</span><span class="tour-venue">Accor Arena</span><span class="tour-date tour-cancel"><i class="fas fa-times-circle"></i> Dibatalkan</span></div>
+                    <div class="tour-row"><span class="tour-city">New York City</span><span class="tour-venue">Barclays Center</span><span class="tour-date">21 Februari 2026</span></div>
+                    <div class="tour-row"><span class="tour-city">Busan</span><span class="tour-venue">BEXCO Auditorium</span><span class="tour-date">6 Maret 2026 (Final)</span></div>
                 </div>
+                <p class="scroll-animate">Meskipun pemberhentian Eropa di London dan Paris pada akhirnya dibatalkan, konser yang tersisa terus menarik antusiasme penggemar di berbagai benua.</p>
 
-                <!-- Manajemen Proyek & Staff Inti -->
-                <div class="job-category scroll-animate">
-                    <h2 class="job-category-title">Manajemen Proyek & Staff Inti</h2>
-                    <ul class="job-list">
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-tasks"></i> Manajemen Proyek Kazine</h3>
-                            <p class="job-description">Bertanggung jawab menjalankan proyek Kazine secara menyeluruh dan menjadi kepala departemen untuk proyek tersebut. Memimpin tim kreatif dan produksi, serta memastikan setiap edisi majalah selesai tepat waktu dan sesuai standar.</p>
-                        </li>
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-bolt"></i> Manajemen Proyek Kaboom </h3>
-                            <p class="job-description">Memimpin dan mengelola jalannya proyek Kaboom sebagai kepala departemen. Bertanggung jawab atas perencanaan konten, koordinasi tim redaksi, dan pengawasan distribusi berita agar tetap akurat dan relevan.</p>
-                        </li>
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-coins"></i> Staff Financial Kazine </h3>
-                            <p class="job-description">Membantu pengelolaan keuangan perusahaan, termasuk pemrosesan invoice, perhitungan gaji, dan administrasi keuangan lainnya. Memastikan pencatatan transaksi berjalan rapi dan akurat.</p>
-                        </li>
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-handshake"></i> Staff PR Kazine </h3>
-                            <p class="job-description">Membantu menjalin dan memelihara hubungan dengan mitra, media, dan publik. Menyusun siaran pers, mengelola acara, serta menjaga citra positif perusahaan di mata publik.</p>
-                        </li>
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-pencil-alt"></i> Staff Editor Kazine </h3>
-                            <p class="job-description">Membantu proses penyuntingan naskah untuk konten Kazine dan Kaboom. Memastikan tulisan sesuai dengan pedoman gaya, tata bahasa yang benar, dan layak terbit.</p>
-                        </li>
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-bullseye"></i> Staff Marketing Kazine / Kaboom </h3>
-                            <p class="job-description">Membantu pelaksanaan strategi pemasaran untuk produk dan konten KACHOO. Berkoordinasi dengan tim PR dan kreatif dalam menjalankan kampanye promosi di berbagai saluran.</p>
-                        </li>
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-chart-pie"></i> Staff Pendataan Kazine / Kaboom </h3>
-                            <p class="job-description">Bertanggung jawab dalam pengelolaan, pengolahan, dan pensortiran data perusahaan. Menyajikan analisis data untuk mendukung pengambilan keputusan strategis di berbagai lini proyek.</p>
-                        </li>
-                    </ul>
-                </div>
+                <h2 class="scroll-animate">Pengalaman Konser Akses Terbuka yang Langka</h2>
+                <p class="scroll-animate">Dalam langkah yang tidak biasa, <strong>Team Gideon</strong> mengonfirmasi bahwa semua pertunjukan <strong>gratis untuk dihadiri</strong>. Keputusan ini diambil untuk menghilangkan hambatan ekonomi dan memungkinkan penonton "berada dalam atmosfer emosional yang sama dan bernyanyi bersama", memperkuat makna kebersamaan di balik nama tur. Tidak ada merchandise resmi atau item promosi tambahan yang direncanakan, karena produksi bertujuan fokus sepenuhnya pada imersi musik langsung, bukan pada keuntungan komersial.</p>
 
-                <!-- Posisi Freelance -->
-                <div class="job-category scroll-animate">
-                    <h2 class="job-category-title">Posisi Freelance (Kontrak Bulanan)</h2>
-                    <ul class="job-list">
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-feather-alt"></i> Freelance Jurnalis Kaboom </h3>
-                            <p class="job-description">Bergabung secara kontrak per bulan untuk menulis dan mengirimkan naskah berita yang akan dipublikasikan di platform Kaboom. Mencari, meriset, dan menyajikan berita yang akurat dan menarik.</p>
-                        </li>
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-camera-retro"></i> Freelance Photographer Kaboom </h3>
-                            <p class="job-description">Berkontribusi dalam penyediaan materi fotografi untuk proyek Kaboom. Meliputi pemotretan model untuk majalah, serta foto lingkungan atau peristiwa untuk kebutuhan pemberitaan.</p>
-                        </li>
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-microphone-alt"></i> Freelance News Anchor Kaboom </h3>
-                            <p class="job-description">Bertugas sebagai pewawancara dan penyaji berita di platform Kaboom. Melakukan wawancara dengan narasumber yang relevan dengan topik berita dan menyajikannya secara profesional di depan kamera.</p>
-                        </li>
-                    </ul>
-                </div>
+                <h2 class="scroll-animate">Produksi Kolaboratif di Balik Era Ini</h2>
+                <p class="scroll-animate">Album <em>Novus</em> dan proyek-proyek di sekitarnya melibatkan jejaring kreatif internasional. Kontributor termasuk tim produksi seperti Red Flames, yang menggarap trek <em>Bump Bump</em>, dan EROR FOUR, yang anggotanya berpartisipasi dalam beberapa lagu termasuk <em>Busted</em> dan <em>Touché</em>. Kolaborasi tambahan, termasuk duet dengan Resadena pada <em>POOL</em>, semakin membentuk karakter lintas genre album.</p>
+                <p class="scroll-animate">Untuk single <em>I'll Never Love Again</em>, Celine Amora terlibat langsung dalam penulisan lirik dan produksi, memperkuat narasi pribadi lagu tersebut dan menjadikannya pusat dari tur ini.</p>
 
-                <!-- Catatan Khusus Proyek -->
-                <div class="job-category scroll-animate">
-                    <h2 class="job-category-title">Catatan Khusus</h2>
-                    <ul class="job-list">
-                        <li class="job-item">
-                            <h3 class="job-title"><i class="fas fa-lock"></i> Ketentuan untuk Semua Posisi</h3>
-                            <p class="job-description">Hanya IC untuk update, dan OOC untuk pekerjaan simple yang sudah memiliki template dari perusahaan. Bertanggung jawab dan tidak membocorkan upcoming project Kachoo. Setiap anggota hanya dapat memegang satu karakter di ekosistem Kachoo, tidak diperbolehkan multi karakter.</p>
-                        </li>
-                    </ul>
+                <!-- photo credit sesuai contoh "foto oleh: The Kadio" tapi diganti konteks -->
+                <div class="photography-credit" style="margin: 50px 0 20px; border-top:1px solid #ddd; padding-top:25px; font-size:14px; color:#444; display:flex; align-items:center; gap:12px;">
+                    <i class="fas fa-camera" style="background:#000; color:#fff; padding:10px; border-radius:50%;"></i>
+                    <span>Foto dokumentasi oleh: <strong>The Kadio / KABOOM! studio</strong></span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Application Section -->
-    <section class="application-section" id="apply">
+    <!-- SPEAKER : GIDEON (dengan username X) -->
+    <section class="speaker-section" id="speaker-gideon">
         <div class="container">
-            <div class="application-container">
-                <h2 class="application-title scroll-animate">Tata Cara Melamar</h2>
-                <p class="application-text scroll-animate">Bergabunglah dengan tim Kachoo. Kami mencari individu kreatif, bertanggung jawab, dan berkomitmen untuk membangun media yang inovatif bersama KACHOO Group.</p>
-                
-                <div class="application-steps">
-                    <div class="step scroll-animate">
-                        <div class="step-number">1</div>
-                        <h3 class="step-title">Siapkan Berkas</h3>
-                        <p class="step-description">CV terbaru dan/atau portofolio yang relevan dengan posisi yang kamu lamar.</p>
+            <h2 class="speaker-section-title scroll-animate">▸ wawancara bersama ◂</h2>
+            <div class="speaker-container scroll-animate">
+                <div class="speaker-card">
+                    <div class="speaker-avatar">
+                        <!-- inisial G sebagai avatar jika gambar tidak ada -->
+                        <span style="font-size:60px;">G</span>
+                        <!-- jika ada gambar: <img src="gideon.jpg" alt="Gideon"> -->
                     </div>
-                    <div class="step scroll-animate">
-                        <div class="step-number">2</div>
-                        <h3 class="step-title">Kirim ke DM</h3>
-                        <p class="step-description">Kirim berkas dalam format PDF atau link ke DM X (Twitter) @HaiKachoo dengan subjek: [Nama Posisi] - [Namamu].</p>
+                    <div class="speaker-name">GIDEON</div>
+                    <!-- X link persis seperti diminta: username @RockerGideon, jika diklik pindah ke akun X -->
+                    <div class="speaker-handle">
+                        <a href="https://x.com/RockerGideon" target="_blank" rel="noopener">
+                            <i class="fab fa-x-twitter"></i> @RockerGideon
+                        </a>
                     </div>
-                    <div class="step scroll-animate">
-                        <div class="step-number">3</div>
-                        <h3 class="step-title">Tunggu Konfirmasi</h3>
-                        <p class="step-description">Tim kami akan meninjau lamaran dan menghubungi kandidat terpilih untuk proses selanjutnya.</p>
+                    <div class="speaker-role">
+                        Solois · Produser · <br> #GI:DEOM
                     </div>
+                    <button class="speaker-btn" onclick="openBio('gideon')">
+                        <i class="fas fa-address-card"></i> profil tim
+                    </button>
                 </div>
-                
-                <a href="https://twitter.com/HaiKachoo" target="_blank" class="cta-button scroll-animate">
-                    <i class="fab fa-twitter"></i> Lamar via DM Sekarang
-                </a>
             </div>
         </div>
     </section>
+
+    <!-- Modal Biography Gideon (sebagai perwakilan Team Gideon) -->
+    <div class="bio-modal" id="gideonBio">
+        <div class="bio-modal-content">
+            <button class="bio-close" onclick="closeBio('gideon')"><i class="fas fa-times"></i></button>
+            <div class="bio-header">
+                <div class="bio-avatar">G</div>
+                <div>
+                    <h2 class="bio-title">Team Gideon</h2>
+                    <p class="bio-subtitle">perwakilan resmi · manajemen kreatif</p>
+                </div>
+            </div>
+            <div class="bio-content">
+                <p><strong>Team Gideon</strong> adalah kolektif di balik kebangkitan global Gideon. Mereka berbicara kepada KABOOM! tentang filosofi “GI:DEOM” – perpaduan identitas artis dan penggemar (Gidom). Tur dunia ini dirancang sebagai ruang bersama tanpa sekat komersial.</p>
+                <p>“Kami ingin menghilangkan hambatan, sehingga siapapun bisa hadir dan merasakan koneksi emosional yang sama,” ujar perwakilan tim. Tentang pembatalan London dan Paris, mereka menyatakan: “Keputusan berat, tetapi fokus kami tetap pada kualitas pertunjukan di kota lain.”</p>
+                <p>Kolaborasi dengan Celine Amora di single <em>I'll Never Love Again</em> menjadi pusat narasi tur. Album <em>Novus</em> sendiri melibatkan produser dari Red Flames, EROR FOUR, dan Resadena.</p>
+                <p><i class="fab fa-x-twitter"></i> X: <a href="https://x.com/RockerGideon" target="_blank" style="color:#000; font-weight:600; text-decoration:underline;">@RockerGideon</a> (akun resmi Gideon, dikelola tim)</p>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="company-card scroll-animate">
-                    <h3>KACHOO GROUP</h3>
+                    <h3>The Kachoo</h3>
                     <div class="company-info">
-                        <div>
-                            <i class="fas fa-envelope"></i>
-                            <span>ohkachoo@gmail.com</span>
-                        </div>
-                        <div>
-                            <i class="fab fa-twitter"></i>
-                            <span>@TheKachoo & @HaiKachoo</span>
-                        </div>
-                        <div>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Jl. Jenderal Sudirman No. 61-62, Jakarta Selatan</span>
-                        </div>
-                    </div>
-                    <div class="studio-info">
-                        <h4>Tentang Kami</h4>
-                        <p>KACHOO adalah perusahaan yang bergerak di bidang media dan berita dalam proyek Kafkapages, Kazine, dan Kaboom.</p>
+                        <div><i class="fas fa-envelope"></i> ohkachoo@gmail.com</div>
+                        <div><i class="fab fa-twitter"></i> @TheKachoo</div>
+                        <div><i class="fas fa-map-pin"></i> Jenderal Sudirman, Jakarta</div>
                     </div>
                 </div>
                 <div class="footer-about scroll-animate">
-                    <h3>Mengapa Bergabung?</h3>
-                    <p>Kami percaya bahwa tim terbaik dibangun oleh individu-individu yang tidak hanya kompeten, tetapi juga memiliki visi yang sama. Di KACHOO, kamu akan menemukan lingkungan yang mendukung pertumbuhan profesional dan personal.</p>
-                    <p>Kami membuka pintu bagi para kreator, pemikir strategis, dan jurnalis yang ingin memberi dampak nyata melalui karya.</p>
+                    <h3>Tentang KABOOM!</h3>
+                    <p>KABOOM! adalah kanal berita dari The Kachoo, menghadirkan wawancara eksklusif dan liputan mendalam seputar musik, pendidikan, dan budaya pop. Percakapan dengan Team Gideon ini adalah bagian dari seri Kadusic.</p>
                 </div>
             </div>
-            <div class="footer-bottom scroll-animate">
-                <p>&copy; 2026 THE KACHOO. Untuk keperluan roleplay.</p>
-                <p class="disclaimer">Seluruh proses rekrutmen tidak dipungut biaya. Informasi lowongan dapat berubah sesuai kebutuhan.</p>
+            <div class="footer-bottom">
+                <p>© 2026 The Kaboom! di bawah The Kachoo. All rights reserved.</p>
+                <p class="disclaimer">Seluruh isi wawancara merupakan pernyataan resmi Team Gideon. Akun X @RockerGideon dikelola oleh manajemen. Foto hanya ilustrasi/roleplay.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Logo animation
-        const logo = document.getElementById('logo');
-        if (logo) {
-            logo.addEventListener('click', function() {
-                this.classList.remove('logo-kachoo');
-                void this.offsetWidth;
-                this.classList.add('logo-kachoo');
-            });
-        }
-        
-        // Scroll animations
+        // animasi scroll
         const scrollElements = document.querySelectorAll('.scroll-animate');
-        const elementInView = (el, dividend = 1) => {
-            const elementTop = el.getBoundingClientRect().top;
-            return elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend;
-        };
-        const displayScrollElement = (element) => { element.classList.add('visible'); };
-        const hideScrollElement = (element) => { element.classList.remove('visible'); };
-        const handleScrollAnimation = () => {
-            scrollElements.forEach((el) => {
-                if (elementInView(el, 1.2)) displayScrollElement(el);
-                else hideScrollElement(el);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
             });
-        };
-        
-        // Throttle scroll
-        let scrolling = false;
-        window.addEventListener('scroll', () => {
-            if (!scrolling) {
-                scrolling = true;
-                setTimeout(() => { handleScrollAnimation(); scrolling = false; }, 100);
-            }
-        });
-        handleScrollAnimation();
-        
-        // Job item click to toggle description (show/hide)
-        document.querySelectorAll('.job-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                // Prevent toggling when clicking on a link inside (if any)
-                if (e.target.tagName === 'A') return;
-                this.classList.toggle('active');
-            });
-        });
-        
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+        }, { threshold: 0.2, rootMargin: "0px 0px -20px 0px" });
+        scrollElements.forEach(el => observer.observe(el));
+
+        // modal functions
+        function openBio(person) {
+            document.getElementById(person + 'Bio').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeBio(person) {
+            document.getElementById(person + 'Bio').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        // close jika klik background
+        document.querySelectorAll('.bio-modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
                 }
             });
         });
-        
-        // Initial animation trigger
-        document.addEventListener('DOMContentLoaded', () => {
-            handleScrollAnimation();
-            setTimeout(() => { if(logo) logo.classList.add('logo-kachoo'); }, 1500);
+
+        // floating movement
+        window.addEventListener('scroll', () => {
+            let scrollY = window.scrollY;
+            document.querySelectorAll('.floating-element').forEach((el, i) => {
+                let speed = 0.05 + (i * 0.02);
+                el.style.transform = `translateY(${scrollY * speed}px) rotate(${scrollY * 0.02}deg)`;
+            });
         });
+
+        // pastikan visible pada elemen awal
+        window.dispatchEvent(new Event('scroll'));
     </script>
 </body>
 </html>
+```
