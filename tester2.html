@@ -1,725 +1,1291 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KACHOO · Database System</title>
+    <title>Lowongan Pekerjaan | KACHOO GROUP</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        /* ===== VARIABLES & RESET ===== */
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-300: #d4d4d3;
+            --gray-400: #a3a3a3;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --gray-900: #171717;
+            
+            --primary-black: #000000;
+            --secondary-black: #1a1a1a;
+            --accent-black: #333333;
+            --light-black: #444444;
+            --white: #ffffff;
+            --off-white: #f8f8f8;
+            --gray-light: #f0f0f0;
+            --gray-medium: #e0e0e0;
+            
+            --accent: var(--primary-black);
+            --primary: var(--primary-black);
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background-color: #ffffff;
-            color: #333;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--white);
+            color: var(--primary-black);
             line-height: 1.6;
-            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            padding: 0 24px;
+            width: 100%;
         }
-        
-        /* Header - text centered */
+
+        /* ===== HEADER ===== */
         header {
-            text-align: center;
-            padding: 30px 0 20px 0;
-            border-bottom: 2px solid #000;
-            margin-bottom: 40px;
-        }
-        
-        .logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .logo img {
-            height: 70px;
-            width: auto;
-            object-fit: contain;
-        }
-        
-        .logo-text h1 {
-            font-size: 36px;
-            color: #000;
-            letter-spacing: 2px;
-            font-weight: 800;
-        }
-        
-        .logo-text p {
-            color: #444;
-            font-size: 16px;
-            font-weight: 500;
-            margin-top: 4px;
-        }
-        
-        /* Main Content */
-        .dashboard-header {
-            margin-bottom: 40px;
-            text-align: left;
-        }
-        
-        .dashboard-header h2 {
-            font-size: 32px;
-            color: #000;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        
-        .dashboard-header p {
-            color: #666;
-            max-width: 700px;
-        }
-        
-        /* Department Grid - 3 Cards */
-        .departments {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-            flex-grow: 1;
-        }
-        
-        .department-card {
-            background-color: #fff;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 2px solid #000;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-            height: 100%;
-        }
-        
-        .department-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            background-color: #000;
-            color: #fff;
-        }
-        
-        .department-card:hover h3,
-        .department-card:hover p,
-        .department-card:hover .department-link {
-            color: #fff;
-        }
-        
-        .department-card:hover .department-icon {
-            background-color: #fff;
-            color: #000;
-        }
-        
-        .department-icon {
-            width: 60px;
-            height: 60px;
-            background-color: #000;
-            color: #fff;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-        
-        .department-card h3 {
-            font-size: 22px;
-            color: #000;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-        
-        .department-card p {
-            color: #666;
-            font-size: 15px;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-        
-        .department-link {
-            color: #000;
-            font-weight: 600;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-top: auto;
-        }
-        
-        /* Info Panel (holidays) */
-        .info-panel {
-            background-color: #f9f9f9;
-            border: 2px solid #000;
-            border-radius: 16px;
-            padding: 25px 30px;
-            margin: 30px 0 30px 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            box-shadow: 6px 6px 0 rgba(0,0,0,0.1);
-        }
-        
-        .info-icon {
-            background: #000;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-        }
-        
-        .info-text {
-            flex: 1;
-            min-width: 250px;
-        }
-        
-        .info-text h3 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #000;
-        }
-        
-        .info-text p {
-            font-size: 17px;
-            color: #222;
-            font-weight: 500;
-        }
-        
-        .info-dates {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-            background: #fff;
-            padding: 15px 25px;
-            border-radius: 40px;
-            border: 1px solid #000;
-        }
-        
-        .date-item {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .date-label {
-            font-weight: 700;
-            font-size: 15px;
-            color: #000;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .date-value {
-            font-size: 18px;
-            font-weight: 600;
-        }
-        
-        /* Footer */
-        footer {
-            margin-top: auto;
-            padding-top: 20px;
-            border-top: 2px solid #000;
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .copyright {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .system-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .status-indicator {
-            width: 10px;
-            height: 10px;
-            background-color: #000;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-        
-        /* --- LOGIN MODAL (POPUP) without demo username --- */
-        .modal-overlay {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.8);
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 1000;
+            border-bottom: 1px solid var(--gray-medium);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            animation: slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideDown {
+            from { 
+                transform: translateY(-100%); 
+                opacity: 0;
+            }
+            to { 
+                transform: translateY(0); 
+                opacity: 1;
+            }
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            min-height: 80px;
+        }
+
+        .logo-container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            backdrop-filter: blur(4px);
+            gap: 15px;
+            cursor: pointer;
+            transition: var(--transition);
         }
-        .modal-card {
-            background: #fff;
-            width: 90%;
-            max-width: 400px;
-            border: 3px solid #000;
-            border-radius: 24px;
-            padding: 30px 25px;
-            box-shadow: 12px 12px 0 #000;
+
+        .logo-container:hover {
+            transform: translateY(-2px);
+        }
+
+        #logo {
+            height: 40px;
+            width: auto;
+            transition: var(--transition);
+        }
+
+        .logo-kachoo {
+            animation: kachooEffect 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes kachooEffect {
+            0% { 
+                transform: scale(1) rotate(0deg); 
+                filter: brightness(1);
+            }
+            25% { 
+                transform: scale(1.2) rotate(-5deg); 
+                filter: brightness(1.2);
+            }
+            50% { 
+                transform: scale(1.3) rotate(5deg); 
+                filter: brightness(1.3);
+            }
+            75% { 
+                transform: scale(1.2) rotate(-3deg); 
+                filter: brightness(1.2);
+            }
+            100% { 
+                transform: scale(1) rotate(0deg); 
+                filter: brightness(1);
+            }
+        }
+
+        .article-category {
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: var(--primary-black);
+            color: var(--white);
+            padding: 6px 15px;
+            border-radius: 20px;
+            animation: pulseCategory 2s infinite alternate;
+        }
+
+        @keyframes pulseCategory {
+            0% {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+            100% {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        .navigation {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 2px solid var(--primary-black);
+            color: var(--primary-black);
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+            transition: left 0.7s;
+        }
+
+        .nav-btn:hover:before {
+            left: 100%;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-black);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            margin-top: 120px;
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--white) 0%, var(--off-white) 100%);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInHero 1.2s ease-out;
+        }
+
+        @keyframes fadeInHero {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        .hero-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 0, 0, 0.03));
+            z-index: 0;
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.05);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 15%;
+            animation-delay: -5s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 30%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+            }
+            33% { 
+                transform: translateY(-30px) rotate(120deg); 
+            }
+            66% { 
+                transform: translateY(20px) rotate(240deg); 
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-date {
+            font-size: 14px;
+            color: var(--primary-black);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: block;
+            animation: fadeInUp 0.8s 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-size: clamp(42px, 5vw, 68px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            letter-spacing: -1.5px;
+            position: relative;
+            display: inline-block;
+            color: var(--secondary-black);
+            animation: fadeInUp 0.8s 0.4s both;
+        }
+
+        .hero-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-black), var(--accent-black));
+            border-radius: 2px;
+            animation: expandLine 1s 1s both;
+        }
+
+        @keyframes expandLine {
+            from { width: 0; opacity: 0; }
+            to { width: 120px; opacity: 1; }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(20px, 2vw, 24px);
+            color: var(--gray-600);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-weight: 400;
+            line-height: 1.6;
+            animation: fadeInUp 0.8s 0.6s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary-black);
+            color: var(--white);
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 2px solid var(--primary-black);
+            cursor: pointer;
+            margin-top: 20px;
+            animation: fadeInUp 0.8s 0.8s both;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--primary-black);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ===== PROJECTS OVERVIEW ===== */
+        .projects-overview {
+            padding: 80px 0 40px;
             position: relative;
         }
-        .modal-card h2 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #000;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .modal-card h2 i {
-            background: #000;
-            color: white;
-            padding: 10px;
-            border-radius: 14px;
-            font-size: 22px;
-        }
-        .modal-sub {
-            color: #222;
-            font-size: 15px;
-            margin-bottom: 25px;
-            border-left: 5px solid #000;
-            padding-left: 15px;
-            background: #f2f2f2;
-            border-radius: 0 10px 10px 0;
-            font-weight: 500;
-        }
-        .input-group {
-            margin-bottom: 22px;
-        }
-        .input-group label {
-            display: block;
-            font-weight: 700;
-            font-size: 14px;
-            margin-bottom: 6px;
-            color: #000;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 15px 18px;
-            border: 2px solid #aaa;
-            border-radius: 16px;
-            font-size: 15px;
-            background: #fafafa;
-        }
-        .input-group input:focus {
-            border-color: #000;
-            outline: none;
-            background: #fff;
-            box-shadow: 3px 3px 0 #000;
-        }
-        .login-actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 30px;
-        }
-        .btn-login {
-            background: #000;
-            border: none;
-            color: white;
-            font-weight: 700;
-            padding: 15px 0;
-            border-radius: 50px;
-            font-size: 16px;
-            cursor: pointer;
-            flex: 2;
-            border: 2px solid #000;
-            transition: 0.15s;
-        }
-        .btn-login:hover {
-            background: #fff;
-            color: #000;
-        }
-        .btn-cancel {
-            background: #fff;
-            border: 2px solid #000;
-            color: #000;
-            font-weight: 600;
-            padding: 15px 0;
-            border-radius: 50px;
-            font-size: 16px;
-            cursor: pointer;
-            flex: 1;
-        }
-        .btn-cancel:hover {
-            background: #eee;
-        }
-        .error-message {
-            color: #b11;
-            font-weight: 600;
-            font-size: 14px;
-            margin-top: 15px;
-            background: #ffe3e3;
-            padding: 10px 14px;
-            border-radius: 40px;
-            border: 1px solid #b11;
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 800;
             text-align: center;
+            margin-bottom: 20px;
+            color: var(--secondary-black);
+            animation: fadeInUp 0.8s both;
         }
-        .close-icon {
+
+        .section-subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--gray-700);
+            animation: fadeInUp 0.8s 0.2s both;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid var(--gray-medium);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s both;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.8s; }
+        .project-card:nth-child(2) { animation-delay: 1s; }
+        .project-card:nth-child(3) { animation-delay: 1.2s; }
+
+        .project-card:before {
+            content: '';
             position: absolute;
-            top: 18px; right: 18px;
-            font-size: 22px;
-            cursor: pointer;
-            background: #fff;
-            width: 40px;
-            height: 40px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-black), var(--accent-black));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .project-card:hover:before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--gray-light), var(--off-white));
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            border: 2px solid #000;
-        }
-        .close-icon:hover {
-            background: #000;
-            color: white;
+            margin-bottom: 25px;
+            font-size: 32px;
+            color: var(--primary-black);
+            transition: var(--transition);
         }
 
-        /* No demo-hint as requested */
+        .project-card:hover .project-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .project-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--secondary-black);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .project-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-black);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .project-card:hover .project-title:after {
+            width: 60px;
+        }
+
+        .project-description {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--gray-700);
+            margin-bottom: 20px;
+        }
+
+        .project-tag {
+            display: inline-block;
+            background: var(--off-white);
+            color: var(--primary-black);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        /* ===== JOBS SECTION ===== */
+        .jobs-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--off-white), var(--white));
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .jobs-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23000000' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        .jobs-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .job-category {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid var(--gray-medium);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            animation: fadeInUp 0.8s both;
+        }
+
+        .job-category:nth-child(1) { animation-delay: 0.2s; }
+        .job-category:nth-child(2) { animation-delay: 0.4s; }
+        .job-category:nth-child(3) { animation-delay: 0.6s; }
+        .job-category:nth-child(4) { animation-delay: 0.8s; }
+
+        .job-category-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: var(--secondary-black);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .job-category-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-black), var(--accent-black));
+            border-radius: 2px;
+        }
+
+        .job-list {
+            list-style: none;
+        }
+
+        .job-item {
+            padding: 20px;
+            border-bottom: 1px solid var(--gray-light);
+            transition: var(--transition);
+        }
+
+        .job-item:last-child {
+            border-bottom: none;
+        }
+
+        .job-item:hover {
+            background: var(--off-white);
+            border-radius: 10px;
+            transform: translateX(5px);
+        }
+
+        .job-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary-black);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .job-title i {
+            color: var(--accent-black);
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .job-item:hover .job-title i {
+            transform: rotate(90deg);
+        }
+
+        .job-description {
+            font-size: 16px;
+            color: var(--gray-700);
+            line-height: 1.6;
+            margin-left: 26px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, margin 0.3s ease;
+            margin-top: 0;
+        }
+
+        .job-item.active .job-description {
+            max-height: 200px;
+            margin-top: 10px;
+        }
+
+        /* ===== APPLICATION SECTION ===== */
+        .application-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--white), var(--off-white));
+            margin: 60px 0 0;
+            border-top: 1px solid var(--gray-medium);
+        }
+
+        .application-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .application-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--secondary-black);
+            animation: fadeInUp 0.8s both;
+        }
+
+        .application-text {
+            font-size: 18px;
+            color: var(--gray-700);
+            line-height: 1.7;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s 0.2s both;
+        }
+
+        .application-steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .step {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            width: 200px;
+            border: 1px solid var(--gray-medium);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            animation: fadeInUp 0.8s both;
+        }
+
+        .step:nth-child(1) { animation-delay: 0.4s; }
+        .step:nth-child(2) { animation-delay: 0.6s; }
+        .step:nth-child(3) { animation-delay: 0.8s; }
+
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-black);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--secondary-black);
+        }
+
+        .step-description {
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, var(--off-white), var(--white));
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--gray-medium);
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .company-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--gray-medium);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .company-card h3 {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+            color: var(--secondary-black);
+        }
+
+        .company-card h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-black), var(--accent-black));
+            border-radius: 2px;
+        }
+
+        .company-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .company-info div {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--gray-700);
+        }
+
+        .company-info i {
+            width: 20px;
+            color: var(--primary-black);
+            font-size: 18px;
+        }
+
+        .studio-info {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--gray-medium);
+        }
+
+        .studio-info h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--secondary-black);
+        }
+
+        .studio-info p {
+            color: var(--gray-600);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .footer-about h3 {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            color: var(--secondary-black);
+        }
+
+        .footer-about h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-black), var(--accent-black));
+            border-radius: 2px;
+        }
+
+        .footer-about p {
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--gray-medium);
+            color: var(--primary-black);
+            font-size: 14px;
+        }
+
+        .disclaimer {
+            max-width: 800px;
+            margin: 20px auto 0;
+            font-style: italic;
+            color: var(--primary-black);
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .hero-section {
+                margin-top: 100px;
+                padding: 80px 0;
+            }
+            
+            .hero-title {
+                font-size: 48px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 60px auto 0;
+            }
+            
+            .application-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .step {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
 
         @media (max-width: 768px) {
-            .info-panel {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 20px;
+            .header-content {
+                flex-wrap: wrap;
+                gap: 15px;
             }
-            .info-dates {
+            
+            .article-category {
+                order: 2;
+            }
+            
+            .navigation {
+                order: 3;
                 width: 100%;
-                justify-content: space-between;
+                justify-content: center;
+                margin-top: 10px;
             }
-            .footer-content {
-                flex-direction: column;
-                align-items: flex-start;
+            
+            .hero-section {
+                margin-top: 130px;
+                padding: 60px 0;
             }
-            .logo-text h1 {
-                font-size: 30px;
+            
+            .section-title {
+                font-size: 32px;
+            }
+            
+            .job-category {
+                padding: 30px;
+            }
+            
+            .job-category-title {
+                font-size: 28px;
+            }
+            
+            .company-card {
+                padding: 30px;
             }
         }
-        @media (max-width: 480px) {
-            .info-dates {
-                flex-direction: column;
-                gap: 12px;
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 36px;
             }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .project-card {
+                padding: 30px;
+            }
+            
+            .project-title {
+                font-size: 24px;
+            }
+            
+            .company-card {
+                padding: 30px;
+            }
+            
+            .floating-element {
+                display: none;
+            }
+            
+            .job-title {
+                font-size: 18px;
+            }
+            
+            .job-description {
+                font-size: 15px;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== KETENTUAN UMUM BADGE ===== */
+        .general-terms-badge {
+            background: var(--primary-black);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .general-terms-badge i {
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header - center & without Admin Dashboard -->
-        <header>
-            <div class="logo">
-                <img src="logo-thekachoo.png" alt="KACHOO Logo" id="logoKachoo">
-                <div class="logo-text">
-                    <h1>KACHOO</h1>
-                    <p>database system</p>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container" onclick="window.location.href='index.html'">
+                    <img src="https://placehold.co/400x100/000000/FFFFFF?text=KACHOO" alt="KACHOO Logo" id="logo">
+                    <div class="article-category">LOKER</div>
+                </div>
+                
+                <div class="navigation">
+                    <a href="index.html" class="nav-btn">
+                        <i class="fas fa-home"></i> Beranda
+                    </a>
+                    <button class="nav-btn" onclick="window.location.href='#apply'">
+                        <i class="fas fa-paper-plane"></i> Lamar Sekarang
+                    </button>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <!-- Main Content -->
-        <main>
-            <div class="dashboard-header">
-                <h2>Company Departments</h2>
-                <p>Access each department's database by clicking the cards below. Integrated system for KACHOO data management.</p>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-date">Maret 2026</span>
+                <h1 class="hero-title">Bangun Karirmu<br>di KACHOO Group</h1>
+                <p class="hero-subtitle">Kami membuka kesempatan bergabung untuk posisi strategis dan kreatif. Temukan peran yang sesuai dengan keahlianmu dan jadilah bagian dari ekosistem media yang inovatif.</p>
+                <a href="#jobs" class="cta-button scroll-animate">
+                    <i class="fas fa-search"></i> Lihat Semua Lowongan
+                </a>
             </div>
+        </div>
+    </section>
 
-            <!-- Department Cards - CORE, KAZINE, KABOOM -->
-            <div class="departments">
-                <!-- CORE → specifically for Gathur & Ningrum -->
-                <div class="department-card" data-dept="core">
-                    <div class="department-icon">
-                        <i class="fas fa-code"></i>
+    <!-- Projects Overview -->
+    <section class="projects-overview">
+        <div class="container">
+            <h2 class="section-title scroll-animate">Tiga Pilar KACHOO</h2>
+            <p class="section-subtitle scroll-animate">Ekosistem media terintegrasi yang menyatukan manajemen, fashion, dan jurnalisme untuk menciptakan dampak positif.</p>
+
+            <div class="projects-grid">
+                <div class="project-card scroll-animate">
+                    <div class="project-icon">
+                        <i class="fas fa-building"></i>
                     </div>
-                    <h3>CORE</h3>
-                    <p>Core technology development team, systems, and company infrastructure. Executive access only.</p>
-                    <div class="department-link">
-                        <span>Open Dashboard</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
+                    <h3 class="project-title">TIM INTI KACHOO</h3>
+                    <p class="project-description">Penggerak utama operasional dan strategi perusahaan. Bertanggung jawab atas manajemen eksekutif, pengembangan bisnis, serta koordinasi antar unit untuk memastikan sinergi dan pertumbuhan berkelanjutan.</p>
+                    <span class="project-tag">Manajemen & Strategi</span>
                 </div>
-
-                <!-- KAZINE → specifically for Vivi, Rafi, Claudia -->
-                <div class="department-card" data-dept="kazine">
-                    <div class="department-icon">
+                <div class="project-card scroll-animate">
+                    <div class="project-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3 class="project-title">KAZINE</h3>
+                    <p class="project-description">Majalah fashion yang menggabungkan kurasi estetik dengan gaya urban. Setiap edisi menampilkan riset mendalam, wawancara eksklusif dengan desainer, serta kolaborasi dengan kreator lokal dan internasional.</p>
+                    <span class="project-tag">Fashion & Gaya Hidup</span>
+                </div>
+                <div class="project-card scroll-animate">
+                    <div class="project-icon">
                         <i class="fas fa-newspaper"></i>
                     </div>
-                    <h3>KAZINE</h3>
-                    <p>Media and publication team. Manages content, digital magazines, and company communications.</p>
-                    <div class="department-link">
-                        <span>Open Dashboard</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                </div>
-
-                <!-- KABOOM (no specific users yet) -->
-                <div class="department-card" data-dept="kaboom">
-                    <div class="department-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>KABOOM</h3>
-                    <p>Creative & innovation team. Develops campaigns and experimental projects.</p>
-                    <div class="department-link">
-                        <span>Open Dashboard</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
+                    <h3 class="project-title">KABOOM</h3>
+                    <p class="project-description">Platform berita yang menghadirkan laporan faktual dan analisis tajam. Fokus pada isu sosial, politik, dan budaya dengan pendekatan jurnalisme mendalam yang mengutamakan akurasi dan keberimbangan.</p>
+                    <span class="project-tag">Jurnalisme & Berita</span>
                 </div>
             </div>
-
-            <!-- Info Panel Holidays (Imlek, Ramadhan, Lebaran) with dates -->
-            <div class="info-panel">
-                <div class="info-icon">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
-                <div class="info-text">
-                    <h3>Public Holidays & Joint Leave 2026</h3>
-                    <p>Note operational schedules during national holidays</p>
-                </div>
-                <div class="info-dates">
-                    <div class="date-item">
-                        <span class="date-label">Chinese New Year & Ramadhan</span>
-                        <span class="date-value">Feb 18 - Feb 22</span>
-                    </div>
-                    <div class="date-item">
-                        <span class="date-label">Eid al-Fitr</span>
-                        <span class="date-value">Mar 18 - Mar 24</span>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer>
-            <div class="footer-content">
-                <div class="copyright">
-                    <i class="far fa-copyright"></i>
-                    <span>2026 KACHOO Database System.</span>
-                </div>
-                <div class="system-info">
-                    <div class="status-indicator"></div>
-                    <span>System Active — Last updated: 12:30 PM</span>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Login Modal (popup) - no username hints -->
-    <div id="loginModal" class="modal-overlay" style="display: none;">
-        <div class="modal-card">
-            <div class="close-icon" id="closeModalBtn"><i class="fas fa-times"></i></div>
-            <h2><i class="fas fa-lock"></i> Department Access</h2>
-            <div class="modal-sub" id="deptDisplay">Enter your credentials</div>
-            
-            <div class="input-group">
-                <label><i class="fas fa-user" style="margin-right: 8px;"></i>Username</label>
-                <input type="text" id="loginUsername" placeholder="username" autocomplete="off">
-            </div>
-            <div class="input-group">
-                <label><i class="fas fa-key" style="margin-right: 8px;"></i>Password</label>
-                <input type="password" id="loginPassword" placeholder="password">
-            </div>
-
-            <div class="login-actions">
-                <button class="btn-login" id="loginBtn"><i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Login</button>
-                <button class="btn-cancel" id="cancelBtn">Cancel</button>
-            </div>
-
-            <div id="loginError" class="error-message" style="display: none;"></div>
-            <!-- NO DEMO HINT / EXAMPLE USERNAME as instructed -->
         </div>
-    </div>
+    </section>
+
+    <!-- Jobs Section -->
+    <section class="jobs-section" id="jobs">
+        <div class="container">
+            <!-- Ketentuan Umum -->
+            <div class="general-terms-badge scroll-animate">
+                <i class="fas fa-info-circle"></i>
+                <span>Hanya IC untuk update | OOC untuk pekerjaan template | Dilarang bocorkan proyek | Satu karakter per anggota</span>
+            </div>
+
+            <div class="jobs-container">
+                <!-- Manajemen Puncak & Perusahaan -->
+                <div class="job-category scroll-animate">
+                    <h2 class="job-category-title">Manajemen Puncak & Perusahaan</h2>
+                    <ul class="job-list">
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-cogs"></i> Chief Operational Officer (COO)</h3>
+                            <p class="job-description">Bertanggung jawab atas sistem operasional perusahaan, meliputi pengawasan jalannya proyek, kesesuaian prosedur, serta pemenuhan kebutuhan operasional seperti transportasi, akomodasi, dan logistik untuk memastikan efisiensi kerja.</p>
+                        </li>
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-chart-line"></i> Chief Marketing Officer (CMO)</h3>
+                            <p class="job-description">Memimpin strategi pemasaran seluruh proyek KACHOO. Bertanggung jawab menjaga kualitas penyampaian konten atau produk kepada pelanggan dan mitra eksternal, serta memastikan brand awareness tumbuh berkelanjutan.</p>
+                        </li>
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-users-cog"></i> Chief Human Resources Officer (CHRO)</h3>
+                            <p class="job-description">Mengelola penuh siklus sumber daya manusia, mulai dari rekrutmen, pengembangan karyawan, hingga hubungan industrial. Memastikan terciptanya lingkungan kerja yang kondusif dan produktif di internal perusahaan.</p>
+                        </li>
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-lightbulb"></i> Chief Strategy Officer (CSO)</h3>
+                            <p class="job-description">Mengelola pengembangan ide untuk proyek atau fitur baru di ekosistem KACHOO. Bertindak sebagai tim kreatif yang merumuskan konsep inovatif untuk proyek mendatang (upcoming project) dan memastikan keselarasan dengan visi perusahaan.</p>
+                        </li>
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-file-signature"></i> Sekretaris Perusahaan</h3>
+                            <p class="job-description">Bertanggung jawab dalam pengelolaan surat menyurat dan administrasi kesekretariatan sesuai dengan template yang telah disediakan perusahaan. Memastikan kelancaran komunikasi formal dan dokumentasi legal.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Manajemen Proyek & Staff Inti -->
+                <div class="job-category scroll-animate">
+                    <h2 class="job-category-title">Manajemen Proyek & Staff Inti</h2>
+                    <ul class="job-list">
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-tasks"></i> Manajemen Proyek Kazine</h3>
+                            <p class="job-description">Bertanggung jawab menjalankan proyek Kazine secara menyeluruh dan menjadi kepala departemen untuk proyek tersebut. Memimpin tim kreatif dan produksi, serta memastikan setiap edisi majalah selesai tepat waktu dan sesuai standar.</p>
+                        </li>
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-bolt"></i> Manajemen Proyek Kaboom</h3>
+                            <p class="job-description">Memimpin dan mengelola jalannya proyek Kaboom sebagai kepala departemen. Bertanggung jawab atas perencanaan konten, koordinasi tim redaksi, dan pengawasan distribusi berita agar tetap akurat dan relevan.</p>
+                        </li>
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-coins"></i> Staff Financial</h3>
+                            <p class="job-description">Membantu pengelolaan keuangan perusahaan, termasuk pemrosesan invoice, perhitungan gaji, dan administrasi keuangan lainnya. Memastikan pencatatan transaksi berjalan rapi dan akurat.</p>
+                        </li>
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-handshake"></i> Staff PR</h3>
+                            <p class="job-description">Membantu menjalin dan memelihara hubungan dengan mitra, media, dan publik. Menyusun siaran pers, mengelola acara, serta menjaga citra positif perusahaan di mata publik.</p>
+                        </li>
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-pencil-alt"></i> Staff Editor</h3>
+                            <p class="job-description">Membantu proses penyuntingan naskah untuk konten Kazine dan Kaboom. Memastikan tulisan sesuai dengan pedoman gaya, tata bahasa yang benar, dan layak terbit.</p>
+                        </li>
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-bullseye"></i> Staff Marketing</h3>
+                            <p class="job-description">Membantu pelaksanaan strategi pemasaran untuk produk dan konten KACHOO. Berkoordinasi dengan tim PR dan kreatif dalam menjalankan kampanye promosi di berbagai saluran.</p>
+                        </li>
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-chart-pie"></i> Staff Data Analysis</h3>
+                            <p class="job-description">Bertanggung jawab dalam pengelolaan, pengolahan, dan pensortiran data perusahaan. Menyajikan analisis data untuk mendukung pengambilan keputusan strategis di berbagai lini proyek.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Posisi Freelance -->
+                <div class="job-category scroll-animate">
+                    <h2 class="job-category-title">Posisi Freelance (Kontrak Bulanan)</h2>
+                    <ul class="job-list">
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-feather-alt"></i> Freelance Jurnalis</h3>
+                            <p class="job-description">Bergabung secara kontrak per bulan untuk menulis dan mengirimkan naskah berita yang akan dipublikasikan di platform Kaboom. Mencari, meriset, dan menyajikan berita yang akurat dan menarik.</p>
+                        </li>
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-camera-retro"></i> Freelance Photographer</h3>
+                            <p class="job-description">Berkontribusi dalam penyediaan materi fotografi untuk proyek Kazine dan Kaboom. Meliputi pemotretan model untuk majalah, serta foto lingkungan atau peristiwa untuk kebutuhan pemberitaan.</p>
+                        </li>
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-microphone-alt"></i> Freelance News Anchor</h3>
+                            <p class="job-description">Bertugas sebagai pewawancara dan penyaji berita di platform Kaboom. Melakukan wawancara dengan narasumber yang relevan dengan topik berita dan menyajikannya secara profesional di depan kamera.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Catatan Khusus Proyek -->
+                <div class="job-category scroll-animate">
+                    <h2 class="job-category-title">Catatan Khusus</h2>
+                    <ul class="job-list">
+                        <li class="job-item">
+                            <h3 class="job-title"><i class="fas fa-lock"></i> Ketentuan untuk Semua Posisi</h3>
+                            <p class="job-description">Hanya IC untuk update, dan OOC untuk pekerjaan simple yang sudah memiliki template dari perusahaan. Bertanggung jawab dan tidak membocorkan upcoming project Kachoo. Setiap anggota hanya dapat memegang satu karakter di ekosistem Kachoo, tidak diperbolehkan multi karakter.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Section -->
+    <section class="application-section" id="apply">
+        <div class="container">
+            <div class="application-container">
+                <h2 class="application-title scroll-animate">Tata Cara Melamar</h2>
+                <p class="application-text scroll-animate">Bergabunglah dengan tim dinamis kami. Kami mencari individu kreatif, bertanggung jawab, dan berkomitmen untuk membangun ekosistem media yang inovatif bersama KACHOO Group.</p>
+                
+                <div class="application-steps">
+                    <div class="step scroll-animate">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">Siapkan Berkas</h3>
+                        <p class="step-description">CV terbaru dan/atau portofolio yang relevan dengan posisi yang kamu lamar.</p>
+                    </div>
+                    <div class="step scroll-animate">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">Kirim ke DM</h3>
+                        <p class="step-description">Kirim berkas dalam format PDF atau link ke DM X (Twitter) @HaiKachoo dengan subjek: [Nama Posisi] - [Namamu].</p>
+                    </div>
+                    <div class="step scroll-animate">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">Tunggu Konfirmasi</h3>
+                        <p class="step-description">Tim kami akan meninjau lamaran dan menghubungi kandidat terpilih untuk proses selanjutnya.</p>
+                    </div>
+                </div>
+                
+                <a href="https://twitter.com/HaiKachoo" target="_blank" class="cta-button scroll-animate">
+                    <i class="fab fa-twitter"></i> Lamar via DM Sekarang
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="company-card scroll-animate">
+                    <h3>KACHOO GROUP</h3>
+                    <div class="company-info">
+                        <div>
+                            <i class="fas fa-envelope"></i>
+                            <span>hr.kachoo@gmail.com</span>
+                        </div>
+                        <div>
+                            <i class="fab fa-twitter"></i>
+                            <span>X: @TheKachoo & @HaiKachoo</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Jl. Jenderal Sudirman No. 61-62, Jakarta Selatan</span>
+                        </div>
+                    </div>
+                    <div class="studio-info">
+                        <h4>Tentang Kami</h4>
+                        <p>KACHOO adalah ekosistem media terpadu yang terdiri dari Tim Inti KACHOO, KAZINE (majalah fashion), dan KABOOM (platform berita).</p>
+                    </div>
+                </div>
+                <div class="footer-about scroll-animate">
+                    <h3>Mengapa Bergabung?</h3>
+                    <p>Kami percaya bahwa tim terbaik dibangun oleh individu-individu yang tidak hanya kompeten, tetapi juga memiliki visi yang sama. Di KACHOO, kamu akan menemukan lingkungan yang mendukung pertumbuhan profesional dan personal.</p>
+                    <p>Kami membuka pintu bagi para kreator, pemikir strategis, dan jurnalis yang ingin memberi dampak nyata melalui karya.</p>
+                    <p><i>"Membangun ekosistem ini untuk mempermudah koneksi, berbagi cerita, dan mendekatkan diri pada dunia pendidikan dan kreativitas."</i> — Kafka, Founder</p>
+                </div>
+            </div>
+            <div class="footer-bottom scroll-animate">
+                <p>&copy; 2026 KACHOO GROUP. Untuk keperluan roleplay, IC ONLY.</p>
+                <p class="disclaimer">Seluruh proses rekrutmen tidak dipungut biaya. Hati-hati terhadap penipuan. Informasi lowongan dapat berubah sesuai kebutuhan.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        (function() {
-            // ================= CREDENTIALS + REDIRECT ==================
-            // CORE only: Gathur & Ningrum
-            // KAZINE only: Vivi, Rafi, Claudia, Nona
-            // KABOOM: no users (will always fail, can be added later if needed)
-            
-            const userDB = [
-                // CORE
-                { username: "GATHUR", password: "gath61", redirect: "v1execho.html", allowedDept: "core" },
-                { username: "NINGRUM", password: "masukdulu123", redirect: "v1execho2.html", allowedDept: "core" },
-                // KAZINE
-                { username: "VIVI", password: "masukdulu123", redirect: "v1prcho.html", allowedDept: "kazine" },
-                { username: "RAFI", password: "masukdulu123", redirect: "v1zine1.html", allowedDept: "kazine" },
-                { username: "CLAUDIA", password: "masukdulu123", redirect: "v1zine2.html", allowedDept: "kazine" }
-                { username: "NONA", password: "masukdulu123", redirect: "v1CSZine.html", allowedDept: "kazine" }
-                // Kaboom has no users (can be added later if needed)
-            ];
-
-            // Elements
-            const modal = document.getElementById('loginModal');
-            const deptDisplay = document.getElementById('deptDisplay');
-            const usernameInput = document.getElementById('loginUsername');
-            const passwordInput = document.getElementById('loginPassword');
-            const loginBtn = document.getElementById('loginBtn');
-            const cancelBtn = document.getElementById('cancelBtn');
-            const closeBtn = document.getElementById('closeModalBtn');
-            const errorDiv = document.getElementById('loginError');
-
-            let selectedDept = null;  // 'core', 'kazine', 'kaboom'
-
-            // Close modal
-            function closeModal() {
-                modal.style.display = 'none';
-                usernameInput.value = '';
-                passwordInput.value = '';
-                errorDiv.style.display = 'none';
-                selectedDept = null;
-                loginBtn.disabled = false;
-                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Login';
-            }
-
-            // Show modal
-            function openModal(deptName, deptCode) {
-                deptDisplay.innerText = `Department ${deptName}`;
-                selectedDept = deptCode;
-                modal.style.display = 'flex';
-                usernameInput.focus();
-                errorDiv.style.display = 'none';
-                loginBtn.disabled = false;
-                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Login';
-            }
-
-            // Process login
-            function processLogin() {
-                const user = usernameInput.value.trim();
-                const pass = passwordInput.value.trim();
-
-                if (!user || !pass) {
-                    showError('Username and password are required');
-                    return;
-                }
-
-                // Find user with matching username & password (case-insensitive username)
-                const found = userDB.find(entry => 
-                    entry.username.toLowerCase() === user.toLowerCase() && 
-                    entry.password === pass
-                );
-
-                if (!found) {
-                    showError('Invalid username or password');
-                    return;
-                }
-
-                // Validate department access
-                if (found.allowedDept !== selectedDept) {
-                    // User exists but tries to access wrong department
-                    showError(`Account does not have access to this department.`);
-                    return;
-                }
-
-                // Success!
-                errorDiv.style.display = 'none';
-                loginBtn.disabled = true;
-                loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
-
-                // Redirect
-                setTimeout(() => {
-                    window.location.href = found.redirect;
-                }, 400);
-            }
-
-            function showError(msg) {
-                errorDiv.innerText = msg;
-                errorDiv.style.display = 'block';
-                loginBtn.disabled = false;
-                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Login';
-            }
-
-            // Event listener for cards
-            const cards = document.querySelectorAll('.department-card');
-            cards.forEach(card => {
-                card.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const deptName = this.querySelector('h3').innerText;  // "CORE", "KAZINE", "KABOOM"
-                    let deptCode = '';
-                    if (deptName === 'CORE') deptCode = 'core';
-                    else if (deptName === 'KAZINE') deptCode = 'kazine';
-                    else if (deptName === 'KABOOM') deptCode = 'kaboom';
-
-                    // Open modal, store department code
-                    openModal(deptName, deptCode);
-                });
+        // Logo animation
+        const logo = document.getElementById('logo');
+        if (logo) {
+            logo.addEventListener('click', function() {
+                this.classList.remove('logo-kachoo');
+                void this.offsetWidth;
+                this.classList.add('logo-kachoo');
             });
-
-            // Login button click
-            loginBtn.addEventListener('click', processLogin);
-
-            // Enter key on password field
-            passwordInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    processLogin();
+        }
+        
+        // Scroll animations
+        const scrollElements = document.querySelectorAll('.scroll-animate');
+        const elementInView = (el, dividend = 1) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend;
+        };
+        const displayScrollElement = (element) => { element.classList.add('visible'); };
+        const hideScrollElement = (element) => { element.classList.remove('visible'); };
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 1.2)) displayScrollElement(el);
+                else hideScrollElement(el);
+            });
+        };
+        
+        // Throttle scroll
+        let scrolling = false;
+        window.addEventListener('scroll', () => {
+            if (!scrolling) {
+                scrolling = true;
+                setTimeout(() => { handleScrollAnimation(); scrolling = false; }, 100);
+            }
+        });
+        handleScrollAnimation();
+        
+        // Job item click to toggle description (show/hide)
+        document.querySelectorAll('.job-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                // Prevent toggling when clicking on a link inside (if any)
+                if (e.target.tagName === 'A') return;
+                this.classList.toggle('active');
+            });
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
                 }
             });
-
-            // Cancel & close buttons
-            cancelBtn.addEventListener('click', closeModal);
-            closeBtn.addEventListener('click', closeModal);
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) closeModal();
-            });
-
-            // Logo fallback
-            const logo = document.getElementById('logoKachoo');
-            if (logo) {
-                logo.onerror = function() {
-                    this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='48' fill='%23fff' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E";
-                };
-            }
-
-            // Update footer time
-            function updateSystemTime() {
-                const now = new Date();
-                const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-                const span = document.querySelector('.system-info span');
-                if (span) span.textContent = `System Active — Last updated: ${timeString}`;
-            }
-            updateSystemTime();
-            setInterval(updateSystemTime, 60000);
-        })();
+        });
+        
+        // Initial animation trigger
+        document.addEventListener('DOMContentLoaded', () => {
+            handleScrollAnimation();
+            setTimeout(() => { if(logo) logo.classList.add('logo-kachoo'); }, 1500);
+        });
     </script>
 </body>
 </html>
