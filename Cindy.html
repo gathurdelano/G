@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>Welcome Cindy</title>
   <style>
-    /* reset & fullscreen */
+    /* reset total */
     * {
       margin: 0;
       padding: 0;
@@ -14,35 +14,35 @@
 
     body, html {
       width: 100%;
-      height: 100%;
-      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-      overflow: hidden;
-      background: #0b0b0b;
+      min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #0a0a0a;
+      overflow-x: hidden;
     }
 
-    /* ===== SPLASH OVERLAY ===== */
+    /* splash screen */
     #splash {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #010101;
-      color: white;
+      background-color: #000000;
+      color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 200;
-      transition: opacity 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+      transition: opacity 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       pointer-events: none;
-      font-size: clamp(2rem, 12vw, 5rem);
+      font-size: clamp(2.2rem, 15vw, 5.5rem);
       font-weight: 300;
-      letter-spacing: 4px;
-      text-shadow: 0 0 20px rgba(255,255,240,0.3);
+      letter-spacing: 0.2rem;
+      text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(2px);
     }
 
-    /* ===== background gradien bergerak (ombak) ===== */
+    /* background gradien bergerak seperti ombak */
     .ocean-bg {
       position: fixed;
       top: 0;
@@ -50,72 +50,76 @@
       width: 100%;
       height: 100%;
       z-index: 0;
-      background: linear-gradient(145deg, #fcfcfc 0%, #c7c7c7 45%, #ececec 70%, #a3a3a3 100%);
+      background: linear-gradient(145deg, #f5f5f5 0%, #c0c0c0 35%, #e8e8e8 65%, #9f9f9f 100%);
       background-size: 300% 300%;
-      animation: waveMotion 18s ease-in-out infinite alternate;
+      animation: waveMotion 20s ease-in-out infinite alternate;
+      will-change: background-position;
     }
 
     @keyframes waveMotion {
-      0% { background-position: 0% 30%; }
-      25% { background-position: 30% 50%; }
-      50% { background-position: 70% 20%; }
-      75% { background-position: 40% 80%; }
-      100% { background-position: 100% 40%; }
+      0% { background-position: 10% 20%; }
+      30% { background-position: 40% 60%; }
+      60% { background-position: 70% 30%; }
+      100% { background-position: 90% 80%; }
     }
 
+    /* overlay gelap tipis untuk keterbacaan */
     .overlay-panel {
       position: relative;
       z-index: 5;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       background-color: rgba(0, 0, 0, 0.02);
-      backdrop-filter: blur(1px);
-      padding: 1rem;
+      backdrop-filter: blur(1.5px);
+      padding: 1.2rem;
     }
 
-    /* kartu utama */
+    /* kartu utama - bersih dan elegan */
     .content-card {
       background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-radius: 48px 16px 48px 16px;
-      box-shadow: 0 30px 50px -20px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,0,0,0.08) inset;
-      padding: 2.5rem 2.8rem;
-      max-width: 750px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 40px 16px 40px 16px;
+      box-shadow: 0 30px 50px -30px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,0,0,0.1) inset;
+      padding: 2.2rem 2rem;
+      max-width: 800px;
       width: 100%;
-      transition: transform 0.3s ease;
-      color: #1a1a1a;
-      border: 1px solid rgba(255,255,255,0.4);
+      margin: 1rem auto;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: all 0.3s;
     }
 
+    /* hint label - minimal */
     .hint-label {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       text-transform: uppercase;
-      letter-spacing: 4px;
-      font-weight: 400;
-      border-bottom: 1px solid #111;
+      letter-spacing: 0.4rem;
+      font-weight: 350;
+      border-bottom: 1px solid #1e1e1e;
       display: inline-block;
-      padding-bottom: 6px;
-      margin-bottom: 1.5rem;
+      padding-bottom: 0.6rem;
+      margin-bottom: 1.8rem;
       color: #111;
     }
 
+    /* teks hint */
     .hint-text {
-      font-size: 1.2rem;
-      line-height: 1.7;
-      font-weight: 350;
-      background: rgba(0,0,0,0.02);
-      padding: 1.8rem 1.8rem;
-      border-radius: 32px 8px 32px 8px;
-      margin: 1.8rem 0 2.5rem 0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      font-size: 1.1rem;
+      line-height: 1.75;
+      font-weight: 320;
+      background: rgba(0, 0, 0, 0.02);
+      padding: 1.8rem 1.6rem;
+      border-radius: 28px 8px 28px 8px;
+      margin: 1.8rem 0 2.2rem 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
       border: 1px dashed #3a3a3a;
-      color: #131313;
+      color: #141414;
     }
 
+    /* area password */
     .password-area {
       display: flex;
       flex-direction: column;
@@ -126,52 +130,57 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 1rem;
+      gap: 0.8rem 1rem;
     }
 
     .password-row label {
-      font-weight: 500;
-      font-size: 1.25rem;
-      letter-spacing: 1px;
-      color: #0f0f0f;
+      font-weight: 380;
+      font-size: 1.2rem;
+      letter-spacing: 0.1rem;
+      color: #111;
+      min-width: 90px;
     }
 
     #passwordInput {
-      flex: 1 1 240px;
-      padding: 1rem 1.2rem;
-      font-size: 1.3rem;
-      background: white;
-      border: 2px solid #1e1e1e;
-      border-radius: 48px;
+      flex: 1 1 220px;
+      padding: 1rem 1.4rem;
+      font-size: 1.2rem;
+      background: #ffffff;
+      border: 2px solid #1b1b1b;
+      border-radius: 50px;
       outline: none;
       transition: all 0.2s;
-      color: #111;
-      font-weight: 350;
-      text-transform: uppercase; /* visual uppercase, tetap terima lowercase */
+      color: #121212;
+      font-weight: 340;
+      text-transform: uppercase; /* hanya visual, input asli tetap */
+      -webkit-appearance: none;
+      appearance: none;
     }
 
     #passwordInput:focus {
-      border-color: #505050;
-      box-shadow: 0 0 0 4px rgba(0,0,0,0.1);
+      border-color: #4f4f4f;
+      box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.08);
     }
 
     .check-button {
-      background: #121212;
+      background: #151515;
       border: none;
-      color: white;
-      padding: 1rem 2.4rem;
-      font-size: 1.3rem;
+      color: #f0f0f0;
+      padding: 1rem 2.5rem;
+      font-size: 1.25rem;
       border-radius: 60px;
-      font-weight: 400;
-      letter-spacing: 1.5px;
+      font-weight: 340;
+      letter-spacing: 0.15rem;
       cursor: pointer;
-      transition: 0.15s;
-      border: 1px solid #2d2d2d;
+      transition: all 0.15s;
+      border: 1px solid #3a3a3a;
       box-shadow: 0 6px 0 #000;
+      width: fit-content;
+      min-width: 180px;
     }
 
     .check-button:hover {
-      background: #2b2b2b;
+      background: #2a2a2a;
       transform: translateY(-2px);
       box-shadow: 0 8px 0 #000;
     }
@@ -182,181 +191,223 @@
     }
 
     .feedback {
-      margin-top: 1rem;
-      font-size: 1.1rem;
-      min-height: 2.5rem;
-      font-weight: 350;
-      color: #1d1d1d;
-      border-left: 4px solid #1a1a1a;
-      padding-left: 1rem;
+      margin-top: 0.8rem;
+      font-size: 1rem;
+      min-height: 2.8rem;
+      font-weight: 340;
+      color: #1f1f1f;
+      border-left: 4px solid #222;
+      padding-left: 1.2rem;
       background: rgba(0,0,0,0.02);
       border-radius: 0 20px 20px 0;
+      line-height: 1.5;
     }
 
-    /* ===== AREA FOTO (muncul setelah jawaban benar) ===== */
+    /* area foto yang muncul setelah unlock */
     .photo-reveal {
-      margin-top: 2rem;
-      border-top: 2px solid #3b3b3b;
-      padding-top: 1.8rem;
-      transition: all 0.4s ease;
+      margin-top: 2.5rem;
+      border-top: 1px solid #3c3c3c;
+      padding-top: 2rem;
+      transition: opacity 0.3s;
     }
 
     .photo-title {
-      font-size: 1rem;
-      letter-spacing: 3px;
+      font-size: 0.9rem;
+      letter-spacing: 0.3rem;
       text-transform: uppercase;
-      color: #1f1f1f;
-      margin-bottom: 1rem;
-      font-weight: 350;
+      color: #1e1e1e;
+      margin-bottom: 1.2rem;
+      font-weight: 320;
     }
 
-    .image-container {
-      background: rgba(255,255,255,0.3);
-      border-radius: 32px 8px 32px 8px;
+    .image-frame {
+      background: rgba(250,250,250,0.5);
+      border-radius: 28px 8px 28px 8px;
       padding: 1rem;
-      border: 2px dashed #2d2d2d;
+      border: 2px dashed #2b2b2b;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    .image-container img {
+    .image-frame img {
       max-width: 100%;
-      max-height: 260px;
-      border-radius: 24px 4px 24px 4px;
-      box-shadow: 0 15px 25px -10px rgba(0,0,0,0.5);
+      max-height: 300px;
+      border-radius: 20px 4px 20px 4px;
+      box-shadow: 0 20px 25px -15px rgba(0,0,0,0.6);
       display: block;
       object-fit: contain;
-      background: #f2f2f2;
+      background: #eaeaea;
     }
 
     .placeholder-note {
-      color: #2e2e2e;
+      color: #2d2d2d;
       font-size: 1rem;
-      padding: 2rem;
+      padding: 2rem 1rem;
       text-align: center;
-      background: #f0f0f0;
+      background: #efefef;
       border-radius: 24px;
       width: 100%;
-      border: 1px solid #aaa;
-      font-style: italic;
+      border: 1px solid #a7a7a7;
+      font-style: normal;
+      font-weight: 300;
     }
 
-    .music-credit {
-      margin-top: 2rem;
+    /* audio player */
+    .music-section {
+      margin-top: 2.5rem;
       font-size: 0.85rem;
-      color: #2c2c2c;
+      color: #2b2b2b;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      gap: 8px;
-      border-top: 1px solid #aaa;
-      padding-top: 1rem;
+      gap: 0.8rem 1rem;
+      border-top: 1px solid #9f9f9f;
+      padding-top: 1.5rem;
     }
 
-    .music-credit audio {
-      height: 36px;
-      width: 220px;
-      opacity: 0.85;
-      border-radius: 36px;
+    .music-section audio {
+      height: 40px;
+      width: 240px;
+      border-radius: 40px;
+      background: #f2f2f2;
     }
 
     .small-note {
       color: #2e2e2e;
-      font-size: 0.9rem;
-      margin-top: 0.8rem;
-      opacity: 0.7;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      opacity: 0.65;
+      font-weight: 300;
     }
 
-    @media (max-width: 480px) {
-      .content-card { padding: 1.8rem; }
-      .hint-text { font-size: 1rem; padding: 1.2rem; }
+    /* penyesuaian mobile */
+    @media (max-width: 550px) {
+      .content-card {
+        padding: 1.8rem 1.4rem;
+      }
+      .hint-text {
+        font-size: 1rem;
+        padding: 1.4rem 1.2rem;
+      }
+      .password-row label {
+        min-width: 80px;
+        font-size: 1.1rem;
+      }
+      #passwordInput {
+        padding: 0.9rem 1.2rem;
+        font-size: 1.1rem;
+      }
+      .check-button {
+        padding: 0.9rem 1.8rem;
+        font-size: 1.1rem;
+        min-width: 150px;
+      }
+      .music-section {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .music-section audio {
+        width: 100%;
+        max-width: 280px;
+      }
+    }
+
+    /* perbaikan untuk layar sangat kecil */
+    @media (max-width: 380px) {
+      .password-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .password-row label {
+        margin-bottom: 0.2rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- SPLASH: welcome cindy -->
-  <div id="splash">welcome cindy</div>
+  <!-- splash welcome cindy sebentar -->
+  <div id="splash">Welcome Cindy</div>
 
-  <!-- BACKGROUND OMBAK -->
+  <!-- background gradien bergerak (ombak) -->
   <div class="ocean-bg"></div>
 
-  <!-- LAPISAN UTAMA -->
+  <!-- konten utama -->
   <div class="overlay-panel">
-    <div class="content-card" id="mainCard">
+    <div class="content-card">
 
       <!-- hint label -->
-      <div class="hint-label">~ hint ~</div>
+      <div class="hint-label">hint</div>
 
-      <!-- hint text (persis) -->
+      <!-- hint text (tanpa perubahan kata) -->
       <div class="hint-text">
         "Any pattern created on the ground here is temporary and will eventually be replaced by new ones. They are the earliest marks that appear before anything meaningful begins to take shape. Focus on the last word of the first line. Do not walk around it, do not touch it, and be careful. Instead, look up at the wide blue sky above, and allow yourself to forget how heavy everything feels."
       </div>
 
-      <!-- password area -->
+      <!-- password input + tombol -->
       <div class="password-area">
         <div class="password-row">
           <label for="passwordInput">password</label>
-          <input type="text" id="passwordInput" placeholder="••••••" autocomplete="off">
+          <input type="text" id="passwordInput" placeholder="········" autocomplete="off">
         </div>
-        <button class="check-button" id="checkPassBtn">unlock →</button>
+        <button class="check-button" id="checkPassBtn">unlock</button>
         <div class="feedback" id="feedbackMsg"></div>
       </div>
 
-      <!-- AREA FOTO (awalnya tersembunyi, muncul kalau password benar) -->
+      <!-- area foto (muncul setelah password benar) -->
       <div id="photoRevealBlock" class="photo-reveal" style="display: none;">
-        <div class="photo-title">🌊 a view to remember</div>
-        <div class="image-container" id="photoContainer">
-          <!-- tempat foto PNG nanti diisi oleh pengguna (src diganti) -->
-          <img id="dynamicPhoto" src="" alt="[ Cindy's photo – place your PNG here ]" style="display: none;">
-          <div id="photoPlaceholder" class="placeholder-note">⬇ letakkan file PNG di sini nanti (src atribut)</div>
+        <div class="photo-title">a view to remember</div>
+        <div class="image-frame" id="photoContainer">
+          <img id="dynamicPhoto" src="" alt="[ tempatkan file png di sini ]" style="display: none;">
+          <div id="photoPlaceholder" class="placeholder-note">ganti src gambar dengan file png</div>
         </div>
-        <div class="small-note" style="margin-top:0.7rem;">* foto muncul setelah password benar</div>
+        <div class="small-note" style="margin-top: 0.7rem;">* foto muncul setelah password benar</div>
       </div>
 
-      <!-- MP3 PLAYER (otomatis) -->
-      <div class="music-credit">
-        <span>🌊 lagu (otomatis) :</span>
+      <!-- audio player (lagu otomatis) -->
+      <div class="music-section">
+        <span>lagu (otomatis)</span>
         <audio id="bgMusic" loop controls>
           <source src="" type="audio/mpeg">
-          browser tidak mendukung audio.
+          browser tidak mendukung audio
         </audio>
       </div>
       <div class="small-note">
-        jawaban tidak case sensitive · rahasia
+        Buatan Kafka!
       </div>
     </div>
   </div>
 
   <script>
     (function() {
-      // SPLASH
+      // splash fade
       const splash = document.getElementById('splash');
       setTimeout(() => {
         splash.style.opacity = '0';
         setTimeout(() => {
           splash.style.display = 'none';
-        }, 1300);
+        }, 1400);
       }, 1500);
 
-      // ===== AUTOPLAY MUSIC (dengan fallback) =====
+      // autoplay musik (dengan usaha maksimal)
       const music = document.getElementById('bgMusic');
       function attemptAutoplay() {
         music.volume = 0.4;
         let playPromise = music.play();
         if (playPromise !== undefined) {
-          playPromise.catch(err => {
-            console.warn("autoplay diblokir:", err);
+          playPromise.catch(() => {
+            // jika diblokir, coba play setelah interaksi pertama di body
             document.body.addEventListener('click', function initPlay() {
-              music.play().catch(e => {});
+              music.play().catch(() => {});
               document.body.removeEventListener('click', initPlay);
             }, { once: true });
           });
         }
       }
-      setTimeout(attemptAutoplay, 2000);
+      setTimeout(attemptAutoplay, 2100);
 
-      // ===== LOGIC PASSWORD & MUNCULKAN FOTO =====
+      // logic password & reveal foto
       const inputField = document.getElementById('passwordInput');
       const checkBtn = document.getElementById('checkPassBtn');
       const feedback = document.getElementById('feedbackMsg');
@@ -364,45 +415,31 @@
       const dynamicImg = document.getElementById('dynamicPhoto');
       const placeholderDiv = document.getElementById('photoPlaceholder');
 
-      // Jawaban rahasia (case insensitive)
-      const SECRET = "Beach";
+      const SECRET = "Beach";  // jawaban benar (case insensitive)
 
-      // State apakah sudah pernah unlock (agar foto tidak hide lagi)
-      let unlocked = false;
+      // state untuk sekali muncul
+      let everUnlocked = false;
 
       function checkPassword() {
         let userValue = inputField.value.trim();
         if (userValue === "") {
-          feedback.innerText = "⛔ password tidak boleh kosong.";
+          feedback.innerText = "password tidak boleh kosong.";
           return;
         }
 
         if (userValue.toLowerCase() === SECRET.toLowerCase()) {
-          feedback.innerHTML = "✓ benar. rahasia terungkap — lihatlah foto di bawah.";
+          feedback.innerHTML = "Cie bener!";
           inputField.style.borderColor = "#2e7d32";
 
-          // Tampilkan area foto jika belum terlihat
-          if (!unlocked) {
+          if (!everUnlocked) {
             photoBlock.style.display = 'block';
-            unlocked = true;
-
-            // Karena user akan memasukkan PNG sendiri, kita tampilkan img dan sembunyikan placeholder
-            // Tapi src masih kosong, jadi img tetap hidden, placeholder muncul.
-            // Kita atur: saat pertama unlock, placeholder tetap terlihat sebagai petunjuk.
-            // Namun kita juga bisa mengizinkan img ditampilkan jika sudah ada src.
-            // Untuk UX, kita sembunyikan placeholder jika src sudah terisi nanti.
-            // Tapi untuk awal, placeholder ditampilkan, img tetap display:none.
-            // Nanti user bisa ganti src melalui devtools atau kita kasih mekanisme sederhana? 
-            // sesuai instruksi "pakai png nnti aku yg masukin", jadi kita hanya siapkan elemen.
-            // Biarkan pengguna mengganti src img melalui inspector, atau upload? 
-            // tapi lebih simple: kita kasih tahu caranya.
-            // kita tambahkan sedikit petunjuk di placeholder.
-            placeholderDiv.innerText = '🔲 ganti src gambar dengan file PNG-mu (inspeksi elemen)';
+            everUnlocked = true;
+            // beri petunjuk untuk mengganti src
+            placeholderDiv.innerText = 'ganti src gambar dengan file png (inspeksi elemen)';
           }
         } else {
-          feedback.innerHTML = "✗ masih belum tepat, cermati hint.";
+          feedback.innerHTML = "masih belum tepat, cermati hint.";
           inputField.style.borderColor = "#b71c1c";
-          // Tidak menyembunyikan foto jika pernah muncul, biarkan tetap ada.
         }
       }
 
@@ -411,40 +448,30 @@
         if (e.key === 'Enter') checkPassword();
       });
 
-      // Sedikit membantu: jika user ingin mengganti foto, kita bisa mendengarkan perubahan atribut src
-      // Tapi cukup biarkan mereka mengisi src img melalui console / inspector.
-      // Namun kita tambahkan sedikit logika: ketika src img diisi (setelah unlock) maka placeholder bisa disembunyikan.
-      // kita pantau perubahan src menggunakan MutationObserver sederhana? agar lebih ramah.
-      // Ini opsional tapi memperbaiki UX: jika src gambar diisi, placeholder hilang dan img muncul.
+      // observer untuk src gambar: jika diisi, tampilkan img dan sembunyikan placeholder
+      dynamicImg.style.display = 'none';
+      placeholderDiv.style.display = 'flex';
+
       const observer = new MutationObserver((mutations) => {
         mutations.forEach((mut) => {
           if (mut.attributeName === 'src') {
-            if (dynamicImg.src && dynamicImg.src !== '' && !dynamicImg.src.endsWith('null') && !dynamicImg.src.includes('undefined')) {
-              // ada src yang valid
+            if (dynamicImg.src && dynamicImg.src !== '' && !dynamicImg.src.includes('null') && dynamicImg.src !== window.location.href) {
               dynamicImg.style.display = 'block';
               placeholderDiv.style.display = 'none';
             } else {
               dynamicImg.style.display = 'none';
-              placeholderDiv.style.display = 'flex'; // tampilkan placeholder lagi
+              placeholderDiv.style.display = 'flex';
             }
           }
         });
       });
       observer.observe(dynamicImg, { attributes: true });
 
-      // Inisialisasi: jika belum ada src, img hidden.
-      dynamicImg.style.display = 'none';
-      placeholderDiv.style.display = 'flex';
-
-      // Juga sembunyikan photoBlock di awal (belum di-unlock)
+      // inisialisasi sembunyi
       photoBlock.style.display = 'none';
-
-      // Untuk keperluan demo, kita tidak menaruh jawaban di mana pun kecuali variabel SECRET.
-      // Hint mengarah ke "Beach" (pantai) seperti sebelumnya.
     })();
   </script>
 
-  <!-- Hint terakhir: "Focus on the last word of the first line." first line ends with "temporary".
-       Namun dikaitkan dengan luasnya langit biru, pasir pantai. Jawaban: Beach (case insensitive) -->
+  <!-- jawaban: beach (dari petunjuk kata terakhir baris pertama "temporary" → pasir pantai) -->
 </body>
-                                        </html>
+            </html>
