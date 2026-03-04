@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Welcome Cindy</title>
+  <title>Hello Cindy</title>
   <style>
     /* reset total */
     * {
@@ -328,7 +328,7 @@
 <body>
 
   <!-- splash welcome cindy sebentar -->
-  <div id="splash">For Cindy Lou</div>
+  <div id="splash">Hello Cindy</div>
 
   <!-- background gradien bergerak (ombak) -->
   <div class="ocean-bg"></div>
@@ -357,10 +357,10 @@
 
       <!-- area foto (muncul setelah password benar) -->
       <div id="photoRevealBlock" class="photo-reveal" style="display: none;">
-        <div class="photo-title">a view to remember</div>
+        <div class="photo-title">Lets be happy!</div>
         <div class="image-frame" id="photoContainer">
-          <img id="dynamicPhoto" src="forcindy.jpg" alt="[forcindy.jpg]" style="display: none;">
-          <div id="photoPlaceholder" class="placeholder-note"></div>
+          <img id="dynamicPhoto" src="forcindy.jpg" alt="forcindy" style="max-width: 100%; max-height: 300px; display: block;">
+          <div id="photoPlaceholder" class="placeholder-note" style="display: none;"></div>
         </div>
       </div>
 
@@ -433,8 +433,7 @@
           if (!everUnlocked) {
             photoBlock.style.display = 'block';
             everUnlocked = true;
-            // beri petunjuk untuk mengganti src
-            placeholderDiv.innerText = 'forcindy.jpg';
+            // Foto langsung tampil karena sudah ada src, placeholder sudah disembunyikan
           }
         } else {
           feedback.innerHTML = "masih belum tepat, cermati hint.";
@@ -447,24 +446,12 @@
         if (e.key === 'Enter') checkPassword();
       });
 
-      // observer untuk src gambar: jika diisi, tampilkan img dan sembunyikan placeholder
-      dynamicImg.style.display = 'none';
-      placeholderDiv.style.display = 'flex';
+      // Foto langsung visible karena src sudah ada, placeholder disembunyikan dari awal
+      dynamicImg.style.display = 'block';
+      placeholderDiv.style.display = 'none';
 
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mut) => {
-          if (mut.attributeName === 'src') {
-            if (dynamicImg.src && dynamicImg.src !== '' && !dynamicImg.src.includes('null') && dynamicImg.src !== window.location.href) {
-              dynamicImg.style.display = 'block';
-              placeholderDiv.style.display = 'none';
-            } else {
-              dynamicImg.style.display = 'none';
-              placeholderDiv.style.display = 'flex';
-            }
-          }
-        });
-      });
-      observer.observe(dynamicImg, { attributes: true });
+      // Hapus observer yang bermasalah
+      // const observer = ... (dihapus)
 
       // inisialisasi sembunyi
       photoBlock.style.display = 'none';
@@ -473,4 +460,4 @@
 
   <!-- jawaban: beach (dari petunjuk kata terakhir baris pertama "temporary" → pasir pantai) -->
 </body>
-            </html>
+    </html>
