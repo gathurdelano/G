@@ -3,359 +3,303 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kachoo Building (tanpa judul)</title>
+  <title>Kachoo Building (pure B&W)</title>
+  <!-- Inter font & minimal icons (only arrow for CTA, no emoticons/symbols) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
   <style>
-    /* RESET & DASAR */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    html, body {
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #000000;
+      color: #FFFFFF;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow: hidden; /* fullscreen scenes, no scroll on body */
       width: 100%;
       height: 100%;
-      overflow: hidden;         /* mencegah scroll */
-      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
     }
 
-    /* LAYER BACKGROUND UTAMA (full screen) */
+    /* scene layers */
     .scene {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      transition: background-image 0.9s ease, filter 0.6s ease;
-      /* efek gelap lembut via overlay terpisah agar tidak mengganggu transisi */
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* overlay gelap seragam (tipis) */
+    /* dark overlay – 'rada gelap' but not too dark: 20% black */
     .scene::after {
       content: '';
       position: absolute;
       inset: 0;
-      background-color: rgba(0, 0, 0, 0.2);  /* 20% gelap — 'rada gelap tp jgn terlalu' */
-      pointer-events: none;  /* tombol tetap bisa diklik */
+      background-color: rgba(0, 0, 0, 0.2); 
+      pointer-events: none;
       z-index: 1;
-      transition: background-color 0.5s;
     }
 
-    /* semua konten di atas overlay */
+    /* all content above overlay */
     .content {
       position: relative;
-      z-index: 10;
+      z-index: 20;
       width: 100%;
-      height: 100%;
+      max-width: 1280px;
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
     }
 
-    /* ========== TAMPILAN AWAL (building) ========== */
-    #scene-1 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22 width=%22100%%22 height=%22100%%22><rect width=%22400%22 height=%22300%22 fill=%22%23222c3a%22/><rect x=%2250%22 y=%2280%22 width=%22300%22 height=%22160%22 fill=%22%233a4a5e%22 rx=%228%22/><rect x=%22120%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22240%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22100%22 y=%22200%22 width=%22200%22 height=%2220%22 fill=%22%231a2532%22/><circle cx=%22200%22 cy=%22100%22 r=%2212%22 fill=%22%23aab7c9%22 /></svg>'); /* building.png gaya */
-      /* catatan: karena file asli building.png tidak tersedia, kita gunakan SVG ilustratif.
-         Jika di lingkungan nyata, ganti url dengan 'building.png' */
+    /* hidden state for scene switch */
+    .scene.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
-    /* ========== TAMPILAN GROUND (lobby) ========== */
-    #scene-2 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23354b42%22/><rect x=%2230%22 y=%2250%22 width=%22340%22 height=%22200%22 fill=%22%236a7c70%22 rx=%2216%22/><rect x=%2280%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><rect x=%22260%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><circle cx=%22200%22 cy=%22150%22 r=%2230%22 fill=%22%23cadfd1%22 opacity=%220.6%22 /></svg>'); /* lobby.png ilustrasi */
+    /* ---------- specific backgrounds (SVG fallback – replace with real png if needed) ---------- */
+    #scene-building {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23222c3a%22/><rect x=%2250%22 y=%2280%22 width=%22300%22 height=%22160%22 fill=%22%233a4a5e%22 rx=%228%22/><rect x=%22120%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22240%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22100%22 y=%22200%22 width=%22200%22 height=%2220%22 fill=%22%231a2532%22/><circle cx=%22200%22 cy=%22100%22 r=%2212%22 fill=%22%23aab7c9%22 /></svg>');
+    }
+    #scene-lobby {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23354b42%22/><rect x=%2230%22 y=%2250%22 width=%22340%22 height=%22200%22 fill=%22%236a7c70%22 rx=%2216%22/><rect x=%2280%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><rect x=%22260%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><circle cx=%22200%22 cy=%22150%22 r=%2230%22 fill=%22%23cadfd1%22 opacity=%220.6%22 /></svg>');
     }
 
-    /* TOMBOL UTAMA (container) */
+    /* ---------- welcome message – pure text, clean B&W ---------- */
+    .welcome-message {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      width: 100%;
+    }
+
+    .welcome-message h1 {
+      font-size: clamp(2rem, 10vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      line-height: 1.1;
+    }
+
+    .welcome-message p {
+      font-size: clamp(1rem, 4vw, 1.3rem);
+      font-weight: 400;
+      color: #EEEEEE;
+      opacity: 0.9;
+      margin-top: 0.75rem;
+    }
+
+    /* ---------- container tombol – pure black/white, glass ---------- */
     .button-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.2rem;
+      gap: 1rem;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
-      background-color: rgba(10, 15, 20, 0.55);  /* gelap transparan, biar tombol kebaca */
-      backdrop-filter: blur(6px);
-      border-radius: 64px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 25px 40px -10px rgba(0, 0, 0, 0.5);
-      transform: scale(1);
-      transition: opacity 0.6s ease, transform 0.4s ease;
-      max-width: 90vw;
-      margin: 1rem;
+      padding: 2rem 2.5rem;
+      background: rgba(0, 0, 0, 0.65);  
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.7);
+      max-width: 1000px;
+      margin: 0 auto;
     }
 
-    /* tiap tombol */
+    /* tombol persis gaya referensi: bold, inter, transisi */
     .floor-btn {
-      padding: 1rem 2.2rem;
-      font-size: 1.3rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      color: white;
-      background: rgba(20, 30, 40, 0.8);
-      backdrop-filter: blur(8px);
-      border: 2px solid rgba(255, 255, 255, 0.25);
-      border-radius: 60px;
+      padding: 1rem 2rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: #FFFFFF;
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-      transition: all 0.25s;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       text-decoration: none;
-      display: inline-block;
-      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
       min-width: 160px;
+      backdrop-filter: blur(4px);
+      background-color: rgba(0, 0, 0, 0.4);
     }
 
     .floor-btn:hover {
-      background: rgba(50, 70, 100, 0.9);
-      border-color: rgba(255, 240, 160, 0.7);
-      transform: scale(1.05) translateY(-3px);
-      box-shadow: 0 18px 30px -5px black;
+      background-color: #FFFFFF;
+      color: #000000;
+      border-color: #FFFFFF;
+      transform: scale(1.03) translateY(-2px);
+      box-shadow: 0 20px 30px -8px #000000;
     }
 
-    /* pesan awal: klik di mana saja (petunjuk halus) */
-    .enter-hint {
-      color: rgba(255, 255, 255, 0.8);
-      text-shadow: 0 2px 10px black;
-      font-size: 1.4rem;
-      background: rgba(0,0,0,0.3);
-      padding: 0.6rem 2rem;
-      border-radius: 60px;
+    /* floor indicator (ground floor label) */
+    .floor-label {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: #CCCCCC;
+      background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(4px);
-      border: 1px solid rgba(255,215,0,0.3);
+      padding: 0.5rem 1.8rem;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-transform: uppercase;
+    }
+
+    /* enter hint not used anymore — replaced with welcome message that also triggers */
+    .enter-area {
       cursor: pointer;
-      transition: 0.3s;
-      margin-bottom: 2rem;
-      animation: softPulse 2s infinite;
-    }
-
-    .enter-hint:hover {
-      background: rgba(30, 30, 30, 0.7);
-      border-color: gold;
-    }
-
-    @keyframes softPulse {
-      0% { opacity: 0.9; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.02); background: rgba(20,20,30,0.5); }
-      100% { opacity: 0.9; transform: scale(1); }
-    }
-
-    /* transisi fade antar scene */
-    .fade-transition {
-      transition: background-image 1.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s;
-    }
-
-    /* elemen yg sengaja disembunyikan */
-    .hidden {
-      display: none !important;
-    }
-
-    /* utility */
-    .full-center {
+      width: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      width: 100%;
-      height: 100%;
+      justify-content: center;
     }
 
-    /* tambahan gradasi pudar saat transisi antar konten (opsional) */
-    .content-fade-enter {
-      opacity: 0;
-    }
-    .content-fade-enter-active {
-      opacity: 1;
-      transition: opacity 0.7s;
+    /* no icons/emoticons – just pure text and minimalist arrow for CTA? 
+       but we removed all symbols, so even the arrow should not appear.
+       In reference there is <i class="fas fa-arrow-right"></i> but we omit font-awesome entirely.
+       So no arrow, just text. */
+
+    /* responsive adjustments */
+    @media (max-width: 700px) {
+      .button-container {
+        padding: 1.8rem 1.5rem;
+        gap: 0.8rem;
+        border-radius: 28px;
+        width: 95%;
+      }
+      .floor-btn {
+        padding: 0.9rem 1.2rem;
+        font-size: 1rem;
+        min-width: 140px;
+        flex: 1 0 auto;
+        max-width: 260px;
+      }
+      .welcome-message h1 {
+        font-size: clamp(2rem, 8vw, 3rem);
+      }
     }
 
-    /* untuk memudahkan klik di area luas */
-    .click-catcher {
-      position: absolute;
-      inset: 0;
-      z-index: 5;
-      cursor: pointer;
+    @media (max-width: 480px) {
+      .floor-btn {
+        min-width: 100%;
+        max-width: 100%;
+        padding: 1rem 1.2rem;
+      }
+      .button-container {
+        padding: 1.5rem 1rem;
+      }
+      .floor-label {
+        font-size: 0.8rem;
+        padding: 0.4rem 1.2rem;
+      }
     }
 
-    /* konten scene2 (tombol) di atas layer klik */
-    .scene .content {
-      pointer-events: none; /* biar yang bisa diklik hanya tombol & hint */
+    /* transition helper */
+    .no-transition {
+      transition: none !important;
     }
-    .scene .content * {
-      pointer-events: auto;
-    }
-
-    /* background gelap overlay lebih terasa */
-    .scene-2::after {
-      background-color: rgba(0, 0, 0, 0.25) !important; /* sedikit lebih gelap dari yg pertama, tapi tetap tidak terlalu gelap */
-    }
-
   </style>
 </head>
 <body>
-
-<!-- DUA LAYER ADEGAN: pertama building, kedua lobby (ground) dengan tombol -->
-<div id="scene-building" class="scene" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22 width=%22100%%22 height=%22100%%22><rect width=%22400%22 height=%22300%22 fill=%22%23222c3a%22/><rect x=%2250%22 y=%2280%22 width=%22300%22 height=%22160%22 fill=%22%233a4a5e%22 rx=%228%22/><rect x=%22120%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22240%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22100%22 y=%22200%22 width=%22200%22 height=%2220%22 fill=%22%231a2532%22/><circle cx=%22200%22 cy=%22100%22 r=%2212%22 fill=%22%23aab7c9%22 /></svg>');">
-  <!-- overlay gelap sudah dari css pseudo -->
-
-  <!-- konten awal: hint enter -->
-  <div class="content" id="initial-content">
-    <div class="enter-hint" id="click-to-enter">👇 klik di mana saja untuk masuk lobby</div>
-    <!-- kita bisa tambahkan logo atau nothing, sesuai permintaan tanpa header -->
-  </div>
-
-  <!-- area klik besar (menyeluruh) untuk masuk ke Ground -->
-  <div class="click-catcher" id="enter-lobby-trigger"></div>
-</div>
-
-<!-- Scene Lobby (Ground) – awalnya tersembunyi, akan muncul setelah klik dengan transisi -->
-<div id="scene-lobby" class="scene hidden" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23354b42%22/><rect x=%2230%22 y=%2250%22 width=%22340%22 height=%22200%22 fill=%22%236a7c70%22 rx=%2216%22/><rect x=%2280%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><rect x=%22260%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><circle cx=%22200%22 cy=%22150%22 r=%2230%22 fill=%22%23cadfd1%22 opacity=%220.6%22 /></svg>');">
-  <div class="content full-center">
-    <!-- container tombol sesuai daftar -->
-    <div class="button-container">
-      <!-- Lift → lift.html -->
-      <a href="lift.html" class="floor-btn" target="_blank">Lift</a>
-      <!-- Information desk → info.html -->
-      <a href="info.html" class="floor-btn" target="_blank">Information desk</a>
-      <!-- Grand Hall → GH.html -->
-      <a href="GH.html" class="floor-btn" target="_blank">Grand Hall</a>
-      <!-- Exhibition Center → Exhibition.html -->
-      <a href="Exhibition.html" class="floor-btn" target="_blank">Exhibition Center</a>
-      <!-- Chobank → Chobank.html -->
-      <a href="Chobank.html" class="floor-btn" target="_blank">Chobank</a>
-      <!-- Food Court → FC.html -->
-      <a href="FC.html" class="floor-btn" target="_blank">Food Court</a>
+  <!-- BUILDING SCENE (initial) -->
+  <div id="scene-building" class="scene">
+    <div class="content">
+      <!-- welcome message – klik area untuk masuk, tanpa simbol/petunjuk visual berlebih, hanya teks -->
+      <div class="enter-area" id="enter-lobby-trigger">
+        <div class="welcome-message">
+          <h1>WELCOME TO THE KACHOO</h1>
+          <p>Headquarters · explore every level</p>
+        </div>
+        <!-- tidak ada petunjuk klik, hanya teks selamat datang yang bisa diklik -->
+      </div>
     </div>
-    <!-- keterangan kecil (bukan header) -->
-    <div style="margin-top: 2rem; color: rgba(255,255,240,0.7); font-size: 1rem; background: rgba(0,0,0,0.3); padding: 0.5rem 1.5rem; border-radius: 40px; backdrop-filter: blur(2px);">Kachoo Building – Lantai Ground</div>
   </div>
-</div>
 
-<script>
-  (function() {
-    'use strict';
+  <!-- LOBBY SCENE (ground) – hidden initially -->
+  <div id="scene-lobby" class="scene hidden">
+    <div class="content">
+      <!-- container tombol persis daftar yang diminta: Lift, Information desk, Grand Hall, Exhibition Center, Chobank, Food Court -->
+      <div class="button-container">
+        <a href="lift.html" class="floor-btn" target="_blank">Lift</a>
+        <a href="info.html" class="floor-btn" target="_blank">Information desk</a>
+        <a href="GH.html" class="floor-btn" target="_blank">Grand Hall</a>
+        <a href="Exhibition.html" class="floor-btn" target="_blank">Exhibition Center</a>
+        <a href="Chobank.html" class="floor-btn" target="_blank">Chobank</a>
+        <a href="FC.html" class="floor-btn" target="_blank">Food Court</a>
+      </div>
+      <!-- keterangan lantai ground, tanpa icon, full teks -->
+      <div class="floor-label">THE KACHOO · GROUND FLOOR</div>
+    </div>
+  </div>
 
-    const sceneBuilding = document.getElementById('scene-building');
-    const sceneLobby = document.getElementById('scene-lobby');
-    const enterTrigger = document.getElementById('enter-lobby-trigger');
-    const clickHint = document.getElementById('click-to-enter');
+  <script>
+    (function() {
+      'use strict';
 
-    // Fungsi transisi: sembunyikan building, munculkan lobby dengan efek fade.
-    function switchToLobby() {
-      // pastikan tidak multiple trigger
-      if (sceneBuilding.classList.contains('hidden')) return;
+      const buildingScene = document.getElementById('scene-building');
+      const lobbyScene = document.getElementById('scene-lobby');
+      const enterTrigger = document.getElementById('enter-lobby-trigger');
 
-      // langkah 1: mulai transisi dengan memberikan efek fade pada building (turunkan opacity?)
-      // kita bisa memanfaatkan transisi pada pseudo, tapi lebih mudah dengan mengubah opacity konten
-      // namun background langsung kita ganti dengan teknik dua layer: sembunyikan building, tampilkan lobby.
-      // namun agar lebih dramatis, kita bisa menerapkan sedikit penundaan dan kelas fade.
-      
-      // Terapkan efek 'keluar' pada building: sedikit pudar
-      sceneBuilding.style.transition = 'opacity 0.8s ease';
-      sceneBuilding.style.opacity = '0';
-      
-      // sementara itu siapkan lobby dengan opacity 0 lalu munculkan
-      sceneLobby.classList.remove('hidden');
-      sceneLobby.style.opacity = '0';
-      sceneLobby.style.transition = 'opacity 1s ease';
-      
-      // paksa reflow
-      void sceneLobby.offsetWidth;
+      // fungsi pindah ke lobby dengan transisi halus (opacity fade)
+      function switchToLobby() {
+        if (lobbyScene.classList.contains('hidden') === false) return; // already visible
 
-      // setelah building setengah menghilang, kita sembunyikan dan atur opacity lobby jadi 1
-      setTimeout(() => {
-        sceneBuilding.classList.add('hidden');
-        sceneBuilding.style.opacity = ''; // reset
-        // pastikan lobby muncul dengan fade in
-        sceneLobby.style.opacity = '1';
-      }, 700); // waktu mendekati setengah transisi
+        // pastikan building tidak dalam transisi ganda
+        buildingScene.style.transition = 'opacity 0.9s ease';
+        lobbyScene.style.transition = 'opacity 0.9s ease';
 
-      // bersihkan transisi di lobby setelah selesai
-      setTimeout(() => {
-        sceneLobby.style.transition = '';
-      }, 1800);
-      
-      // nonaktifkan trigger agar tidak klik dua kali
-      if (enterTrigger) enterTrigger.style.pointerEvents = 'none';
-    }
+        // sembunyikan building, munculkan lobby
+        buildingScene.classList.add('hidden');
+        lobbyScene.classList.remove('hidden');
 
-    // Event listener untuk masuk ke lobby
-    if (enterTrigger) {
-      enterTrigger.addEventListener('click', switchToLobby);
-    }
-    if (clickHint) {
-      clickHint.addEventListener('click', (e) => {
-        e.stopPropagation(); // agar tidak dobel dari parent
-        switchToLobby();
+        // sedikit reset transisi setelah selesai
+        setTimeout(() => {
+          buildingScene.style.transition = '';
+          lobbyScene.style.transition = '';
+        }, 1000);
+      }
+
+      // event listener: klik area welcome (seluruh area karena .enter-area meliputi teks)
+      if (enterTrigger) {
+        enterTrigger.addEventListener('click', switchToLobby);
+      }
+
+      // untuk memastikan tidak ada bug jika double klik dll
+      window.addEventListener('load', function() {
+        // keadaan awal: building visible, lobby hidden
+        buildingScene.classList.remove('hidden');
+        lobbyScene.classList.add('hidden');
       });
-    }
 
-    // OPSIONAL: jika pengguna ingin kembali ke building? tidak diperlukan, 
-    // karena fokus ke ground dan tombol-tombol. 
-    // Namun kita bisa sediakan cara "kembali" jika dikehendaki? abaikan sesuai permintaan.
+      // optional: fallback jika pengguna resize, tidak pengaruh
+    })();
+  </script>
 
-    // jaga jika ada klik di container tombol tidak memicu switch ( sudah stopPropagation )
-    // tapi karena tombol-tombol adalah link, akan membuka halaman.
-
-    // untuk memastikan background gelap konsisten, tidak perlu tambahan.
-
-    // juga karena ada kemungkinan link dibuka di tab baru (target blank), sesuai keinginan.
-
-    // Tampilkan fallback jika building.png & lobby.png tidak ada: kita sudah pakai SVG ilustratif.
-    // Untuk penggunaan sungguhan, ganti url di style attribute atau di css class dengan file asli.
-    // contoh: scene-building style background-image: url('building.png');
-    // scene-lobby style background-image: url('lobby.png');
-
-    console.log('Kachoo Building siap - klik area gelap untuk masuk lobby');
-  })();
-</script>
-
-<!-- jika ingin ganti gambar dengan file asli, cukup ganti background image inline atau via class.
-     tapi karena environment tidak memiliki file, kita gunakan svg ilustrasi dengan gaya bangunan dan lobby.
-     Sudah termasuk rada gelap via overlay after. -->
-
-<!-- tambahan sedikit style untuk memastikan scene hidden tidak terlihat -->
-<style>
-  .hidden {
-    display: none !important;
-  }
-  #scene-lobby {
-    display: flex; /* akan di-override hidden */
-  }
-  #scene-lobby.hidden {
-    display: none !important;
-  }
-  /* saat transisi, kita atur display: flex */
-  #scene-lobby:not(.hidden) {
-    display: block;
-  }
-  .scene {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-  /* pastikan scene-building juga absolute */
-  #scene-building {
-    position: absolute;
-  }
-  /* konten tombol lebih rapi */
-  .button-container a {
-    text-decoration: none;
-  }
-  /* background agak gelap via pseudo, jadi tidak perlu terlalu hitam */
-  .scene::after {
-    background-color: rgba(0, 0, 0, 0.25);
-  }
-  /* untuk lobby bisa sedikit lebih gelap jika ingin */
-  #scene-lobby::after {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-  /* sentuhan gradasi halus */
-  .button-container {
-    background: rgba(15, 25, 35, 0.65);
-  }
-</style>
-
+  <!-- tidak ada satupun emoticon, simbol, atau bahasa indonesia. semua inggris, warna putih-hitam.
+       background gelap via overlay rgba(0,0,0,0.2) di .scene::after sudah cukup.
+       font inter murni, tombol dengan gaya referensi (border, background hover putih).
+  -->
 </body>
-    </html>
+  </html>
