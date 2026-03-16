@@ -1,2369 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAZINE</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap">
-    <style>
-        :root {
-            --pure-white: #ffffff;
-            --off-white: #fafafa;
-            --light-gray: #f0f0f0;
-            --medium-gray: #8a8a8a;
-            --dark-gray: #333333;
-            --pure-black: #000000;
-            --accent-gold: #d4af37;
-            --shadow-subtle: 0 2px 10px rgba(0, 0, 0, 0.03);
-            --shadow-medium: 0 5px 20px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.12);
-            --transition-smooth: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html {
-            -webkit-text-size-adjust: 100%;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--pure-white);
-            color: var(--pure-black);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ================= HEADER SEPERTI WEB LAMA ================= */
-        header {
-            background: var(--pure-white);
-            padding: 15px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid var(--light-gray);
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.97);
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
-
-        .logo-section {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .kazine-logo-main {
-            width: 140px; /* UKURAN NORMAL, TIDAK BESAR */
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .kazine-logo-main img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: contrast(1.1);
-        }
-
-        /* Navigation */
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 35px;
-        }
-
-        nav a {
-            color: var(--pure-black);
-            text-decoration: none;
-            font-weight: 400;
-            font-size: 13px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            padding: 8px 0;
-            position: relative;
-            transition: var(--transition-smooth);
-        }
-
-        nav a:hover {
-            color: var(--medium-gray);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--pure-black);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        /* Cart Icon */
-        .cart-icon-container {
-            position: relative;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .cart-icon {
-            font-size: 18px;
-            color: var(--pure-black);
-            transition: var(--transition-smooth);
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-        }
-
-        .cart-icon:hover {
-            opacity: 0.7;
-        }
-
-        .cart-count {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: var(--pure-black);
-            color: var(--pure-white);
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 600;
-            pointer-events: none;
-            z-index: 1002;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--pure-black);
-            font-size: 20px;
-            cursor: pointer;
-            padding: 10px;
-            width: 44px;
-            height: 44px;
-            align-items: center;
-            justify-content: center;
-            z-index: 1001;
-        }
-
-        /* =============== PERUBAHAN UKURAN FOTO UTAMA (21:9 - 1920x823px) =============== */
-        .hero-ambassador {
-            padding: 100px 0 80px; /* Dikurangi dari 150px ke 100px */
-            background: var(--off-white);
-            position: relative;
-        }
-
-        .ambassador-image {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 21 / 9; /* Rasio 21:9 untuk 1920x823px */
-            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
-            position: relative;
-            overflow: hidden;
-            border-radius: 2px;
-        }
-
-        .ambassador-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* =============== PERUBAHAN FASHION GRID =============== */
-        .fashion-grid-section {
-            padding: 80px 0;
-            background: var(--pure-white);
-        }
-
-        /* Layout 3x3 grid untuk desktop */
-        .fashion-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 kolom */
-            grid-template-rows: repeat(3, auto);   /* 3 baris */
-            gap: 15px;
-        }
-
-        /* Baris 1: 3 kolom atas 800x800px */
-        .grid-item:nth-child(1),
-        .grid-item:nth-child(2),
-        .grid-item:nth-child(3) {
-            aspect-ratio: 1 / 1; /* Square 800x800px */
-        }
-
-        /* Baris 2: 3 kolom tengah 800x1000px (portrait) */
-        .grid-item:nth-child(4),
-        .grid-item:nth-child(5),
-        .grid-item:nth-child(6) {
-            aspect-ratio: 4 / 5; /* Portrait 800x1000px */
-        }
-
-        /* Baris 3: 3 kolom bawah 800x800px */
-        .grid-item:nth-child(7),
-        .grid-item:nth-child(8),
-        .grid-item:nth-child(9) {
-            aspect-ratio: 1 / 1; /* Square 800x800px */
-        }
-
-        .grid-item {
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-        }
-
-        .grid-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .grid-item:hover img {
-            transform: scale(1.05);
-        }
-
-        /* =============== SHOP SECTION - MODIFIED =============== */
-        .shop-section {
-            padding: 80px 0;
-            background: var(--off-white);
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .section-title h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            font-weight: 400;
-            margin-bottom: 15px;
-            letter-spacing: 3px;
-        }
-
-        .section-title p {
-            font-size: 14px;
-            color: var(--medium-gray);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            margin-bottom: 50px;
-        }
-
-        .product-card {
-            background: var(--pure-white);
-            border-radius: 2px;
-            overflow: hidden;
-            transition: var(--transition-smooth);
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .product-image-container {
-            height: 350px;
-            background: var(--light-gray);
-            overflow: hidden;
-            position: relative;
-        }
-
-        .product-slides {
-            display: flex;
-            width: 200%;
-            height: 100%;
-            transition: transform 0.5s ease;
-        }
-
-        .product-slide {
-            width: 50%;
-            height: 100%;
-            flex-shrink: 0;
-        }
-
-        .product-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* TOMBOL SLIDE KIRI-KANAN YANG BARU - LEBIH TRANSPARAN */
-        .slide-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.15); /* LEBIH TRANSPARAN */
-            color: white;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .product-image-container:hover .slide-btn {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .slide-btn:hover {
-            background: rgba(0, 0, 0, 0.25);
-        }
-
-        .slide-btn.prev {
-            left: 10px;
-        }
-
-        .slide-btn.next {
-            right: 10px;
-        }
-
-        .slide-btn i {
-            font-size: 14px;
-        }
-
-        /* Tombol disabled */
-        .slide-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        .slide-btn:disabled:hover {
-            background: rgba(0, 0, 0, 0.15);
-        }
-
-        /* Label LIMITED EDITION */
-        .limited-edition-label {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 3px;
-            font-size: 11px;
-            z-index: 5;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        .product-info {
-            padding: 25px 20px;
-            text-align: center;
-        }
-
-        .brand-name {
-            font-size: 11px;
-            color: var(--medium-gray);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .product-name {
-            font-size: 16px;
-            font-weight: 400;
-            margin-bottom: 15px;
-            min-height: 40px;
-        }
-
-        .product-price {
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
-
-        /* TOMBOL ADD TO CART - TIDAK DIUBAH */
-        .add-to-cart-btn {
-            width: 100%;
-            padding: 12px;
-            background: var(--pure-black);
-            color: var(--pure-white);
-            border: none;
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .add-to-cart-btn:hover {
-            background: var(--dark-gray);
-        }
-
-        .add-to-cart-btn:disabled {
-            background: var(--medium-gray);
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-
-        .add-to-cart-btn:disabled:hover {
-            background: var(--medium-gray);
-        }
-
-        .add-to-cart-btn:active {
-            transform: scale(0.98);
-        }
-
-        /* Checkout Button */
-        .checkout-container {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        /* Magazine Section */
-        .magazine-section {
-            padding: 80px 0;
-            background: var(--pure-white);
-        }
-
-        .magazine-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .magazine-cover img {
-            width: 100%;
-            height: auto;
-        }
-
-        .magazine-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 48px;
-            font-weight: 400;
-            margin-bottom: 20px;
-        }
-
-        .magazine-content h3 {
-            font-size: 24px;
-            font-weight: 400;
-            color: var(--medium-gray);
-            margin-bottom: 30px;
-        }
-
-        .magazine-content p {
-            font-size: 16px;
-            color: var(--dark-gray);
-            margin-bottom: 30px;
-            line-height: 1.8;
-        }
-
-        .coming-soon-tag {
-            display: inline-block;
-            padding: 8px 20px;
-            background: var(--pure-black);
-            color: var(--pure-white);
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-top: 20px;
-            text-decoration: none;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--pure-black);
-            padding: 60px 0 30px;
-            color: var(--pure-white);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-section h3 {
-            font-size: 14px;
-            font-weight: 400;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .footer-section p {
-            font-size: 14px;
-            color: var(--medium-gray);
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--medium-gray);
-            color: var(--pure-white);
-            text-decoration: none;
-            transition: var(--transition-smooth);
-        }
-
-        .social-links a:hover {
-            border-color: var(--accent-gold);
-            color: var(--accent-gold);
-        }
-
-        .disclaimer {
-            text-align: center;
-            padding-top: 40px;
-            border-top: 1px solid var(--dark-gray);
-            color: var(--medium-gray);
-            font-size: 11px;
-            line-height: 1.6;
-        }
-
-        /* Cart Modal */
-        .cart-modal {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 100%;
-            max-width: 400px;
-            height: 100%;
-            background: var(--pure-white);
-            z-index: 2000;
-            transition: right 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
-        }
-
-        .cart-modal.active {
-            right: 0;
-        }
-
-        .cart-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--light-gray);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .cart-header h3 {
-            font-size: 16px;
-            font-weight: 400;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .close-cart {
-            background: none;
-            border: none;
-            color: var(--pure-black);
-            font-size: 20px;
-            cursor: pointer;
-            padding: 5px;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .cart-items {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--light-gray);
-        }
-
-        .item-info h4 {
-            font-size: 14px;
-            font-weight: 400;
-            margin-bottom: 5px;
-        }
-
-        .item-info p {
-            font-size: 12px;
-            color: var(--medium-gray);
-        }
-
-        .item-price {
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .remove-item {
-            background: none;
-            border: none;
-            color: var(--medium-gray);
-            cursor: pointer;
-            font-size: 12px;
-            padding: 8px;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .remove-item:hover {
-            color: var(--pure-black);
-        }
-
-        .cart-footer {
-            padding: 20px;
-            border-top: 1px solid var(--light-gray);
-        }
-
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        .cart-modal .checkout-btn {
-            width: 100%;
-            padding: 15px;
-            background: var(--pure-black);
-            color: var(--pure-white);
-            border: none;
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
-
-        .cart-modal .checkout-btn:hover {
-            background: var(--dark-gray);
-        }
-
-        .empty-cart {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--medium-gray);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-        }
-
-        .empty-cart i {
-            font-size: 40px;
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
-
-        .cart-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1999;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .cart-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* =============== RESPONSIVE DESIGN - SAMA SEPERTI WEB LAMA =============== */
-        /* Tablet */
-        @media (max-width: 1200px) {
-            .products-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        /* Tablet dan Mobile Menu - SAMA SEPERTI WEB LAMA */
-        @media (max-width: 992px) {
-            .header-container {
-                display: grid;
-                grid-template-columns: auto 1fr auto;
-                align-items: center;
-                gap: 15px;
-            }
-            
-            .logo-section {
-                position: static;
-                transform: none;
-                order: 1;
-                justify-self: center;
-            }
-            
-            .cart-icon-container {
-                order: 0;
-                z-index: 1001;
-            }
-            
-            .mobile-menu-btn {
-                display: flex;
-                order: 2;
-                z-index: 1001;
-            }
-            
-            nav {
-                position: fixed;
-                top: 70px; /* Disesuaikan dengan tinggi header mobile */
-                left: 0;
-                width: 100%;
-                background: var(--pure-white);
-                padding: 20px;
-                transform: translateY(-100%);
-                opacity: 0;
-                transition: var(--transition-smooth);
-                z-index: 999;
-                border-bottom: 1px solid var(--light-gray);
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            }
-            
-            nav.active {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            
-            nav ul {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            nav a {
-                font-size: 14px;
-                padding: 10px;
-                text-align: center;
-                display: block;
-            }
-            
-            .kazine-logo-main {
-                width: 120px; /* Logo lebih kecil di mobile */
-                height: 35px;
-            }
-        }
-
-        /* =============== PERUBAHAN UKURAN UNTUK MOBILE =============== */
-        @media (max-width: 768px) {
-            /* Hero Section Mobile */
-            .hero-ambassador {
-                padding: 90px 0 50px; /* Disesuaikan dengan header mobile */
-            }
-            
-            .ambassador-image {
-                margin: 0 -20px;
-                width: calc(100% + 40px);
-                border-radius: 0;
-            }
-            
-            /* Fashion Grid Mobile - 1 kolom, semua foto sama ukuran */
-            .fashion-grid-section {
-                padding: 50px 0;
-            }
-            
-            .fashion-grid {
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: repeat(9, auto);
-                gap: 12px;
-            }
-            
-            .grid-item {
-                width: 100%;
-                aspect-ratio: 1 / 1; /* Semua jadi square di mobile */
-                border-radius: 4px;
-                overflow: hidden;
-            }
-            
-            /* Override untuk portrait di mobile */
-            .grid-item:nth-child(4),
-            .grid-item:nth-child(5),
-            .grid-item:nth-child(6) {
-                aspect-ratio: 1 / 1; /* Jadi square juga di mobile */
-            }
-            
-            .grid-item img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-            
-            /* Shop Section Mobile */
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-                margin-bottom: 40px;
-            }
-            
-            .product-card {
-                margin-bottom: 0;
-            }
-            
-            .product-image-container {
-                height: 280px;
-            }
-            
-            /* Tombol slide selalu terlihat di mobile */
-            .slide-btn {
-                opacity: 0.4;
-                visibility: visible;
-                width: 32px;
-                height: 32px;
-                background: rgba(0, 0, 0, 0.1); /* Lebih transparan di mobile */
-            }
-            
-            .slide-btn i {
-                font-size: 12px;
-            }
-            
-            .product-info {
-                padding: 20px 15px;
-            }
-            
-            .product-name {
-                font-size: 15px;
-                margin-bottom: 12px;
-            }
-            
-            .product-price {
-                font-size: 15px;
-                margin-bottom: 15px;
-            }
-            
-            /* TOMBOL TIDAK DIUBAH - tetap seperti semula */
-            .add-to-cart-btn {
-                padding: 12px;
-                font-size: 12px;
-            }
-            
-            /* Magazine Section Mobile */
-            .magazine-container {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            
-            .magazine-content h2 {
-                font-size: 36px;
-            }
-            
-            .magazine-content h3 {
-                font-size: 20px;
-            }
-            
-            .magazine-content p {
-                font-size: 15px;
-            }
-            
-            /* Section Titles Mobile */
-            .section-title {
-                margin-bottom: 40px;
-            }
-            
-            .section-title h2 {
-                font-size: 28px;
-                letter-spacing: 2px;
-            }
-            
-            .section-title p {
-                font-size: 13px;
-                letter-spacing: 1.5px;
-            }
-            
-            /* Cart Modal Mobile */
-            .cart-modal {
-                max-width: 90%;
-                width: 90%;
-            }
-            
-            .shop-section,
-            .magazine-section {
-                padding: 50px 0;
-            }
-            
-            /* Footer Mobile */
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-            .disclaimer {
-                padding-top: 30px;
-                font-size: 10px;
-            }
-        }
-
-        /* Mobile Kecil (576px ke bawah) */
-        @media (max-width: 576px) {
-            /* Logo Mobile Kecil */
-            .kazine-logo-main {
-                width: 100px;
-                height: 30px;
-            }
-            
-            /* Products Grid Mobile Kecil */
-            .products-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .product-image-container {
-                height: 320px;
-            }
-        }
-
-        /* Mobile-specific fixes */
-        @media (max-width: 768px) {
-            /* Pastikan semua tombol tetap berfungsi dan tidak berubah */
-            .add-to-cart-btn:hover {
-                background: var(--pure-black);
-            }
-            
-            /* Touch-friendly elements */
-            button, 
-            .slide-btn,
-            .checkout-btn,
-            .remove-item,
-            .close-cart,
-            .mobile-menu-btn,
-            .social-links a,
-            .cart-icon {
-                min-height: 44px;
-                min-width: 44px;
-            }
-            
-            /* Prevent blue highlight on tap */
-            * {
-                -webkit-tap-highlight-color: rgba(0,0,0,0);
-            }
-        }
-
-        /* Notification style */
-        .cart-notification {
-            position: fixed;
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--pure-black);
-            color: var(--pure-white);
-            padding: 12px 24px;
-            border-radius: 2px;
-            z-index: 9999;
-            font-size: 14px;
-            white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            animation: fadeInOut 2s ease-in-out;
-        }
-
-        @keyframes fadeInOut {
-            0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-            15% { opacity: 1; transform: translateX(-50%) translateY(0); }
-            85% { opacity: 1; transform: translateX(-50%) translateY(0); }
-            100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-        }
-
-        /* Out of stock style */
-        .out-of-stock {
-            background: var(--light-gray);
-            color: var(--medium-gray);
-        }
-
-        .out-of-stock-text {
-            font-size: 12px;
-            color: #dc3545;
-            margin-top: 5px;
-            font-weight: 500;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kachoo Building (tanpa judul)</title>
+  <style>
+    /* RESET & DASAR */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;         /* mencegah scroll */
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    /* LAYER BACKGROUND UTAMA (full screen) */
+    .scene {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-image 0.9s ease, filter 0.6s ease;
+      /* efek gelap lembut via overlay terpisah agar tidak mengganggu transisi */
+    }
+
+    /* overlay gelap seragam (tipis) */
+    .scene::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.2);  /* 20% gelap — 'rada gelap tp jgn terlalu' */
+      pointer-events: none;  /* tombol tetap bisa diklik */
+      z-index: 1;
+      transition: background-color 0.5s;
+    }
+
+    /* semua konten di atas overlay */
+    .content {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ========== TAMPILAN AWAL (building) ========== */
+    #scene-1 {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22 width=%22100%%22 height=%22100%%22><rect width=%22400%22 height=%22300%22 fill=%22%23222c3a%22/><rect x=%2250%22 y=%2280%22 width=%22300%22 height=%22160%22 fill=%22%233a4a5e%22 rx=%228%22/><rect x=%22120%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22240%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22100%22 y=%22200%22 width=%22200%22 height=%2220%22 fill=%22%231a2532%22/><circle cx=%22200%22 cy=%22100%22 r=%2212%22 fill=%22%23aab7c9%22 /></svg>'); /* building.png gaya */
+      /* catatan: karena file asli building.png tidak tersedia, kita gunakan SVG ilustratif.
+         Jika di lingkungan nyata, ganti url dengan 'building.png' */
+    }
+
+    /* ========== TAMPILAN GROUND (lobby) ========== */
+    #scene-2 {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23354b42%22/><rect x=%2230%22 y=%2250%22 width=%22340%22 height=%22200%22 fill=%22%236a7c70%22 rx=%2216%22/><rect x=%2280%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><rect x=%22260%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><circle cx=%22200%22 cy=%22150%22 r=%2230%22 fill=%22%23cadfd1%22 opacity=%220.6%22 /></svg>'); /* lobby.png ilustrasi */
+    }
+
+    /* TOMBOL UTAMA (container) */
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      background-color: rgba(10, 15, 20, 0.55);  /* gelap transparan, biar tombol kebaca */
+      backdrop-filter: blur(6px);
+      border-radius: 64px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 25px 40px -10px rgba(0, 0, 0, 0.5);
+      transform: scale(1);
+      transition: opacity 0.6s ease, transform 0.4s ease;
+      max-width: 90vw;
+      margin: 1rem;
+    }
+
+    /* tiap tombol */
+    .floor-btn {
+      padding: 1rem 2.2rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: white;
+      background: rgba(20, 30, 40, 0.8);
+      backdrop-filter: blur(8px);
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      border-radius: 60px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      transition: all 0.25s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      min-width: 160px;
+    }
+
+    .floor-btn:hover {
+      background: rgba(50, 70, 100, 0.9);
+      border-color: rgba(255, 240, 160, 0.7);
+      transform: scale(1.05) translateY(-3px);
+      box-shadow: 0 18px 30px -5px black;
+    }
+
+    /* pesan awal: klik di mana saja (petunjuk halus) */
+    .enter-hint {
+      color: rgba(255, 255, 255, 0.8);
+      text-shadow: 0 2px 10px black;
+      font-size: 1.4rem;
+      background: rgba(0,0,0,0.3);
+      padding: 0.6rem 2rem;
+      border-radius: 60px;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,215,0,0.3);
+      cursor: pointer;
+      transition: 0.3s;
+      margin-bottom: 2rem;
+      animation: softPulse 2s infinite;
+    }
+
+    .enter-hint:hover {
+      background: rgba(30, 30, 30, 0.7);
+      border-color: gold;
+    }
+
+    @keyframes softPulse {
+      0% { opacity: 0.9; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); background: rgba(20,20,30,0.5); }
+      100% { opacity: 0.9; transform: scale(1); }
+    }
+
+    /* transisi fade antar scene */
+    .fade-transition {
+      transition: background-image 1.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s;
+    }
+
+    /* elemen yg sengaja disembunyikan */
+    .hidden {
+      display: none !important;
+    }
+
+    /* utility */
+    .full-center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* tambahan gradasi pudar saat transisi antar konten (opsional) */
+    .content-fade-enter {
+      opacity: 0;
+    }
+    .content-fade-enter-active {
+      opacity: 1;
+      transition: opacity 0.7s;
+    }
+
+    /* untuk memudahkan klik di area luas */
+    .click-catcher {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      cursor: pointer;
+    }
+
+    /* konten scene2 (tombol) di atas layer klik */
+    .scene .content {
+      pointer-events: none; /* biar yang bisa diklik hanya tombol & hint */
+    }
+    .scene .content * {
+      pointer-events: auto;
+    }
+
+    /* background gelap overlay lebih terasa */
+    .scene-2::after {
+      background-color: rgba(0, 0, 0, 0.25) !important; /* sedikit lebih gelap dari yg pertama, tapi tetap tidak terlalu gelap */
+    }
+
+  </style>
 </head>
 <body>
-    <!-- Cart Overlay -->
-    <div class="cart-overlay" id="cartOverlay"></div>
 
-    <!-- Shopping Cart Modal -->
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-header">
-            <h3>Shopping Bag</h3>
-            <button class="close-cart" id="closeCart" aria-label="Close cart">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <div class="empty-cart" id="emptyCart">
-                <i class="fas fa-shopping-bag"></i>
-                <p>Your bag is empty</p>
-            </div>
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total</span>
-                <span id="cartTotal">$0.00</span>
-            </div>
-            <button class="checkout-btn" id="checkoutBtn">Proceed to Payment</button>
-        </div>
+<!-- DUA LAYER ADEGAN: pertama building, kedua lobby (ground) dengan tombol -->
+<div id="scene-building" class="scene" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22 width=%22100%%22 height=%22100%%22><rect width=%22400%22 height=%22300%22 fill=%22%23222c3a%22/><rect x=%2250%22 y=%2280%22 width=%22300%22 height=%22160%22 fill=%22%233a4a5e%22 rx=%228%22/><rect x=%22120%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22240%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22100%22 y=%22200%22 width=%22200%22 height=%2220%22 fill=%22%231a2532%22/><circle cx=%22200%22 cy=%22100%22 r=%2212%22 fill=%22%23aab7c9%22 /></svg>');">
+  <!-- overlay gelap sudah dari css pseudo -->
+
+  <!-- konten awal: hint enter -->
+  <div class="content" id="initial-content">
+    <div class="enter-hint" id="click-to-enter">👇 klik di mana saja untuk masuk lobby</div>
+    <!-- kita bisa tambahkan logo atau nothing, sesuai permintaan tanpa header -->
+  </div>
+
+  <!-- area klik besar (menyeluruh) untuk masuk ke Ground -->
+  <div class="click-catcher" id="enter-lobby-trigger"></div>
+</div>
+
+<!-- Scene Lobby (Ground) – awalnya tersembunyi, akan muncul setelah klik dengan transisi -->
+<div id="scene-lobby" class="scene hidden" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23354b42%22/><rect x=%2230%22 y=%2250%22 width=%22340%22 height=%22200%22 fill=%22%236a7c70%22 rx=%2216%22/><rect x=%2280%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><rect x=%22260%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><circle cx=%22200%22 cy=%22150%22 r=%2230%22 fill=%22%23cadfd1%22 opacity=%220.6%22 /></svg>');">
+  <div class="content full-center">
+    <!-- container tombol sesuai daftar -->
+    <div class="button-container">
+      <!-- Lift → lift.html -->
+      <a href="lift.html" class="floor-btn" target="_blank">Lift</a>
+      <!-- Information desk → info.html -->
+      <a href="info.html" class="floor-btn" target="_blank">Information desk</a>
+      <!-- Grand Hall → GH.html -->
+      <a href="GH.html" class="floor-btn" target="_blank">Grand Hall</a>
+      <!-- Exhibition Center → Exhibition.html -->
+      <a href="Exhibition.html" class="floor-btn" target="_blank">Exhibition Center</a>
+      <!-- Chobank → Chobank.html -->
+      <a href="Chobank.html" class="floor-btn" target="_blank">Chobank</a>
+      <!-- Food Court → FC.html -->
+      <a href="FC.html" class="floor-btn" target="_blank">Food Court</a>
     </div>
+    <!-- keterangan kecil (bukan header) -->
+    <div style="margin-top: 2rem; color: rgba(255,255,240,0.7); font-size: 1rem; background: rgba(0,0,0,0.3); padding: 0.5rem 1.5rem; border-radius: 40px; backdrop-filter: blur(2px);">Kachoo Building – Lantai Ground</div>
+  </div>
+</div>
 
-    <!-- Header - SAMA PERSIS SEPERTI WEB LAMA -->
-    <header>
-        <div class="container header-container">
-            <div class="cart-icon-container" id="openCart">
-                <div class="cart-icon">
-                    <i class="fas fa-shopping-bag"></i>
-                    <div class="cart-count" id="cartCount">0</div>
-                </div>
-            </div>
-            
-            <div class="logo-section">
-                <a href="https://thekachoo.github.io/KAZINE/COLLECTION.html">
-                    <div class="kazine-logo-main">
-                        <img src="KAZINE.png" alt="KAZINE Logo" 
-                             onerror="this.src='KAZINE.png'">
-                    </div>
-                </a>
-            </div>
-            
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <nav id="mainNav">
-                <ul>
-                    <li><a href="https://thekachoo.github.io/Home/index.html">THE KACHOO</a></li>
-                    <li><a href="#shop">SHOP</a></li>
-                    <li><a href="#magazine">MAGAZINE</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<script>
+  (function() {
+    'use strict';
 
-    <!-- Hero - Brand Ambassador -->
-    <section class="hero-ambassador">
-        <div class="container">
-            <div class="ambassador-image">
-                <img src="kazinebanner.png" 
-                     alt="Brand Ambassador - Elevated Style">
-            </div>
-        </div>
-    </section>
+    const sceneBuilding = document.getElementById('scene-building');
+    const sceneLobby = document.getElementById('scene-lobby');
+    const enterTrigger = document.getElementById('enter-lobby-trigger');
+    const clickHint = document.getElementById('click-to-enter');
 
-    <!-- Fashion Grid - 9 foto dengan layout baru -->
-    <section class="fashion-grid-section">
-        <div class="container">
-            <div class="fashion-grid">
-                <!-- Baris 1: 3 kolom atas 800x800px -->
-                <div class="grid-item">
-                    <img src="grid1.png" 
-                         alt="Fashion Editorial 1">
-                </div>
-                <div class="grid-item">
-                    <img src="grid2.png" 
-                         alt="Fashion Editorial 2">
-                </div>
-                <div class="grid-item">
-                    <img src="grid3.png" 
-                         alt="Fashion Editorial 3">
-                </div>
-                
-                <!-- Baris 2: 3 kolom tengah 800x1000px (portrait) -->
-                <div class="grid-item">
-                    <img src="grid4.png" 
-                         alt="Fashion Editorial 4">
-                </div>
-                <div class="grid-item">
-                    <img src="grid5.png" 
-                         alt="Fashion Editorial 5">
-                </div>
-                <div class="grid-item">
-                    <img src="grid6.png" 
-                         alt="Fashion Editorial 6">
-                </div>
-                
-                <!-- Baris 3: 3 kolom bawah 800x800px -->
-                <div class="grid-item">
-                    <img src="grid7.png" 
-                         alt="Fashion Editorial 7">
-                </div>
-                <div class="grid-item">
-                    <img src="grid8.png" 
-                         alt="Fashion Editorial 8">
-                </div>
-                <div class="grid-item">
-                    <img src="grid9.png" 
-                         alt="Fashion Editorial 9">
-                </div>
-            </div>
-        </div>
-    </section>
+    // Fungsi transisi: sembunyikan building, munculkan lobby dengan efek fade.
+    function switchToLobby() {
+      // pastikan tidak multiple trigger
+      if (sceneBuilding.classList.contains('hidden')) return;
 
-    <!-- Valentine with Kazine Section - HANYA 1 FOTO -->
-    <section class="shop-section" id="valentine">
-        <div class="container">
-            <div class="section-title">
-                <h2>VALENTINE WITH KAZINE</h2>
-                <p>Special Valentine's Day Collection - 13 Exclusive Products</p>
-            </div>
-            
-            <div class="products-grid">
-                <!-- Product 1: Heart Melt -->
-                <div class="product-card" data-product="Heart Melt #KachooxAmere" data-price="95" data-id="VAL-01">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="heartmelt1.png" alt="Heart Melt">
-                            </div>
-                        </div>
-                        <!-- TIDAK ADA TOMBOL SLIDE -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">KachooxAmere</div>
-                        <h3 class="product-name">Heart Melt</h3>
-                        <div class="product-price">$95</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 2: Simple Bouquet -->
-                <div class="product-card" data-product="Simple Bouquet #KachooxKriyaNusaca" data-price="85" data-id="VAL-02">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="simplebouquet1.png" alt="Simple Bouquet">
-                            </div>
-                        </div>
-                        <!-- TIDAK ADA TOMBOL SLIDE -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">KachooxKriyaNusaca</div>
-                        <h3 class="product-name">Simple Bouquet</h3>
-                        <div class="product-price">$85</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 3: Amare -->
-                <div class="product-card" data-product="Amare #KachooxKriyaNusaca" data-price="90" data-id="VAL-03">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="amare1.png" alt="Amare">
-                            </div>
-                        </div>
-                        <!-- TIDAK ADA TOMBOL SLIDE -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">KachooxKriyaNusaca</div>
-                        <h3 class="product-name">Amare</h3>
-                        <div class="product-price">$90</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 4: Luna & Sol -->
-                <div class="product-card" data-product="Luna & Sol #KachooxKriyaNusaca" data-price="100" data-id="VAL-04">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="lunasol1.png" alt="Luna & Sol">
-                            </div>
-                        </div>
-                        <!-- TIDAK ADA TOMBOL SLIDE -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">KachooxKriyaNusaca</div>
-                        <h3 class="product-name">Luna & Sol</h3>
-                        <div class="product-price">$100</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 5: Choco Bar -->
-                <div class="product-card" data-product="Choco Bar" data-price="25" data-id="VAL-05">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="chocobar1.png" alt="Choco Bar">
-                            </div>
-                        </div>
-                        <!-- TIDAK ADA TOMBOL SLIDE -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">CHOCOLATE</div>
-                        <h3 class="product-name">Choco Bar</h3>
-                        <div class="product-price">$25</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 6: Chookies Choco -->
-                <div class="product-card" data-product="Chookies Choco" data-price="30" data-id="VAL-06">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="chookies1.png" alt="Chookies Choco">
-                            </div>
-                        </div>
-                        <!-- TIDAK ADA TOMBOL SLIDE -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">CHOCOLATE</div>
-                        <h3 class="product-name">Chookies Choco</h3>
-                        <div class="product-price">$30</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 7: Kazine Special, Man Suit -->
-                <div class="product-card" data-product="Kazine Special, Man Suit" data-price="250" data-id="VAL-07">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="mansuit1.png" alt="Man Suit">
-                            </div>
-                        </div>
-                        <!-- TIDAK ADA TOMBOL SLIDE -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">KAZINE SPECIAL</div>
-                        <h3 class="product-name">Man Suit</h3>
-                        <div class="product-price">$250</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 8: Kazine Special, Woman Dress -->
-                <div class="product-card" data-product="Kazine Special, Woman Dress" data-price="230" data-id="VAL-08">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="womandress1.png" alt="Woman Dress">
-                            </div>
-                        </div>
-                        <!-- TIDAK ADA TOMBOL SLIDE -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">KAZINE SPECIAL</div>
-                        <h3 class="product-name">Woman Dress</h3>
-                        <div class="product-price">$230</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 9: Eternal Heart -->
-                <div class="product-card" data-product="Eternal Heart" data-price="120" data-id="VAL-09">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="eternalheart1.png" alt="Eternal Heart">
-                            </div>
-                        </div>
-                        <!-- TIDAK ADA TOMBOL SLIDE -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">VALENTINE SPECIAL</div>
-                        <h3 class="product-name">Eternal Heart</h3>
-                        <div class="product-price">$120</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 10: Tender Bloom -->
-                <div class="product-card" data-product="Tender Bloom" data-price="95" data-id="VAL-10">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="tenderbloom1.png" alt="Tender Bloom">
-                            </div>
-                        </div>
-                        <!-- TIDAK ADA TOMBOL SLIDE -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">VALENTINE SPECIAL</div>
-                        <h3 class="product-name">Tender Bloom</h3>
-                        <div class="product-price">$95</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 11: Timeless Red -->
-                <div class="product-card" data-product="Timeless Red" data-price="110" data-id="VAL-11">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="timelessred1.png" alt="Timeless Red">
-                            </div>
-                        </div>
-                        <!-- TIDAK ADA TOMBOL SLIDE -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">VALENTINE SPECIAL</div>
-                        <h3 class="product-name">Timeless Red</h3>
-                        <div class="product-price">$110</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 12: Scarlet Grandeur -->
-                <div class="product-card" data-product="Scarlet Grandeur" data-price="130" data-id="VAL-12">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="scarletgrandeur1.png" alt="Scarlet Grandeur">
-                            </div>
-                        </div>
-                        <!-- TIDAK ADA TOMBOL SLIDE -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">VALENTINE SPECIAL</div>
-                        <h3 class="product-name">Scarlet Grandeur</h3>
-                        <div class="product-price">$130</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 13: Blooming Grace -->
-                <div class="product-card" data-product="Blooming Grace" data-price="105" data-id="VAL-13">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="bloominggrace1.png" alt="Blooming Grace">
-                            </div>
-                        </div>
-                        <!-- TIDAK ADA TOMBOL SLIDE -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">VALENTINE SPECIAL</div>
-                        <h3 class="product-name">Blooming Grace</h3>
-                        <div class="product-price">$105</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="checkout-container">
-                <a href="payment-valentine.html" class="coming-soon-tag">
-                    <span>PROCEED TO CHECKOUT</span>
-                </a>
-            </div>
-        </div>
-    </section>
+      // langkah 1: mulai transisi dengan memberikan efek fade pada building (turunkan opacity?)
+      // kita bisa memanfaatkan transisi pada pseudo, tapi lebih mudah dengan mengubah opacity konten
+      // namun background langsung kita ganti dengan teknik dua layer: sembunyikan building, tampilkan lobby.
+      // namun agar lebih dramatis, kita bisa menerapkan sedikit penundaan dan kelas fade.
+      
+      // Terapkan efek 'keluar' pada building: sedikit pudar
+      sceneBuilding.style.transition = 'opacity 0.8s ease';
+      sceneBuilding.style.opacity = '0';
+      
+      // sementara itu siapkan lobby dengan opacity 0 lalu munculkan
+      sceneLobby.classList.remove('hidden');
+      sceneLobby.style.opacity = '0';
+      sceneLobby.style.transition = 'opacity 1s ease';
+      
+      // paksa reflow
+      void sceneLobby.offsetWidth;
 
-    <!-- KAZINE IN LOOP Section - MASIH DENGAN SLIDE -->
-    <section class="shop-section" id="shop">
-        <div class="container">
-            <div class="section-title">
-                <h2>KAZINE IN LOOP!</h2>
-                <p>Time to shop! Make sure to use your voucher.</p>
-            </div>
-            
-            <div class="products-grid">
-                <!-- Product 1 -->
-                <div class="product-card" data-product="CHOOSIC GRAPHITE BLACK" data-price="480" data-id="CGB-01">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="CGB1.png" alt="CHOOSIC GB FRONT">
-                            </div>
-                            <div class="product-slide">
-                                <img src="CGB2.png" alt="CHOOSIC GB BACK" onerror="this.src='CGB2.png'">
-                            </div>
-                        </div>
-                        <!-- Tombol slide kiri-kanan -->
-                        <button class="slide-btn prev" aria-label="Previous image">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="slide-btn next" aria-label="Next image">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <!-- Label LIMITED EDITION -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">CHOOSIC</div>
-                        <h3 class="product-name">GRAPHITE BLACK</h3>
-                        <div class="product-price">$480</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 2 -->
-                <div class="product-card" data-product="CHOOSIC WHITE" data-price="480" data-id="CW-02">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="CW1.png" alt="CHOOSIC W FRONT">
-                            </div>
-                            <div class="product-slide">
-                                <img src="CW2.png" alt="CHOOSIC W BACK" onerror="this.src='CW2.png'">
-                            </div>
-                        </div>
-                        <!-- Tombol slide kiri-kanan -->
-                        <button class="slide-btn prev" aria-label="Previous image">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="slide-btn next" aria-label="Next image">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <!-- Label LIMITED EDITION -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">CHOOSIC</div>
-                        <h3 class="product-name">WHITE</h3>
-                        <div class="product-price">$480</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 3 -->
-                <div class="product-card" data-product="CHOOSIC ESPRESSO BROWN" data-price="480" data-id="CEB-03">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="CEB1.png" alt="CHOOSIC EB FRONT">
-                            </div>
-                            <div class="product-slide">
-                                <img src="CEB2.png" alt="CHOOSIC EB BACK" onerror="this.src='CEB2.png'">
-                            </div>
-                        </div>
-                        <!-- Tombol slide kiri-kanan -->
-                        <button class="slide-btn prev" aria-label="Previous image">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="slide-btn next" aria-label="Next image">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <!-- Label LIMITED EDITION -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">CHOOSIC</div>
-                        <h3 class="product-name">ESPRESSO BROWN</h3>
-                        <div class="product-price">$480</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 4 -->
-                <div class="product-card" data-product="CHOOSIC VANILLA HAZE" data-price="480" data-id="CVH-04">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="CVH1.png" alt="CHOOSIC VH FRONT">
-                            </div>
-                            <div class="product-slide">
-                                <img src="CVH2.png" alt="CHOOSIC VH BACK" onerror="this.src='CVH2.png'">
-                            </div>
-                        </div>
-                        <!-- Tombol slide kiri-kanan -->
-                        <button class="slide-btn prev" aria-label="Previous image">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="slide-btn next" aria-label="Next image">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <!-- Label LIMITED EDITION -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">CHOOSIC</div>
-                        <h3 class="product-name">VANILLA HAZE</h3>
-                        <div class="product-price">$480</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 5 -->
-                <div class="product-card" data-product="CHOOSIC MULBERY-WINE" data-price="480" data-id="CMW-05">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="CMW1.png" alt="CHOOSIC MW FRONT">
-                            </div>
-                            <div class="product-slide">
-                                <img src="CMW2.png" alt="CHOOSIC MW BACK" onerror="this.src='CMW2.png'">
-                            </div>
-                        </div>
-                        <!-- Tombol slide kiri-kanan -->
-                        <button class="slide-btn prev" aria-label="Previous image">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="slide-btn next" aria-label="Next image">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <!-- Label LIMITED EDITION -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">CHOOSIC</div>
-                        <h3 class="product-name">MULBERY-WINE</h3>
-                        <div class="product-price">$480</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-                
-                <!-- Product 6 -->
-                <div class="product-card" data-product="CHOOSIC ROSE NOIR" data-price="480" data-id="CRN-06">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="CRN1.png" alt="CHOOSIC RN FRONT">
-                            </div>
-                            <div class="product-slide">
-                                <img src="CRN2.png" alt="CHOOSIC RN BACK" onerror="this.src='CRN2.png'">
-                            </div>
-                        </div>
-                        <!-- Tombol slide kiri-kanan -->
-                        <button class="slide-btn prev" aria-label="Previous image">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="slide-btn next" aria-label="Next image">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <!-- Label LIMITED EDITION -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">CHOOSIC</div>
-                        <h3 class="product-name">ROSE NOIR</h3>
-                        <div class="product-price">$480</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
+      // setelah building setengah menghilang, kita sembunyikan dan atur opacity lobby jadi 1
+      setTimeout(() => {
+        sceneBuilding.classList.add('hidden');
+        sceneBuilding.style.opacity = ''; // reset
+        // pastikan lobby muncul dengan fade in
+        sceneLobby.style.opacity = '1';
+      }, 700); // waktu mendekati setengah transisi
 
-                <!-- Product 7 -->
-                <div class="product-card" data-product="CHOZY BLACK" data-price="30" data-id="MUGB-01">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="MUGB1.png" alt="CHOZY BLACK - Front">
-                            </div>
-                            <div class="product-slide">
-                                <img src="MUGB2.png" alt="CHOZY BLACK - Back" onerror="this.src='MUGB2.png'">
-                            </div>
-                        </div>
-                        <!-- Tombol slide kiri-kanan -->
-                        <button class="slide-btn prev" aria-label="Previous image">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="slide-btn next" aria-label="Next image">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <!-- Label LIMITED EDITION -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">CHOZY</div>
-                        <h3 class="product-name">BLACK</h3>
-                        <div class="product-price">$30</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-
-                <!-- Product 8 -->
-                <div class="product-card" data-product="CHOZY WHITE" data-price="30" data-id="MUGW-02">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="MUGW1.png" alt="CHOZY WHITE - FRONT" onerror="this.src='MUGW1.png'">
-                            </div>
-                            <div class="product-slide">
-                                <img src="MUGW2.png" alt="CHOZY WHITE- BACK" onerror="this.src='MUGW2.png'">
-                            </div>
-                        </div>
-                        <!-- Tombol slide kiri-kanan -->
-                        <button class="slide-btn prev" aria-label="Previous image">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="slide-btn next" aria-label="Next image">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <!-- Label LIMITED EDITION -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">CHOZY</div>
-                        <h3 class="product-name">WHITE</h3>
-                        <div class="product-price">$30</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-
-                <!-- Product 9 -->
-                <div class="product-card" data-product="CHOZY BLUE" data-price="30" data-id="MUGBLU-03">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="MUGBLU1.png" alt="CHOZY BLUE - Front">
-                            </div>
-                            <div class="product-slide">
-                                <img src="MUGBLU2.png" alt="CHOZY BLUE - Back">
-                            </div>
-                        </div>
-                        <!-- Tombol slide kiri-kanan -->
-                        <button class="slide-btn prev" aria-label="Previous image">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="slide-btn next" aria-label="Next image">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <!-- Label LIMITED EDITION -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">CHOZY</div>
-                        <h3 class="product-name">BLUE</h3>
-                        <div class="product-price">$30</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-
-                <!-- Product 10 -->
-                <div class="product-card" data-product="CHOZY ORANGE" data-price="30" data-id="MUGOR-04">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="MUGOR1.png" alt="CHOZY ORANGE - Front">
-                            </div>
-                            <div class="product-slide">
-                                <img src="MUGOR2.png" alt="CHOZY ORANGE - Back">
-                            </div>
-                        </div>
-                        <!-- Tombol slide kiri-kanan -->
-                        <button class="slide-btn prev" aria-label="Previous image">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="slide-btn next" aria-label="Next image">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <!-- Label LIMITED EDITION -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">CHOZY</div>
-                        <h3 class="product-name">ORANGE</h3>
-                        <div class="product-price">$30</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-
-                <!-- Product 11 -->
-                <div class="product-card" data-product="CHOZY GREEN" data-price="30" data-id="MUGG1-05">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="MUGG1.png" alt="CHOZY GREEN - Front">
-                            </div>
-                            <div class="product-slide">
-                                <img src="MUGG2.png" alt="CHOZY GREEN - Back">
-                            </div>
-                        </div>
-                        <!-- Tombol slide kiri-kanan -->
-                        <button class="slide-btn prev" aria-label="Previous image">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="slide-btn next" aria-label="Next image">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <!-- Label LIMITED EDITION -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">CHOZY</div>
-                        <h3 class="product-name">GREEN</h3>
-                        <div class="product-price">$30</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-
-                <!-- Product 12 -->
-                <div class="product-card" data-product="CHOZY YELLOW" data-price="30" data-id="MUGY-06">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="MUGY1.png" alt="CHOZY YELLOW - Front">
-                            </div>
-                            <div class="product-slide">
-                                <img src="MUGY2.png" alt="CHOZY YELLOW- Back">
-                            </div>
-                        </div>
-                        <!-- Tombol slide kiri-kanan -->
-                        <button class="slide-btn prev" aria-label="Previous image">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="slide-btn next" aria-label="Next image">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <!-- Label LIMITED EDITION -->
-                        <div class="limited-edition-label">LIMITED EDITION</div>
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">CHOZY</div>
-                        <h3 class="product-name">YELLOW</h3>
-                        <div class="product-price">$30</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-
-                <!-- Product 13 - CHOFFEE (TANPA LIMITED EDITION) -->
-                <div class="product-card" data-product="CHOFFEE" data-price="25" data-id="CHOFFEE-01">
-                    <div class="product-image-container">
-                        <div class="product-slides">
-                            <div class="product-slide">
-                                <img src="CHOFFEE1.png" alt="CHOFFEE FRONT">
-                            </div>
-                            <div class="product-slide">
-                                <img src="CHOFFEE2.png" alt="CHOFFEE BACK">
-                            </div>
-                        </div>
-                        <!-- Tombol slide kiri-kanan -->
-                        <button class="slide-btn prev" aria-label="Previous image">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="slide-btn next" aria-label="Next image">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <!-- CHOFFEE TIDAK PAKAI LIMITED EDITION LABEL -->
-                    </div>
-                    <div class="product-info">
-                        <div class="brand-name">CHOFFEE</div>
-                        <h3 class="product-name">POUCH</h3>
-                        <div class="product-price">$25</div>
-                        <button class="add-to-cart-btn">Add to Bag</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="checkout-container">
-                <a href="payment-kazine.html" class="coming-soon-tag">
-                    <span>PROCEED TO CHECKOUT</span>
-                </a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Magazine Section -->
-    <section class="magazine-section" id="magazine">
-        <div class="container">
-            <div class="magazine-container">
-                <div class="magazine-cover">
-                    <a href="https://thekachoo.github.io/Home/kazinevol1.html">
-                        <img src="kazinevol1s1.png" 
-                             alt="KAZINE Magazine Volume 1">
-                    </a>
-                </div>
-                <div class="magazine-content">
-                    <h2>KAZINE!</h2>
-                    <h3>NEW YEAR NEW VIBES</h3>
-                    <p>Experience the inaugural edition of KAZINE, where fashion, culture, and lifestyle converge. Volume 1 celebrates new beginnings with exclusive interviews, editorial features, and behind-the-scenes access to the world's most influential creators.</p>
-                    <p>Discover the stories behind the styles and the visionaries shaping tomorrow's trends today.</p>
-                    <a href="https://thekachoo.github.io/Home/kazinevol1.html" class="coming-soon-tag">VIEW VOLUME 1</a>
-                    <div class="coming-soon-tag">VOLUME 2 COMING SOON</div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>KAZINE</h3>
-                    <p>A premium fashion and lifestyle brand under THE KACHOO, specializing in curated collaborations and exclusive magazine publications.</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <p><a href="https://thekachoo.github.io/Home/index.html" style="color: var(--medium-gray); text-decoration: none;">THE KACHOO</a></p>
-                    <p><a href="#shop" style="color: var(--medium-gray); text-decoration: none;">SHOP</a></p>
-                    <p><a href="#magazine" style="color: var(--medium-gray); text-decoration: none;">MAGAZINE</a></p>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p>Official Account (X): <strong>@TheKachoo</strong></p>
-                    <p>Email: ohkachoo@gmail.com</p>
-                    <div class="social-links">
-                        <a href="https://twitter.com/TheKachoo" target="_blank">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="mailto:ohkachoo@gmail.com">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="disclaimer">
-                <p><strong>IMPORTANT NOTICE:</strong> All payments and transactions on this website are fictional and for roleplay purposes only. No real money will be charged, and no physical products will be shipped. This is a conceptual showcase of the KAZINE brand experience.</p>
-                <p>&copy; 2026 KAZINE | The Project of THE KACHOO. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-    // SIMPLE CART SYSTEM
-    let cart = JSON.parse(localStorage.getItem('kazineCart')) || [];
-    let isProcessing = false;
-
-    // DOM Elements
-    const cartModal = document.getElementById('cartModal');
-    const cartOverlay = document.getElementById('cartOverlay');
-    const cartCount = document.getElementById('cartCount');
-    const cartItems = document.getElementById('cartItems');
-    const cartTotal = document.getElementById('cartTotal');
-    const emptyCart = document.getElementById('emptyCart');
-    const checkoutBtn = document.getElementById('checkoutBtn');
-    const openCartBtn = document.getElementById('openCart');
-    const closeCartBtn = document.getElementById('closeCart');
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mainNav = document.getElementById('mainNav');
-
-    // Initialize cart display
-    updateCartDisplay();
-
-    // Mobile menu toggle
-    if (mobileMenuBtn && mainNav) {
-        mobileMenuBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            mainNav.classList.toggle('active');
-            this.innerHTML = mainNav.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (mainNav.classList.contains('active')) {
-                if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                    mainNav.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            }
-        });
-
-        // Close menu when clicking links
-        mainNav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mainNav.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            });
-        });
+      // bersihkan transisi di lobby setelah selesai
+      setTimeout(() => {
+        sceneLobby.style.transition = '';
+      }, 1800);
+      
+      // nonaktifkan trigger agar tidak klik dua kali
+      if (enterTrigger) enterTrigger.style.pointerEvents = 'none';
     }
 
-    // Cart functions
-    function openCart() {
-        cartModal.classList.add('active');
-        cartOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        updateCartDisplay();
+    // Event listener untuk masuk ke lobby
+    if (enterTrigger) {
+      enterTrigger.addEventListener('click', switchToLobby);
+    }
+    if (clickHint) {
+      clickHint.addEventListener('click', (e) => {
+        e.stopPropagation(); // agar tidak dobel dari parent
+        switchToLobby();
+      });
     }
 
-    function closeCart() {
-        cartModal.classList.remove('active');
-        cartOverlay.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
+    // OPSIONAL: jika pengguna ingin kembali ke building? tidak diperlukan, 
+    // karena fokus ke ground dan tombol-tombol. 
+    // Namun kita bisa sediakan cara "kembali" jika dikehendaki? abaikan sesuai permintaan.
 
-    function updateCartDisplay() {
-        const totalItems = cart.reduce((total, item) => total + (item.quantity || 1), 0);
-        cartCount.textContent = totalItems;
-        
-        if (cart.length === 0) {
-            emptyCart.style.display = 'flex';
-            checkoutBtn.style.display = 'none';
-            cartTotal.textContent = '$0.00';
-            cartItems.innerHTML = '<div class="empty-cart" id="emptyCart"><i class="fas fa-shopping-bag"></i><p>Your bag is empty</p></div>';
-            return;
-        }
-        
-        emptyCart.style.display = 'none';
-        checkoutBtn.style.display = 'block';
-        
-        let total = 0;
-        let itemsHTML = '';
-        
-        cart.forEach((item, index) => {
-            const itemTotal = parseFloat(item.price) * (item.quantity || 1);
-            total += itemTotal;
-            
-            itemsHTML += `
-                <div class="cart-item">
-                    <div class="item-info">
-                        <h4>${item.title}</h4>
-                        <p>Quantity: ${item.quantity || 1}</p>
-                    </div>
-                    <div class="item-price">$${itemTotal.toFixed(2)}</div>
-                    <button class="remove-item" data-index="${index}" aria-label="Remove item">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </div>
-            `;
-        });
-        
-        cartItems.innerHTML = itemsHTML;
-        cartTotal.textContent = `$${total.toFixed(2)}`;
-        
-        // Add event listeners to remove buttons
-        document.querySelectorAll('.remove-item').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                const index = parseInt(this.getAttribute('data-index'));
-                cart.splice(index, 1);
-                localStorage.setItem('kazineCart', JSON.stringify(cart));
-                updateCartDisplay();
-                showNotification('Item removed from cart');
-            });
-        });
-    }
+    // jaga jika ada klik di container tombol tidak memicu switch ( sudah stopPropagation )
+    // tapi karena tombol-tombol adalah link, akan membuka halaman.
 
-    // Function untuk menangani add to cart
-    function handleAddToCart(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        
-        if (isProcessing) return;
-        isProcessing = true;
-        
-        const button = event.currentTarget;
-        const productCard = button.closest('.product-card');
-        const productTitle = productCard.getAttribute('data-product');
-        const productPrice = productCard.getAttribute('data-price');
-        const productId = productCard.getAttribute('data-id');
-        
-        // Check if item already in cart
-        const existingItem = cart.find(item => item.id === productId);
-        
-        if (existingItem) {
-            existingItem.quantity = (existingItem.quantity || 1) + 1;
-            showNotification(`${productTitle} quantity updated`);
-        } else {
-            cart.push({
-                id: productId,
-                title: productTitle,
-                price: productPrice,
-                quantity: 1
-            });
-            showNotification(`${productTitle} added to cart`);
-        }
-        
-        // Save to localStorage
-        localStorage.setItem('kazineCart', JSON.stringify(cart));
-        
-        // Update display
-        updateCartDisplay();
-        
-        // Visual feedback
-        const originalText = button.innerHTML;
-        button.innerHTML = '<i class="fas fa-check"></i> Added';
-        button.style.backgroundColor = '#27ae60';
-        button.disabled = true;
-        
-        // Reset button after delay
-        setTimeout(() => {
-            button.innerHTML = originalText;
-            button.style.backgroundColor = '';
-            button.disabled = false;
-            isProcessing = false;
-        }, 1000);
-    }
+    // untuk memastikan background gelap konsisten, tidak perlu tambahan.
 
-    // Initialize semua tombol Add to Cart
-    function initializeAddToCartButtons() {
-        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-            // Remove existing listeners by cloning
-            const newButton = button.cloneNode(true);
-            button.parentNode.replaceChild(newButton, button);
-        });
-        
-        // Add new listeners to all buttons
-        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-            // Standard click event for desktop
-            button.addEventListener('click', handleAddToCart);
-            
-            // Touch event for mobile with proper handling
-            button.addEventListener('touchstart', function(e) {
-                if (e.cancelable) {
-                    e.preventDefault();
-                }
-                handleAddToCart(e);
-            }, { passive: false });
-            
-            // Ensure button has proper cursor
-            button.style.cursor = 'pointer';
-        });
-    }
+    // juga karena ada kemungkinan link dibuka di tab baru (target blank), sesuai keinginan.
 
-    // Image slider functionality hanya untuk KAZINE IN LOOP
-    function initializeImageSliders() {
-        document.querySelectorAll('.product-card').forEach(card => {
-            const slides = card.querySelector('.product-slides');
-            const prevBtn = card.querySelector('.slide-btn.prev');
-            const nextBtn = card.querySelector('.slide-btn.next');
-            
-            // Hanya inisialisasi slider jika ada tombol slide (untuk KAZINE IN LOOP)
-            if (!slides || !prevBtn || !nextBtn) return;
-            
-            let currentSlide = 0;
-            const totalSlides = 2; // HANYA 2 SLIDE
-            
-            // Function untuk update slide dan tombol
-            function updateSlide() {
-                // Pindah slide
-                slides.style.transform = `translateX(-${currentSlide * 50}%)`;
-                
-                // Update state tombol
-                prevBtn.disabled = currentSlide === 0;
-                nextBtn.disabled = currentSlide === totalSlides - 1;
-                
-                // Update opacity berdasarkan state
-                if (prevBtn.disabled) {
-                    prevBtn.style.opacity = '0.3';
-                } else {
-                    prevBtn.style.opacity = card.querySelector('.product-image-container:hover') ? '1' : '0';
-                }
-                
-                if (nextBtn.disabled) {
-                    nextBtn.style.opacity = '0.3';
-                } else {
-                    nextBtn.style.opacity = card.querySelector('.product-image-container:hover') ? '1' : '0';
-                }
-            }
-            
-            // Previous button
-            prevBtn.addEventListener('click', function(e) {
-                if (this.disabled) return;
-                
-                e.preventDefault();
-                e.stopPropagation();
-                
-                currentSlide = Math.max(0, currentSlide - 1);
-                updateSlide();
-            });
-            
-            // Next button
-            nextBtn.addEventListener('click', function(e) {
-                if (this.disabled) return;
-                
-                e.preventDefault();
-                e.stopPropagation();
-                
-                currentSlide = Math.min(totalSlides - 1, currentSlide + 1);
-                updateSlide();
-            });
-            
-            // Touch events untuk mobile
-            prevBtn.addEventListener('touchstart', function(e) {
-                if (this.disabled) {
-                    if (e.cancelable) e.preventDefault();
-                    return;
-                }
-                
-                if (e.cancelable) {
-                    e.preventDefault();
-                }
-                e.stopPropagation();
-                
-                currentSlide = Math.max(0, currentSlide - 1);
-                updateSlide();
-            }, { passive: false });
-            
-            nextBtn.addEventListener('touchstart', function(e) {
-                if (this.disabled) {
-                    if (e.cancelable) e.preventDefault();
-                    return;
-                }
-                
-                if (e.cancelable) {
-                    e.preventDefault();
-                }
-                e.stopPropagation();
-                
-                currentSlide = Math.min(totalSlides - 1, currentSlide + 1);
-                updateSlide();
-            }, { passive: false });
-            
-            // Juga bisa di-klik pada gambar untuk berpindah (toggle antara 0 dan 1)
-            slides.addEventListener('click', function(e) {
-                if (e.target.closest('.product-slide')) {
-                    currentSlide = currentSlide === 0 ? 1 : 0;
-                    updateSlide();
-                }
-            });
-            
-            // Initialize state awal
-            updateSlide();
-            
-            // Auto-slide on hover for desktop (optional)
-            if (!('ontouchstart' in window)) {
-                card.addEventListener('mouseenter', function() {
-                    // Tidak ada auto-slide karena hanya 2 slide
-                });
-            }
-        });
-    }
+    // Tampilkan fallback jika building.png & lobby.png tidak ada: kita sudah pakai SVG ilustratif.
+    // Untuk penggunaan sungguhan, ganti url di style attribute atau di css class dengan file asli.
+    // contoh: scene-building style background-image: url('building.png');
+    // scene-lobby style background-image: url('lobby.png');
 
-    // Simple notification
-    function showNotification(message) {
-        // Remove existing notification
-        const existing = document.querySelector('.cart-notification');
-        if (existing) existing.remove();
-        
-        // Create notification
-        const notification = document.createElement('div');
-        notification.className = 'cart-notification';
-        notification.textContent = message;
-        
-        document.body.appendChild(notification);
-        
-        // Remove after animation
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.remove();
-            }
-        }, 2000);
-    }
+    console.log('Kachoo Building siap - klik area gelap untuk masuk lobby');
+  })();
+</script>
 
-    // Event listeners untuk cart
-    function setupCartEventListeners() {
-        // Open cart button
-        openCartBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            openCart();
-        });
-        
-        // Close cart button
-        closeCartBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            closeCart();
-        });
-        
-        // Close cart on overlay click
-        cartOverlay.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            closeCart();
-        });
-        
-        // Touch events for mobile
-        openCartBtn.addEventListener('touchstart', function(e) {
-            if (e.cancelable) {
-                e.preventDefault();
-            }
-            e.stopPropagation();
-            openCart();
-        }, { passive: false });
-        
-        closeCartBtn.addEventListener('touchstart', function(e) {
-            if (e.cancelable) {
-                e.preventDefault();
-            }
-            e.stopPropagation();
-            closeCart();
-        }, { passive: false });
-        
-        cartOverlay.addEventListener('touchstart', function(e) {
-            if (e.cancelable) {
-                e.preventDefault();
-            }
-            e.stopPropagation();
-            closeCart();
-        }, { passive: false });
-    }
+<!-- jika ingin ganti gambar dengan file asli, cukup ganti background image inline atau via class.
+     tapi karena environment tidak memiliki file, kita gunakan svg ilustrasi dengan gaya bangunan dan lobby.
+     Sudah termasuk rada gelap via overlay after. -->
 
-    // Checkout button
-    checkoutBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        if (cart.length === 0) {
-            showNotification('Your cart is empty');
-            return;
-        }
-        
-        // Calculate total
-        let subtotal = 0;
-        cart.forEach(item => {
-            subtotal += parseFloat(item.price) * (item.quantity || 1);
-        });
-        
-        // Save order data
-        const orderData = {
-            items: cart,
-            subtotal: subtotal,
-            total: subtotal + 2.50,
-            store: 'KAZINE',
-            orderId: 'KZ-' + Date.now().toString(36).toUpperCase()
-        };
-        
-        localStorage.setItem('kazineOrder', JSON.stringify(orderData));
-        closeCart();
-        
-        // Redirect to payment page
-        setTimeout(() => {
-            // Check if there are Valentine products in cart
-            const hasValentineProducts = cart.some(item => item.id.startsWith('VAL-'));
-            const paymentPage = hasValentineProducts ? 'payment-valentine.html' : 'payment-kazine.html';
-            window.location.href = paymentPage;
-        }, 300);
-    });
+<!-- tambahan sedikit style untuk memastikan scene hidden tidak terlihat -->
+<style>
+  .hidden {
+    display: none !important;
+  }
+  #scene-lobby {
+    display: flex; /* akan di-override hidden */
+  }
+  #scene-lobby.hidden {
+    display: none !important;
+  }
+  /* saat transisi, kita atur display: flex */
+  #scene-lobby:not(.hidden) {
+    display: block;
+  }
+  .scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  /* pastikan scene-building juga absolute */
+  #scene-building {
+    position: absolute;
+  }
+  /* konten tombol lebih rapi */
+  .button-container a {
+    text-decoration: none;
+  }
+  /* background agak gelap via pseudo, jadi tidak perlu terlalu hitam */
+  .scene::after {
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+  /* untuk lobby bisa sedikit lebih gelap jika ingin */
+  #scene-lobby::after {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  /* sentuhan gradasi halus */
+  .button-container {
+    background: rgba(15, 25, 35, 0.65);
+  }
+</style>
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href === '#' || href.includes('.html')) return;
-            
-            e.preventDefault();
-            const targetId = href.substring(1);
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                const headerHeight = document.querySelector('header').offsetHeight;
-                const targetPosition = targetElement.offsetTop - headerHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-                
-                // Close mobile menu if open
-                if (mainNav && mainNav.classList.contains('active')) {
-                    mainNav.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            }
-        });
-    });
-
-    // Initialize all functions when DOM is ready
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialize add to cart buttons
-        initializeAddToCartButtons();
-        
-        // Initialize image sliders (hanya untuk KAZINE IN LOOP)
-        initializeImageSliders();
-        
-        // Setup cart event listeners
-        setupCartEventListeners();
-        
-        // Update cart display
-        updateCartDisplay();
-        
-        // Reset processing flag
-        isProcessing = false;
-        
-        // Add hover effect removal for mobile
-        if ('ontouchstart' in window) {
-            document.body.classList.add('touch-device');
-        }
-    });
-
-    // Also initialize on window load (backup)
-    window.addEventListener('load', function() {
-        initializeAddToCartButtons();
-        initializeImageSliders();
-        setupCartEventListeners();
-        updateCartDisplay();
-    });
-
-    // Fix untuk mencegah double execution
-    let initialized = false;
-    if (!initialized) {
-        initialized = true;
-        
-        // Ensure buttons work immediately
-        setTimeout(() => {
-            initializeAddToCartButtons();
-            initializeImageSliders();
-        }, 100);
-    }
-    </script>
 </body>
     </html>
