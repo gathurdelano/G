@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kachoo Building (pure B&W)</title>
+  <title>Kachoo Building</title>
   <!-- Inter font & minimal icons (only arrow for CTA, no emoticons/symbols) -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
   <style>
@@ -71,12 +71,41 @@
       pointer-events: none;
     }
 
-    /* ---------- specific backgrounds (SVG fallback – replace with real png if needed) ---------- */
+    /* ---------- BACKGROUND UNTUK DESKTOP (default) ---------- */
     #scene-building {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23222c3a%22/><rect x=%2250%22 y=%2280%22 width=%22300%22 height=%22160%22 fill=%22%233a4a5e%22 rx=%228%22/><rect x=%22120%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22240%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22100%22 y=%22200%22 width=%22200%22 height=%2220%22 fill=%22%231a2532%22/><circle cx=%22200%22 cy=%22100%22 r=%2212%22 fill=%22%23aab7c9%22 /></svg>');
+      background-image: url('building1.png'); /* 1920x1080 untuk desktop */
     }
     #scene-lobby {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23354b42%22/><rect x=%2230%22 y=%2250%22 width=%22340%22 height=%22200%22 fill=%22%236a7c70%22 rx=%2216%22/><rect x=%2280%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><rect x=%22260%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><circle cx=%22200%22 cy=%22150%22 r=%2230%22 fill=%22%23cadfd1%22 opacity=%220.6%22 /></svg>');
+      background-image: url('lobby1.png'); /* 1920x1080 untuk desktop */
+    }
+
+    /* ---------- BACKGROUND UNTUK MOBILE & TABLET (max-width: 1024px) ---------- */
+    @media (max-width: 1024px) {
+      #scene-building {
+        background-image: url('building2.png'); /* 768x1024 untuk mobile/tablet */
+      }
+      #scene-lobby {
+        background-image: url('lobby2.png'); /* 768x1024 untuk mobile/tablet */
+      }
+    }
+
+    /* Fallback SVG jika gambar tidak tersedia (untuk development) */
+    @media (min-width: 1025px) {
+      #scene-building {
+        background-image: url('building1.png'), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23222c3a%22/><rect x=%2250%22 y=%2280%22 width=%22300%22 height=%22160%22 fill=%22%233a4a5e%22 rx=%228%22/><rect x=%22120%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22240%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22100%22 y=%22200%22 width=%22200%22 height=%2220%22 fill=%22%231a2532%22/><circle cx=%22200%22 cy=%22100%22 r=%2212%22 fill=%22%23aab7c9%22 /></svg>');
+      }
+      #scene-lobby {
+        background-image: url('lobby1.png'), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23354b42%22/><rect x=%2230%22 y=%2250%22 width=%22340%22 height=%22200%22 fill=%22%236a7c70%22 rx=%2216%22/><rect x=%2280%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><rect x=%22260%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><circle cx=%22200%22 cy=%22150%22 r=%2230%22 fill=%22%23cadfd1%22 opacity=%220.6%22 /></svg>');
+      }
+    }
+
+    @media (max-width: 1024px) {
+      #scene-building {
+        background-image: url('building2.png'), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 600%22><rect width=%22400%22 height=%22600%22 fill=%22%23222c3a%22/><rect x=%2250%22 y=%22150%22 width=%22300%22 height=%22300%22 fill=%22%233a4a5e%22 rx=%228%22/><rect x=%22120%22 y=%22200%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22240%22 y=%22200%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22100%22 y=%22400%22 width=%22200%22 height=%2220%22 fill=%22%231a2532%22/><circle cx=%22200%22 cy=%22250%22 r=%2212%22 fill=%22%23aab7c9%22 /></svg>');
+      }
+      #scene-lobby {
+        background-image: url('lobby2.png'), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 600%22><rect width=%22400%22 height=%22600%22 fill=%22%23354b42%22/><rect x=%2230%22 y=%22100%22 width=%22340%22 height=%22400%22 fill=%22%236a7c70%22 rx=%2216%22/><rect x=%2280%22 y=%22200%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><rect x=%22260%22 y=%22200%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><circle cx=%22200%22 cy=%22300%22 r=%2230%22 fill=%22%23cadfd1%22 opacity=%220.6%22 /></svg>');
+      }
     }
 
     /* ---------- welcome message – pure text, clean B&W ---------- */
@@ -166,7 +195,7 @@
       text-transform: uppercase;
     }
 
-    /* enter hint not used anymore — replaced with welcome message that also triggers */
+    /* enter area */
     .enter-area {
       cursor: pointer;
       width: 100%;
@@ -176,12 +205,7 @@
       justify-content: center;
     }
 
-    /* no icons/emoticons – just pure text and minimalist arrow for CTA? 
-       but we removed all symbols, so even the arrow should not appear.
-       In reference there is <i class="fas fa-arrow-right"></i> but we omit font-awesome entirely.
-       So no arrow, just text. */
-
-    /* responsive adjustments */
+    /* responsive adjustments for buttons */
     @media (max-width: 700px) {
       .button-container {
         padding: 1.8rem 1.5rem;
@@ -232,7 +256,6 @@
           <h1>WELCOME TO THE KACHOO</h1>
           <p>Headquarters · explore every level</p>
         </div>
-        <!-- tidak ada petunjuk klik, hanya teks selamat datang yang bisa diklik -->
       </div>
     </div>
   </div>
@@ -240,7 +263,7 @@
   <!-- LOBBY SCENE (ground) – hidden initially -->
   <div id="scene-lobby" class="scene hidden">
     <div class="content">
-      <!-- container tombol persis daftar yang diminta: Lift, Information desk, Grand Hall, Exhibition Center, Chobank, Food Court -->
+      <!-- container tombol persis daftar yang diminta -->
       <div class="button-container">
         <a href="lift.html" class="floor-btn" target="_blank">Lift</a>
         <a href="info.html" class="floor-btn" target="_blank">Information desk</a>
@@ -281,25 +304,17 @@
         }, 1000);
       }
 
-      // event listener: klik area welcome (seluruh area karena .enter-area meliputi teks)
+      // event listener: klik area welcome
       if (enterTrigger) {
         enterTrigger.addEventListener('click', switchToLobby);
       }
 
-      // untuk memastikan tidak ada bug jika double klik dll
+      // keadaan awal: building visible, lobby hidden
       window.addEventListener('load', function() {
-        // keadaan awal: building visible, lobby hidden
         buildingScene.classList.remove('hidden');
         lobbyScene.classList.add('hidden');
       });
-
-      // optional: fallback jika pengguna resize, tidak pengaruh
     })();
   </script>
-
-  <!-- tidak ada satupun emoticon, simbol, atau bahasa indonesia. semua inggris, warna putih-hitam.
-       background gelap via overlay rgba(0,0,0,0.2) di .scene::after sudah cukup.
-       font inter murni, tombol dengan gaya referensi (border, background hover putih).
-  -->
 </body>
   </html>
