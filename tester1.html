@@ -155,7 +155,7 @@
     }
 
     /* CONTAINER TOMBOL - LEBIH PUDAR (transparan) */
-    .button-container, .lift-button-container {
+    .button-container {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
@@ -172,9 +172,26 @@
       margin: 0 auto;
     }
 
+    /* LIFT PANEL - DIOPTIMASI UNTUK MOBILE */
+    .lift-panel {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.5);
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
     /* TOMBOL PUTIH DENGAN PERPADUAN HITAM */
     .floor-btn {
-      padding: 1rem 2rem;
+      padding: 1rem 0.5rem;
       font-size: 1.15rem;
       font-weight: 700;
       letter-spacing: 0.01em;
@@ -189,7 +206,8 @@
       align-items: center;
       justify-content: center;
       gap: 0.6rem;
-      min-width: 160px;
+      min-width: 0;
+      width: 100%;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
@@ -199,6 +217,13 @@
       border-color: #FFFFFF;
       transform: scale(1.03) translateY(-2px);
       box-shadow: 0 20px 30px -8px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Tombol Back to Lobby - full width */
+    .btn-full {
+      grid-column: span 4;
+      margin-top: 0.5rem;
+      background: #eeeeee;
     }
 
     /* floor indicator */
@@ -264,34 +289,61 @@
       animation: microShake 0.4s ease-in-out;
     }
 
-    /* responsive adjustments */
+    /* responsive adjustments - FIX UNTUK MOBILE */
     @media (max-width: 700px) {
-      .button-container, .lift-button-container {
+      .button-container {
         padding: 1.5rem 1.2rem;
         gap: 0.8rem;
         border-radius: 28px;
         width: 95%;
       }
-      .floor-btn {
-        padding: 0.9rem 1.2rem;
-        font-size: 1rem;
-        min-width: 140px;
-        flex: 1 0 auto;
-        max-width: 260px;
+      
+      .lift-panel {
+        padding: 1.5rem;
+        gap: 0.7rem;
+        border-radius: 28px;
+        width: 95%;
       }
+      
+      .floor-btn {
+        padding: 0.9rem 0.3rem;
+        font-size: 1rem;
+      }
+      
       .welcome-message h1 {
         font-size: clamp(2rem, 8vw, 3rem);
       }
     }
 
     @media (max-width: 480px) {
-      .floor-btn {
-        min-width: 100%;
-        max-width: 100%;
-        padding: 1rem 1.2rem;
+      .lift-panel {
+        grid-template-columns: repeat(3, 1fr);
+        padding: 1.2rem;
+        gap: 0.6rem;
       }
-      .button-container, .lift-button-container {
-        padding: 1.2rem 0.8rem;
+      
+      .btn-full {
+        grid-column: span 3;
+      }
+      
+      .floor-btn {
+        padding: 0.8rem 0.2rem;
+        font-size: 0.95rem;
+      }
+      
+      .button-container .floor-btn {
+        min-width: 100%;
+      }
+    }
+
+    /* Untuk layar sangat kecil */
+    @media (max-width: 360px) {
+      .lift-panel {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .btn-full {
+        grid-column: span 2;
       }
     }
   </style>
@@ -327,7 +379,7 @@
   <!-- LIFT SCENE (dengan tombol lantai) -->
   <div id="scene-lift" class="scene hidden">
     <div class="content">
-      <div class="lift-button-container" id="lift-panel">
+      <div class="lift-panel" id="lift-panel">
         <!-- Tombol akan diisi JavaScript -->
       </div>
       <div class="floor-label">LIFT · pilih lantai</div>
@@ -337,7 +389,7 @@
   <!-- BASEMENT SCENE -->
   <div id="scene-basement" class="scene hidden">
     <div class="content">
-      <div class="lift-button-container" id="basement-panel">
+      <div class="lift-panel" id="basement-panel">
         <!-- Tombol untuk basement -->
       </div>
       <div class="floor-label">BASEMENT B1</div>
@@ -389,7 +441,9 @@
         liftPanel.innerHTML = '';
         
         const floors = [
-          'B1', 'G', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'L9', 'Rooftop'
+          'B1', 'G', 'L1', 'L2', 
+          'L3', 'L4', 'L5', 'L6', 
+          'L7', 'L8', 'L9', 'Rooftop'
         ];
         
         floors.forEach(floor => {
@@ -423,9 +477,9 @@
           liftPanel.appendChild(btn);
         });
         
-        // Tombol kembali ke lobby
+        // Tombol kembali ke lobby - full width
         const backBtn = document.createElement('button');
-        backBtn.className = 'floor-btn';
+        backBtn.className = 'floor-btn btn-full';
         backBtn.textContent = '← Back to Lobby';
         backBtn.addEventListener('click', () => showScene(lobbyScene));
         liftPanel.appendChild(backBtn);
@@ -453,7 +507,7 @@
         
         // Tombol kembali ke lift
         const btnBack = document.createElement('button');
-        btnBack.className = 'floor-btn';
+        btnBack.className = 'floor-btn btn-full';
         btnBack.textContent = '← Back to Lift';
         btnBack.addEventListener('click', () => {
           showScene(liftScene);
@@ -483,4 +537,4 @@
     })();
   </script>
 </body>
-  </html>
+</html>
