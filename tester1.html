@@ -38,6 +38,18 @@
       transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
       opacity: 1;
       display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* BUILDING & LOBBY pake align center (default) */
+    #scene-building .content, #scene-lobby .content {
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* LIFT & BASEMENT pake align bottom */
+    #scene-lift .content, #scene-basement .content {
       align-items: flex-end;
       justify-content: center;
     }
@@ -60,8 +72,6 @@
       padding: 1.5rem;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
     }
 
     .scene.hidden {
@@ -154,7 +164,7 @@
       margin-top: 0.75rem;
     }
 
-    /* CONTAINER TOMBOL - LEBIH PUDAR (transparan) */
+    /* CONTAINER TOMBOL UNTUK LOBBY */
     .button-container {
       display: flex;
       flex-wrap: wrap;
@@ -172,7 +182,7 @@
       margin: 0 auto;
     }
 
-    /* LIFT PANEL - KECIL DI BAWAH */
+    /* LIFT PANEL - KHUSUS LIFT DAN BASEMENT (kecil di bawah) */
     .lift-panel {
       display: flex;
       flex-wrap: wrap;
@@ -191,8 +201,8 @@
       margin: 0 auto;
     }
 
-    /* TOMBOL KECIL SEMUA */
-    .floor-btn {
+    /* TOMBOL KHUSUS LIFT & BASEMENT - KECIL */
+    .lift-btn {
       padding: 0.6rem 1.2rem;
       font-size: 0.9rem;
       font-weight: 700;
@@ -212,6 +222,35 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
+    .lift-btn:hover {
+      background: #000000;
+      color: #FFFFFF;
+      border-color: #FFFFFF;
+      transform: scale(1.03) translateY(-2px);
+      box-shadow: 0 20px 30px -8px rgba(0, 0, 0, 0.8);
+    }
+
+    /* TOMBOL UNTUK LOBBY - BESAR (seperti aslinya) */
+    .floor-btn {
+      padding: 1rem 2rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: #000000;
+      background: #FFFFFF;
+      border: 2px solid #000000;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      min-width: 160px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
     .floor-btn:hover {
       background: #000000;
       color: #FFFFFF;
@@ -220,23 +259,26 @@
       box-shadow: 0 20px 30px -8px rgba(0, 0, 0, 0.8);
     }
 
-    /* Tombol Back to Lobby/Lift - beda warna dikit */
-    .btn-back {
-      background: #eeeeee;
-    }
-
-    /* floor indicator - sekarang cuma "LIFT" aja */
+    /* floor indicator */
     .floor-label {
-      margin-top: 0.8rem;
-      font-size: 0.8rem;
+      margin-top: 2rem;
+      font-size: 0.9rem;
       font-weight: 500;
       letter-spacing: 0.5px;
       color: #FFFFFF;
       background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(4px);
-      padding: 0.3rem 1.2rem;
+      padding: 0.5rem 1.8rem;
       border-radius: 40px;
       border: 1px solid rgba(255, 255, 255, 0.3);
+      text-transform: uppercase;
+    }
+
+    /* KHUSUS label LIFT & BASEMENT (lebih kecil) */
+    #scene-lift .floor-label, #scene-basement .floor-label {
+      margin-top: 0.8rem;
+      font-size: 0.8rem;
+      padding: 0.3rem 1.2rem;
     }
 
     /* enter area */
@@ -274,7 +316,7 @@
       100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
     }
 
-    /* animasi kecil untuk semua tombol */
+    /* animasi kecil KHUSUS LIFT & BASEMENT */
     @keyframes microShake {
       0% { transform: translate(0, 0); }
       20% { transform: translate(-2px, 1px); }
@@ -303,9 +345,15 @@
         border-radius: 30px;
       }
       
-      .floor-btn {
+      .lift-btn {
         padding: 0.5rem 1rem;
         font-size: 0.8rem;
+      }
+      
+      .floor-btn {
+        padding: 0.9rem 1.2rem;
+        font-size: 1rem;
+        min-width: 140px;
       }
       
       .welcome-message h1 {
@@ -314,9 +362,15 @@
     }
 
     @media (max-width: 480px) {
-      .floor-btn {
+      .lift-btn {
         padding: 0.4rem 0.8rem;
         font-size: 0.75rem;
+      }
+      
+      .floor-btn {
+        min-width: 100%;
+        max-width: 100%;
+        padding: 1rem 1.2rem;
       }
       
       .lift-panel {
@@ -326,11 +380,6 @@
   </style>
 </head>
 <body>
-  <!-- AUDIO OTOMATIS REPEAT -->
-  <audio id="lift-audio" loop autoplay>
-    <source src="lift.mp3" type="audio/mpeg">
-  </audio>
-
   <!-- BUILDING SCENE -->
   <div id="scene-building" class="scene">
     <div class="content">
@@ -354,11 +403,11 @@
         <a href="Chobank.html" class="floor-btn" target="_blank">Chobank</a>
         <a href="FC.html" class="floor-btn" target="_blank">Food Court</a>
       </div>
-      <div class="floor-label">GROUND FLOOR</div>
+      <div class="floor-label">THE KACHOO · GROUND FLOOR</div>
     </div>
   </div>
 
-  <!-- LIFT SCENE (dengan tombol lantai kecil di bawah) -->
+  <!-- LIFT SCENE (tombol kecil di bawah) -->
   <div id="scene-lift" class="scene hidden">
     <div class="content">
       <div class="lift-panel" id="lift-panel">
@@ -368,7 +417,7 @@
     </div>
   </div>
 
-  <!-- BASEMENT SCENE (hanya back to lift) -->
+  <!-- BASEMENT SCENE (tombol kecil di bawah) -->
   <div id="scene-basement" class="scene hidden">
     <div class="content">
       <div class="lift-panel" id="basement-panel">
@@ -397,20 +446,6 @@
       
       // Notification
       const notification = document.getElementById('notification');
-      
-      // Audio
-      const audio = document.getElementById('lift-audio');
-      
-      // Pastikan audio play (untuk handle autoplay policy)
-      audio.volume = 0.5;
-      audio.play().catch(e => {
-        console.log('Autoplay prevented, will play after user interaction');
-        // Play setelah user klik pertama kali
-        document.addEventListener('click', function initAudio() {
-          audio.play();
-          document.removeEventListener('click', initAudio);
-        }, { once: true });
-      });
 
       // Fungsi show notifikasi
       function showNotification(message) {
@@ -421,26 +456,8 @@
         }, 2000);
       }
 
-      // Fungsi ganti scene dengan animasi geter dulu
-      function switchSceneWithShake(currentScene, targetScene, callback) {
-        currentScene.classList.add('shake-animation');
-        setTimeout(() => {
-          currentScene.classList.remove('shake-animation');
-          
-          // Sembunyikan semua scene
-          [buildingScene, lobbyScene, liftScene, basementScene].forEach(scene => {
-            scene.classList.add('hidden');
-          });
-          
-          // Tampilkan target scene
-          targetScene.classList.remove('hidden');
-          
-          if (callback) callback();
-        }, 400);
-      }
-
-      // Fungsi langsung show scene (tanpa geter untuk navigasi awal)
-      function showScene(sceneToShow) {
+      // Fungsi ganti scene LANGSUNG (tanpa animasi)
+      function showSceneDirect(sceneToShow) {
         [buildingScene, lobbyScene, liftScene, basementScene].forEach(scene => {
           if (scene === sceneToShow) {
             scene.classList.remove('hidden');
@@ -450,7 +467,17 @@
         });
       }
 
-      // Fungsi buat tombol lift (kecil semua)
+      // Fungsi khusus untuk pindah scene di LIFT & BASEMENT (dengan animasi)
+      function switchLiftScene(currentScene, targetScene, callback) {
+        currentScene.classList.add('shake-animation');
+        setTimeout(() => {
+          currentScene.classList.remove('shake-animation');
+          showSceneDirect(targetScene);
+          if (callback) callback();
+        }, 400);
+      }
+
+      // Fungsi buat tombol lift (kecil semua di bawah)
       function createFloorButtons() {
         liftPanel.innerHTML = '';
         
@@ -461,23 +488,21 @@
         
         floors.forEach(floor => {
           const btn = document.createElement('button');
-          btn.className = 'floor-btn';
+          btn.className = 'lift-btn';
           btn.textContent = floor;
           
           btn.addEventListener('click', function() {
             if (floor === 'B1') {
-              switchSceneWithShake(liftScene, basementScene, () => {
+              switchLiftScene(liftScene, basementScene, () => {
                 createBasementButtons();
               });
             }
             else if (floor === 'G') {
-              liftScene.classList.add('shake-animation');
-              setTimeout(() => {
-                liftScene.classList.remove('shake-animation');
-                showNotification('You are currently on Ground floor');
-              }, 400);
+              // Balik ke lobby pake G
+              switchLiftScene(liftScene, lobbyScene, null);
             }
             else if (floor === 'L1') {
+              // Animasi dulu baru redirect
               liftScene.classList.add('shake-animation');
               setTimeout(() => {
                 liftScene.classList.remove('shake-animation');
@@ -485,7 +510,7 @@
               }, 400);
             }
             else {
-              // L2 - Rooftop
+              // L2 - Rooftop (terkunci)
               liftScene.classList.add('shake-animation');
               setTimeout(() => {
                 liftScene.classList.remove('shake-animation');
@@ -496,15 +521,6 @@
           
           liftPanel.appendChild(btn);
         });
-        
-        // Tombol kembali ke lobby - kecil juga
-        const backBtn = document.createElement('button');
-        backBtn.className = 'floor-btn btn-back';
-        backBtn.textContent = '← Lobby';
-        backBtn.addEventListener('click', () => {
-          switchSceneWithShake(liftScene, lobbyScene, null);
-        });
-        liftPanel.appendChild(backBtn);
       }
 
       // Fungsi buat tombol basement (CUMA BACK TO LIFT)
@@ -513,32 +529,32 @@
         
         // Tombol kembali ke lift
         const btnBack = document.createElement('button');
-        btnBack.className = 'floor-btn btn-back';
+        btnBack.className = 'lift-btn';
         btnBack.textContent = '← Back to Lift';
         btnBack.addEventListener('click', () => {
-          switchSceneWithShake(basementScene, liftScene, null);
+          switchLiftScene(basementScene, liftScene, null);
         });
         
         basementPanel.appendChild(btnBack);
       }
 
-      // Event: klik area welcome untuk masuk lobby (dengan geter)
+      // Event: klik area welcome untuk masuk lobby (LANGSUNG, tanpa animasi)
       document.getElementById('enter-lobby-trigger').addEventListener('click', () => {
-        switchSceneWithShake(buildingScene, lobbyScene, null);
+        showSceneDirect(lobbyScene);
       });
 
-      // Event: klik tombol Lift di lobby
+      // Event: klik tombol Lift di lobby (LANGSUNG, tanpa animasi)
       document.getElementById('lift-btn').addEventListener('click', () => {
         createFloorButtons();
-        switchSceneWithShake(lobbyScene, liftScene, null);
+        showSceneDirect(liftScene);
       });
 
       // Initial state
       window.addEventListener('load', () => {
-        showScene(buildingScene);
+        showSceneDirect(buildingScene);
       });
 
     })();
   </script>
 </body>
-    </html>
+  </html>
