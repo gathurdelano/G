@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kachoo Building</title>
-  <!-- Inter font & minimal icons (only arrow for CTA, no emoticons/symbols) -->
+  <!-- Inter font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
   <style>
     * {
@@ -20,7 +20,7 @@
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow: hidden; /* fullscreen scenes, no scroll on body */
+      overflow: hidden;
       width: 100%;
       height: 100%;
     }
@@ -42,17 +42,16 @@
       justify-content: center;
     }
 
-    /* dark overlay – 'rada gelap' but not too dark: 20% black */
+    /* dark overlay – lebih transparan (15% agar lebih terang) */
     .scene::after {
       content: '';
       position: absolute;
       inset: 0;
-      background-color: rgba(0, 0, 0, 0.2); 
+      background-color: rgba(0, 0, 0, 0.15); 
       pointer-events: none;
       z-index: 1;
     }
 
-    /* all content above overlay */
     .content {
       position: relative;
       z-index: 20;
@@ -65,31 +64,30 @@
       justify-content: center;
     }
 
-    /* hidden state for scene switch */
     .scene.hidden {
       opacity: 0;
       pointer-events: none;
     }
 
-    /* ---------- BACKGROUND UNTUK DESKTOP (default) ---------- */
+    /* BACKGROUND UNTUK DESKTOP (default) */
     #scene-building {
-      background-image: url('building1.png'); /* 1920x1080 untuk desktop */
+      background-image: url('building1.png');
     }
     #scene-lobby {
-      background-image: url('lobby1.png'); /* 1920x1080 untuk desktop */
+      background-image: url('lobby1.png');
     }
 
-    /* ---------- BACKGROUND UNTUK MOBILE & TABLET (max-width: 1024px) ---------- */
+    /* BACKGROUND UNTUK MOBILE & TABLET */
     @media (max-width: 1024px) {
       #scene-building {
-        background-image: url('building2.png'); /* 768x1024 untuk mobile/tablet */
+        background-image: url('building2.png');
       }
       #scene-lobby {
-        background-image: url('lobby2.png'); /* 768x1024 untuk mobile/tablet */
+        background-image: url('lobby2.png');
       }
     }
 
-    /* Fallback SVG jika gambar tidak tersedia (untuk development) */
+    /* Fallback SVG */
     @media (min-width: 1025px) {
       #scene-building {
         background-image: url('building1.png'), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23222c3a%22/><rect x=%2250%22 y=%2280%22 width=%22300%22 height=%22160%22 fill=%22%233a4a5e%22 rx=%228%22/><rect x=%22120%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22240%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22100%22 y=%22200%22 width=%22200%22 height=%2220%22 fill=%22%231a2532%22/><circle cx=%22200%22 cy=%22100%22 r=%2212%22 fill=%22%23aab7c9%22 /></svg>');
@@ -108,7 +106,7 @@
       }
     }
 
-    /* ---------- welcome message – pure text, clean B&W ---------- */
+    /* welcome message */
     .welcome-message {
       text-align: center;
       margin-bottom: 2.5rem;
@@ -132,7 +130,7 @@
       margin-top: 0.75rem;
     }
 
-    /* ---------- container tombol – pure black/white, glass ---------- */
+    /* CONTAINER TOMBOL - LEBIH PUDAR (transparan) */
     .button-container {
       display: flex;
       flex-wrap: wrap;
@@ -140,25 +138,25 @@
       justify-content: center;
       align-items: center;
       padding: 2rem 2.5rem;
-      background: rgba(0, 0, 0, 0.65);  
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.08);  /* sangat transparan, lebih pudar */
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-radius: 32px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.5);
       max-width: 1000px;
       margin: 0 auto;
     }
 
-    /* tombol persis gaya referensi: bold, inter, transisi */
+    /* TOMBOL PUTIH DENGAN PERPADUAN HITAM */
     .floor-btn {
       padding: 1rem 2rem;
       font-size: 1.15rem;
       font-weight: 700;
       letter-spacing: 0.01em;
-      color: #FFFFFF;
-      background: transparent;
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: #000000;  /* teks hitam */
+      background: #FFFFFF;  /* background putih solid */
+      border: 2px solid #000000;  /* border hitam */
       border-radius: 50px;
       cursor: pointer;
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -168,30 +166,29 @@
       justify-content: center;
       gap: 0.6rem;
       min-width: 160px;
-      backdrop-filter: blur(4px);
-      background-color: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     .floor-btn:hover {
-      background-color: #FFFFFF;
-      color: #000000;
+      background: #000000;  /* hover jadi hitam */
+      color: #FFFFFF;  /* teks jadi putih */
       border-color: #FFFFFF;
       transform: scale(1.03) translateY(-2px);
-      box-shadow: 0 20px 30px -8px #000000;
+      box-shadow: 0 20px 30px -8px rgba(0, 0, 0, 0.8);
     }
 
-    /* floor indicator (ground floor label) */
+    /* floor indicator */
     .floor-label {
       margin-top: 2rem;
       font-size: 0.9rem;
       font-weight: 500;
       letter-spacing: 0.5px;
-      color: #CCCCCC;
-      background: rgba(0, 0, 0, 0.5);
+      color: #FFFFFF;
+      background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(4px);
       padding: 0.5rem 1.8rem;
       border-radius: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       text-transform: uppercase;
     }
 
@@ -205,13 +202,14 @@
       justify-content: center;
     }
 
-    /* responsive adjustments for buttons */
+    /* responsive adjustments */
     @media (max-width: 700px) {
       .button-container {
-        padding: 1.8rem 1.5rem;
+        padding: 1.5rem 1.2rem;
         gap: 0.8rem;
         border-radius: 28px;
         width: 95%;
+        background: rgba(255, 255, 255, 0.1);  /* sedikit lebih terang di mobile */
       }
       .floor-btn {
         padding: 0.9rem 1.2rem;
@@ -232,25 +230,20 @@
         padding: 1rem 1.2rem;
       }
       .button-container {
-        padding: 1.5rem 1rem;
+        padding: 1.2rem 0.8rem;
+        background: rgba(255, 255, 255, 0.12);
       }
       .floor-label {
         font-size: 0.8rem;
         padding: 0.4rem 1.2rem;
       }
     }
-
-    /* transition helper */
-    .no-transition {
-      transition: none !important;
-    }
   </style>
 </head>
 <body>
-  <!-- BUILDING SCENE (initial) -->
+  <!-- BUILDING SCENE -->
   <div id="scene-building" class="scene">
     <div class="content">
-      <!-- welcome message – klik area untuk masuk, tanpa simbol/petunjuk visual berlebih, hanya teks -->
       <div class="enter-area" id="enter-lobby-trigger">
         <div class="welcome-message">
           <h1>WELCOME TO THE KACHOO</h1>
@@ -260,10 +253,9 @@
     </div>
   </div>
 
-  <!-- LOBBY SCENE (ground) – hidden initially -->
+  <!-- LOBBY SCENE -->
   <div id="scene-lobby" class="scene hidden">
     <div class="content">
-      <!-- container tombol persis daftar yang diminta -->
       <div class="button-container">
         <a href="lift.html" class="floor-btn" target="_blank">Lift</a>
         <a href="info.html" class="floor-btn" target="_blank">Information desk</a>
@@ -272,7 +264,6 @@
         <a href="Chobank.html" class="floor-btn" target="_blank">Chobank</a>
         <a href="FC.html" class="floor-btn" target="_blank">Food Court</a>
       </div>
-      <!-- keterangan lantai ground, tanpa icon, full teks -->
       <div class="floor-label">THE KACHOO · GROUND FLOOR</div>
     </div>
   </div>
@@ -285,31 +276,25 @@
       const lobbyScene = document.getElementById('scene-lobby');
       const enterTrigger = document.getElementById('enter-lobby-trigger');
 
-      // fungsi pindah ke lobby dengan transisi halus (opacity fade)
       function switchToLobby() {
-        if (lobbyScene.classList.contains('hidden') === false) return; // already visible
+        if (lobbyScene.classList.contains('hidden') === false) return;
 
-        // pastikan building tidak dalam transisi ganda
         buildingScene.style.transition = 'opacity 0.9s ease';
         lobbyScene.style.transition = 'opacity 0.9s ease';
 
-        // sembunyikan building, munculkan lobby
         buildingScene.classList.add('hidden');
         lobbyScene.classList.remove('hidden');
 
-        // sedikit reset transisi setelah selesai
         setTimeout(() => {
           buildingScene.style.transition = '';
           lobbyScene.style.transition = '';
         }, 1000);
       }
 
-      // event listener: klik area welcome
       if (enterTrigger) {
         enterTrigger.addEventListener('click', switchToLobby);
       }
 
-      // keadaan awal: building visible, lobby hidden
       window.addEventListener('load', function() {
         buildingScene.classList.remove('hidden');
         lobbyScene.classList.add('hidden');
@@ -317,4 +302,4 @@
     })();
   </script>
 </body>
-  </html>
+</html>
