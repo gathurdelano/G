@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kachoo Building</title>
-  <!-- Inter font -->
+  <title>Kachoo · Lift Control</title>
+  <!-- Inter font + sharp icons (unicode) -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      user-select: none;
     }
 
     body {
@@ -25,7 +26,7 @@
       height: 100%;
     }
 
-    /* scene layers */
+    /* scene layers – seamless transitions */
     .scene {
       position: absolute;
       top: 0;
@@ -35,19 +36,19 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: opacity 1s cubic-bezier(0.2, 0.9, 0.3, 1);
       opacity: 1;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* dark overlay – lebih transparan (15% agar lebih terang) */
+    /* very subtle dark overlay (barely there) */
     .scene::after {
       content: '';
       position: absolute;
       inset: 0;
-      background-color: rgba(0, 0, 0, 0.15); 
+      background-color: rgba(0, 0, 0, 0.12);
       pointer-events: none;
       z-index: 1;
     }
@@ -69,195 +70,235 @@
       pointer-events: none;
     }
 
-    /* BACKGROUND UNTUK DESKTOP (default) */
-    #scene-building {
-      background-image: url('building1.png');
-    }
-    #scene-lobby {
-      background-image: url('lobby1.png');
+    /* ===== LIFT BACKGROUNDS (desktop vs mobile) ===== */
+    #scene-lift {
+      background-image: url('lift1.png');  /* fallback desktop */
     }
 
-    /* BACKGROUND UNTUK MOBILE & TABLET */
+    /* mobile (≤1024px) pakai lift2.png */
     @media (max-width: 1024px) {
-      #scene-building {
-        background-image: url('building2.png');
-      }
-      #scene-lobby {
-        background-image: url('lobby2.png');
+      #scene-lift {
+        background-image: url('lift2.png');
       }
     }
 
-    /* Fallback SVG */
+    /* fallback svg if images missing (desktop) */
     @media (min-width: 1025px) {
-      #scene-building {
-        background-image: url('building1.png'), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23222c3a%22/><rect x=%2250%22 y=%2280%22 width=%22300%22 height=%22160%22 fill=%22%233a4a5e%22 rx=%228%22/><rect x=%22120%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22240%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22100%22 y=%22200%22 width=%22200%22 height=%2220%22 fill=%22%231a2532%22/><circle cx=%22200%22 cy=%22100%22 r=%2212%22 fill=%22%23aab7c9%22 /></svg>');
-      }
-      #scene-lobby {
-        background-image: url('lobby1.png'), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23354b42%22/><rect x=%2230%22 y=%2250%22 width=%22340%22 height=%22200%22 fill=%22%236a7c70%22 rx=%2216%22/><rect x=%2280%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><rect x=%22260%22 y=%22100%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><circle cx=%22200%22 cy=%22150%22 r=%2230%22 fill=%22%23cadfd1%22 opacity=%220.6%22 /></svg>');
+      #scene-lift {
+        background-image: url('lift1.png'), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%231a2e3f%22/><rect x=%2260%22 y=%2250%22 width=%22280%22 height=%22200%22 fill=%22%233a526b%22 rx=%2220%22/><circle cx=%22200%22 cy=%22150%22 r=%2230%22 fill=%22%236a859f%22 opacity=%220.7%22/><rect x=%22160%22 y=%22135%22 width=%2280%22 height=%2230%22 fill=%22%23aac3d9%22 rx=%226%22/></svg>');
       }
     }
 
     @media (max-width: 1024px) {
-      #scene-building {
-        background-image: url('building2.png'), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 600%22><rect width=%22400%22 height=%22600%22 fill=%22%23222c3a%22/><rect x=%2250%22 y=%22150%22 width=%22300%22 height=%22300%22 fill=%22%233a4a5e%22 rx=%228%22/><rect x=%22120%22 y=%22200%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22240%22 y=%22200%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22100%22 y=%22400%22 width=%22200%22 height=%2220%22 fill=%22%231a2532%22/><circle cx=%22200%22 cy=%22250%22 r=%2212%22 fill=%22%23aab7c9%22 /></svg>');
-      }
-      #scene-lobby {
-        background-image: url('lobby2.png'), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 600%22><rect width=%22400%22 height=%22600%22 fill=%22%23354b42%22/><rect x=%2230%22 y=%22100%22 width=%22340%22 height=%22400%22 fill=%22%236a7c70%22 rx=%2216%22/><rect x=%2280%22 y=%22200%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><rect x=%22260%22 y=%22200%22 width=%2260%22 height=%2260%22 fill=%22%23aac3b3%22 rx=%228%22/><circle cx=%22200%22 cy=%22300%22 r=%2230%22 fill=%22%23cadfd1%22 opacity=%220.6%22 /></svg>');
+      #scene-lift {
+        background-image: url('lift2.png'), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 600%22><rect width=%22400%22 height=%22600%22 fill=%22%231a2e3f%22/><rect x=%2260%22 y=%22120%22 width=%22280%22 height=%22360%22 fill=%22%233a526b%22 rx=%2230%22/><circle cx=%22200%22 cy=%22300%22 r=%2240%22 fill=%22%236a859f%22 opacity=%220.7%22/><rect x=%22150%22 y=%22280%22 width=%22100%22 height=%2240%22 fill=%22%23aac3d9%22 rx=%228%22/></svg>');
       }
     }
 
-    /* welcome message */
-    .welcome-message {
-      text-align: center;
-      margin-bottom: 2.5rem;
-      width: 100%;
+    /* ===== BASEMENT BACKGROUND (B1) dengan dua versi ===== */
+    #scene-basement {
+      background-image: url('Basement1.png');
     }
 
-    .welcome-message h1 {
-      font-size: clamp(2rem, 10vw, 4rem);
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      color: #FFFFFF;
-      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-      line-height: 1.1;
+    @media (max-width: 1024px) {
+      #scene-basement {
+        background-image: url('Basement2.png');
+      }
     }
 
-    .welcome-message p {
-      font-size: clamp(1rem, 4vw, 1.3rem);
-      font-weight: 400;
-      color: #EEEEEE;
-      opacity: 0.9;
-      margin-top: 0.75rem;
+    /* fallback */
+    @media (min-width: 1025px) {
+      #scene-basement {
+        background-image: url('Basement1.png'), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23223544%22/><rect x=%2250%22 y=%2260%22 width=%22300%22 height=%22180%22 fill=%22%233d576e%22 rx=%2212%22/><rect x=%22120%22 y=%22110%22 width=%2250%22 height=%2250%22 fill=%22%235d7a94%22 rx=%226%22/><rect x=%22230%22 y=%22110%22 width=%2250%22 height=%2250%22 fill=%22%235d7a94%22 rx=%226%22/><rect x=%22175%22 y=%22170%22 width=%2250%22 height=%2220%22 fill=%22%237a98b3%22 rx=%224%22/></svg>');
+      }
     }
 
-    /* CONTAINER TOMBOL - LEBIH PUDAR (transparan) */
-    .button-container {
+    @media (max-width: 1024px) {
+      #scene-basement {
+        background-image: url('Basement2.png'), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 600%22><rect width=%22400%22 height=%22600%22 fill=%22%23223544%22/><rect x=%2240%22 y=%22150%22 width=%22320%22 height=%22300%22 fill=%22%233d576e%22 rx=%2220%22/><rect x=%22110%22 y=%22220%22 width=%2250%22 height=%2250%22 fill=%22%235d7a94%22 rx=%226%22/><rect x=%22240%22 y=%22220%22 width=%2250%22 height=%2250%22 fill=%22%235d7a94%22 rx=%226%22/><rect x=%22175%22 y=%22350%22 width=%2250%22 height=%2220%22 fill=%22%237a98b3%22 rx=%224%22/></svg>');
+      }
+    }
+
+    /* panel tombol – semi transparan mirip aslinya tapi lebih pudar */
+    .lift-panel {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.8rem;
       justify-content: center;
       align-items: center;
-      padding: 2rem 2.5rem;
-      background: rgba(255, 255, 255, 0.08);  /* sangat transparan, lebih pudar */
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 32px;
+      padding: 2rem 2.2rem;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 36px;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.5);
-      max-width: 1000px;
+      box-shadow: 0 30px 50px -20px black;
+      max-width: 800px;
       margin: 0 auto;
     }
 
-    /* TOMBOL PUTIH DENGAN PERPADUAN HITAM */
     .floor-btn {
       padding: 1rem 2rem;
-      font-size: 1.15rem;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      color: #000000;  /* teks hitam */
-      background: #FFFFFF;  /* background putih solid */
-      border: 2px solid #000000;  /* border hitam */
-      border-radius: 50px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: #000000;
+      background: #FFFFFF;
+      border: 2px solid #000000;
+      border-radius: 60px;
       cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.2s cubic-bezier(0.2, 0.9, 0.3, 1);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.6rem;
-      min-width: 160px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      gap: 0.5rem;
+      min-width: 120px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
     }
 
     .floor-btn:hover {
-      background: #000000;  /* hover jadi hitam */
-      color: #FFFFFF;  /* teks jadi putih */
-      border-color: #FFFFFF;
-      transform: scale(1.03) translateY(-2px);
-      box-shadow: 0 20px 30px -8px rgba(0, 0, 0, 0.8);
-    }
-
-    /* floor indicator */
-    .floor-label {
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-      letter-spacing: 0.5px;
+      background: #000000;
       color: #FFFFFF;
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(4px);
-      padding: 0.5rem 1.8rem;
+      border-color: #FFFFFF;
+      transform: scale(1.02) translateY(-2px);
+    }
+
+    /* tombol khusus untuk kembali? nanti kita pakai dinamis */
+    .btn-small {
+      min-width: 90px;
+      padding: 0.8rem 1rem;
+      font-size: 1.1rem;
+    }
+
+    .floor-indicator {
+      margin-top: 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+      padding: 0.5rem 2rem;
       border-radius: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.2);
+      letter-spacing: 0.5px;
+      color: white;
     }
 
-    /* enter area */
-    .enter-area {
-      cursor: pointer;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    /* notifikasi custom (modal tipis) */
+    .notification-toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(16px);
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border: 1px solid rgba(255,215,0,0.5);
+      box-shadow: 0 20px 30px -10px black;
+      opacity: 0;
+      transition: all 0.35s ease;
+      z-index: 999;
+      pointer-events: none;
+      text-align: center;
+      white-space: nowrap;
     }
 
-    /* responsive adjustments */
+    .notification-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* animasi kecil untuk B1 goyang/transisi */
+    @keyframes subtleShake {
+      0% { transform: translate(0,0) scale(1); }
+      15% { transform: translate(-2px, 1px) scale(1.005); }
+      30% { transform: translate(3px, -1px) scale(1.005); }
+      45% { transform: translate(-1px, 2px) scale(1); }
+      60% { transform: translate(1px, -1px) scale(1); }
+      75% { transform: translate(-1px, 1px) scale(1.002); }
+      100% { transform: translate(0,0) scale(1); }
+    }
+
+    .shake-micro {
+      animation: subtleShake 0.5s ease-in-out;
+    }
+
+    /* responsive */
     @media (max-width: 700px) {
-      .button-container {
-        padding: 1.5rem 1.2rem;
-        gap: 0.8rem;
-        border-radius: 28px;
+      .lift-panel {
+        padding: 1.5rem 1rem;
+        gap: 0.7rem;
+        border-radius: 30px;
         width: 95%;
-        background: rgba(255, 255, 255, 0.1);  /* sedikit lebih terang di mobile */
       }
       .floor-btn {
-        padding: 0.9rem 1.2rem;
-        font-size: 1rem;
-        min-width: 140px;
-        flex: 1 0 auto;
-        max-width: 260px;
+        padding: 0.8rem 1rem;
+        font-size: 1.1rem;
+        min-width: 100px;
       }
-      .welcome-message h1 {
-        font-size: clamp(2rem, 8vw, 3rem);
+      .btn-small {
+        min-width: 70px;
       }
     }
-
     @media (max-width: 480px) {
       .floor-btn {
-        min-width: 100%;
-        max-width: 100%;
-        padding: 1rem 1.2rem;
+        min-width: 70px;
+        padding: 0.7rem 0.5rem;
+        font-size: 1rem;
       }
-      .button-container {
-        padding: 1.2rem 0.8rem;
-        background: rgba(255, 255, 255, 0.12);
-      }
-      .floor-label {
-        font-size: 0.8rem;
-        padding: 0.4rem 1.2rem;
+      .lift-panel {
+        background: rgba(255,255,255,0.1);
       }
     }
   </style>
 </head>
 <body>
-  <!-- BUILDING SCENE -->
+  <!-- NOTIFICATION ELEMENT -->
+  <div id="floor-notification" class="notification-toast"></div>
+
+  <!-- SCENE: LIFT (awalnya hidden, akan muncul setelah klik tombol Lift) -->
+  <div id="scene-lift" class="scene hidden">
+    <div class="content">
+      <!-- panel tombol lift (lantai) akan diisi oleh js nanti, tapi kita siapkan container -->
+      <div id="lift-panel-container" class="lift-panel">
+        <!-- tombol akan di-generate secara dinamis agar mudah dikontrol -->
+      </div>
+      <div class="floor-indicator" id="lift-scene-indicator">LIFT · pilih lantai</div>
+    </div>
+  </div>
+
+  <!-- SCENE: BASEMENT (B1) muncul setelah animasi -->
+  <div id="scene-basement" class="scene hidden">
+    <div class="content">
+      <div id="basement-panel-container" class="lift-panel">
+        <!-- tombol basement sederhana (bisa navigasi)  -->
+      </div>
+      <div class="floor-indicator">BASEMENT · B1</div>
+    </div>
+  </div>
+
+  <!-- SCENE: Lobby asli (tetap ada untuk trigger)  -->
   <div id="scene-building" class="scene">
     <div class="content">
       <div class="enter-area" id="enter-lobby-trigger">
         <div class="welcome-message">
-          <h1>WELCOME TO THE KACHOO</h1>
-          <p>Headquarters · explore every level</p>
+          <h1>KACHOO TOWER</h1>
+          <p>touch any floor to begin</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- LOBBY SCENE -->
+  <!-- LOBBY SCENE (dengan tombol lift) -->
   <div id="scene-lobby" class="scene hidden">
     <div class="content">
-      <div class="button-container">
-        <a href="lift.html" class="floor-btn" target="_blank">Lift</a>
+      <div class="button-container" style="display: flex; flex-wrap: wrap; gap:1rem; justify-content:center; background: rgba(255,255,255,0.08); backdrop-filter: blur(16px); padding:2rem; border-radius:32px;">
+        <!-- tombol LIFT akan memicu lift scene, bukan pindah ke lift.html -->
+        <button class="floor-btn" id="trigger-lift-btn">Lift</button>
         <a href="info.html" class="floor-btn" target="_blank">Information desk</a>
         <a href="GH.html" class="floor-btn" target="_blank">Grand Hall</a>
         <a href="Exhibition.html" class="floor-btn" target="_blank">Exhibition Center</a>
@@ -272,34 +313,205 @@
     (function() {
       'use strict';
 
+      // scenes
       const buildingScene = document.getElementById('scene-building');
       const lobbyScene = document.getElementById('scene-lobby');
-      const enterTrigger = document.getElementById('enter-lobby-trigger');
+      const liftScene = document.getElementById('scene-lift');
+      const basementScene = document.getElementById('scene-basement');
 
-      function switchToLobby() {
-        if (lobbyScene.classList.contains('hidden') === false) return;
+      // containers panel
+      const liftPanelContainer = document.getElementById('lift-panel-container');
+      const basementPanelContainer = document.getElementById('basement-panel-container');
 
-        buildingScene.style.transition = 'opacity 0.9s ease';
-        lobbyScene.style.transition = 'opacity 0.9s ease';
+      // notification
+      const notif = document.getElementById('floor-notification');
 
-        buildingScene.classList.add('hidden');
-        lobbyScene.classList.remove('hidden');
-
+      // helper to show notification
+      function showNotification(msg, duration = 2000) {
+        notif.textContent = msg;
+        notif.classList.add('show');
         setTimeout(() => {
-          buildingScene.style.transition = '';
-          lobbyScene.style.transition = '';
-        }, 1000);
+          notif.classList.remove('show');
+        }, duration);
       }
 
-      if (enterTrigger) {
-        enterTrigger.addEventListener('click', switchToLobby);
+      // hide all scenes (except one)
+      function showOnlyScene(activeScene) {
+        [buildingScene, lobbyScene, liftScene, basementScene].forEach(scene => {
+          if (scene === activeScene) {
+            scene.classList.remove('hidden');
+          } else {
+            scene.classList.add('hidden');
+          }
+        });
       }
 
-      window.addEventListener('load', function() {
-        buildingScene.classList.remove('hidden');
-        lobbyScene.classList.add('hidden');
+      // ----- masuk ke lift scene (background lift1/lift2) -----
+      function goToLiftScene() {
+        showOnlyScene(liftScene);
+        renderLiftPanel();   // isi panel tombol lantai di lift
+      }
+
+      // ----- RENDER panel tombol untuk lift (B1, G, L1, L2 ... Rooftop) -----
+      function renderLiftPanel() {
+        // definisi lantai: special action untuk masing2
+        const floors = [
+          { label: 'B1', action: 'basement' },
+          { label: 'G', action: 'groundMessage' },
+          { label: 'L1', action: 'redirect', url: 'L1.html' },
+          { label: 'L2', action: 'locked' },
+          { label: 'L3', action: 'locked' },
+          { label: 'L4', action: 'locked' },
+          { label: 'L5', action: 'locked' },
+          { label: 'L6', action: 'locked' },
+          { label: 'L7', action: 'locked' },
+          { label: 'L8', action: 'locked' },
+          { label: 'L9', action: 'locked' },
+          { label: 'Rooftop', action: 'locked' }
+        ];
+
+        liftPanelContainer.innerHTML = ''; 
+        floors.forEach(f => {
+          const btn = document.createElement('button');
+          btn.className = 'floor-btn btn-small';
+          btn.textContent = f.label;
+
+          // event berdasarkan action
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (f.action === 'basement') {
+              // B1: pindah ke basement dengan efek kecil (shaking)
+              // tambahkan kelas shake ke liftScene lalu pindah
+              liftScene.classList.add('shake-micro');
+              setTimeout(() => {
+                liftScene.classList.remove('shake-micro');
+                // munculkan basement scene
+                showOnlyScene(basementScene);
+                renderBasementPanel(); // isi panel basement (opsional)
+              }, 400); // sesuai durasi animasi
+            }
+            else if (f.action === 'groundMessage') {
+              showNotification('You are currently on Ground floor (G)', 1800);
+            }
+            else if (f.action === 'redirect') {
+              // redirect ke L1.html
+              window.location.href = f.url;
+            }
+            else if (f.action === 'locked') {
+              showNotification('This floor is only accessible by employees', 2000);
+            }
+          });
+
+          liftPanelContainer.appendChild(btn);
+        });
+
+        // tambahan tombol untuk kembali ke lobby? optional
+        const backBtn = document.createElement('button');
+        backBtn.className = 'floor-btn btn-small';
+        backBtn.textContent = '← Lobby';
+        backBtn.style.background = '#ddd';
+        backBtn.addEventListener('click', () => {
+          showOnlyScene(lobbyScene);
+        });
+        liftPanelContainer.appendChild(backBtn);
+      }
+
+      // ----- RENDER basement panel (tombol kembali, bisa juga ground) -----
+      function renderBasementPanel() {
+        basementPanelContainer.innerHTML = '';
+
+        // B1 now active, tampilkan tombol G atau kembali ke lift
+        const btnG = document.createElement('button');
+        btnG.className = 'floor-btn btn-small';
+        btnG.textContent = 'G (Ground)';
+        btnG.addEventListener('click', () => {
+          showNotification('You are currently on Ground floor (G)', 1800);
+        });
+
+        const btnLift = document.createElement('button');
+        btnLift.className = 'floor-btn btn-small';
+        btnLift.textContent = '← Lift';
+        btnLift.addEventListener('click', () => {
+          goToLiftScene();  // balik ke lift dengan background lift
+        });
+
+        // tombol tambahan ke L1? boleh aja 
+        const btnL1 = document.createElement('button');
+        btnL1.className = 'floor-btn btn-small';
+        btnL1.textContent = 'L1';
+        btnL1.addEventListener('click', () => {
+          window.location.href = 'L1.html';
+        });
+
+        basementPanelContainer.appendChild(btnG);
+        basementPanelContainer.appendChild(btnL1);
+        basementPanelContainer.appendChild(btnLift);
+
+        // kita juga bisa tambahkan notif basement spesifik
+      }
+
+      // ----- event trigger dari lobby: tombol Lift -----
+      document.getElementById('trigger-lift-btn').addEventListener('click', (e) => {
+        e.preventDefault(); // mencegah link / href
+        goToLiftScene();
       });
+
+      // enter lobby dari building (click welcome)
+      document.getElementById('enter-lobby-trigger').addEventListener('click', () => {
+        showOnlyScene(lobbyScene);
+      });
+
+      // initial: building visible
+      window.addEventListener('load', () => {
+        showOnlyScene(buildingScene);
+      });
+
+      // jika ingin langsung menguji lift, bisa buka dari lobby nanti
+
+      // fallback untuk tombol lift di panel jangan sampai refresh (sudah)
+
+      // tambahan: klik B1 akan mengaktifkan basement + background berubah
+      // itu sudah di handle.
+
     })();
   </script>
+
+  <!-- memastikan button-container di lobby tetap konsisten dengan style sebelumnya -->
+  <style>
+    /* reuse style lobby button container agar sama persis */
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 2.5rem;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.5);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .floor-label {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #FFFFFF;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      padding: 0.5rem 1.8rem;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .welcome-message h1 {
+      font-size: clamp(2rem, 10vw, 4rem);
+      font-weight: 900;
+      color: #FFFFFF;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+  </style>
 </body>
-</html>
+  </html>
