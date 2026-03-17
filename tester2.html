@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>putih · hitam · stage</title>
+    <title>Kachoo Grandhall</title>
     <style>
-        /* reset + filosofi putih/hitam, halus, tanpa simbol/emoticon */
+        /* ==== putih, hitam, bisu, tanpa emoticon/simbol ==== */
         * {
             margin: 0;
             padding: 0;
@@ -14,104 +14,166 @@
 
         body {
             min-height: 100vh;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background-color: #000000; /* fallback hitam */
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background-color: #030303;
             color: #ffffff;
             display: flex;
             flex-direction: column;
-            transition: background-image 0.3s ease;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed; /* agar full tanpa potong, cover tetap proporsional */
+            background-attachment: fixed;
+            transition: background-image 0.4s ease;
+            position: relative;
         }
 
-        /* background bergantian berdasarkan lebar viewport — tanpa media query untuk gambar? kita pakai media query untuk dua file */
+        /* background image bergantian */
         @media (max-width: 1024px) and (orientation: portrait), (max-width: 768px) {
             body {
-                background-image: url('GH1.png');  /* untuk mobile/ukuran 768x1024 area */
+                background-image: url('GH1.png');
             }
         }
         @media (min-width: 1025px), (orientation: landscape) {
             body {
-                background-image: url('GH2.png'); /* untuk ukuran >=1920x1080, tapi juga tampil di landscape lebar */
+                background-image: url('GH2.png');
             }
         }
 
-        /* overlay gelap transparan tipis agar teks tetap terbaca (putih/hitam) */
-        .overlay {
-            background-color: rgba(0, 0, 0, 0.4); 
-            backdrop-filter: blur(0px); 
+        /* LAYER LIGHTING — ala grand hall konser, temaram, sorot tipis dari bawah */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 70%, rgba(255,255,255,0.08) 0%, rgba(255,255,240,0.02) 40%, transparent 70%),
+                        repeating-linear-gradient(0deg, rgba(255,255,255,0.01) 0px, rgba(0,0,0,0.2) 2px, transparent 3px);
+            pointer-events: none;
+            z-index: 1;
+            mix-blend-mode: overlay;
+        }
+
+        /* overlay gelap lembut agar teks jelas */
+        .dim-layer {
+            position: relative;
+            z-index: 2;
+            background-color: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(0px);
             min-height: 100vh;
             width: 100%;
             display: flex;
             flex-direction: column;
-            padding: 1.5rem 1rem 2rem;
+            align-items: center;      /* pusatkan horizontal */
+            padding: 2rem 1.5rem 2rem;
         }
 
-        /* navigasi tombol */
-        .nav-buttons {
+        /* konten fleks kolom, semua di tengah */
+        .central {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* deretan tombol navigasi utama + back */
+        .button-row {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1.2rem;
+            gap: 1rem 1.5rem;
             margin: 1rem 0 2rem;
+            width: 100%;
         }
 
         .nav-btn {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1.5px solid rgba(255,255,255,0.6);
+            background: rgba(15, 15, 15, 0.5);
+            border: 1.8px solid rgba(255,255,255,0.75);
             color: white;
             font-weight: 500;
-            font-size: 1.2rem;
-            padding: 0.8rem 1.6rem;
-            border-radius: 48px;
-            backdrop-filter: blur(6px);
+            font-size: 1.3rem;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            backdrop-filter: blur(10px);
             letter-spacing: 1px;
             transition: all 0.25s ease;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 24px -8px rgba(255,255,255,0.2);
             text-transform: uppercase;
-            min-width: 150px;
+            min-width: 170px;
             border-color: #fff;
             color: #fff;
         }
 
         .nav-btn:hover {
             background: #ffffff;
-            color: #000000;
+            color: #0a0a0a;
             border-color: #000;
             transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(255,255,255,0.5);
         }
 
-        /* container konten dinamis */
+        /* tombol back to lobby — sedikit berbeda */
+        #backToLobby {
+            background: rgba(0, 0, 0, 0.6);
+            border-color: #aaa;
+            font-size: 1.1rem;
+            padding: 0.6rem 1.8rem;
+            backdrop-filter: blur(4px);
+        }
+
+        /* area tempat konten muncul (di ATAS tombol) */
+        .content-stage {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2.5rem;   /* jarak sebelum tombol */
+            min-height: 280px;        /* supaya tidak kosong melompong, tapi tetap fleksibel */
+            transition: all 0.2s;
+        }
+
+        /* panel konten yang muncul */
         .content-panel {
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 32px;
-            padding: 1.5rem 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 40px;
+            padding: 2rem 1.5rem;
             border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            transition: opacity 0.3s ease;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05) inset;
             width: 100%;
             max-width: 1100px;
             margin: 0 auto;
+            transition: opacity 0.3s ease, transform 0.25s;
         }
 
-        /* area slider horizontal (smooth snap) */
+        /* semua section disembunyikan mula-mula */
+        .page-section {
+            display: none;
+            width: 100%;
+        }
+
+        .page-section.active-section {
+            display: block;
+        }
+
+        /* slider halus */
         .slider-container {
             display: flex;
-            gap: 1rem;
+            gap: 1.2rem;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            padding: 0.5rem 0.25rem 1rem;
+            padding: 0.8rem 0.2rem 1.5rem;
             scrollbar-width: thin;
-            scrollbar-color: #ffffff #222;
+            scrollbar-color: #ffffff #1e1e1e;
             -webkit-overflow-scrolling: touch;
         }
 
         .slider-container::-webkit-scrollbar {
-            height: 6px;
+            height: 5px;
         }
         .slider-container::-webkit-scrollbar-track {
             background: #1a1a1a;
@@ -122,57 +184,52 @@
             border-radius: 20px;
         }
 
-        /* kartu video/food/drink */
         .card {
             scroll-snap-align: start;
             flex: 0 0 280px;
-            background: #0f0f0f;
-            border-radius: 28px;
-            border: 1px solid #444;
+            background: #0c0c0c;
+            border-radius: 32px;
+            border: 1px solid #3a3a3a;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(255,255,255,0.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8);
             transition: transform 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
         }
 
         .card video {
             width: 100%;
             height: 180px;
             object-fit: cover;
-            display: block;
             background: black;
+            display: block;
         }
 
         .card .info {
-            padding: 1rem;
-            color: #eee;
+            padding: 1.2rem 1rem;
+            color: #f0f0f0;
             background: #111;
-            font-weight: 400;
-            border-top: 1px solid #333;
+            border-top: 1px solid #2a2a2a;
         }
 
         .info h4 {
             font-weight: 400;
             letter-spacing: 0.5px;
-            color: #ccc;
+            color: #ddd;
         }
 
-        /* khusus tombol buy now minimalis */
         .buy-btn {
             background: transparent;
-            border: 1.5px solid white;
+            border: 1.8px solid white;
             color: white;
-            padding: 0.6rem 2rem;
+            padding: 0.6rem 2.4rem;
             border-radius: 40px;
-            margin: 0.8rem 0 0.2rem;
             font-size: 1rem;
             font-weight: 500;
             width: fit-content;
             transition: 0.2s;
             cursor: pointer;
+            margin-top: 0.8rem;
+            margin-left: auto;
+            display: inline-block;
         }
 
         .buy-btn:hover {
@@ -180,32 +237,24 @@
             color: black;
         }
 
-        /* kategori label food/drink/dessert */
+        /* kategori food/drink/dessert */
         .category-label {
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             font-weight: 300;
-            margin: 1.5rem 0 1rem 0.5rem;
+            margin: 1.8rem 0 1rem 0.5rem;
             color: #fff;
             border-left: 4px solid white;
-            padding-left: 1rem;
+            padding-left: 1.2rem;
             letter-spacing: -0.5px;
+            opacity: 0.9;
         }
 
-        /* video container tunggal (untuk stage) */
-        .single-video {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
         .single-video video {
             width: 100%;
-            border-radius: 28px;
+            max-width: 600px;
+            border-radius: 32px;
             border: 1px solid #555;
-        }
-
-        /* hide class */
-        .hidden {
-            display: none !important;
+            box-shadow: 0 20px 40px black;
         }
 
         /* audio disembunyikan */
@@ -213,17 +262,19 @@
             display: none;
         }
 
-        /* kontainer konten */
-        .page-section {
-            transition: opacity 0.3s;
+        /* tidak ada teks arahan, semua bersih */
+        .info p, .category-label, .card, button {
+            user-select: none;
         }
 
-        footer {
+        /* footer hanya warna, tanpa kata2 instruksi */
+        .foot-note {
             text-align: center;
             margin-top: 2rem;
-            opacity: 0.6;
-            font-size: 0.8rem;
-            color: #ddd;
+            opacity: 0.2;
+            font-size: 0.7rem;
+            color: #bbb;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -232,247 +283,205 @@
         <source src="GS.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="overlay">
-        <!-- tiga tombol utama -->
-        <div class="nav-buttons">
-            <button class="nav-btn" id="btnStage">Stage</button>
-            <button class="nav-btn" id="btnDisplay">Display</button>
-            <button class="nav-btn" id="btnFood">Food & Beverage</button>
-        </div>
+    <div class="dim-layer">
+        <div class="central">
 
-        <!-- ===== SECTION STAGE (tombol 1) ===== -->
-        <div id="stageSection" class="page-section hidden">
-            <div class="content-panel" style="text-align: center;">
-                <div class="single-video">
-                    <video id="stageVideo" controls playsinline autoplay>
-                        <source src="GS.mp4" type="video/mp4">
-                    </video>
+            <!-- !!! KONTEN DINAMIS MUNCUL DI ATAS TOMBOL !!! -->
+            <div class="content-stage" id="contentStage">
+                <!-- Stage section (hidden awal) -->
+                <div id="stageSection" class="page-section">
+                    <div class="content-panel" style="text-align: center;">
+                        <div class="single-video">
+                            <video id="stageVideo" controls playsinline autoplay>
+                                <source src="GS.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- tidak ada teks petunjuk -->
+                    </div>
                 </div>
-                <p style="margin-top: 1.2rem; color:#ccc; font-style: italic; border-bottom: 1px solid #333; padding-bottom: 0.5rem;">STAGE · otomatis putar, musik berhenti</p>
-            </div>
-        </div>
 
-        <!-- ===== SECTION DISPLAY (tombol 2) ===== -->
-        <div id="displaySection" class="page-section hidden">
-            <div class="content-panel">
-                <div class="slider-container">
-                    <!-- video 1 -->
-                    <div class="card">
-                        <video controls playsinline autoplay muted loop>
-                            <source src="Choosic.mp4" type="video/mp4">
-                        </video>
-                        <div class="info">
-                            <h4>Choosic</h4>
+                <!-- Display section -->
+                <div id="displaySection" class="page-section">
+                    <div class="content-panel">
+                        <div class="slider-container">
+                            <div class="card">
+                                <video controls playsinline autoplay muted loop><source src="Choosic.mp4"></video>
+                                <div class="info"><h4>Choosic</h4></div>
+                            </div>
+                            <div class="card">
+                                <video controls playsinline autoplay muted loop><source src="Chozy.mp4"></video>
+                                <div class="info"><h4>Chozy</h4></div>
+                            </div>
+                            <div class="card">
+                                <video controls playsinline autoplay muted loop><source src="New.mp4"></video>
+                                <div class="info"><h4>New</h4></div>
+                            </div>
                         </div>
-                    </div>
-                    <!-- video 2 -->
-                    <div class="card">
-                        <video controls playsinline autoplay muted loop>
-                            <source src="Chozy.mp4" type="video/mp4">
-                        </video>
-                        <div class="info">
-                            <h4>Chozy</h4>
-                        </div>
-                    </div>
-                    <!-- video 3 -->
-                    <div class="card">
-                        <video controls playsinline autoplay muted loop>
-                            <source src="New.mp4" type="video/mp4">
-                        </video>
-                        <div class="info">
-                            <h4>New</h4>
+                        <!-- tombol buy now mengarah ke link baru -->
+                        <div style="display: flex; justify-content: flex-end; margin-top: 0.2rem;">
+                            <button class="buy-btn" id="buyNowLink">BUY NOW</button>
                         </div>
                     </div>
                 </div>
-                <!-- tombol Buy Now di bawah slider, minimalis -->
-                <div style="display: flex; justify-content: flex-end; margin-top: 0.5rem;">
-                    <button class="buy-btn">BUY NOW</button>
+
+                <!-- Food & beverage section -->
+                <div id="foodSection" class="page-section">
+                    <div class="content-panel">
+                        <!-- FOOD -->
+                        <div class="category-label">FOOD</div>
+                        <div class="slider-container">
+                            <div class="card"><div class="info"><h4>Burger hitam</h4></div></div>
+                            <div class="card"><div class="info"><h4>Pasta putih</h4></div></div>
+                            <div class="card"><div class="info"><h4>Risotto</h4></div></div>
+                            <div class="card"><div class="info"><h4>Steak</h4></div></div>
+                        </div>
+                        <!-- DRINK -->
+                        <div class="category-label">DRINK</div>
+                        <div class="slider-container">
+                            <div class="card"><div class="info"><h4>Espresso</h4></div></div>
+                            <div class="card"><div class="info"><h4>Matcha latte</h4></div></div>
+                            <div class="card"><div class="info"><h4>Lemon soda</h4></div></div>
+                            <div class="card"><div class="info"><h4>Dark roast</h4></div></div>
+                        </div>
+                        <!-- DESSERT -->
+                        <div class="category-label">DESSERT</div>
+                        <div class="slider-container">
+                            <div class="card"><div class="info"><h4>Panna cotta</h4></div></div>
+                            <div class="card"><div class="info"><h4>Tiramisu</h4></div></div>
+                            <div class="card"><div class="info"><h4>Dark choco</h4></div></div>
+                        </div>
+                    </div>
                 </div>
-                <p style="color:#aaa; font-size:0.8rem; margin-top:0.5rem;">geser samping · video otomatis play</p>
             </div>
-        </div>
 
-        <!-- ===== SECTION FOOD & BEVERAGE (tombol 3) ===== -->
-        <div id="foodSection" class="page-section hidden">
-            <div class="content-panel" style="padding-bottom: 2rem;">
-                <!-- FOOD (4) -->
-                <div class="category-label">FOOD</div>
-                <div class="slider-container">
-                    <div class="card"><div class="info"><h4>Burger hitam</h4><p style="color:#aaa;">plant-based</p></div></div>
-                    <div class="card"><div class="info"><h4>Pasta putih</h4><p style="color:#aaa;">alfredo</p></div></div>
-                    <div class="card"><div class="info"><h4>Risotto</h4><p style="color:#aaa;">mushroom</p></div></div>
-                    <div class="card"><div class="info"><h4>Steak</h4><p style="color:#aaa;">black pepper</p></div></div>
-                </div>
-
-                <!-- DRINK (4) -->
-                <div class="category-label">DRINK</div>
-                <div class="slider-container">
-                    <div class="card"><div class="info"><h4>Espresso</h4></div></div>
-                    <div class="card"><div class="info"><h4>Matcha latte</h4></div></div>
-                    <div class="card"><div class="info"><h4>Lemon soda</h4></div></div>
-                    <div class="card"><div class="info"><h4>Dark roast</h4></div></div>
-                </div>
-
-                <!-- DESSERT (3) -->
-                <div class="category-label">DESSERT</div>
-                <div class="slider-container">
-                    <div class="card"><div class="info"><h4>Panna cotta</h4></div></div>
-                    <div class="card"><div class="info"><h4>Tiramisu</h4></div></div>
-                    <div class="card"><div class="info"><h4>Dark choco</h4></div></div>
-                </div>
-                <p style="color:#aaa; text-align:right; font-size:0.8rem;">geser → kategori</p>
+            <!-- TOMBOL BARIS (di bawah konten) -->
+            <div class="button-row">
+                <button class="nav-btn" id="btnStage">Stage</button>
+                <button class="nav-btn" id="btnDisplay">Display</button>
+                <button class="nav-btn" id="btnFood">Food & Beverage</button>
+                <button class="nav-btn" id="backToLobby">Back to Lobby</button>
             </div>
-        </div>
 
-        <footer>PUTIH · HITAM · tanpa simbol</footer>
+            <div class="foot-note">•</div> <!-- hanya titik, tanpa teks -->
+        </div>
     </div>
 
     <script>
         (function() {
-            // elemen audio
+            // elemen
             const bgMusic = document.getElementById('bg-music');
-            // semua section
             const stageSec = document.getElementById('stageSection');
             const displaySec = document.getElementById('displaySection');
             const foodSec = document.getElementById('foodSection');
-            // tombol
             const btnStage = document.getElementById('btnStage');
             const btnDisplay = document.getElementById('btnDisplay');
             const btnFood = document.getElementById('btnFood');
-            // video stage (GS.mp4)
+            const backBtn = document.getElementById('backToLobby');
             const stageVideo = document.getElementById('stageVideo');
+            const buyNowBtn = document.getElementById('buyNowLink'); 
 
-            // variabel untuk melacak status music
-            let musicPausedByVideo = false; 
-
-            // fungsi sembunyikan semua section
-            function hideAllSections() {
-                stageSec.classList.add('hidden');
-                displaySec.classList.add('hidden');
-                foodSec.classList.add('hidden');
+            // Fungsi hide semua section (class active dihapus)
+            function deactivateAllSections() {
+                stageSec.classList.remove('active-section');
+                displaySec.classList.remove('active-section');
+                foodSec.classList.remove('active-section');
             }
 
-            // otomatis play musik setelah interaksi pertama (karena browser blok autoplay tanpa interaksi)
-            // Kita coba paksa play segera setelah tombol apapun diklik atau halaman disentuh.
-            // Tapi sesuai spec: autoplay audio musti ada user gesture. Jadi kita akan coba play awal saat body diklik.
-            function initAudioPlay() {
-                bgMusic.play().catch(e => {
-                    console.log("autoplay diblokir, akan aktif via tombol stage nanti");
+            // helper mainkan video di display
+            function playDisplayVideos() {
+                const videos = document.querySelectorAll('#displaySection video');
+                videos.forEach(v => v.play().catch(e => console.log('play display', e)));
+            }
+
+            // BACK TO LOBBY
+            backBtn.addEventListener('click', () => {
+                window.location.href = 'Lobby.html';
+            });
+
+            // BUY NOW → pindah ke collection
+            if (buyNowBtn) {
+                buyNowBtn.addEventListener('click', () => {
+                    window.location.href = 'https://thekachoo.github.io/KAZINE/COLLECTION.html';
                 });
             }
 
-            // coba play saat window load (dengan harapan user sudah gestur sebelumnya? biasanya tidak)
-            // tapi kita tetap pasang event listener ke tombol untuk memulai musik.
-            window.addEventListener('load', () => {
-                bgMusic.load();
-                // tidak langsung play, tapi kalau user sudah interaksi dengan halaman sebelumnya? tetap butuh.
-                // Kita kaitkan dengan klik tombol stage, supaya pas stage terbuka musik jalan.
-            });
-
-            // helper: pause musik, mute video stage jika perlu
-            function handleStageVideoPlay() {
-                if (stageVideo) {
-                    stageVideo.play().catch(e => console.log('video stage play butuh interaksi'));
-                }
-            }
-
-            // ketika STAGE diklik
+            // STAGE
             btnStage.addEventListener('click', () => {
-                hideAllSections();
-                stageSec.classList.remove('hidden');
+                deactivateAllSections();
+                stageSec.classList.add('active-section');
 
-                // Pastikan musik berhenti saat video stage mulai.
-                // Tapi video otomatis terputar (autoplay) di html, kita stop musiknya.
+                // musik berhenti
                 bgMusic.pause();
-                bgMusic.currentTime = 0;   // reset lagu
+                bgMusic.currentTime = 0;
 
-                // usahakan video play (karena mungkin tidak autoplay karena policy)
-                stageVideo.play().catch(e => console.log("user interaksi diperlukan untuk video"));
-                musicPausedByVideo = true;
+                // play video stage
+                stageVideo.play().catch(e => console.log('stage play butuh interaksi'));
             });
 
-            // ketika DISPLAY diklik
+            // DISPLAY
             btnDisplay.addEventListener('click', () => {
-                hideAllSections();
-                displaySec.classList.remove('hidden');
+                deactivateAllSections();
+                displaySec.classList.add('active-section');
 
-                // Hentikan musik seperti diminta: "Kalau video terputar, musik yang tadi berhenti."
-                // Di display juga ada video yang otomatis terputar (autoplay muted loop) tapi musik tetap harus berhenti.
                 bgMusic.pause();
-                bgMusic.currentTime = 0;   // set ke awal, berhenti total
+                bgMusic.currentTime = 0;
 
-                // Coba play semua video display (biar otomatis) – mereka autoplay muted, ok.
-                const displayVideos = document.querySelectorAll('#displaySection video');
-                displayVideos.forEach(v => v.play().catch(e => console.log('play display error', e)));
-                musicPausedByVideo = true;
+                // play semua video display (autoplay muted)
+                setTimeout(() => {
+                    playDisplayVideos();
+                }, 50);
             });
 
-            // ketika FOOD & BEVERAGE diklik
+            // FOOD & BEVERAGE
             btnFood.addEventListener('click', () => {
-                hideAllSections();
-                foodSec.classList.remove('hidden');
+                deactivateAllSections();
+                foodSec.classList.add('active-section');
 
-                // kembali nyalakan musik? Instruksi: hanya kalau video terputar musik berhenti.
-                // Karena food section tidak ada video, musik bisa diputar lagi (optional). 
-                // tapi kita sesuaiin: sebaiknya musik kembali diputar karena tidak ada video.
-                // namun memperhatikan UX, kita putar ulang musik dari awal atau lanjut? mulai saja.
-                bgMusic.play().catch(e => console.log("musik ga bisa play otomatis, sentuh layar"));
-                musicPausedByVideo = false;
+                // putar musik lagi karena tidak ada video
+                bgMusic.play().catch(e => console.log('musik play setelah food'));
             });
 
-            // cegah video stage matikan musik sendiri (kita sudah pause manual)
+            // cegah video stage mute musik lagi (sudah dipause manual)
             stageVideo.addEventListener('play', () => {
                 bgMusic.pause();
                 bgMusic.currentTime = 0;
             });
 
-            // ketika video stage dijeda / berakhir, kita tidak otomatis nyalakan musik, biar senyap.
+            // tidak ada teks apapun di halaman, semua bersih.
 
-            // user pertama kali membuka halaman: audio belum main.
-            // supaya ada background, kita coba mainkan sesegera mungkin jika ada interaksi.
-            document.body.addEventListener('touchstart', function once() {
+            // Autoplay audio setelah ada gesture dari tombol manapun, tapi kita sudah handle via tombol.
+            // Supaya user bisa dengar musik di food, kita coba play awal jika mungkin.
+            // Tapi tanpa gestur tidak bisa, jadi kita coba saat body diklik sekali saja.
+            function enableAudioOnce() {
                 bgMusic.play().catch(() => {});
-                document.body.removeEventListener('touchstart', once);
-            }, { once: true });
+                document.body.removeEventListener('click', enableAudioOnce);
+                document.body.removeEventListener('touchstart', enableAudioOnce);
+            }
+            document.body.addEventListener('click', enableAudioOnce, { once: true });
+            document.body.addEventListener('touchstart', enableAudioOnce, { once: true });
 
-            document.body.addEventListener('click', function onceClick() {
-                bgMusic.play().catch(() => {});
-                document.body.removeEventListener('click', onceClick);
-            }, { once: true });
+            // default semua section tersembunyi (aktif none) — karena tidak ada active-section di html
+            // Halaman awal benar2 kosong, tidak ada konten terbuka. 
+            // Tidak ada section aktif.
 
-            // agar makin mantap, aktifkan musik di awal saat halaman siap, tapi hanya jika user sudah mengizinkan.
-            // kita buat fallback: setelah 1s coba main (hanya jika ada yg start)
-            setTimeout(() => {
-                bgMusic.play().catch(() => {}); // most likely gagal tapi tidak apa
-            }, 1200);
-
-            // Set default tampilan: stage kah? agar ada isi, biar tidak kosong, stage muncul pertama?
-            // tapi sesuai permintaan: "Buat ada 3 tombol" — mungkin mending awal kosong? saya set stage aktif agar langsung ada konten, bebas.
-            // agar lebih baik, Stage yang aktif pertama kali.
+            // jika ingin memastikan semua tersembunyi saat load:
             window.addEventListener('load', () => {
-                hideAllSections();
-                stageSec.classList.remove('hidden');   // stage pertama muncul
-                // coba mainkan video stage (GS.mp4) dan pause musik
-                stageVideo.play().catch(() => {});
-                bgMusic.pause();
-                musicPausedByVideo = true;
+                deactivateAllSections();
+                // sembunyikan semua.
             });
 
-            // tapi musik tidak usah diputar di awal karena langsung kena pause.
-            // buy now hanya tombol tidak arahkan ke mana (bisa diisi link nanti)
+            // untuk menjaga buy now tetap pindah walaupun ada multiple .buy-btn (hanya 1)
+            // seandainya user klik buy now yang di display
             document.querySelectorAll('.buy-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    alert('BUY NOW · suasana putih hitam'); // tidak ada simbol
+                    // jika bukan tombol yg sudah diassign, arahkan juga
+                    window.location.href = 'https://thekachoo.github.io/KAZINE/COLLECTION.html';
                 });
             });
 
-            // memastikan video di display autoplay ketika section muncul (sudah)
-            // tambahan: ketika slide video mungkin muted autoplay jalan
-
-            // untuk menghindari bentrok audio: sudah baik
+            // efek lampu grand hall sudah di css
 
         })();
     </script>
 </body>
-    </html>
+        </html>
