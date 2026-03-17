@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Kachoo Grandhall</title>
     <style>
-        /* ========= putih, hitam, sunyi ========= */
+        /* ===== putih, hitam, sunyi, tanpa emot/simbol ===== */
         * {
             margin: 0;
             padding: 0;
@@ -27,19 +27,19 @@
             position: relative;
         }
 
-        /* BACKGROUND BERGANTIAN — MOBILE/DESktop (sesuai permintaan: GH2 utk mobile, GH utk desktop) */
+        /* BACKGROUND: MOBILE = GH2.png , DESKTOP = GH.png */
         @media (max-width: 1024px) and (orientation: portrait), (max-width: 768px) {
             body {
-                background-image: url('GH2.png');   /* ← mobile */
+                background-image: url('GH2.png');
             }
         }
         @media (min-width: 1025px), (orientation: landscape) {
             body {
-                background-image: url('GH.png');    /* ← desktop */
+                background-image: url('GH.png');
             }
         }
 
-        /* GRANDHALL LIGHTING — sorot bisu, temaram */
+        /* GRANDHALL LIGHTING — sorot temaram, halus */
         body::after {
             content: "";
             position: fixed;
@@ -54,18 +54,19 @@
             mix-blend-mode: overlay;
         }
 
-        /* lapisan gelap tipis supaya teks terbaca */
+        /* LAPISAN GELAP tipis biar teks jelas */
         .dim-layer {
             position: relative;
             z-index: 2;
-            background-color: rgba(0, 0, 0, 0.25);
+            background-color: rgba(0, 0, 0, 0.2);  /* lebih transparan */
             backdrop-filter: blur(0px);
             min-height: 100vh;
             width: 100%;
             display: flex;
             flex-direction: column;
-            align-items: center;      /* pusatkan horizontal */
-            padding: 2rem 1.5rem 2rem;
+            align-items: center;
+            justify-content: center;   /* SEMUA KONTEN VERTIKAL TENGAH */
+            padding: 2rem 1.5rem;
         }
 
         .central {
@@ -74,72 +75,78 @@
             align-items: center;
             width: 100%;
             max-width: 1200px;
+            margin: auto;              /* bantu pemusatan */
         }
 
-        /* deretan tombol */
+        /* ===== TOMBOL GLASS BEAM (baru) ===== */
         .button-row {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1rem 1.5rem;
-            margin: 1rem 0 2rem;
+            align-items: center;
+            gap: 1.2rem 2rem;
+            margin: 2rem 0 1rem;
             width: 100%;
         }
 
         .nav-btn {
-            background: rgba(15, 15, 15, 0.5);
-            border: 1.8px solid rgba(255,255,255,0.75);
+            background: rgba(255, 255, 255, 0.08);        /* transparan seperti kaca */
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
             font-weight: 500;
             font-size: 1.3rem;
-            padding: 0.8rem 2rem;
+            padding: 0.8rem 2.2rem;
             border-radius: 60px;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
             letter-spacing: 1px;
-            transition: all 0.25s ease;
+            transition: all 0.3s ease;
             cursor: pointer;
-            box-shadow: 0 10px 24px -8px rgba(255,255,255,0.2);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 0.5px rgba(255, 255, 255, 0.1) inset;
             text-transform: uppercase;
-            min-width: 170px;
-            border-color: #fff;
+            min-width: 160px;
+            border-color: rgba(255,255,255,0.4);
         }
 
         .nav-btn:hover {
-            background: #ffffff;
-            color: #0a0a0a;
-            border-color: #000;
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.8);
             transform: scale(1.02);
-            box-shadow: 0 0 30px rgba(255,255,255,0.5);
+            box-shadow: 0 0 30px rgba(255,255,255,0.3);
         }
 
+        /* back to lobby sedikit berbeda tapi tetap glass */
         #backToLobby {
-            background: rgba(0, 0, 0, 0.6);
-            border-color: #aaa;
+            background: rgba(0, 0, 0, 0.4);
+            border-color: rgba(220, 220, 220, 0.4);
             font-size: 1.1rem;
             padding: 0.6rem 1.8rem;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(8px);
+        }
+        #backToLobby:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #fff;
         }
 
-        /* panggung konten — di ATAS tombol */
+        /* panggung konten — sekarang berada di tengah (oleh flex parent) */
         .content-stage {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-bottom: 2.5rem;
-            min-height: 280px;
+            margin: 0.5rem 0 1rem;    /* jarak kecil, tapi parent sudah center */
             transition: all 0.2s;
         }
 
         .content-panel {
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 40px;
-            padding: 2rem 1.5rem;
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 30px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05) inset;
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(200%);
+            -webkit-backdrop-filter: blur(20px) saturate(200%);
+            border-radius: 48px;
+            padding: 2rem 1.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05) inset;
             width: 100%;
             max-width: 1100px;
             margin: 0 auto;
@@ -155,7 +162,7 @@
             display: block;
         }
 
-        /* slider khas grandhall */
+        /* slider container */
         .slider-container {
             display: flex;
             gap: 1.2rem;
@@ -211,31 +218,52 @@
             color: #ddd;
         }
 
+        /* buy now — tengah, glass juga */
+        .buy-now-wrapper {
+            display: flex;
+            justify-content: center;   /* BUY NOW DI TENGAH */
+            margin-top: 1.8rem;
+            width: 100%;
+        }
+
         .buy-btn {
-            background: transparent;
-            border: 1.8px solid white;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1.5px solid rgba(255,255,255,0.5);
             color: white;
-            padding: 0.6rem 2.4rem;
-            border-radius: 40px;
-            font-size: 1rem;
+            padding: 0.7rem 3rem;
+            border-radius: 60px;
+            font-size: 1.2rem;
             font-weight: 500;
-            width: fit-content;
-            transition: 0.2s;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: 0.25s;
             cursor: pointer;
-            margin-top: 0.8rem;
-            margin-left: auto;
-            display: inline-block;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            letter-spacing: 1px;
         }
 
         .buy-btn:hover {
             background: white;
             color: black;
+            border-color: white;
         }
 
+        /* single video stage */
+        .single-video video {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 32px;
+            border: 1px solid #555;
+            box-shadow: 0 20px 40px black;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* category label (untuk display saja, tapi F&B sudah dihapus) */
         .category-label {
             font-size: 1.7rem;
             font-weight: 300;
-            margin: 1.8rem 0 1rem 0.5rem;
+            margin: 1rem 0 1rem 0.5rem;
             color: #fff;
             border-left: 4px solid white;
             padding-left: 1.2rem;
@@ -243,33 +271,66 @@
             opacity: 0.9;
         }
 
-        .single-video video {
-            width: 100%;
-            max-width: 600px;
-            border-radius: 32px;
-            border: 1px solid #555;
-            box-shadow: 0 20px 40px black;
+        #bg-music { display: none; }
+
+        /* mobile adjustment: konten lebih besar, tombol lebih kecil */
+        @media (max-width: 700px) {
+            .nav-btn {
+                font-size: 1rem;
+                padding: 0.6rem 1.4rem;
+                min-width: 130px;
+            }
+            #backToLobby {
+                font-size: 0.95rem;
+                padding: 0.5rem 1.2rem;
+            }
+            .content-panel {
+                padding: 1.5rem 1rem;
+                border-radius: 36px;
+            }
+            .card {
+                flex: 0 0 240px;  /* card sedikit lebih kecil tapi tetap proporsional */
+            }
+            .card video {
+                height: 150px;
+            }
+            .buy-btn {
+                padding: 0.6rem 2.5rem;
+                font-size: 1.1rem;
+            }
+            .category-label {
+                font-size: 1.4rem;
+                margin-left: 0.2rem;
+            }
         }
 
-        #bg-music {
-            display: none;
+        /* lebih kecil lagi untuk hp kecil */
+        @media (max-width: 450px) {
+            .nav-btn {
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+                min-width: 110px;
+            }
+            .button-row {
+                gap: 0.8rem;
+            }
+            .card {
+                flex: 0 0 200px;
+            }
+            .content-panel {
+                padding: 1.2rem 0.8rem;
+            }
         }
 
-        /* tanpa petunjuk teks, sunyi */
-        .info p, .category-label, .card, button {
-            user-select: none;
-        }
-
+        /* tidak ada teks instruksi, sunyi */
         .foot-note {
             text-align: center;
             margin-top: 2rem;
-            opacity: 0.2;
+            opacity: 0.15;
             font-size: 0.7rem;
             color: #bbb;
             pointer-events: none;
         }
-
-        /* tidak ada simbol/emoticon — semuanya bersih */
     </style>
 </head>
 <body>
@@ -280,7 +341,7 @@
     <div class="dim-layer">
         <div class="central">
 
-            <!-- area konten (di atas tombol) -->
+            <!-- area konten (sekarang di tengah vertikal karena parent justify-content: center) -->
             <div class="content-stage" id="contentStage">
                 <!-- stage section -->
                 <div id="stageSection" class="page-section">
@@ -290,13 +351,14 @@
                                 <source src="GS.mp4" type="video/mp4">
                             </video>
                         </div>
-                        <!-- tidak ada teks apapun -->
+                        <!-- tanpa teks apapun -->
                     </div>
                 </div>
 
-                <!-- display section -->
+                <!-- display section (hanya ini yang tersisa selain stage) -->
                 <div id="displaySection" class="page-section">
                     <div class="content-panel">
+                        <!-- konten display (slider video) -->
                         <div class="slider-container">
                             <div class="card">
                                 <video controls playsinline autoplay muted loop><source src="Choosic.mp4"></video>
@@ -311,52 +373,25 @@
                                 <div class="info"><h4>New</h4></div>
                             </div>
                         </div>
-                        <!-- tombol buy now koleksi -->
-                        <div style="display: flex; justify-content: flex-end; margin-top: 0.2rem;">
+                        <!-- BUY NOW di tengah (bukan kanan) -->
+                        <div class="buy-now-wrapper">
                             <button class="buy-btn" id="buyNowLink">BUY NOW</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- food & beverage section -->
-                <div id="foodSection" class="page-section">
-                    <div class="content-panel">
-                        <!-- FOOD -->
-                        <div class="category-label">FOOD</div>
-                        <div class="slider-container">
-                            <div class="card"><div class="info"><h4>Burger hitam</h4></div></div>
-                            <div class="card"><div class="info"><h4>Pasta putih</h4></div></div>
-                            <div class="card"><div class="info"><h4>Risotto</h4></div></div>
-                            <div class="card"><div class="info"><h4>Steak</h4></div></div>
-                        </div>
-                        <!-- DRINK -->
-                        <div class="category-label">DRINK</div>
-                        <div class="slider-container">
-                            <div class="card"><div class="info"><h4>Espresso</h4></div></div>
-                            <div class="card"><div class="info"><h4>Matcha latte</h4></div></div>
-                            <div class="card"><div class="info"><h4>Lemon soda</h4></div></div>
-                            <div class="card"><div class="info"><h4>Dark roast</h4></div></div>
-                        </div>
-                        <!-- DESSERT -->
-                        <div class="category-label">DESSERT</div>
-                        <div class="slider-container">
-                            <div class="card"><div class="info"><h4>Panna cotta</h4></div></div>
-                            <div class="card"><div class="info"><h4>Tiramisu</h4></div></div>
-                            <div class="card"><div class="info"><h4>Dark choco</h4></div></div>
-                        </div>
-                    </div>
-                </div>
+                <!-- FOOD & BEVERAGE SECTION DIHAPUS sesuai permintaan -->
+                <!-- tidak ada lagi foodSection -->
             </div>
 
-            <!-- TOMBOL BARIS (di bawah konten) -->
+            <!-- TOMBOL BARIS (hanya Stage, Display, Back to Lobby) -->
             <div class="button-row">
                 <button class="nav-btn" id="btnStage">Stage</button>
                 <button class="nav-btn" id="btnDisplay">Display</button>
-                <button class="nav-btn" id="btnFood">Food & Beverage</button>
                 <button class="nav-btn" id="backToLobby">Back to Lobby</button>
             </div>
 
-            <!-- titik senyap -->
+            <!-- titik sunyi -->
             <div class="foot-note">•</div>
         </div>
     </div>
@@ -366,20 +401,20 @@
             const bgMusic = document.getElementById('bg-music');
             const stageSec = document.getElementById('stageSection');
             const displaySec = document.getElementById('displaySection');
-            const foodSec = document.getElementById('foodSection');
+            // foodSec dihapus
             const btnStage = document.getElementById('btnStage');
             const btnDisplay = document.getElementById('btnDisplay');
-            const btnFood = document.getElementById('btnFood');
             const backBtn = document.getElementById('backToLobby');
             const stageVideo = document.getElementById('stageVideo');
             const buyNowBtn = document.getElementById('buyNowLink'); 
 
+            // Nonaktifkan semua section
             function deactivateAllSections() {
                 stageSec.classList.remove('active-section');
                 displaySec.classList.remove('active-section');
-                foodSec.classList.remove('active-section');
             }
 
+            // Memainkan video di display
             function playDisplayVideos() {
                 const videos = document.querySelectorAll('#displaySection video');
                 videos.forEach(v => v.play().catch(e => console.log('play display', e)));
@@ -417,20 +452,14 @@
                 }, 50);
             });
 
-            // FOOD & BEVERAGE
-            btnFood.addEventListener('click', () => {
-                deactivateAllSections();
-                foodSec.classList.add('active-section');
-                // mainkan musik latar
-                bgMusic.play().catch(e => console.log('musik play setelah food'));
-            });
+            // Tidak ada tombol food, tidak ada kode untuk food
 
             stageVideo.addEventListener('play', () => {
                 bgMusic.pause();
                 bgMusic.currentTime = 0;
             });
 
-            // Autoplay audio setelah ada gesture sekali saja (opsional)
+            // Autoplay audio setelah ada gesture sekali saja
             function enableAudioOnce() {
                 bgMusic.play().catch(() => {});
                 document.body.removeEventListener('click', enableAudioOnce);
@@ -439,12 +468,12 @@
             document.body.addEventListener('click', enableAudioOnce, { once: true });
             document.body.addEventListener('touchstart', enableAudioOnce, { once: true });
 
-            // Default: semua section tersembunyi (tidak ada yg aktif)
+            // Default: semua section tersembunyi
             window.addEventListener('load', () => {
                 deactivateAllSections();
             });
 
-            // buy now lain (misal jika ada lebih dari satu)
+            // buy now lain jika ada (antisipasi)
             document.querySelectorAll('.buy-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     window.location.href = 'https://thekachoo.github.io/KAZINE/COLLECTION.html';
@@ -454,4 +483,4 @@
         })();
     </script>
 </body>
-                                </html>
+    </html>
