@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Kachoo Building · Motion Glow</title>
+  <title>Kachoo Building</title>
   <!-- Inter font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
   <style>
@@ -25,7 +25,7 @@
       height: 100%;
     }
 
-    /* BUILDING SCENE - pure visual */
+    /* BUILDING SCENE - full picture, no motion */
     #scene-building {
       position: absolute;
       top: 0;
@@ -35,29 +35,22 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      transition: all 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: slowZoom 20s infinite alternate ease-in-out;
     }
 
-    @keyframes slowZoom {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.08); }
-    }
-
-    /* Dark overlay - cinematic */
+    /* Dark overlay - minimal, hanya agar teks terbaca */
     #scene-building::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
+      background-color: rgba(0, 0, 0, 0.2);
       pointer-events: none;
       z-index: 1;
     }
 
-    /* Background images */
+    /* Background images - full picture */
     #scene-building {
       background-image: url('building1.png');
     }
@@ -81,7 +74,7 @@
       }
     }
 
-    /* CONTENT - pure centered text with glow */
+    /* CONTENT - pure centered text */
     .building-content {
       position: relative;
       z-index: 20;
@@ -95,15 +88,9 @@
       cursor: pointer;
     }
 
-    /* Welcome message - main focus */
+    /* Welcome message - center, no motion */
     .welcome-message {
       text-align: center;
-      animation: floatIn 1.4s ease-out;
-    }
-
-    @keyframes floatIn {
-      0% { opacity: 0; transform: translateY(40px) scale(0.95); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .welcome-message h1 {
@@ -111,177 +98,56 @@
       font-weight: 900;
       letter-spacing: -0.02em;
       color: #FFFFFF;
-      text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
       line-height: 1.1;
       margin-bottom: 1rem;
-      transition: text-shadow 0.5s ease;
-    }
-
-    .welcome-message h1:hover {
-      text-shadow: 0 0 50px rgba(255, 255, 255, 0.9), 0 0 100px rgba(255, 215, 0, 0.4);
     }
 
     .welcome-message p {
       font-size: clamp(1.1rem, 4vw, 1.4rem);
       font-weight: 400;
       color: #EEEEEE;
-      opacity: 0.9;
       text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
-      letter-spacing: 1px;
-      transition: all 0.4s ease;
+      letter-spacing: 0.5px;
     }
 
-    .welcome-message p:hover {
-      opacity: 1;
-      text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
-      letter-spacing: 2px;
-    }
-
-    /* Tombol masuk dengan efek glow */
+    /* Tombol masuk - simple */
     .enter-button {
       background: transparent;
       color: white;
-      border: 2px solid rgba(255, 255, 255, 0.6);
+      border: 2px solid rgba(255, 255, 255, 0.8);
       padding: 1rem 3rem;
       font-size: 1.2rem;
       font-weight: 700;
       border-radius: 60px;
       cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-      letter-spacing: 2px;
+      transition: all 0.3s ease;
+      letter-spacing: 1px;
       margin-top: 3rem;
       backdrop-filter: blur(5px);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .enter-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.8s ease;
     }
 
     .enter-button:hover {
-      border-color: white;
-      background: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 60px rgba(255, 255, 255, 0.6);
-      transform: scale(1.05);
-      letter-spacing: 3px;
-    }
-
-    .enter-button:hover::before {
-      left: 100%;
-    }
-
-    /* Hover glow effect - mengikuti mouse */
-    .hover-glow {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), 
-                  rgba(255, 255, 255, 0.4) 0%, 
-                  rgba(255, 215, 0, 0.15) 30%, 
-                  transparent 70%);
-      opacity: 0;
-      transition: opacity 0.3s;
-      pointer-events: none;
-      z-index: 15;
-      mix-blend-mode: overlay;
-    }
-
-    .building-content:hover ~ .hover-glow,
-    .hover-glow:hover {
-      opacity: 1;
-    }
-
-    /* Floating particles - motion effect */
-    .particles {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 10;
-      pointer-events: none;
-    }
-
-    .particle {
-      position: absolute;
-      width: var(--size, 4px);
-      height: var(--size, 4px);
       background: rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      animation: floatParticle var(--duration, 12s) infinite linear;
-      left: var(--left, 0);
-      box-shadow: 0 0 10px currentColor;
+      border-color: white;
+      transform: scale(1.05);
     }
 
-    @keyframes floatParticle {
-      0% { 
-        transform: translateY(100vh) translateX(0) rotate(0deg); 
-        opacity: 0; 
-      }
-      10% { 
-        opacity: var(--opacity, 0.6); 
-      }
-      90% { 
-        opacity: var(--opacity, 0.6); 
-      }
-      100% { 
-        transform: translateY(-100px) translateX(calc(var(--drift, 100) * 1px)) rotate(360deg); 
-        opacity: 0; 
-      }
-    }
-
-    /* Light streaks - motion effect */
-    .light-streak {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 12;
-      opacity: 0.3;
-    }
-
-    .streak {
-      position: absolute;
-      width: 200%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transform: rotate(-45deg);
-      animation: streakMove 8s infinite linear;
-    }
-
-    .streak:nth-child(1) { top: 20%; left: -50%; animation-duration: 10s; }
-    .streak:nth-child(2) { top: 50%; left: -50%; animation-duration: 14s; opacity: 0.2; }
-    .streak:nth-child(3) { top: 80%; left: -50%; animation-duration: 18s; transform: rotate(30deg); }
-
-    @keyframes streakMove {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
-
-    /* Page transition */
+    /* Page transition - simple */
     .page-transition {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(20px);
+      background: black;
       z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: opacity 0.5s ease;
     }
 
     .page-transition.active {
@@ -289,61 +155,20 @@
       pointer-events: all;
     }
 
-    .transition-content {
-      text-align: center;
-      animation: transitionPulse 1.5s infinite alternate;
-    }
-
     .transition-content h2 {
       font-size: 2rem;
       font-weight: 300;
-      letter-spacing: 10px;
+      letter-spacing: 5px;
       color: white;
-      text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
     }
 
-    .transition-content p {
-      margin-top: 1rem;
-      opacity: 0.7;
-      letter-spacing: 4px;
-    }
-
-    @keyframes transitionPulse {
-      0% { opacity: 0.5; transform: scale(0.98); }
-      100% { opacity: 1; transform: scale(1.02); }
-    }
-
-    /* Loading dots animation */
-    .loading-dots {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-top: 2rem;
-    }
-
-    .loading-dots span {
-      width: 12px;
-      height: 12px;
-      background: white;
-      border-radius: 50%;
-      animation: dotPulse 1.4s infinite ease-in-out;
-    }
-
-    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
-    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes dotPulse {
-      0%, 60%, 100% { transform: scale(0.3); opacity: 0.3; }
-      30% { transform: scale(1); opacity: 1; }
-    }
-
-    /* Ripple effect - halus */
+    /* Ripple effect - simple */
     .ripple-effect {
       position: absolute;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%);
       transform: translate(-50%, -50%) scale(0);
-      animation: ripple 1.2s ease-out;
+      animation: ripple 1s ease-out;
       pointer-events: none;
       z-index: 100;
       width: 100px;
@@ -352,78 +177,40 @@
 
     @keyframes ripple {
       0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(20); opacity: 0; }
+      100% { transform: translate(-50%, -50%) scale(15); opacity: 0; }
     }
 
-    /* Cinematic vignette */
-    .vignette {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(0,0,0,0.4) 100%);
-      pointer-events: none;
-      z-index: 18;
-    }
-
-    /* Responsive adjustments */
+    /* Responsive */
     @media (max-width: 768px) {
       .enter-button {
         padding: 0.8rem 2rem;
         font-size: 1rem;
         margin-top: 2rem;
       }
-      
-      .welcome-message h1 {
-        font-size: clamp(2.5rem, 12vw, 4rem);
-      }
     }
   </style>
 </head>
 <body>
-  <!-- BUILDING SCENE - Pure visual experience -->
+  <!-- BUILDING SCENE - Full picture, no motion, no blank hole -->
   <div id="scene-building">
-    <!-- Vignette effect -->
-    <div class="vignette"></div>
-    
-    <!-- Light streaks -->
-    <div class="light-streak">
-      <div class="streak"></div>
-      <div class="streak"></div>
-      <div class="streak"></div>
-    </div>
-    
-    <!-- Floating particles -->
-    <div class="particles" id="particles"></div>
-    
-    <!-- Hover glow effect - mengikuti mouse -->
-    <div class="hover-glow" id="hoverGlow"></div>
-    
     <!-- Content - pure centered text -->
     <div class="building-content" id="mainContent">
       <div class="welcome-message">
-        <h1>KACHOO</h1>
-        <p>touch anywhere to enter</p>
+        <h1>KACHOO BUILDING</h1>
+        <p>Explore the building</p>
       </div>
       
-      <!-- Tombol masuk dengan efek glow -->
+      <!-- Tombol masuk -->
       <button class="enter-button" id="enterButton">
         ENTER
       </button>
     </div>
   </div>
 
-  <!-- Page transition overlay - cinematic -->
+  <!-- Page transition overlay -->
   <div class="page-transition" id="pageTransition">
     <div class="transition-content">
       <h2>WELCOME</h2>
-      <p>KACHOO BUILDING</p>
-      <div class="loading-dots">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
     </div>
   </div>
 
@@ -435,36 +222,8 @@
       const mainContent = document.getElementById('mainContent');
       const enterButton = document.getElementById('enterButton');
       const transitionOverlay = document.getElementById('pageTransition');
-      const hoverGlow = document.getElementById('hoverGlow');
       
-      // Buat partikel dengan variasi
-      function createParticles() {
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = 50;
-        
-        for (let i = 0; i < particleCount; i++) {
-          const particle = document.createElement('div');
-          particle.className = 'particle';
-          
-          // Random properties
-          const size = 2 + Math.random() * 6;
-          const duration = 8 + Math.random() * 15;
-          const left = Math.random() * 100;
-          const opacity = 0.2 + Math.random() * 0.4;
-          const drift = -100 + Math.random() * 200;
-          
-          particle.style.setProperty('--size', size + 'px');
-          particle.style.setProperty('--duration', duration + 's');
-          particle.style.setProperty('--left', left + '%');
-          particle.style.setProperty('--opacity', opacity);
-          particle.style.setProperty('--drift', drift);
-          particle.style.left = left + '%';
-          
-          particlesContainer.appendChild(particle);
-        }
-      }
-      
-      // Efek ripple halus
+      // Efek ripple sederhana
       function createRipple(x, y) {
         const ripple = document.createElement('div');
         ripple.className = 'ripple-effect';
@@ -474,56 +233,41 @@
         
         setTimeout(() => {
           ripple.remove();
-        }, 1200);
+        }, 1000);
       }
       
-      // Fungsi pindah ke Lobby.html dengan efek cinematic
+      // Fungsi pindah ke Lobby.html
       function goToLobby(event) {
-        // Ambil posisi klik untuk ripple
-        const clickX = event.clientX;
-        const clickY = event.clientY;
-        
-        // Buat ripple effect
-        createRipple(clickX, clickY);
-        
-        // Animasi building keluar
-        buildingScene.style.transform = 'scale(1.1)';
-        buildingScene.style.filter = 'brightness(1.5) blur(3px)';
-        buildingScene.style.opacity = '0.7';
-        
-        // Animasi teks
-        const welcomeMsg = document.querySelector('.welcome-message');
-        welcomeMsg.style.transform = 'scale(0.95)';
-        welcomeMsg.style.opacity = '0';
+        // Buat ripple
+        createRipple(event.clientX, event.clientY);
         
         // Tampilkan transition overlay
         setTimeout(() => {
           transitionOverlay.classList.add('active');
-        }, 200);
+        }, 100);
         
         // Redirect ke Lobby.html
         setTimeout(() => {
           window.location.href = 'Lobby.html';
-        }, 1200);
+        }, 800);
       }
       
-      // Event listener untuk seluruh konten (teks dan background)
+      // Event listener untuk seluruh konten
       mainContent.addEventListener('click', (e) => {
         e.stopPropagation();
         goToLobby(e);
       });
       
-      // Tombol enter juga
+      // Tombol enter
       enterButton.addEventListener('click', (e) => {
         e.stopPropagation();
         goToLobby(e);
       });
       
-      // Background juga bisa diklik (tapi tetap melalui mainContent)
+      // Background juga bisa diklik
       buildingScene.addEventListener('click', (e) => {
-        // Jika yang diklik adalah buildingScene langsung atau partikel
-        if (e.target === buildingScene || e.target.classList.contains('particle') || e.target.classList.contains('streak')) {
-          // Buat event palsu dengan posisi tengah
+        // Jika yang diklik adalah buildingScene langsung
+        if (e.target === buildingScene) {
           const fakeEvent = { 
             clientX: window.innerWidth / 2, 
             clientY: window.innerHeight / 2 
@@ -532,40 +276,10 @@
         }
       });
       
-      // Hover glow effect mengikuti mouse
-      document.addEventListener('mousemove', (e) => {
-        const x = (e.clientX / window.innerWidth) * 100;
-        const y = (e.clientY / window.innerHeight) * 100;
-        hoverGlow.style.setProperty('--x', x + '%');
-        hoverGlow.style.setProperty('--y', y + '%');
-        
-        // Efek tambahan pada teks
-        const h1 = document.querySelector('.welcome-message h1');
-        const distanceFromCenter = Math.abs(x - 50) + Math.abs(y - 50);
-        const glowIntensity = Math.max(0.5, 1 - distanceFromCenter / 100);
-        h1.style.textShadow = `0 0 ${30 + glowIntensity * 40}px rgba(255, 255, 255, ${0.5 + glowIntensity * 0.4})`;
-      });
-      
-      // Animasi masuk awal
-      buildingScene.style.opacity = '0';
-      buildingScene.style.transform = 'scale(0.95)';
-      
-      setTimeout(() => {
-        buildingScene.style.opacity = '1';
-        buildingScene.style.transform = 'scale(1)';
-      }, 200);
-      
-      // Inisialisasi partikel
-      createParticles();
-      
-      // Efek parallax ringan untuk background (opsional)
-      window.addEventListener('mousemove', (e) => {
-        const moveX = (e.clientX / window.innerWidth - 0.5) * 10;
-        const moveY = (e.clientY / window.innerHeight - 0.5) * 10;
-        buildingScene.style.backgroundPosition = `calc(50% + ${moveX}px) calc(50% + ${moveY}px)`;
-      });
+      // Tampilkan building
+      buildingScene.style.opacity = '1';
       
     })();
   </script>
 </body>
-        </html>
+  </html>
