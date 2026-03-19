@@ -1,285 +1,491 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Kachoo Building</title>
-  <!-- Inter font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KACHOO EXHIBITION</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #000000;
-      color: #FFFFFF;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow: hidden;
-      width: 100%;
-      height: 100%;
-    }
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-    /* BUILDING SCENE - full picture, no motion */
-    #scene-building {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        /* enhanced lighting: multiple spotlights, rim lights, and soft glow */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.12) 0%, transparent 35%),
+                radial-gradient(circle at 90% 70%, rgba(255,255,255,0.15) 0%, transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(255,255,255,0.08) 0%, transparent 30%),
+                radial-gradient(circle at 70% 20%, rgba(255,255,255,0.1) 0%, transparent 45%),
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 8px);
+            pointer-events: none;
+            z-index: 1;
+        }
 
-    /* Dark overlay - minimal, hanya agar teks terbaca */
-    #scene-building::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-color: rgba(0, 0, 0, 0.2);
-      pointer-events: none;
-      z-index: 1;
-    }
+        /* extra top/bottom rim lighting */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
 
-    /* Background images - full picture */
-    #scene-building {
-      background-image: url('building1.png');
-    }
+        .floor-glow {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
 
-    @media (max-width: 1024px) {
-      #scene-building {
-        background-image: url('building2.png');
-      }
-    }
+        .main-container {
+            width: 100%;
+            max-width: 1400px;
+            padding: 2rem 1rem;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: center;
+        }
 
-    /* Fallback SVG */
-    @media (min-width: 1025px) {
-      #scene-building {
-        background-image: url('building1.png'), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22><rect width=%22400%22 height=%22300%22 fill=%22%23222c3a%22/><rect x=%2250%22 y=%2280%22 width=%22300%22 height=%22160%22 fill=%22%233a4a5e%22 rx=%228%22/><rect x=%22120%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22240%22 y=%22120%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22100%22 y=%22200%22 width=%22200%22 height=%2220%22 fill=%22%231a2532%22/><circle cx=%22200%22 cy=%22100%22 r=%2212%22 fill=%22%23aab7c9%22 /></svg>');
-      }
-    }
+        /* intro overlay */
+        .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.8s;
+            padding: 2rem;
+            will-change: opacity;
+            backdrop-filter: blur(0px);
+        }
 
-    @media (max-width: 1024px) {
-      #scene-building {
-        background-image: url('building2.png'), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 600%22><rect width=%22400%22 height=%22600%22 fill=%22%23222c3a%22/><rect x=%2250%22 y=%22150%22 width=%22300%22 height=%22300%22 fill=%22%233a4a5e%22 rx=%228%22/><rect x=%22120%22 y=%22200%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22240%22 y=%22200%22 width=%2240%22 height=%2240%22 fill=%22%235e6b7e%22 rx=%224%22/><rect x=%22100%22 y=%22400%22 width=%22200%22 height=%2220%22 fill=%22%231a2532%22/><circle cx=%22200%22 cy=%22250%22 r=%2212%22 fill=%22%23aab7c9%22 /></svg>');
-      }
-    }
+        .intro-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
 
-    /* CONTENT - pure centered text */
-    .building-content {
-      position: relative;
-      z-index: 20;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      cursor: pointer;
-    }
+        .intro-card {
+            max-width: 720px;
+            text-align: center;
+            background: rgba(10,10,10,0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 3rem 3.5rem;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.9), 0 0 0 2px rgba(255,255,255,0.02) inset, 0 0 60px rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
 
-    /* Welcome message - center, no motion */
-    .welcome-message {
-      text-align: center;
-    }
+        .intro-card p {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #f0f0f0;
+            text-shadow: 0 0 20px rgba(255,255,255,0.4);
+            margin-bottom: 3rem;
+        }
 
-    .welcome-message h1 {
-      font-size: clamp(3rem, 15vw, 6rem);
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      color: #FFFFFF;
-      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
-      line-height: 1.1;
-      margin-bottom: 1rem;
-    }
+        .intro-next {
+            background: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            padding: 0.9rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
 
-    .welcome-message p {
-      font-size: clamp(1.1rem, 4vw, 1.4rem);
-      font-weight: 400;
-      color: #EEEEEE;
-      text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
-      letter-spacing: 0.5px;
-    }
+        .intro-next:hover {
+            background: #ffffff;
+            color: #000000;
+            box-shadow: 0 0 45px #ffffff;
+        }
 
-    /* Tombol masuk - simple */
-    .enter-button {
-      background: transparent;
-      color: white;
-      border: 2px solid rgba(255, 255, 255, 0.8);
-      padding: 1rem 3rem;
-      font-size: 1.2rem;
-      font-weight: 700;
-      border-radius: 60px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      letter-spacing: 1px;
-      margin-top: 3rem;
-      backdrop-filter: blur(5px);
-    }
+        /* header */
+        .exhibition-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            z-index: 15;
+            position: relative;
+        }
 
-    .enter-button:hover {
-      background: rgba(255, 255, 255, 0.2);
-      border-color: white;
-      transform: scale(1.05);
-    }
+        .exhibition-header h1 {
+            font-size: 4.5rem;
+            font-weight: 500;
+            letter-spacing: 12px;
+            color: #ffffff;
+            text-shadow: 0 0 30px #ffffff, 0 0 60px rgba(255,255,255,0.3);
+            margin-bottom: 0.5rem;
+            word-break: keep-all;
+        }
 
-    /* Page transition - simple */
-    .page-transition {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
-    }
+        .exhibition-header h1 span {
+            font-weight: 200;
+            opacity: 0.9;
+        }
 
-    .page-transition.active {
-      opacity: 1;
-      pointer-events: all;
-    }
+        /* carousel wrapper */
+        .carousel-stage {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1 0 auto;
+            min-height: 550px;
+            margin: 1rem 0 2rem;
+            z-index: 20;
+        }
 
-    .transition-content h2 {
-      font-size: 2rem;
-      font-weight: 300;
-      letter-spacing: 5px;
-      color: white;
-    }
+        /* pedestal (meja putih dengan lampu) */
+        .pedestal {
+            position: relative;
+            width: 700px;
+            height: 380px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            pointer-events: none; /* biar slide tetap bisa melalui tombol */
+        }
 
-    /* Ripple effect - simple */
-    .ripple-effect {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%);
-      transform: translate(-50%, -50%) scale(0);
-      animation: ripple 1s ease-out;
-      pointer-events: none;
-      z-index: 100;
-      width: 100px;
-      height: 100px;
-    }
+        .table-base {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 140px;
+            background: linear-gradient(145deg, #3a3a3a, #1e1e1e);
+            border-radius: 4px 4px 0 0;
+            box-shadow: 
+                0 -5px 15px rgba(255,255,255,0.2),
+                0 25px 40px rgba(0,0,0,0.8),
+                0 0 0 1px rgba(255,255,255,0.3) inset,
+                0 0 50px rgba(255,255,255,0.2);
+            transform: perspective(800px) rotateX(2deg);
+            border-top: 2px solid rgba(255,255,255,0.4);
+        }
 
-    @keyframes ripple {
-      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(15); opacity: 0; }
-    }
+        /* lampu (sumber cahaya terpusat) */
+        .table-light {
+            position: absolute;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 100px;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.7) 0%, transparent 80%);
+            border-radius: 50%;
+            filter: blur(25px);
+            opacity: 0.8;
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .enter-button {
-        padding: 0.8rem 2rem;
-        font-size: 1rem;
-        margin-top: 2rem;
-      }
-    }
-  </style>
+        /* additional accent lights */
+        .spot-left {
+            position: absolute;
+            left: -100px;
+            top: 50px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 80%);
+            filter: blur(50px);
+            z-index: 0;
+        }
+
+        .spot-right {
+            position: absolute;
+            right: -100px;
+            bottom: 20px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 80%);
+            filter: blur(50px);
+            z-index: 0;
+        }
+
+        /* produk container (png terapung) */
+        .product-float {
+            position: absolute;
+            bottom: 115px; /* duduk di atas meja */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            z-index: 25;
+            filter: drop-shadow(0 30px 40px rgba(0,0,0,0.6)) drop-shadow(0 0 30px rgba(255,255,255,0.3));
+            animation: floatGlow 6s infinite alternate ease-in-out;
+        }
+
+        .product-float img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            image-rendering: high-quality;
+            filter: brightness(1.1) contrast(1.1) drop-shadow(0 0 25px rgba(255,255,255,0.4));
+            pointer-events: none;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translateX(-50%) translateY(0px); filter: drop-shadow(0 20px 25px #000000) drop-shadow(0 0 15px #ffffff); }
+            100% { transform: translateX(-50%) translateY(-12px); filter: drop-shadow(0 30px 35px #000000) drop-shadow(0 0 35px #ffffff); }
+        }
+
+        /* navigasi slide */
+        .slide-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            margin: 2rem 0 3rem;
+            z-index: 30;
+            position: relative;
+        }
+
+        .slide-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.5);
+            color: white;
+            font-size: 2.5rem;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+            outline: none;
+        }
+
+        .slide-btn:hover:not(:disabled) {
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
+            box-shadow: 0 0 50px #ffffff;
+        }
+
+        .slide-btn:disabled {
+            opacity: 0.2;
+            border-color: rgba(255,255,255,0.2);
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .slide-btn svg {
+            width: 30px;
+            height: 30px;
+            fill: currentColor;
+        }
+
+        .counter {
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            color: #dddddd;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 6px;
+        }
+
+        /* footer kecil */
+        .footer {
+            text-align: center;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: #aaaaaa;
+            padding: 1rem 0 0.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            width: 100%;
+            max-width: 600px;
+            margin: 1rem auto 0;
+            text-transform: uppercase;
+            font-weight: 300;
+            z-index: 20;
+            position: relative;
+        }
+
+        /* transparansi gambar dummy — kita pakai inline SVG transparan dengan bentuk putih (simulasi png) */
+        .product-float img {
+            background-color: transparent !important;
+            mix-blend-mode: screen; /* untuk menonjolkan area terang, namun png transparan tetap terjaga */
+        }
+
+        /* fallback jika gambar tidak ada, pakai inline svg putih */
+    </style>
 </head>
 <body>
-  <!-- BUILDING SCENE - Full picture, no motion, no blank hole -->
-  <div id="scene-building">
-    <!-- Content - pure centered text -->
-    <div class="building-content" id="mainContent">
-      <div class="welcome-message">
-        <h1>KACHOO BUILDING</h1>
-        <p>Explore the building</p>
-      </div>
-      
-      <!-- Tombol masuk -->
-      <button class="enter-button" id="enterButton">
-        ENTER
-      </button>
-    </div>
-  </div>
+    <div class="floor-glow"></div>
+    <div class="spot-left"></div>
+    <div class="spot-right"></div>
 
-  <!-- Page transition overlay -->
-  <div class="page-transition" id="pageTransition">
-    <div class="transition-content">
-      <h2>WELCOME</h2>
+    <!-- INTRO OVERLAY -->
+    <div class="intro-overlay" id="introOverlay">
+        <div class="intro-card">
+            <p>EXHIBITION PREVIEW<br>— KACHOO —<br></p>
+            <button class="intro-next" id="introNextBtn">→ ENTER GALLERY ←</button>
+        </div>
     </div>
-  </div>
 
-  <script>
-    (function() {
-      'use strict';
-      
-      const buildingScene = document.getElementById('scene-building');
-      const mainContent = document.getElementById('mainContent');
-      const enterButton = document.getElementById('enterButton');
-      const transitionOverlay = document.getElementById('pageTransition');
-      
-      // Efek ripple sederhana
-      function createRipple(x, y) {
-        const ripple = document.createElement('div');
-        ripple.className = 'ripple-effect';
-        ripple.style.left = x + 'px';
-        ripple.style.top = y + 'px';
-        document.body.appendChild(ripple);
-        
-        setTimeout(() => {
-          ripple.remove();
-        }, 1000);
-      }
-      
-      // Fungsi pindah ke Lobby.html
-      function goToLobby(event) {
-        // Buat ripple
-        createRipple(event.clientX, event.clientY);
-        
-        // Tampilkan transition overlay
-        setTimeout(() => {
-          transitionOverlay.classList.add('active');
-        }, 100);
-        
-        // Redirect ke Lobby.html
-        setTimeout(() => {
-          window.location.href = 'Lobby.html';
-        }, 800);
-      }
-      
-      // Event listener untuk seluruh konten
-      mainContent.addEventListener('click', (e) => {
-        e.stopPropagation();
-        goToLobby(e);
-      });
-      
-      // Tombol enter
-      enterButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        goToLobby(e);
-      });
-      
-      // Background juga bisa diklik
-      buildingScene.addEventListener('click', (e) => {
-        // Jika yang diklik adalah buildingScene langsung
-        if (e.target === buildingScene) {
-          const fakeEvent = { 
-            clientX: window.innerWidth / 2, 
-            clientY: window.innerHeight / 2 
-          };
-          goToLobby(fakeEvent);
-        }
-      });
-      
-      // Tampilkan building
-      buildingScene.style.opacity = '1';
-      
-    })();
-  </script>
+    <div class="main-container">
+        <header class="exhibition-header">
+            <h1>KACHOO EXHIBITION</h1>
+        </header>
+
+        <!-- AREA CAROUSEL DENGAN MEJA & LAMPU -->
+        <div class="carousel-stage">
+            <div class="pedestal">
+                <div class="table-base"></div>
+                <div class="table-light"></div>
+                <!-- produk PNG transparan yang melayang -->
+                <div class="product-float" id="productImageContainer">
+                    <img id="displayImage" src="" alt="exhibit png">
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE CONTROLS -->
+        <div class="slide-controls">
+            <button class="slide-btn" id="prevBtn" disabled>
+                <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            </button>
+            <div class="counter" id="counter">1 / 5</div>
+            <button class="slide-btn" id="nextBtn">
+                <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </button>
+        </div>
+
+        <footer class="footer">
+            For Roleplay Purpose Only, Kachoo 2026
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            // --- INTRO LOGIC ---
+            const intro = document.getElementById('introOverlay');
+            const introBtn = document.getElementById('introNextBtn');
+            
+            introBtn.addEventListener('click', function() {
+                intro.classList.add('hidden');
+            });
+
+            // --- DATA PRODUK: 5 PNG transparan ukuran 800x800 (base64 encoded bentuk putih di atas transparan, variasi) ---
+            // membuat gambar sederhana garis putih / siluet dengan latar transparan (agar terlihat efek cahaya)
+            function generateSVG(shapeType) {
+                // Semua shape berwarna putih dengan opacity 0.9, latar transparan. ukuran 800x800
+                let svgString = '';
+                if (shapeType === 1) {
+                    // lingkaran & garis abstrak
+                    svgString = `<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg"><circle cx="400" cy="400" r="260" fill="none" stroke="#ffffff" stroke-width="12" stroke-opacity="0.9" stroke-linecap="round" stroke-dasharray="20 20"/><circle cx="400" cy="400" r="140" fill="none" stroke="#ffffff" stroke-width="8" stroke-opacity="0.7"/><path d="M400 180 L400 620 M180 400 L620 400" stroke="#ffffff" stroke-width="6" stroke-opacity="0.5" stroke-dasharray="16 12"/></svg>`;
+                } else if (shapeType === 2) {
+                    // bentuk kotak / artefak
+                    svgString = `<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg"><rect x="200" y="200" width="400" height="400" fill="none" stroke="#ffffff" stroke-width="16" stroke-opacity="0.9"/><line x1="200" y1="200" x2="600" y2="600" stroke="#fff" stroke-width="8" stroke-opacity="0.6"/><line x1="600" y1="200" x2="200" y2="600" stroke="#fff" stroke-width="8" stroke-opacity="0.6"/></svg>`;
+                } else if (shapeType === 3) {
+                    // bentuk organik
+                    svgString = `<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg"><path d="M400,200 Q520,260 540,380 Q560,520 440,580 Q340,630 250,520 Q180,420 280,300 Q330,220 400,200" fill="none" stroke="#ffffff" stroke-width="14" stroke-opacity="0.9"/><circle cx="380" cy="360" r="24" fill="none" stroke="#fff" stroke-width="6"/><circle cx="480" cy="420" r="30" fill="none" stroke="#fff" stroke-width="6"/></svg>`;
+                } else if (shapeType === 4) {
+                    // geometri
+                    svgString = `<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg"><polygon points="400,200 600,400 400,600 200,400 400,200" fill="none" stroke="#ffffff" stroke-width="14" stroke-opacity="0.9"/><circle cx="400" cy="400" r="80" fill="none" stroke="#fff" stroke-width="6"/></svg>`;
+                } else {
+                    // abstract 5
+                    svgString = `<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg"><path d="M250 300 L550 300 L500 500 L300 500 Z" fill="none" stroke="#fff" stroke-width="16" stroke-opacity="0.8"/><ellipse cx="400" cy="400" rx="100" ry="160" fill="none" stroke="#fff" stroke-width="8" stroke-dasharray="14 10"/></svg>`;
+                }
+                return 'data:image/svg+xml,' + encodeURIComponent(svgString);
+            }
+
+            const products = [
+                generateSVG(1),
+                generateSVG(2),
+                generateSVG(3),
+                generateSVG(4),
+                generateSVG(5)
+            ];
+
+            // elemen
+            const imgElement = document.getElementById('displayImage');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const counter = document.getElementById('counter');
+
+            let currentIndex = 0; // 0-based
+
+            function updateDisplay() {
+                imgElement.src = products[currentIndex];
+                counter.innerText = (currentIndex + 1) + ' / 5';
+                // update tombol disabled jika mentok
+                prevBtn.disabled = (currentIndex === 0);
+                nextBtn.disabled = (currentIndex === products.length - 1);
+            }
+
+            // event listener
+            prevBtn.addEventListener('click', function() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateDisplay();
+                }
+            });
+
+            nextBtn.addEventListener('click', function() {
+                if (currentIndex < products.length - 1) {
+                    currentIndex++;
+                    updateDisplay();
+                }
+            });
+
+            // inisialisasi gambar pertama
+            updateDisplay();
+
+            // tambahan: jika seseorang tekan tombol next setelah index terakhir, sudah didisable.
+            // pastikan slide tidak bergerak jika mentok (disabled)
+        })();
+    </script>
+
+    <!-- memastikan latar gelap, font fallback -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 </body>
   </html>
