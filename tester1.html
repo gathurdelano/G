@@ -26,7 +26,7 @@
             padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
 
-        /* enhanced lighting - lebih soft di mobile */
+        /* lighting */
         body::before {
             content: '';
             position: fixed;
@@ -55,8 +55,8 @@
 
         .main-container {
             width: 100%;
-            max-width: 500px; /* dibatasi untuk mobile */
-            padding: 0.5rem;
+            max-width: 500px;
+            padding: 0.25rem;
             position: relative;
             z-index: 10;
             display: flex;
@@ -66,7 +66,7 @@
             margin: 0 auto;
         }
 
-        /* intro overlay - mobile friendly */
+        /* INTRO OVERLAY */
         .intro-overlay {
             position: fixed;
             top: 0;
@@ -96,7 +96,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.2);
             padding: 2rem 1.5rem;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05) inset, 0 0 40px rgba(255,255,255,0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 40px rgba(255,255,255,0.15);
             border-radius: 8px;
         }
 
@@ -114,43 +114,43 @@
             background: transparent;
             border: 1.5px solid #ffffff;
             color: #ffffff;
-            padding: 0.8rem 2rem;
-            font-size: 1rem;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
             font-weight: 400;
             letter-spacing: 3px;
             cursor: pointer;
-            transition: all 0.3s;
-            border-radius: 4px;
+            transition: all 0.2s;
+            border-radius: 8px;
             box-shadow: 0 0 15px rgba(255,255,255,0.2);
             width: 100%;
-            max-width: 250px;
+            max-width: 280px;
             margin: 0 auto;
+            min-height: 55px;
         }
 
         .intro-next:active {
             background: #ffffff;
             color: #000000;
-            box-shadow: 0 0 30px #ffffff;
+            transform: scale(0.98);
         }
 
-        /* header - lebih kecil di mobile */
+        /* header */
         .exhibition-header {
             text-align: center;
-            margin: 1rem 0 0.5rem;
+            margin: 0.5rem 0 0.25rem;
             z-index: 15;
         }
 
         .exhibition-header h1 {
-            font-size: clamp(1.8rem, 8vw, 2.5rem);
+            font-size: clamp(1.6rem, 7vw, 2.2rem);
             font-weight: 500;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             color: #ffffff;
             text-shadow: 0 0 20px #ffffff, 0 0 40px rgba(255,255,255,0.3);
             line-height: 1.2;
-            word-break: keep-all;
         }
 
-        /* carousel wrapper - proporsi lebih baik untuk mobile */
+        /* carousel stage */
         .carousel-stage {
             position: relative;
             width: 100%;
@@ -158,16 +158,15 @@
             justify-content: center;
             align-items: center;
             flex: 0 1 auto;
-            min-height: 0;
-            margin: 0.2rem 0;
+            margin: 0;
         }
 
-        /* pedestal yang proporsional untuk mobile */
+        /* pedestal */
         .pedestal {
             position: relative;
             width: 100%;
             max-width: 400px;
-            height: 280px; /* fixed height lebih cocok untuk mobile */
+            height: 280px;
             display: flex;
             justify-content: center;
             align-items: flex-end;
@@ -191,7 +190,6 @@
             border-top: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* lampu lebih soft untuk mobile */
         .table-light {
             position: absolute;
             top: -40px;
@@ -206,13 +204,13 @@
             mix-blend-mode: screen;
         }
 
-        /* produk container - ukuran pas untuk mobile */
+        /* produk container */
         .product-float {
             position: absolute;
-            bottom: 65px; /* tepat di atas meja */
+            bottom: 65px;
             left: 50%;
             transform: translateX(-50%);
-            width: 240px; /* ukuran tetap untuk konsistensi di mobile */
+            width: 240px;
             height: 240px;
             display: flex;
             justify-content: center;
@@ -220,6 +218,7 @@
             z-index: 25;
             filter: drop-shadow(0 15px 20px rgba(0,0,0,0.8)) drop-shadow(0 0 20px rgba(255,255,255,0.3));
             animation: floatGlow 5s infinite alternate ease-in-out;
+            pointer-events: none;
         }
 
         .product-float img {
@@ -227,47 +226,54 @@
             height: 100%;
             object-fit: contain;
             filter: brightness(1.1) contrast(1.1) drop-shadow(0 0 15px rgba(255,255,255,0.4));
-            pointer-events: none;
         }
 
         @keyframes floatGlow {
-            0% { transform: translateX(-50%) translateY(0px); filter: drop-shadow(0 10px 15px #000000) drop-shadow(0 0 10px #ffffff); }
-            100% { transform: translateX(-50%) translateY(-8px); filter: drop-shadow(0 15px 20px #000000) drop-shadow(0 0 20px #ffffff); }
+            0% { transform: translateX(-50%) translateY(0px); }
+            100% { transform: translateX(-50%) translateY(-8px); }
         }
 
-        /* navigasi slide - touch friendly */
+        /* ========== NAVIGASI SUPER BESAR ========== */
         .slide-controls {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 2rem;
-            margin: 1rem 0 1rem;
+            gap: 1.5rem;
+            margin: 0.5rem 0 0.5rem;
             z-index: 30;
+            padding: 0.5rem;
         }
 
+        /* area klik tombol diperbesar maksimal */
         .slide-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.5);
             color: white;
-            width: 56px;
-            height: 56px;
+            width: 80px;  /* lebih besar */
+            height: 80px;  /* lebih besar */
             border-radius: 50%;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.1s;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 15px rgba(255,255,255,0.15);
+            box-shadow: 0 0 25px rgba(255,255,255,0.3);
             outline: none;
             -webkit-touch-callout: none;
             touch-action: manipulation;
+            padding: 0;
+            margin: 0;
+            /* memastikan area klik maksimal */
+            position: relative;
+            z-index: 100;
         }
 
+        /* efek sentuh langsung terasa */
         .slide-btn:active:not(:disabled) {
             background: #ffffff;
             color: #000000;
             border-color: #ffffff;
-            box-shadow: 0 0 30px #ffffff;
+            box-shadow: 0 0 40px #ffffff;
             transform: scale(0.95);
         }
 
@@ -276,52 +282,43 @@
             border-color: rgba(255,255,255,0.2);
             cursor: not-allowed;
             box-shadow: none;
+            pointer-events: none;
         }
 
         .slide-btn svg {
-            width: 28px;
-            height: 28px;
+            width: 40px;  /* icon lebih besar */
+            height: 40px;
             fill: currentColor;
         }
 
         .counter {
-            font-size: 1rem;
+            font-size: 1.2rem;
             letter-spacing: 3px;
-            color: #dddddd;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            padding-bottom: 4px;
-            min-width: 70px;
+            color: #ffffff;
+            border-bottom: 1px solid rgba(255,255,255,0.4);
+            padding-bottom: 5px;
+            min-width: 80px;
             text-align: center;
-            font-weight: 300;
+            font-weight: 400;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
 
-        /* footer - lebih kecil */
+        /* footer */
         .footer {
             text-align: center;
             font-size: 0.7rem;
             letter-spacing: 1.5px;
-            color: #999999;
+            color: #aaaaaa;
             padding: 0.8rem 0 0.3rem;
             border-top: 1px solid rgba(255,255,255,0.1);
             width: 100%;
-            margin: 0.5rem auto 0;
-            text-transform: uppercase;
-            font-weight: 200;
+            margin: 0.25rem auto 0;
         }
 
-        /* landscape mode handling */
+        /* landscape mode */
         @media (orientation: landscape) and (max-height: 600px) {
             .main-container {
                 min-height: auto;
-                padding: 0.2rem;
-            }
-            
-            .exhibition-header {
-                margin: 0.2rem 0;
-            }
-            
-            .exhibition-header h1 {
-                font-size: 1.5rem;
             }
             
             .pedestal {
@@ -338,26 +335,46 @@
                 height: 60px;
             }
             
-            .slide-controls {
-                margin: 0.2rem 0;
+            .slide-btn {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .slide-btn svg {
+                width: 35px;
+                height: 35px;
             }
         }
 
         /* small phones */
         @media (max-width: 380px) {
-            .pedestal {
-                height: 240px;
+            .slide-btn {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .slide-btn svg {
+                width: 35px;
+                height: 35px;
             }
             
             .product-float {
                 width: 200px;
                 height: 200px;
-                bottom: 55px;
             }
-            
-            .table-base {
-                height: 70px;
-            }
+        }
+
+        /* tambahan area invisible untuk memudahkan klik (opsional) */
+        .slide-btn::after {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            background: transparent;
+            border-radius: 50%;
+            z-index: 101;
         }
     </style>
 </head>
@@ -375,19 +392,18 @@
             <h1>KACHOO EXHIBITION</h1>
         </header>
 
-        <!-- AREA CAROUSEL DENGAN MEJA & LAMPU -->
+        <!-- AREA PAMER -->
         <div class="carousel-stage">
             <div class="pedestal">
                 <div class="table-base"></div>
                 <div class="table-light"></div>
-                <!-- produk PNG transparan -->
                 <div class="product-float" id="productImageContainer">
                     <img id="displayImage" src="" alt="exhibit">
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE CONTROLS - touch friendly -->
+        <!-- SLIDE CONTROLS - TOMBOL SUPER BESAR -->
         <div class="slide-controls">
             <button class="slide-btn" id="prevBtn" disabled>
                 <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
@@ -443,27 +459,47 @@
                 nextBtn.disabled = (currentIndex === totalProducts - 1);
             }
 
-            prevBtn.addEventListener('click', function() {
+            // Event listeners dengan berbagai tipe event untuk memastikan responsif
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
                 if (currentIndex > 0) {
                     currentIndex--;
                     updateDisplay();
                 }
             });
 
-            nextBtn.addEventListener('click', function() {
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
                 if (currentIndex < totalProducts - 1) {
                     currentIndex++;
                     updateDisplay();
                 }
             });
 
+            // Touch events untuk responsivitas maksimal
+            prevBtn.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateDisplay();
+                }
+            }, { passive: false });
+
+            nextBtn.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                if (currentIndex < totalProducts - 1) {
+                    currentIndex++;
+                    updateDisplay();
+                }
+            }, { passive: false });
+
             updateDisplay();
 
-            // Touch optimization: prevent double-tap zoom on buttons
-            const buttons = document.querySelectorAll('button');
-            buttons.forEach(btn => {
+            // Hilangkan double-tap zoom di semua button
+            const allButtons = document.querySelectorAll('button');
+            allButtons.forEach(btn => {
                 btn.addEventListener('touchstart', (e) => {
-                    e.preventDefault(); // prevent default touch behavior
+                    e.preventDefault();
                 }, { passive: false });
             });
 
@@ -472,4 +508,4 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
 </body>
-    </html>
+                                     </html>
