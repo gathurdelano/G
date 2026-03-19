@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>KACHOO EXHIBITION</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -22,9 +23,10 @@
             align-items: center;
             position: relative;
             overflow-x: hidden;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
 
-        /* enhanced lighting: multiple spotlights, rim lights, and soft glow */
+        /* enhanced lighting - lebih soft di mobile */
         body::before {
             content: '';
             position: fixed;
@@ -33,24 +35,9 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.12) 0%, transparent 35%),
-                radial-gradient(circle at 90% 70%, rgba(255,255,255,0.15) 0%, transparent 40%),
-                radial-gradient(circle at 40% 80%, rgba(255,255,255,0.08) 0%, transparent 30%),
-                radial-gradient(circle at 70% 20%, rgba(255,255,255,0.1) 0%, transparent 45%),
-                repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 8px);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* extra top/bottom rim lighting */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 70%, rgba(255,255,255,0.12) 0%, transparent 55%),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 70%);
             pointer-events: none;
             z-index: 1;
         }
@@ -60,25 +47,26 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 200px;
-            background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+            height: 150px;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, transparent 70%);
             pointer-events: none;
             z-index: 1;
         }
 
         .main-container {
             width: 100%;
-            max-width: 1400px;
-            padding: 1rem 1rem;
+            max-width: 500px; /* dibatasi untuk mobile */
+            padding: 0.5rem;
             position: relative;
             z-index: 10;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            justify-content: center;
+            justify-content: space-between;
+            margin: 0 auto;
         }
 
-        /* intro overlay */
+        /* intro overlay - mobile friendly */
         .intro-overlay {
             position: fixed;
             top: 0;
@@ -90,9 +78,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.8s;
-            padding: 1.5rem;
-            will-change: opacity;
+            transition: opacity 0.5s ease, visibility 0.5s;
+            padding: 1rem;
         }
 
         .intro-overlay.hidden {
@@ -102,212 +89,186 @@
         }
 
         .intro-card {
-            max-width: 90%;
-            width: 600px;
+            width: 100%;
+            max-width: 380px;
             text-align: center;
-            background: rgba(10,10,10,0.7);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.15);
-            padding: 2.5rem 1.5rem;
-            box-shadow: 0 30px 50px rgba(0,0,0,0.9), 0 0 0 2px rgba(255,255,255,0.02) inset, 0 0 60px rgba(255,255,255,0.2);
-            border-radius: 4px;
+            background: rgba(15,15,15,0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 2rem 1.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05) inset, 0 0 40px rgba(255,255,255,0.15);
+            border-radius: 8px;
         }
 
         .intro-card p {
-            font-size: clamp(1.2rem, 5vw, 1.8rem);
-            line-height: 1.6;
+            font-size: 1.3rem;
+            line-height: 1.5;
             font-weight: 300;
             letter-spacing: 2px;
-            color: #f0f0f0;
-            text-shadow: 0 0 20px rgba(255,255,255,0.4);
-            margin-bottom: 2.5rem;
-            word-break: keep-all;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(255,255,255,0.5);
+            margin-bottom: 2rem;
         }
 
         .intro-next {
             background: transparent;
-            border: 2px solid #ffffff;
+            border: 1.5px solid #ffffff;
             color: #ffffff;
-            padding: 0.8rem 2.5rem;
-            font-size: 1.1rem;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
             font-weight: 400;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             cursor: pointer;
             transition: all 0.3s;
-            border-radius: 2px;
-            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+            width: 100%;
+            max-width: 250px;
+            margin: 0 auto;
         }
 
-        .intro-next:hover {
+        .intro-next:active {
             background: #ffffff;
             color: #000000;
-            box-shadow: 0 0 45px #ffffff;
+            box-shadow: 0 0 30px #ffffff;
         }
 
-        /* header */
+        /* header - lebih kecil di mobile */
         .exhibition-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin: 1rem 0 0.5rem;
             z-index: 15;
-            position: relative;
         }
 
         .exhibition-header h1 {
-            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            font-size: clamp(1.8rem, 8vw, 2.5rem);
             font-weight: 500;
-            letter-spacing: clamp(4px, 2vw, 12px);
+            letter-spacing: 4px;
             color: #ffffff;
-            text-shadow: 0 0 30px #ffffff, 0 0 60px rgba(255,255,255,0.3);
-            margin-bottom: 0.5rem;
-            word-break: keep-all;
+            text-shadow: 0 0 20px #ffffff, 0 0 40px rgba(255,255,255,0.3);
             line-height: 1.2;
+            word-break: keep-all;
         }
 
-        /* carousel wrapper */
+        /* carousel wrapper - proporsi lebih baik untuk mobile */
         .carousel-stage {
             position: relative;
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex: 1 0 auto;
-            min-height: 400px;
-            margin: 0.5rem 0 1rem;
-            z-index: 20;
+            flex: 0 1 auto;
+            min-height: 0;
+            margin: 0.2rem 0;
         }
 
-        /* pedestal (meja putih dengan lampu) - responsif */
+        /* pedestal yang proporsional untuk mobile */
         .pedestal {
             position: relative;
-            width: min(700px, 90vw);
-            height: clamp(250px, 40vw, 380px);
+            width: 100%;
+            max-width: 400px;
+            height: 280px; /* fixed height lebih cocok untuk mobile */
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            pointer-events: none;
+            margin: 0 auto;
         }
 
         .table-base {
             position: absolute;
             bottom: 0;
-            width: 100%;
-            height: clamp(90px, 15vw, 140px);
+            width: 90%;
+            left: 5%;
+            height: 80px;
             background: linear-gradient(145deg, #3a3a3a, #1e1e1e);
-            border-radius: 4px 4px 0 0;
+            border-radius: 8px 8px 0 0;
             box-shadow: 
-                0 -5px 15px rgba(255,255,255,0.2),
-                0 25px 40px rgba(0,0,0,0.8),
-                0 0 0 1px rgba(255,255,255,0.3) inset,
-                0 0 50px rgba(255,255,255,0.2);
-            transform: perspective(800px) rotateX(2deg);
-            border-top: 2px solid rgba(255,255,255,0.4);
+                0 -3px 10px rgba(255,255,255,0.15),
+                0 15px 25px rgba(0,0,0,0.8),
+                0 0 0 1px rgba(255,255,255,0.2) inset,
+                0 0 30px rgba(255,255,255,0.15);
+            transform: perspective(400px) rotateX(2deg);
+            border-top: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* lampu (sumber cahaya terpusat) */
+        /* lampu lebih soft untuk mobile */
         .table-light {
             position: absolute;
-            top: -80px;
+            top: -40px;
             left: 50%;
             transform: translateX(-50%);
-            width: min(250px, 50vw);
-            height: clamp(60px, 12vw, 100px);
-            background: radial-gradient(ellipse at center, rgba(255,255,255,0.7) 0%, transparent 80%);
+            width: 180px;
+            height: 60px;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.6) 0%, transparent 80%);
             border-radius: 50%;
-            filter: blur(25px);
-            opacity: 0.8;
+            filter: blur(20px);
+            opacity: 0.7;
             mix-blend-mode: screen;
-            pointer-events: none;
         }
 
-        /* additional accent lights */
-        .spot-left {
-            position: absolute;
-            left: -100px;
-            top: 50px;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 80%);
-            filter: blur(50px);
-            z-index: 0;
-        }
-
-        .spot-right {
-            position: absolute;
-            right: -100px;
-            bottom: 20px;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 80%);
-            filter: blur(50px);
-            z-index: 0;
-        }
-
-        /* produk container (png terapung) */
+        /* produk container - ukuran pas untuk mobile */
         .product-float {
             position: absolute;
-            bottom: clamp(70px, 12vw, 115px); /* duduk di atas meja */
+            bottom: 65px; /* tepat di atas meja */
             left: 50%;
             transform: translateX(-50%);
-            width: min(500px, 70vw);
-            max-width: 800px;
-            aspect-ratio: 1/1;
+            width: 240px; /* ukuran tetap untuk konsistensi di mobile */
+            height: 240px;
             display: flex;
             justify-content: center;
             align-items: center;
-            pointer-events: none;
             z-index: 25;
-            filter: drop-shadow(0 30px 40px rgba(0,0,0,0.6)) drop-shadow(0 0 30px rgba(255,255,255,0.3));
-            animation: floatGlow 6s infinite alternate ease-in-out;
+            filter: drop-shadow(0 15px 20px rgba(0,0,0,0.8)) drop-shadow(0 0 20px rgba(255,255,255,0.3));
+            animation: floatGlow 5s infinite alternate ease-in-out;
         }
 
         .product-float img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            image-rendering: high-quality;
-            filter: brightness(1.1) contrast(1.1) drop-shadow(0 0 25px rgba(255,255,255,0.4));
+            filter: brightness(1.1) contrast(1.1) drop-shadow(0 0 15px rgba(255,255,255,0.4));
             pointer-events: none;
         }
 
         @keyframes floatGlow {
-            0% { transform: translateX(-50%) translateY(0px); filter: drop-shadow(0 20px 25px #000000) drop-shadow(0 0 15px #ffffff); }
-            100% { transform: translateX(-50%) translateY(-12px); filter: drop-shadow(0 30px 35px #000000) drop-shadow(0 0 35px #ffffff); }
+            0% { transform: translateX(-50%) translateY(0px); filter: drop-shadow(0 10px 15px #000000) drop-shadow(0 0 10px #ffffff); }
+            100% { transform: translateX(-50%) translateY(-8px); filter: drop-shadow(0 15px 20px #000000) drop-shadow(0 0 20px #ffffff); }
         }
 
-        /* navigasi slide */
+        /* navigasi slide - touch friendly */
         .slide-controls {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: clamp(1.5rem, 5vw, 3rem);
-            margin: 1.5rem 0 2rem;
+            gap: 2rem;
+            margin: 1rem 0 1rem;
             z-index: 30;
-            position: relative;
-            flex-wrap: wrap;
         }
 
         .slide-btn {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.3);
             color: white;
-            font-size: 2.5rem;
-            width: clamp(50px, 12vw, 70px);
-            height: clamp(50px, 12vw, 70px);
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+            box-shadow: 0 0 15px rgba(255,255,255,0.15);
             outline: none;
+            -webkit-touch-callout: none;
+            touch-action: manipulation;
         }
 
-        .slide-btn:hover:not(:disabled) {
+        .slide-btn:active:not(:disabled) {
             background: #ffffff;
             color: #000000;
             border-color: #ffffff;
-            box-shadow: 0 0 50px #ffffff;
+            box-shadow: 0 0 30px #ffffff;
+            transform: scale(0.95);
         }
 
         .slide-btn:disabled {
@@ -318,54 +279,94 @@
         }
 
         .slide-btn svg {
-            width: clamp(20px, 5vw, 30px);
-            height: clamp(20px, 5vw, 30px);
+            width: 28px;
+            height: 28px;
             fill: currentColor;
         }
 
         .counter {
-            font-size: clamp(1rem, 4vw, 1.2rem);
-            letter-spacing: 4px;
+            font-size: 1rem;
+            letter-spacing: 3px;
             color: #dddddd;
             border-bottom: 1px solid rgba(255,255,255,0.3);
-            padding-bottom: 6px;
-            min-width: 80px;
+            padding-bottom: 4px;
+            min-width: 70px;
             text-align: center;
+            font-weight: 300;
         }
 
-        /* footer kecil */
+        /* footer - lebih kecil */
         .footer {
             text-align: center;
-            font-size: clamp(0.7rem, 3vw, 0.8rem);
-            letter-spacing: 2px;
-            color: #aaaaaa;
-            padding: 1rem 0 0.3rem;
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            color: #999999;
+            padding: 0.8rem 0 0.3rem;
             border-top: 1px solid rgba(255,255,255,0.1);
             width: 100%;
-            max-width: 600px;
-            margin: 1rem auto 0;
+            margin: 0.5rem auto 0;
             text-transform: uppercase;
-            font-weight: 300;
-            z-index: 20;
-            position: relative;
+            font-weight: 200;
         }
 
-        /* fallback style jika gambar tidak ditemukan */
-        .product-float img {
-            background-color: transparent !important;
+        /* landscape mode handling */
+        @media (orientation: landscape) and (max-height: 600px) {
+            .main-container {
+                min-height: auto;
+                padding: 0.2rem;
+            }
+            
+            .exhibition-header {
+                margin: 0.2rem 0;
+            }
+            
+            .exhibition-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .pedestal {
+                height: 200px;
+            }
+            
+            .product-float {
+                width: 160px;
+                height: 160px;
+                bottom: 50px;
+            }
+            
+            .table-base {
+                height: 60px;
+            }
+            
+            .slide-controls {
+                margin: 0.2rem 0;
+            }
+        }
+
+        /* small phones */
+        @media (max-width: 380px) {
+            .pedestal {
+                height: 240px;
+            }
+            
+            .product-float {
+                width: 200px;
+                height: 200px;
+                bottom: 55px;
+            }
+            
+            .table-base {
+                height: 70px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="floor-glow"></div>
-    <div class="spot-left"></div>
-    <div class="spot-right"></div>
-
     <!-- INTRO OVERLAY -->
     <div class="intro-overlay" id="introOverlay">
         <div class="intro-card">
-            <p>EXHIBITION PREVIEW<br>— KACHOO —<br>BLACK & WHITE SERIES</p>
-            <button class="intro-next" id="introNextBtn">→ ENTER GALLERY ←</button>
+            <p>KACHOO<br>EXHIBITION</p>
+            <button class="intro-next" id="introNextBtn">ENTER</button>
         </div>
     </div>
 
@@ -379,14 +380,14 @@
             <div class="pedestal">
                 <div class="table-base"></div>
                 <div class="table-light"></div>
-                <!-- produk PNG transparan yang melayang -->
+                <!-- produk PNG transparan -->
                 <div class="product-float" id="productImageContainer">
-                    <img id="displayImage" src="" alt="exhibit png">
+                    <img id="displayImage" src="" alt="exhibit">
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE CONTROLS -->
+        <!-- SLIDE CONTROLS - touch friendly -->
         <div class="slide-controls">
             <button class="slide-btn" id="prevBtn" disabled>
                 <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
@@ -398,13 +399,13 @@
         </div>
 
         <footer class="footer">
-            For Roleplay Purpose Only, Kachoo 2026
+            For Roleplay Purpose Only · Kachoo 2026
         </footer>
     </div>
 
     <script>
         (function() {
-            // INTRO LOGIC
+            // INTRO
             const intro = document.getElementById('introOverlay');
             const introBtn = document.getElementById('introNextBtn');
             
@@ -412,8 +413,7 @@
                 intro.classList.add('hidden');
             });
 
-            // DAFTAR PRODUK PNG (nama file sesuai permintaan)
-            // Semua file diharapkan berada di folder "products/" dengan ukuran 800x800px transparan
+            // DAFTAR PRODUK
             const productFiles = [
                 'Choosic1.png',
                 'Choosic2.png',
@@ -425,44 +425,24 @@
                 'Produk2.png'
             ];
             
-            // Base path - asumsi semua PNG disimpan di subfolder "products"
-            // Jika file berada di lokasi berbeda, ubah basePath sesuai kebutuhan
-            const basePath = 'products/';  // pastikan folder 'products' ada dan berisi file-file tersebut
-            
-            // Membuat array lengkap dengan path
+            const basePath = 'products/';
             const products = productFiles.map(file => basePath + file);
 
-            // Elemen DOM
             const imgElement = document.getElementById('displayImage');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
             const counter = document.getElementById('counter');
 
-            let currentIndex = 0; // 0-based
+            let currentIndex = 0;
             const totalProducts = products.length;
 
-            // Fungsi untuk update gambar dan status tombol
             function updateDisplay() {
-                // Set sumber gambar
                 imgElement.src = products[currentIndex];
-                
-                // Update counter
                 counter.innerText = (currentIndex + 1) + ' / ' + totalProducts;
-                
-                // Update tombol disabled jika mentok
                 prevBtn.disabled = (currentIndex === 0);
                 nextBtn.disabled = (currentIndex === totalProducts - 1);
-
-                // Tambahan: menangani error jika gambar tidak ditemukan
-                imgElement.onerror = function() {
-                    console.error('Gambar tidak ditemukan:', products[currentIndex]);
-                    // Bisa menampilkan placeholder atau pesan error
-                    // Untuk sementara, biarkan broken image, atau bisa ganti dengan SVG fallback
-                    // Tapi karena ini hanya roleplay, kita diamkan saja.
-                };
             }
 
-            // Event listener untuk navigasi
             prevBtn.addEventListener('click', function() {
                 if (currentIndex > 0) {
                     currentIndex--;
@@ -477,14 +457,19 @@
                 }
             });
 
-            // Inisialisasi gambar pertama
             updateDisplay();
 
-            // Tambahan sentuhan: jika layar disentuh, tidak ada perubahan (murni tombol)
+            // Touch optimization: prevent double-tap zoom on buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.addEventListener('touchstart', (e) => {
+                    e.preventDefault(); // prevent default touch behavior
+                }, { passive: false });
+            });
+
         })();
     </script>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
 </body>
-                    </html>
+    </html>
