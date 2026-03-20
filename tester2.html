@@ -15,7 +15,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #000000; /* fallback black */
+            background-color: #000000;
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
@@ -43,7 +43,7 @@
             }
         }
 
-        /* Overlay semi-transparan agar teks & tombol tetap kontras (opsional) */
+        /* Overlay semi-transparan agar teks & tombol tetap kontras */
         body::before {
             content: '';
             position: fixed;
@@ -62,7 +62,7 @@
             padding: 0 24px;
         }
 
-        /* ========== HEADER (sama persis dengan index.html) ========== */
+        /* ========== HEADER - HANYA LOGO CENTER, TANPA MENU ========== */
         header {
             background-color: rgba(255, 255, 255, 0.98);
             border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -79,195 +79,27 @@
 
         .header-content {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: center;
             cursor: pointer;
         }
 
         .logo-img {
-            height: 40px;
+            height: 48px;
             width: auto;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+            transition: transform 0.2s ease;
         }
 
-        .logo-text {
-            font-size: 24px;
-            font-weight: 900;
-            letter-spacing: -0.5px;
-            color: #000000;
-            position: relative;
+        .logo-container:hover .logo-img {
+            transform: scale(1.02);
         }
-
-        .logo-text::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 24px;
-            height: 3px;
-            background-color: #000000;
-            transition: width 0.3s ease;
-        }
-
-        .logo-container:hover .logo-text::after {
-            width: 100%;
-        }
-
-        /* Desktop Navigation Dropdown (mirip index) */
-        .desktop-nav-container {
-            position: relative;
-            display: block;
-        }
-        @media (max-width: 768px) {
-            .desktop-nav-container {
-                display: none;
-            }
-        }
-
-        .desktop-nav-trigger {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #F5F5F7;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 14px;
-            color: #000000;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: none;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .desktop-nav-trigger:hover {
-            background: rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .desktop-nav-dropdown {
-            position: absolute;
-            top: calc(100% + 8px);
-            right: 0;
-            width: 280px;
-            background: #FFFFFF;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            padding: 8px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1001;
-            border: 1px solid rgba(0, 0, 0, 0.08);
-        }
-
-        .desktop-nav-dropdown.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .desktop-nav-dropdown .nav-button {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-            padding: 14px 16px;
-            background: transparent;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 14px;
-            color: #6E6E73;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            text-align: left;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        .desktop-nav-dropdown .nav-button:last-child { border-bottom: none; }
-        .desktop-nav-dropdown .nav-button:hover {
-            color: #000000;
-            background: #F5F5F7;
-            transform: translateX(4px);
-        }
-
-        /* Mobile Menu Button & Menu (sama persis) */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #000;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-        @media (max-width: 768px) {
-            .mobile-menu-btn { display: block; }
-        }
-        .mobile-menu-btn:hover { background: rgba(0,0,0,0.05); }
-
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 280px;
-            height: 100vh;
-            background: #FFFFFF;
-            box-shadow: -4px 0 24px rgba(0,0,0,0.1);
-            padding: 80px 24px 24px;
-            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 999;
-            overflow-y: auto;
-        }
-        .mobile-menu.active { right: 0; }
-        .mobile-menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 998;
-        }
-        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
-        .mobile-menu-close {
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        .mobile-menu-list { list-style: none; }
-        .mobile-menu-item { margin-bottom: 16px; }
-        .mobile-menu-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px;
-            background: #F5F5F7;
-            border-radius: 12px;
-            text-decoration: none;
-            color: #000;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        .mobile-menu-link:hover { background: rgba(0,0,0,0.1); transform: translateX(4px); }
 
         /* ========== MAIN CONTENT (Banking Interface) ========== */
         .main-banking {
@@ -334,6 +166,7 @@
             transition: all 0.25s ease;
             width: 100%;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
         }
         .btn-chobank i { font-size: 1.2rem; transition: transform 0.2s; }
         .btn-chobank:hover {
@@ -415,33 +248,26 @@
             border-radius: 24px;
             padding: 24px;
             margin-top: 20px;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 800;
             color: #2c6e2c;
-            word-break: break-word;
             display: none;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
             gap: 12px;
-            flex-wrap: wrap;
         }
         .cash-display.show {
             display: flex;
         }
-        .money-stack {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 12px;
+        .withdraw-amount-text {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #1a5f1a;
+            letter-spacing: 1px;
         }
-        .bill-note {
-            background: #d4c9a6;
-            padding: 8px 12px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        .money-icon {
+            font-size: 3rem;
         }
 
         .info-busy {
@@ -453,19 +279,19 @@
             font-weight: 500;
         }
 
-        /* Footer sama persis dengan index */
+        /* Footer - HAPUS PLATFORM SECTION */
         footer {
             background: #000000;
             color: #FFFFFF;
-            padding: 80px 0 40px;
+            padding: 60px 0 40px;
             margin-top: auto;
         }
-        @media (max-width: 768px) { footer { padding: 60px 0 40px; } }
+        @media (max-width: 768px) { footer { padding: 50px 0 30px; } }
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 48px;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
         .footer-section h3 {
             font-size: 18px;
@@ -503,49 +329,23 @@
         .social-link:hover { background: white; color: black; transform: translateY(-4px); }
         .x-logo { font-family: 'Inter', sans-serif; font-weight: 900; font-size: 18px; }
         .copyright { text-align: center; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); font-size: 14px; }
+        
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="container header-content">
             <div class="logo-container" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <!-- Ganti logo dengan logochobank.png -->
                 <img src="logochobank.png" alt="CHOBANK Logo" class="logo-img">
-                <div class="logo-text">CHOBANK</div>
             </div>
-            <!-- Desktop Navigation Dropdown -->
-            <div class="desktop-nav-container">
-                <button class="desktop-nav-trigger" id="desktopNavTrigger">
-                    <span>Menu</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="desktop-nav-dropdown" id="desktopNavDropdown">
-                    <a href="kafka.html" class="nav-button"><i class="fas fa-building"></i> Holding Company</a>
-                    <a href="kafkapages.html" class="nav-button" target="_blank"><i class="fas fa-book"></i> Kafkapages</a>
-                    <a href="https://thekachoo.github.io/KAZINE/COLLECTION.html" class="nav-button" target="_blank"><i class="fas fa-tshirt"></i> Kazine Collection</a>
-                    <a href="kaboom.html" class="nav-button" target="_blank"><i class="fas fa-camera"></i> Kaboom</a>
-                    <a href="https://thekachoo.github.io/KAZINE/volume1.html" class="nav-button" target="_blank"><i class="fas fa-newspaper"></i> Kazine Issues</a>
-                    <a href="https://thekachoo.github.io/Datacho/" class="nav-button" target="_blank"><i class="fas fa-calendar-alt"></i> Choredata</a>
-                    <a href="guidelines.html" class="nav-button"><i class="fas fa-clipboard-check"></i> Guidelines</a>
-                </div>
-            </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
         </div>
     </header>
-
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="mobile-menu-close" id="mobileMenuClose"><i class="fas fa-times"></i></button>
-        <ul class="mobile-menu-list">
-            <li class="mobile-menu-item"><a href="kafka.html" class="mobile-menu-link"><i class="fas fa-building"></i> Holding Company</a></li>
-            <li class="mobile-menu-item"><a href="kafkapages.html" class="mobile-menu-link" target="_blank"><i class="fas fa-book"></i> Kafkapages</a></li>
-            <li class="mobile-menu-item"><a href="https://thekachoo.github.io/KAZINE/COLLECTION.html" class="mobile-menu-link" target="_blank"><i class="fas fa-tshirt"></i> Kazine Collection</a></li>
-            <li class="mobile-menu-item"><a href="kaboom.html" class="mobile-menu-link" target="_blank"><i class="fas fa-camera"></i> Kaboom</a></li>
-            <li class="mobile-menu-item"><a href="https://thekachoo.github.io/KAZINE/volume1.html" class="mobile-menu-link" target="_blank"><i class="fas fa-newspaper"></i> Kazine Vol 1</a></li>
-            <li class="mobile-menu-item"><a href="https://thekachoo.github.io/Datacho/" class="mobile-menu-link" target="_blank"><i class="fas fa-calendar-alt"></i> Choredata</a></li>
-            <li class="mobile-menu-item"><a href="guidelines.html" class="mobile-menu-link"><i class="fas fa-clipboard-check"></i> Guidelines</a></li>
-        </ul>
-    </div>
 
     <main class="main-banking">
         <div class="banking-card">
@@ -563,20 +363,22 @@
         </div>
     </main>
 
-    <!-- ATM Modal Visual: tarik tunai dengan nominal -->
+    <!-- ATM Modal: tarik tunai dengan pecahan 50rb dan 100rb, limit 50jt -->
     <div id="atmModal" class="atm-modal">
         <div class="atm-container">
             <div class="atm-machine-icon"><i class="fas fa-credit-card"></i> <i class="fas fa-desktop"></i></div>
             <h3 style="font-weight: 800;">ATM KACHOO</h3>
             <p>Masukkan nominal penarikan (IDR)</p>
-            <input type="number" id="withdrawAmount" class="atm-input" placeholder="Contoh: 50000" value="100000">
+            <p style="font-size: 12px; color: #666;">*Pecahan tersedia: Rp 50.000 & Rp 100.000 | Maksimal Rp 50.000.000</p>
+            <input type="number" id="withdrawAmount" class="atm-input" placeholder="Contoh: 500000" value="500000">
             <div class="atm-actions">
                 <button id="confirmWithdraw" class="btn-chobank" style="padding: 12px 20px; background:#000;"><i class="fas fa-check"></i> Tarik</button>
                 <button id="closeAtmModal" class="btn-chobank btn-secondary" style="background:#eee; color:#000;">Batal</button>
             </div>
             <div id="cashDisplayArea" class="cash-display">
-                <i class="fas fa-coins"></i> Uang Keluar: 
-                <div id="moneyVisual" class="money-stack"></div>
+                <div class="money-icon"><i class="fas fa-money-bill"></i></div>
+                <div>Uang keluar:</div>
+                <div id="withdrawResult" class="withdraw-amount-text"></div>
             </div>
         </div>
     </div>
@@ -587,39 +389,33 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section"><h3>CHOBANK</h3><p style="color:rgba(255,255,255,0.7); margin-top:16px;">Digital banking solution by KACHOO, seamless transactions for all platforms.</p>
-                    <div class="social-links"><a href="mailto:ohkachoo@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a><a href="https://twitter.com/thekachoo" target="_blank" class="social-link"><span class="x-logo">𝕏</span></a></div>
+                <div class="footer-section">
+                    <h3>CHOBANK</h3>
+                    <p style="color:rgba(255,255,255,0.7); margin-top:16px;">Digital banking solution by KACHOO, seamless transactions for all platforms.</p>
+                    <div class="social-links">
+                        <a href="mailto:ohkachoo@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                        <a href="https://twitter.com/thekachoo" target="_blank" class="social-link"><span class="x-logo">𝕏</span></a>
+                    </div>
                 </div>
-                <div class="footer-section"><h3>Platforms</h3><ul class="footer-links"><li><i class="fas fa-book"></i><a href="https://thekachoo.github.io/Home/kafkapages.html" target="_blank">KAFKAPAGES</a></li><li><i class="fas fa-tshirt"></i><a href="https://thekachoo.github.io/KAZINE/COLLECTION.html" target="_blank">KAZINE COLLECTION</a></li><li><i class="fas fa-camera"></i><a href="https://thekachoo.github.io/Home/kaboom.html" target="_blank">Kaboom</a></li></ul></div>
-                <div class="footer-section"><h3>Contact</h3><ul class="footer-links"><li><span class="x-logo" style="background:white; color:black; border-radius:3px; padding:2px 6px; margin-right:6px;">𝕏</span><a href="https://twitter.com/TheKachoo" target="_blank">@TheKachoo</a></li><li><i class="fas fa-envelope"></i><a href="mailto:ohkachoo@gmail.com">ohkachoo@gmail.com</a></li></ul></div>
-                <div class="footer-section"><h3>Address</h3><ul class="footer-links"><li style="color:rgba(255,255,255,0.7);"><i class="fas fa-map-marker-alt"></i> Jenderal Sudirman Avenue, Lots 61–62, South Jakarta 12930, Indonesia</li></ul></div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><span class="x-logo" style="background:white; color:black; border-radius:3px; padding:2px 6px; margin-right:6px;">𝕏</span><a href="https://twitter.com/TheKachoo" target="_blank">@TheKachoo</a></li>
+                        <li><i class="fas fa-envelope"></i><a href="mailto:ohkachoo@gmail.com">ohkachoo@gmail.com</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Address</h3>
+                    <ul class="footer-links">
+                        <li style="color:rgba(255,255,255,0.7);"><i class="fas fa-map-marker-alt"></i> Jenderal Sudirman Avenue, Lots 61–62, South Jakarta 12930, Indonesia</li>
+                    </ul>
+                </div>
             </div>
             <div class="copyright">&copy; 2026 CHOBANK | KACHOO. All rights reserved.</div>
         </div>
     </footer>
 
     <script>
-        // Mobile menu (persis index)
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileOverlay = document.getElementById('mobileMenuOverlay');
-        const mobileClose = document.getElementById('mobileMenuClose');
-        function openMobile() { mobileMenu.classList.add('active'); mobileOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
-        function closeMobile() { mobileMenu.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; }
-        if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobile);
-        if(mobileClose) mobileClose.addEventListener('click', closeMobile);
-        if(mobileOverlay) mobileOverlay.addEventListener('click', closeMobile);
-        document.querySelectorAll('.mobile-menu-link').forEach(link => link.addEventListener('click', closeMobile));
-
-        // Desktop dropdown
-        const desktopTrigger = document.getElementById('desktopNavTrigger');
-        const desktopDropdown = document.getElementById('desktopNavDropdown');
-        if(desktopTrigger && desktopDropdown) {
-            desktopTrigger.addEventListener('click', (e) => { e.stopPropagation(); desktopTrigger.classList.toggle('active'); desktopDropdown.classList.toggle('active'); });
-            document.addEventListener('click', (e) => { if(!desktopTrigger.contains(e.target) && !desktopDropdown.contains(e.target)) { desktopTrigger.classList.remove('active'); desktopDropdown.classList.remove('active'); } });
-            desktopDropdown.querySelectorAll('.nav-button').forEach(btn => btn.addEventListener('click', () => { desktopTrigger.classList.remove('active'); desktopDropdown.classList.remove('active'); }));
-        }
-
         // ========== CHOBANK LOGIC ==========
         const withdrawBtn = document.getElementById('withdrawBtn');
         const depositBusyBtn = document.getElementById('depositBusyBtn');
@@ -628,53 +424,39 @@
         const confirmWithdraw = document.getElementById('confirmWithdraw');
         const withdrawAmountInput = document.getElementById('withdrawAmount');
         const cashDisplayArea = document.getElementById('cashDisplayArea');
-        const moneyVisual = document.getElementById('moneyVisual');
+        const withdrawResultSpan = document.getElementById('withdrawResult');
         const busyToast = document.getElementById('busyToast');
 
-        // Fungsi untuk menampilkan visual uang berdasarkan nominal (IDR)
-        function showMoneyVisual(amount) {
-            if(!amount || amount <= 0) {
-                moneyVisual.innerHTML = '<span style="color:red;">Nominal tidak valid</span>';
-                return;
+        // Fungsi validasi pecahan 50rb dan 100rb, limit 50jt
+        function isValidWithdrawal(amount) {
+            // Cek limit maksimal 50 juta
+            if(amount > 50000000) {
+                return { valid: false, message: "Melebihi batas maksimal penarikan Rp 50.000.000" };
             }
-            // Konversi ke number
-            let nominal = parseInt(amount);
-            if(isNaN(nominal)) nominal = 0;
-            if(nominal <= 0) {
-                moneyVisual.innerHTML = '<span>Masukkan nominal > 0</span>';
-                return;
+            if(amount <= 0) {
+                return { valid: false, message: "Nominal harus lebih dari 0" };
             }
-            // Pecahan uang kertas (demo visual unik)
-            const denominations = [100000, 50000, 20000, 10000, 5000];
-            let remaining = nominal;
-            let bills = [];
-            for(let denom of denominations) {
-                let count = Math.floor(remaining / denom);
-                if(count > 0) {
-                    for(let i=0; i<Math.min(count, 20); i++) { // batas visual
-                        bills.push(denom);
-                    }
-                    remaining = remaining % denom;
-                }
-                if(remaining === 0) break;
+            // Cek apakah nominal dapat dikombinasikan dari pecahan 50rb dan 100rb
+            // 100.000 = 100rb, 50.000 = 50rb
+            // Sisa harus habis dibagi 50.000 setelah dikurangi kelipatan 100.000
+            let remainder = amount;
+            // Cek dengan pendekatan: jumlah dalam puluhan ribu (satuan 50rb)
+            // Karena hanya 50rb dan 100rb, amount harus kelipatan 50.000
+            if(amount % 50000 !== 0) {
+                return { valid: false, message: "Nominal harus kelipatan Rp 50.000 (hanya pecahan Rp 50.000 dan Rp 100.000)" };
             }
-            if(remaining > 0 && remaining < 5000) {
-                bills.push(remaining); // sisa kecil
-            }
-            if(bills.length === 0) bills.push(nominal);
-            // tampilkan
-            let html = '';
-            bills.forEach((val, idx) => {
-                let symbol = '💰';
-                if(val >= 50000) symbol = '💵';
-                else if(val >= 20000) symbol = '💸';
-                else symbol = '🪙';
-                html += `<div class="bill-note">${symbol} Rp ${val.toLocaleString()}</div>`;
-                if(idx > 14 && idx === 15) html += `<div class="bill-note">+${bills.length-15} lembar...</div>`;
-                if(idx > 15 && idx < bills.length-1) return;
-            });
-            if(bills.length > 18) html = html.slice(0,200) + '<div class="bill-note">dan lainnya...</div>';
-            moneyVisual.innerHTML = html;
+            return { valid: true, message: "" };
+        }
+
+        // Format Rupiah
+        function formatRupiah(amount) {
+            return 'Rp ' + amount.toLocaleString('id-ID');
+        }
+
+        // Tampilkan hasil tarik (hanya 1 jumlah total, tidak satu-satu)
+        function showWithdrawResult(amount) {
+            let formatted = formatRupiah(amount);
+            withdrawResultSpan.innerHTML = formatted;
             cashDisplayArea.classList.add('show');
         }
 
@@ -682,36 +464,37 @@
         withdrawBtn.addEventListener('click', () => {
             atmModal.classList.add('active');
             cashDisplayArea.classList.remove('show');
-            withdrawAmountInput.value = "100000";
-            moneyVisual.innerHTML = '';
+            withdrawAmountInput.value = "500000";
+            withdrawResultSpan.innerHTML = '';
         });
 
         // Tutup modal
         closeAtmModal.addEventListener('click', () => {
             atmModal.classList.remove('active');
         });
+        
         // Klik di luar modal juga bisa close
         atmModal.addEventListener('click', (e) => {
             if(e.target === atmModal) atmModal.classList.remove('active');
         });
 
-        // Konfirmasi tarik: tampilkan visual uang sesuai nominal
+        // Konfirmasi tarik: validasi pecahan & limit
         confirmWithdraw.addEventListener('click', () => {
             let rawAmount = withdrawAmountInput.value.trim();
             let amountNum = parseInt(rawAmount);
-            if(isNaN(amountNum) || amountNum <= 0) {
-                alert("Masukkan nominal yang valid (angka positif)");
+            if(isNaN(amountNum)) {
+                alert("Masukkan nominal yang valid (angka)");
                 return;
             }
-            if(amountNum > 10000000) {
-                alert("Maaf, melebihi batas penarikan maksimal Rp 10.000.000 per transaksi");
+            
+            const validation = isValidWithdrawal(amountNum);
+            if(!validation.valid) {
+                alert(validation.message);
                 return;
             }
-            // Tampilkan efek uang keluar
-            showMoneyVisual(amountNum);
-            // Optional: tambahkan animasi suara tidak ada, hanya visual
-            // Agar semakin mirip ATM, setelah tampil tidak otomatis tutup biar user lihat uang
-            // Biarkan modal terbuka, user bisa tekan batal nanti
+            
+            // Tampilkan hasil penarikan (hanya total nominal)
+            showWithdrawResult(amountNum);
         });
 
         // Tombol Masukin Uang: sistem sibuk (toast)
@@ -722,9 +505,7 @@
             }, 2500);
         });
 
-        // Tombol Transaksi Chobank sudah berupa link, bekerja normal
-        
-        // Header scroll shadow (mirip index)
+        // Header scroll shadow
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             if(window.scrollY > 100) header.style.boxShadow = '0 4px 24px rgba(0, 0, 0, 0.08)';
@@ -733,4 +514,4 @@
         window.dispatchEvent(new Event('scroll'));
     </script>
 </body>
-                    </html>
+                </html>
